@@ -30,7 +30,7 @@ import java.util.Map;
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.2 2004-05-18 21:29:35 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.3 2004-05-20 11:43:33 harishkswamy Exp $
  */
 public class DefaultContainer implements MutableContainer
 {
@@ -354,11 +354,7 @@ public class DefaultContainer implements MutableContainer
 
     public void handlePreThreadTermination()
     {
-        Object obj = getComponentInstance(ThreadTerminationNotifier.class);
-
-        ThreadTerminationNotifier notifier = (ThreadTerminationNotifier) obj;
-
-        notifier.notifyObservers();
+        ThreadEvent.getInstance().notifyPreTerminationObservers();
     }
 
     /**

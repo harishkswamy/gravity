@@ -16,20 +16,24 @@ package gravity.impl;
 
 import gravity.ComponentState;
 import gravity.ProxyableComponent;
-import gravity.util.ThreadTerminationObserver;
+import gravity.util.CleanableThreadLocal;
+import gravity.util.ThreadPreTerminationObserver;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentState.java,v 1.3 2004-05-18 20:52:04 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentState.java,v 1.4 2004-05-20 11:42:30 harishkswamy Exp $
  */
 public class ThreadLocalComponentState extends DispatchingComponentState implements
-    ThreadTerminationObserver
+    ThreadPreTerminationObserver
 {
-    private ThreadLocal _threadLocal = new ThreadLocal();
+    private CleanableThreadLocal _threadLocal;
 
     public ThreadLocalComponentState(ComponentState delegate, ProxyableComponent component)
     {
         super(delegate, component);
+
+        // This will register for ThreadEvents and notify us when appropriate.
+        _threadLocal = new CleanableThreadLocal(this);
     }
 
     private synchronized void cacheComponent(Object component)
@@ -46,16 +50,13 @@ public class ThreadLocalComponentState extends DispatchingComponentState impleme
         return _threadLocal.get();
     }
 
-    public void cleanUp()
+    /**
+     * This will be invoked by {@link CleanableThreadLocal}prior to clearing the thread local
+     * variable.
+     */
+    public void handleThreadPreTermination()
     {
         collectComponentInstance(_threadLocal.get());
-
-        _threadLocal.set(null);
-    }
-
-    public void handlePreThreadTermination()
-    {
-        cleanUp();
     }
 
     public String toString()
