@@ -16,11 +16,14 @@ package gravity.impl;
 
 import gravity.ComponentCallback;
 import gravity.ComponentPhase;
+import gravity.ComponentProxy;
 import gravity.ComponentStrategy;
-import gravity.ProxyableComponent;
+import gravity.Container;
+import gravity.Gravity;
+import gravity.RealizableComponent;
 import gravity.UsageException;
 import gravity.WrapperException;
-import gravity.util.ClassUtils;
+import gravity.util.Message;
 import gravity.util.ReflectUtils;
 
 import java.util.ArrayList;
@@ -40,7 +43,7 @@ import java.util.List;
  * the same implementation, they all share the same component factory.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentFactory.java,v 1.3 2004-08-10 16:25:20 harishkswamy Exp $
+ * @version $Id: ComponentFactory.java,v 1.4 2004-09-02 04:02:51 harishkswamy Exp $
  */
 public class ComponentFactory
 {
@@ -112,9 +115,14 @@ public class ComponentFactory
         }
     }
 
-    public Object getInstance(ProxyableComponent comp)
+    /**
+     * @return Returns a proxy instance for the provided component.
+     */
+    public Object getInstance(RealizableComponent comp)
     {
-        return _componentStrategy.getComponentInstance(comp);
+        ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
+
+        return proxy.newInstance(comp);
     }
 
     public boolean isInDispatchingState()
@@ -172,12 +180,26 @@ public class ComponentFactory
         _componentStrategy = newThreadLocalStrategy(getStrategyToDecorate());
     }
 
-    public Object getConcreteInstance(ProxyableComponent comp)
+    public Object getConcreteInstance(RealizableComponent comp)
     {
-        return _componentStrategy.getConcreteComponentInstance(comp);
+        return _componentStrategy.getComponentInstance(comp);
     }
 
     // Construct new instance ======================================================================
+
+    private void realizeKeys(Object[] args)
+    {
+        if (args == null)
+            return;
+
+        Container container = Gravity.getInstance().getContainer();
+
+        for (int i = 0; i < args.length; i++)
+        {
+            if (args[i] instanceof ComponentKey)
+                args[i] = container.getComponentInstance(args[i]);
+        }
+    }
 
     private void invokeCallbacks(Object instance, ComponentPhase compPhase)
     {
@@ -187,10 +209,16 @@ public class ComponentFactory
             ComponentPhase phase = callback.getComponentPhase();
 
             if (compPhase.equals(phase))
+            {
+                realizeKeys(callback.getArguments());
                 ReflectUtils.invokeMethod(instance, callback.getName(), callback.getArguments());
+            }
         }
     }
 
+    /**
+     * This method will invoke all injection callbacks followed by all startup callbacks.
+     */
     private void invokeInitializationCallbacks(Object instance)
     {
         if (_callbacks == null)
@@ -223,21 +251,9 @@ public class ComponentFactory
      */
     private Object constructViaComboInjection()
     {
+        realizeKeys(_constructorArgs);
+
         Object instance = ReflectUtils.invokeConstructor(_implementation, _constructorArgs);
-
-        return initializeComponent(instance);
-    }
-
-    /**
-     * Builds a component via setter injection.
-     * <p>
-     * Instantiates the component from the supplied class and initializes it.
-     * 
-     * @return Fully constructed and initialized component.
-     */
-    private Object constructViaMethodInjection()
-    {
-        Object instance = ClassUtils.newInstance(_implementation);
 
         return initializeComponent(instance);
     }
@@ -247,6 +263,8 @@ public class ComponentFactory
      */
     private Object constructViaFactoryDelegate()
     {
+        realizeKeys(_factoryMethodArgs);
+
         Object instance = ReflectUtils.invokeMethod(_factoryDelegate, _factoryMethodName,
             _factoryMethodArgs);
 
@@ -268,12 +286,13 @@ public class ComponentFactory
      * @throws WrapperException
      *             When there is any problem while building the component.
      * @see gravity.DynamicWeaver#weave(Object)
+     * @see gravity.ComponentCallback
+     * @see gravity.ComponentPhase
      */
-    public Object newInstance(ProxyableComponent comp)
+    public Object newInstance(RealizableComponent comp)
     {
         if (_implementation == null && _factoryDelegate == null)
-            throw new UsageException(
-                "Neither implementation nor factory registered for component: " + comp);
+            throw new UsageException(Message.COMPONENT_IMPLEMENTATION_NOT_REGISTERED, comp);
 
         try
         {
@@ -282,9 +301,6 @@ public class ComponentFactory
             if (_implementation == null)
                 instance = constructViaFactoryDelegate();
 
-            else if (_constructorArgs == null)
-                instance = constructViaMethodInjection();
-
             else
                 instance = constructViaComboInjection();
 
@@ -292,8 +308,7 @@ public class ComponentFactory
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to construct new instance for component: "
-                + comp);
+            throw WrapperException.wrap(e, Message.CANNOT_CONSTRUCT_COMPONENT_INSTANCE, comp);
         }
     }
 
