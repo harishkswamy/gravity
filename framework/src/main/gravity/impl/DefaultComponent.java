@@ -32,15 +32,15 @@ import java.util.List;
  * This is a flyweight that will be shared by all its proxy instances.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.9 2004-05-27 21:00:05 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.10 2004-05-29 16:54:07 harishkswamy Exp $
  */
 public class DefaultComponent implements ProxyableComponent
 {
     private ComponentKey        _key;
     private Location            _retrievalLocation;
     private Class               _implementation;
-    private Object[]            _constructorDependencies;
-    private ComponentCallback[] _callbackMethods;
+    private Object[]            _constructorArgs;
+    private ComponentCallback[] _callbacks;
     private Location            _registrationLocation;
     private ComponentStrategy   _componentStrategy;
 
@@ -56,47 +56,55 @@ public class DefaultComponent implements ProxyableComponent
         return _componentStrategy.getComponentInstance();
     }
 
-    public void registerImplementation(Class compClass, Object[] ctorDeps,
+    public void registerImplementation(Class compClass, Object[] ctorArgs,
         ComponentCallback[] callbacks)
     {
         _implementation = compClass;
-        _constructorDependencies = ctorDeps;
-        _callbackMethods = callbacks;
+
+        registerConstructorArguments(ctorArgs);
+
+        registerCallbacks(callbacks);
+    }
+
+    public void registerConstructorArguments(Object[] args)
+    {
+        if (args == null)
+            return;
+
+        if (_constructorArgs == null)
+            _constructorArgs = args;
+
+        else
+        {
+            List deps = new ArrayList(Arrays.asList(_constructorArgs));
+
+            deps.addAll(Arrays.asList(args));
+
+            _constructorArgs = deps.toArray();
+        }
+    }
+
+    public void registerCallbacks(ComponentCallback[] callbacks)
+    {
+        if (callbacks == null)
+            return;
+
+        if (_callbacks == null)
+            _callbacks = callbacks;
+
+        else
+        {
+            List methods = new ArrayList(Arrays.asList(_callbacks));
+
+            methods.addAll(Arrays.asList(callbacks));
+
+            _callbacks = (ComponentCallback[]) methods.toArray(new ComponentCallback[0]);
+        }
     }
 
     public void setRegistrationLocation(Location location)
     {
         _registrationLocation = location;
-    }
-
-    public void registerConstructorArguments(Object[] args)
-    {
-        if (_constructorDependencies == null)
-            _constructorDependencies = args;
-
-        else
-        {
-            List deps = new ArrayList(Arrays.asList(_constructorDependencies));
-
-            deps.addAll(Arrays.asList(args));
-
-            _constructorDependencies = deps.toArray();
-        }
-    }
-
-    public void registerCallbackMethods(ComponentCallback[] callbacks)
-    {
-        if (_callbackMethods == null)
-            _callbackMethods = callbacks;
-
-        else
-        {
-            List methods = new ArrayList(Arrays.asList(_callbackMethods));
-
-            methods.addAll(Arrays.asList(callbacks));
-
-            _callbackMethods = (ComponentCallback[]) methods.toArray(new ComponentCallback[0]);
-        }
     }
 
     public void setRetrievalLocation(Location location)
@@ -174,19 +182,19 @@ public class DefaultComponent implements ProxyableComponent
 
     // Construct new instance ======================================================================
 
-    private void invokeInitializationMethods(Object instance)
+    private void invokeInitializationCallbacks(Object instance)
     {
-        if (_callbackMethods == null)
+        if (_callbacks == null)
             return;
 
-        for (int i = 0; i < _callbackMethods.length; i++)
+        for (int i = 0; i < _callbacks.length; i++)
         {
-            ComponentCallback method = _callbackMethods[i];
-            ComponentPhase phase = method.getComponentPhase();
+            ComponentCallback callback = _callbacks[i];
+            ComponentPhase phase = callback.getComponentPhase();
 
             if (phase == ComponentPhase.INJECTION || phase == ComponentPhase.START_UP)
             {
-                ReflectUtils.invokeMethod(instance, method.getName(), method.getArguments());
+                ReflectUtils.invokeMethod(instance, callback.getName(), callback.getArguments());
             }
         }
     }
@@ -200,31 +208,31 @@ public class DefaultComponent implements ProxyableComponent
         // This is the hook to let cross-cutting concerns be weaved into the component.
         Object enhInst = DynamicWeaverFactory.getDynamicWeaver().weave(instance);
 
-        invokeInitializationMethods(enhInst);
+        invokeInitializationCallbacks(enhInst);
 
         return enhInst;
     }
 
     /**
-     * Builds a service via constructor injection.
+     * Builds a component via constructor injection.
      * <p>
-     * Instantiates the service from the supplied class and arguments and initializes it.
+     * Instantiates the component from the supplied class and arguments and initializes it.
      * 
-     * @return Fully constructed and initialized service.
+     * @return Fully constructed and initialized component.
      */
     private Object constructViaComboInjection()
     {
-        Object instance = ReflectUtils.invokeConstructor(_implementation, _constructorDependencies);
+        Object instance = ReflectUtils.invokeConstructor(_implementation, _constructorArgs);
 
         return initializeComponent(instance);
     }
 
     /**
-     * Builds a service via setter injection.
+     * Builds a component via setter injection.
      * <p>
-     * Instantiates the service from the supplied class and initializes it.
+     * Instantiates the component from the supplied class and initializes it.
      * 
-     * @return Fully constructed and initialized service.
+     * @return Fully constructed and initialized component.
      */
     private Object constructViaMethodInjection()
     {
@@ -234,7 +242,7 @@ public class DefaultComponent implements ProxyableComponent
     }
 
     /**
-     * Builds a service via constructor and/or setter injection.
+     * Builds a component via constructor and/or setter injection.
      * <p>
      * When the supplied array of constructor arguments is null, this method will use the setter
      * injection strategy, otherwise it uses the constructor injection strategy.
@@ -242,16 +250,15 @@ public class DefaultComponent implements ProxyableComponent
      * When both the array of constructor arguments and the map of setter properties are supplied,
      * this method will do a combo injection (constructor injection + setter injection).
      * 
-     * @return Fully constructed and initialized service.
+     * @return Fully constructed and initialized component.
      * @throws UsageException
      *         When the supplied implementation class is null.
      * @throws WrapperException
-     *         When there is any problem while building the service.
+     *         When there is any problem while building the component.
      * @see gravity.DynamicWeaver#weave(Object)
      */
     public Object newInstance()
     {
-        // TODO make this a passive aggressive check
         if (_implementation == null)
             throw new UsageException("Implementation not registered for component: " + this);
 
@@ -259,7 +266,7 @@ public class DefaultComponent implements ProxyableComponent
         {
             Object instance;
 
-            if (_constructorDependencies == null)
+            if (_constructorArgs == null)
                 instance = constructViaMethodInjection();
 
             else
