@@ -14,7 +14,7 @@
 
 package gravity.plugins;
 
-import gravity.ComponentLifeCycleMethod;
+import gravity.ComponentCallback;
 import gravity.Location;
 import gravity.MutableContainer;
 
@@ -26,7 +26,7 @@ import java.util.Map;
  * 
  * @see gravity.MutableContainer
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainerAdapter.java,v 1.1 2004-05-24 00:38:42 harishkswamy Exp $
+ * @version $Id: MutableContainerAdapter.java,v 1.2 2004-05-27 03:36:33 harishkswamy Exp $
  */
 public class MutableContainerAdapter
 {
@@ -87,10 +87,10 @@ public class MutableContainerAdapter
     // Custom interface component registration methods =========================
 
     public Object componentImpl(Class compIntf, Object compType, Class compClass,
-        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods)
+        Object[] ctorArgs, ComponentCallback[] callbacks)
     {
         Object compKey = _container.registerComponentImplementation(compIntf, compType, compClass,
-            ctorArgs, lifeCycleMethods);
+            ctorArgs, callbacks);
 
         return _container.registerComponentRegistrationLocation(compKey, getCurrentLocation());
     }
@@ -101,17 +101,17 @@ public class MutableContainerAdapter
     }
 
     public Object componentImpl(Class compIntf, Object compType, Class compClass,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+        ComponentCallback[] callbacks)
     {
-        return componentImpl(compIntf, compType, compClass, null, lifeCycleMethods);
+        return componentImpl(compIntf, compType, compClass, null, callbacks);
     }
 
     // Default interface component registration methods =========================
 
     public Object componentImpl(Class compIntf, Class compClass, Object[] ctorArgs,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+        ComponentCallback[] callbacks)
     {
-        return componentImpl(compIntf, null, compClass, ctorArgs, lifeCycleMethods);
+        return componentImpl(compIntf, null, compClass, ctorArgs, callbacks);
     }
 
     public Object componentImpl(Class compIntf, Class compClass, Object[] ctorArgs)
@@ -119,18 +119,17 @@ public class MutableContainerAdapter
         return componentImpl(compIntf, null, compClass, ctorArgs, null);
     }
 
-    public Object componentImpl(Class compIntf, Class compClass,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+    public Object componentImpl(Class compIntf, Class compClass, ComponentCallback[] callbacks)
     {
-        return componentImpl(compIntf, null, compClass, null, lifeCycleMethods);
+        return componentImpl(compIntf, null, compClass, null, callbacks);
     }
 
     // Custom class component registration methods =========================
 
     public Object componentImpl(Class implClass, Object implType, Object[] cArgs,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+        ComponentCallback[] callbacks)
     {
-        return componentImpl(implClass, implType, implClass, cArgs, lifeCycleMethods);
+        return componentImpl(implClass, implType, implClass, cArgs, callbacks);
     }
 
     public Object componentImpl(Class implClass, Object implType, Object[] cArgs)
@@ -138,18 +137,16 @@ public class MutableContainerAdapter
         return componentImpl(implClass, implType, implClass, cArgs, null);
     }
 
-    public Object componentImpl(Class implClass, Object implType,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+    public Object componentImpl(Class implClass, Object implType, ComponentCallback[] callbacks)
     {
-        return componentImpl(implClass, implType, implClass, null, lifeCycleMethods);
+        return componentImpl(implClass, implType, implClass, null, callbacks);
     }
 
     // Default class component registration methods =======================
 
-    public Object componentImpl(Class implClass, Object[] cArgs,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+    public Object componentImpl(Class implClass, Object[] cArgs, ComponentCallback[] callbacks)
     {
-        return componentImpl(implClass, null, implClass, cArgs, lifeCycleMethods);
+        return componentImpl(implClass, null, implClass, cArgs, callbacks);
     }
 
     public Object componentImpl(Class implClass, Object[] cArgs)
@@ -157,13 +154,13 @@ public class MutableContainerAdapter
         return componentImpl(implClass, null, implClass, cArgs, null);
     }
 
-    public Object componentImpl(Class implClass, ComponentLifeCycleMethod[] lifeCycleMethods)
+    public Object componentImpl(Class implClass, ComponentCallback[] callbacks)
     {
-        return componentImpl(implClass, null, implClass, null, lifeCycleMethods);
+        return componentImpl(implClass, null, implClass, null, callbacks);
     }
-    
+
     // Only implementation registration =========================================
-    
+
     public Object componentImpl(Class compIntf, Class compClass)
     {
         return componentImpl(compIntf, null, compClass, null, null);
@@ -203,40 +200,40 @@ public class MutableContainerAdapter
 
     // Life cycle methods registration =============================================
 
-    public Object add(Object compKey, ComponentLifeCycleMethod method)
+    public Object add(Object compKey, ComponentCallback callback)
     {
-        ComponentLifeCycleMethod[] methods = {method};
+        ComponentCallback[] callbacks = {callback};
 
-        return _container.registerComponentLifeCycleMethods(compKey, methods);
+        return _container.registerComponentCallbacks(compKey, callbacks);
     }
 
-    public Object add(Class compIntf, Object compType, ComponentLifeCycleMethod method)
+    public Object add(Class compIntf, Object compType, ComponentCallback callback)
     {
-        ComponentLifeCycleMethod[] methods = {method};
+        ComponentCallback[] callbacks = {callback};
 
-        return _container.registerComponentLifeCycleMethods(compIntf, compType, methods);
+        return _container.registerComponentCallbacks(compIntf, compType, callbacks);
     }
 
-    public Object add(Class compIntf, ComponentLifeCycleMethod method)
+    public Object add(Class compIntf, ComponentCallback callback)
     {
-        ComponentLifeCycleMethod[] methods = {method};
+        ComponentCallback[] callbacks = {callback};
 
-        return _container.registerComponentLifeCycleMethods(compIntf, methods);
+        return _container.registerComponentCallbacks(compIntf, callbacks);
     }
 
-    public Object add(Object compKey, ComponentLifeCycleMethod[] methods)
+    public Object add(Object compKey, ComponentCallback[] callbacks)
     {
-        return _container.registerComponentLifeCycleMethods(compKey, methods);
+        return _container.registerComponentCallbacks(compKey, callbacks);
     }
 
-    public Object add(Class compIntf, Object compType, ComponentLifeCycleMethod[] methods)
+    public Object add(Class compIntf, Object compType, ComponentCallback[] callbacks)
     {
-        return _container.registerComponentLifeCycleMethods(compIntf, compType, methods);
+        return _container.registerComponentCallbacks(compIntf, compType, callbacks);
     }
 
-    public Object add(Class compIntf, ComponentLifeCycleMethod[] methods)
+    public Object add(Class compIntf, ComponentCallback[] callbacks)
     {
-        return _container.registerComponentLifeCycleMethods(compIntf, methods);
+        return _container.registerComponentCallbacks(compIntf, callbacks);
     }
 
     // Singleton service helper method =========================================

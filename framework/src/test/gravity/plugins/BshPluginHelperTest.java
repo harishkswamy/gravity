@@ -14,13 +14,13 @@
 
 package gravity.plugins;
 
-import gravity.ComponentLifeCyclePhase;
-import gravity.ComponentLifeCycleMethod;
+import gravity.ComponentPhase;
+import gravity.ComponentCallback;
 import junit.framework.TestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginHelperTest.java,v 1.1 2004-05-24 00:38:38 harishkswamy Exp $
+ * @version $Id: BshPluginHelperTest.java,v 1.2 2004-05-27 03:36:28 harishkswamy Exp $
  */
 public class BshPluginHelperTest extends TestCase
 {
@@ -28,31 +28,31 @@ public class BshPluginHelperTest extends TestCase
 
     public void testNewDependencyMethod()
     {
-        ComponentLifeCycleMethod mthd = _helper.newInjectionMethod(new Object[]{"someMethod", new Object(),
+        ComponentCallback mthd = _helper.newInjectionMethod(new Object[]{"someMethod", new Object(),
             new Integer(3)});
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
-        assertTrue(mthd.getLifeCyclePhase() == ComponentLifeCyclePhase.INJECTION);
+        assertTrue(mthd.getLifeCyclePhase() == ComponentPhase.INJECTION);
     }
 
     public void testNewStartUpMethod()
     {
-        ComponentLifeCycleMethod mthd = _helper.newStartUpMethod(new Object[]{"someMethod", new Object(),
+        ComponentCallback mthd = _helper.newStartupMethod(new Object[]{"someMethod", new Object(),
             new Integer(3)});
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
-        assertTrue(mthd.getLifeCyclePhase() == ComponentLifeCyclePhase.START_UP);
+        assertTrue(mthd.getLifeCyclePhase() == ComponentPhase.START_UP);
     }
 
     public void testNewShutdownMethod()
     {
-        ComponentLifeCycleMethod mthd = _helper.newShutdownMethod(new Object[]{"someMethod", new Object(),
+        ComponentCallback mthd = _helper.newShutdownMethod(new Object[]{"someMethod", new Object(),
             new Integer(3)});
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
-        assertTrue(mthd.getLifeCyclePhase() == ComponentLifeCyclePhase.SHUTDOWN);
+        assertTrue(mthd.getLifeCyclePhase() == ComponentPhase.SHUTDOWN);
     }
 }

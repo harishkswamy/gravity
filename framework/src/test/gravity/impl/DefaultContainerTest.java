@@ -14,8 +14,8 @@
 
 package gravity.impl;
 
-import gravity.ComponentLifeCyclePhase;
-import gravity.ComponentLifeCycleMethod;
+import gravity.ComponentPhase;
+import gravity.ComponentCallback;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.Location;
@@ -30,7 +30,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainerTest.java,v 1.3 2004-05-24 00:38:37 harishkswamy Exp $
+ * @version $Id: DefaultContainerTest.java,v 1.4 2004-05-27 03:36:28 harishkswamy Exp $
  */
 public class DefaultContainerTest extends GravityTestCase
 {
@@ -57,8 +57,8 @@ public class DefaultContainerTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject", new Object[]{new Object()},
-            ComponentLifeCyclePhase.START_UP)};
+        ComponentCallback[] methods = {new ComponentCallback("setObject", new Object[]{new Object()},
+            ComponentPhase.START_UP)};
 
         Object key = _registry.registerComponentImplementation(MockComboService.class, "variant",
             MockComboServiceImpl.class, cArgs, methods);

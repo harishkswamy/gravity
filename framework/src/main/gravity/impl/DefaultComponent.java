@@ -14,8 +14,8 @@
 
 package gravity.impl;
 
-import gravity.ComponentLifeCycleMethod;
-import gravity.ComponentLifeCyclePhase;
+import gravity.ComponentCallback;
+import gravity.ComponentPhase;
 import gravity.ComponentStrategy;
 import gravity.Location;
 import gravity.ProxyableComponent;
@@ -32,17 +32,17 @@ import java.util.List;
  * This is a flyweight that will be shared by all its proxy instances.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.6 2004-05-24 00:38:39 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.7 2004-05-27 03:36:32 harishkswamy Exp $
  */
 public class DefaultComponent implements ProxyableComponent
 {
-    private ComponentKey               _key;
-    private Location                   _retrievalLocation;
-    private Class                      _implementation;
-    private Object[]                   _constructorDependencies;
-    private ComponentLifeCycleMethod[] _lifeCycleMethods;
-    private Location                   _registrationLocation;
-    private ComponentStrategy          _componentStrategy;
+    private ComponentKey        _key;
+    private Location            _retrievalLocation;
+    private Class               _implementation;
+    private Object[]            _constructorDependencies;
+    private ComponentCallback[] _callbackMethods;
+    private Location            _registrationLocation;
+    private ComponentStrategy   _componentStrategy;
 
     public DefaultComponent(ComponentKey compKey)
     {
@@ -57,11 +57,11 @@ public class DefaultComponent implements ProxyableComponent
     }
 
     public void registerImplementation(Class compClass, Object[] ctorDeps,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+        ComponentCallback[] callbacks)
     {
         _implementation = compClass;
         _constructorDependencies = ctorDeps;
-        _lifeCycleMethods = lifeCycleMethods;
+        _callbackMethods = callbacks;
     }
 
     public void setRegistrationLocation(Location location)
@@ -84,18 +84,18 @@ public class DefaultComponent implements ProxyableComponent
         }
     }
 
-    public void registerLifeCycleMethods(ComponentLifeCycleMethod[] lifeCycleMethods)
+    public void registerCallbackMethods(ComponentCallback[] callbacks)
     {
-        if (_lifeCycleMethods == null)
-            _lifeCycleMethods = lifeCycleMethods;
+        if (_callbackMethods == null)
+            _callbackMethods = callbacks;
 
         else
         {
-            List methods = new ArrayList(Arrays.asList(_lifeCycleMethods));
+            List methods = new ArrayList(Arrays.asList(_callbackMethods));
 
-            methods.addAll(Arrays.asList(lifeCycleMethods));
+            methods.addAll(Arrays.asList(callbacks));
 
-            _lifeCycleMethods = (ComponentLifeCycleMethod[]) methods.toArray(new ComponentLifeCycleMethod[0]);
+            _callbackMethods = (ComponentCallback[]) methods.toArray(new ComponentCallback[0]);
         }
     }
 
@@ -176,16 +176,15 @@ public class DefaultComponent implements ProxyableComponent
 
     private void invokeInitializationMethods(Object instance)
     {
-        if (_lifeCycleMethods == null)
+        if (_callbackMethods == null)
             return;
 
-        for (int i = 0; i < _lifeCycleMethods.length; i++)
+        for (int i = 0; i < _callbackMethods.length; i++)
         {
-            ComponentLifeCycleMethod method = _lifeCycleMethods[i];
-            ComponentLifeCyclePhase phase = method.getLifeCyclePhase();
+            ComponentCallback method = _callbackMethods[i];
+            ComponentPhase phase = method.getLifeCyclePhase();
 
-            if (phase == ComponentLifeCyclePhase.INJECTION
-                || phase == ComponentLifeCyclePhase.START_UP)
+            if (phase == ComponentPhase.INJECTION || phase == ComponentPhase.START_UP)
             {
                 ReflectUtils.invokeMethod(instance, method.getName(), method.getArguments());
             }

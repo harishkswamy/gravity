@@ -28,7 +28,7 @@ package gravity;
  * on the state of the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.6 2004-05-24 00:38:42 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.7 2004-05-27 03:36:30 harishkswamy Exp $
  */
 public interface Component
 {
@@ -44,7 +44,7 @@ public interface Component
      *        Component methods to be invoked during component life cycle stages.
      */
     void registerImplementation(Class compClass, Object[] ctorArgs,
-        ComponentLifeCycleMethod[] lifeCycleMethods);
+        ComponentCallback[] lifeCycleMethods);
 
     /**
      * This method may be used to register the location of the component registration. The sole
@@ -65,7 +65,7 @@ public interface Component
      * will be appended to the already existing methods. The method invocations will be in the same
      * order it has been provided.
      */
-    void registerLifeCycleMethods(ComponentLifeCycleMethod[] lifeCycleMethods);
+    void registerCallbackMethods(ComponentCallback[] lifeCycleMethods);
 
     /**
      * This method will return an instance (concrete or hollow) of this component. The component

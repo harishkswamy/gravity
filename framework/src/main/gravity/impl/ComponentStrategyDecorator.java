@@ -19,40 +19,39 @@ import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentStrategyDecorator.java,v 1.1 2004-05-22 20:19:32 harishkswamy Exp $
+ * @version $Id: ComponentStrategyDecorator.java,v 1.2 2004-05-27 03:36:33 harishkswamy Exp $
  */
 public abstract class ComponentStrategyDecorator implements ComponentStrategy
 {
-    protected ComponentStrategy     _decoratedState;
+    protected ComponentStrategy  _decoratedStrategy;
     protected ProxyableComponent _component;
 
-    protected ComponentStrategyDecorator(ComponentStrategy decoratedState, ProxyableComponent component)
+    protected ComponentStrategyDecorator(ComponentStrategy strategy, ProxyableComponent component)
     {
-        _decoratedState = decoratedState;
-
+        _decoratedStrategy = strategy;
         _component = component;
     }
 
     public Object getConcreteComponentInstance()
     {
-        if (_decoratedState == null)
+        if (_decoratedStrategy == null)
             return _component.newInstance();
 
         else
-            return _decoratedState.getConcreteComponentInstance();
+            return _decoratedStrategy.getConcreteComponentInstance();
     }
 
     public void collectComponentInstance(Object comp)
     {
-        if (_decoratedState != null)
-            _decoratedState.collectComponentInstance(comp);
+        if (_decoratedStrategy != null)
+            _decoratedStrategy.collectComponentInstance(comp);
     }
 
     public String toString()
     {
-        if (_decoratedState == null)
+        if (_decoratedStrategy == null)
             return _component.toString();
         else
-            return _decoratedState.toString();
+            return _decoratedStrategy.toString();
     }
 }

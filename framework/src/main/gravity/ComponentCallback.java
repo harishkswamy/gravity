@@ -18,15 +18,15 @@ import gravity.util.Utils;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentLifeCycleMethod.java,v 1.1 2004-05-24 00:38:43 harishkswamy Exp $
+ * @version $Id: ComponentCallback.java,v 1.1 2004-05-27 03:36:31 harishkswamy Exp $
  */
-public class ComponentLifeCycleMethod
+public class ComponentCallback
 {
-    private String                  _name;
-    private Object[]                _arguments;
-    private ComponentLifeCyclePhase _lifeCyclePhase;
+    private String         _name;
+    private Object[]       _arguments;
+    private ComponentPhase _lifeCyclePhase;
 
-    public ComponentLifeCycleMethod(String name, Object[] args, ComponentLifeCyclePhase phase)
+    public ComponentCallback(String name, Object[] args, ComponentPhase phase)
     {
         _name = name;
         _arguments = args;
@@ -43,7 +43,7 @@ public class ComponentLifeCycleMethod
         return _arguments;
     }
 
-    public ComponentLifeCyclePhase getLifeCyclePhase()
+    public ComponentPhase getLifeCyclePhase()
     {
         return _lifeCyclePhase;
     }

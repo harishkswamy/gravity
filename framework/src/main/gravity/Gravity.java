@@ -31,7 +31,7 @@ import java.util.Properties;
  * This class stores the framework properties that can be accessed and/or modified anytime.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Gravity.java,v 1.8 2004-05-22 20:19:29 harishkswamy Exp $
+ * @version $Id: Gravity.java,v 1.9 2004-05-27 03:36:29 harishkswamy Exp $
  */
 public class Gravity
 {
@@ -39,45 +39,46 @@ public class Gravity
      * This is the path of the plugin file that Gravity will use to search for plugins. The path is
      * relative to the classpath.
      */
-    public static final String  PLUGIN_MANIFEST_FILE_PATH      = "META-INF/gravity-plugin.properties";
+    public static final String   PLUGIN_MANIFEST_FILE_PATH      = "META-INF/gravity-plugin.properties";
 
-    public static final String  PLUGIN_CLASS_NAME_KEY          = "pluginClassName";
+    public static final String   PLUGIN_CLASS_NAME_KEY          = "pluginClassName";
 
     /**
      * This is name of the property that specifies the class name of the custom
      * {@link ComponentProxy}.
      */
-    public static final String  COMPONENT_PROXY_CLASS_NAME_KEY = "componentProxyClassName";
+    public static final String   COMPONENT_PROXY_CLASS_NAME_KEY = "componentProxyClassName";
 
     /**
      * This is name of the property that specifies the class name of the custom
      * {@link DynamicWeaver}.
      */
-    public static final String  DYNAMIC_WEAVER_CLASS_NAME_KEY  = "dynamicWeaverClassName";
+    public static final String   DYNAMIC_WEAVER_CLASS_NAME_KEY  = "dynamicWeaverClassName";
 
     /**
      * This is name of the system property that specifies the name and location of the gravity
      * properties file.
      */
-    private static final String PROPERTIES_PATH_KEY            = "gravity.properties";
+    private static final String  PROPERTIES_PATH_KEY            = "gravity.properties";
 
     /**
      * This is the name of the default properties file that will be used when not supplied. This
      * file should be placed in the classpath root to be recognized.
      */
-    private static final String DEFAULT_PROPERTIES_PATH        = "gravity.properties";
+    private static final String  DEFAULT_PROPERTIES_PATH        = "gravity.properties";
 
     /**
      * Singleton instance.
      */
-    private static Gravity      INSTANCE                       = new Gravity();
+    private static final Gravity INSTANCE                       = new Gravity();
 
     public static Gravity getInstance()
     {
         return INSTANCE;
     }
 
-    // Instance code ===============================================================================
+    // Instance code
+    // ===============================================================================
 
     /**
      * Stores the framework properties.
@@ -91,7 +92,7 @@ public class Gravity
     {
         // Singleton.
     }
-    
+
     protected MutableContainer newMutableContainer()
     {
         return new DefaultContainer();
@@ -270,6 +271,7 @@ public class Gravity
         _props.setProperty(key, value);
     }
 
+    // TODO shutdown all components
     /**
      * Wipes out the gravity properties.
      */

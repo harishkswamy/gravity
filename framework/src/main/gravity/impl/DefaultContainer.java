@@ -15,7 +15,7 @@
 package gravity.impl;
 
 import gravity.Component;
-import gravity.ComponentLifeCycleMethod;
+import gravity.ComponentCallback;
 import gravity.Location;
 import gravity.MutableContainer;
 import gravity.UsageException;
@@ -30,7 +30,7 @@ import java.util.Map;
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.5 2004-05-24 00:38:39 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.6 2004-05-27 03:36:33 harishkswamy Exp $
  */
 public class DefaultContainer implements MutableContainer
 {
@@ -76,42 +76,33 @@ public class DefaultContainer implements MutableContainer
      * @return Component key.
      */
     public Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods)
+        Object[] ctorArgs, ComponentCallback[] callbacks)
     {
         ComponentKey compKey = getComponentKey(compIntf, compType);
 
         Component comp = getComponent(compKey);
 
-        comp.registerImplementation(compClass, ctorArgs, lifeCycleMethods);
+        comp.registerImplementation(compClass, ctorArgs, callbacks);
 
         return compKey;
     }
 
     public Object registerComponentImplementation(Class compIntf, Class compClass,
-        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods)
+        Object[] ctorArgs, ComponentCallback[] callbacks)
     {
-        return registerComponentImplementation(compIntf, null, compClass, ctorArgs,
-            lifeCycleMethods);
+        return registerComponentImplementation(compIntf, null, compClass, ctorArgs, callbacks);
     }
 
     public Object registerComponentImplementation(Class compClass, Object compType,
-        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods)
+        Object[] ctorArgs, ComponentCallback[] callbacks)
     {
-        return registerComponentImplementation(compClass, compType, compClass, ctorArgs,
-            lifeCycleMethods);
+        return registerComponentImplementation(compClass, compType, compClass, ctorArgs, callbacks);
     }
 
     public Object registerComponentImplementation(Class compClass, Object[] ctorArgs,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+        ComponentCallback[] callbacks)
     {
-        return registerComponentImplementation(compClass, null, compClass, ctorArgs,
-            lifeCycleMethods);
-    }
-
-    public Object registerComponentFactory(Class compClass, Object compFac, String facMethodName,
-        Object[] facMethodArgs)
-    {
-        return null;
+        return registerComponentImplementation(compClass, null, compClass, ctorArgs, callbacks);
     }
 
     // Constructor arguments registration ===============================================
@@ -142,30 +133,28 @@ public class DefaultContainer implements MutableContainer
 
     // LifeCycle methods registration ===============================================
 
-    public Object registerComponentLifeCycleMethods(Object compKey,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+    public Object registerComponentCallbacks(Object compKey, ComponentCallback[] callbacks)
     {
         Component comp = (Component) _componentCache.get(compKey);
 
-        comp.registerLifeCycleMethods(lifeCycleMethods);
+        comp.registerCallbackMethods(callbacks);
 
         return compKey;
     }
 
-    public Object registerComponentLifeCycleMethods(Class compIntf, Object compType,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+    public Object registerComponentCallbacks(Class compIntf, Object compType,
+        ComponentCallback[] callbacks)
     {
         ComponentKey compKey = getComponentKey(compIntf, compType);
 
-        return registerComponentLifeCycleMethods(compKey, lifeCycleMethods);
+        return registerComponentCallbacks(compKey, callbacks);
     }
 
-    public Object registerComponentLifeCycleMethods(Class compIntf,
-        ComponentLifeCycleMethod[] lifeCycleMethods)
+    public Object registerComponentCallbacks(Class compIntf, ComponentCallback[] callbacks)
     {
         ComponentKey compKey = getComponentKey(compIntf, null);
 
-        return registerComponentLifeCycleMethods(compKey, lifeCycleMethods);
+        return registerComponentCallbacks(compKey, callbacks);
     }
 
     // Location registration methods ===============================================================
@@ -270,8 +259,7 @@ public class DefaultContainer implements MutableContainer
         return configKey;
     }
 
-    // Container methods
-    // ============================================================================
+    // Container methods ===========================================================================
 
     public Object getComponentInstance(Object compKey)
     {

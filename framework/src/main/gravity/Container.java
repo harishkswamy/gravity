@@ -23,7 +23,7 @@ import java.util.Map;
  * This is a singleton and should typically be built in a single startup thread.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Container.java,v 1.1 2004-05-18 20:52:00 harishkswamy Exp $
+ * @version $Id: Container.java,v 1.2 2004-05-27 03:36:30 harishkswamy Exp $
  */
 public interface Container
 {
@@ -79,7 +79,7 @@ public interface Container
      *         When no configuration is registered for the supplied _key.
      */
     Map getConfigurationMap(Object configKey);
-    
+
     /**
      * This method should be invoked prior to the termination of the executing thread. This method
      * will cleanup all ThreadLocal variables and release any thread specific resources.

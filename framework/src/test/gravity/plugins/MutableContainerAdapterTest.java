@@ -14,8 +14,8 @@
 
 package gravity.plugins;
 
-import gravity.ComponentLifeCyclePhase;
-import gravity.ComponentLifeCycleMethod;
+import gravity.ComponentPhase;
+import gravity.ComponentCallback;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.impl.DefaultContainer;
@@ -29,11 +29,11 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainerAdapterTest.java,v 1.1 2004-05-24 00:35:30 harishkswamy Exp $
+ * @version $Id: MutableContainerAdapterTest.java,v 1.2 2004-05-27 03:36:29 harishkswamy Exp $
  */
 public class MutableContainerAdapterTest extends GravityTestCase
 {
-    private static final ComponentLifeCyclePhase START_UP   = ComponentLifeCyclePhase.START_UP;
+    private static final ComponentPhase START_UP   = ComponentPhase.START_UP;
 
     final Map                                    _servReg   = new HashMap();
     final Map                                    _configReg = new HashMap();
@@ -54,7 +54,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject",
+        ComponentCallback[] methods = {new ComponentCallback("setObject",
             new Object[]{new Object()}, START_UP)};
 
         Object key = _registry.componentImpl(MockComboService.class, "variant",
@@ -85,7 +85,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
 
     public void testRegisterCustomIntfComponentImplViaSetterInjection()
     {
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject",
+        ComponentCallback[] methods = {new ComponentCallback("setObject",
             new Object[]{new Object()}, START_UP)};
 
         Object key = _registry.componentImpl(MockComboService.class, "variant",
@@ -103,7 +103,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject",
+        ComponentCallback[] methods = {new ComponentCallback("setObject",
             new Object[]{new Object()}, START_UP)};
 
         Object key = _registry.componentImpl(MockComboService.class, MockComboServiceImpl.class,
@@ -134,7 +134,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
 
     public void testRegisterDefaultIntfComponentImplViaSetterInjection()
     {
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject",
+        ComponentCallback[] methods = {new ComponentCallback("setObject",
             new Object[]{new Object()}, START_UP)};
 
         Object key = _registry.componentImpl(MockComboService.class, MockComboServiceImpl.class,
@@ -152,7 +152,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject",
+        ComponentCallback[] methods = {new ComponentCallback("setObject",
             new Object[]{new Object()}, START_UP)};
 
         Object key = _registry.componentImpl(MockComboServiceImpl.class, "variant", cArgs, methods);
@@ -179,7 +179,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
 
     public void testRegisterCustomClassComponentImplViaSetterInjection()
     {
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject",
+        ComponentCallback[] methods = {new ComponentCallback("setObject",
             new Object[]{new Object()}, START_UP)};
 
         Object key = _registry.componentImpl(MockComboServiceImpl.class, "variant", methods, null);
@@ -195,7 +195,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject",
+        ComponentCallback[] methods = {new ComponentCallback("setObject",
             new Object[]{new Object()}, START_UP)};
 
         Object key = _registry.componentImpl(MockComboServiceImpl.class, cArgs, methods, null);
@@ -222,7 +222,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
 
     public void testRegisterDefaultClassComponentImplViaSetterInjection()
     {
-        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject",
+        ComponentCallback[] methods = {new ComponentCallback("setObject",
             new Object[]{new Object()}, START_UP)};
 
         Object key = _registry.componentImpl(MockComboServiceImpl.class, methods);

@@ -16,21 +16,21 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainer.java,v 1.3 2004-05-24 00:38:43 harishkswamy Exp $
+ * @version $Id: MutableContainer.java,v 1.4 2004-05-27 03:36:32 harishkswamy Exp $
  */
 public interface MutableContainer extends Container
 {
     Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods);
+        Object[] ctorArgs, ComponentCallback[] lifeCycleMethods);
 
     Object registerComponentImplementation(Class compIntf, Class compClass, Object[] ctorArgs,
-        ComponentLifeCycleMethod[] lifeCycleMethods);
+        ComponentCallback[] lifeCycleMethods);
 
     Object registerComponentImplementation(Class compClass, Object compType, Object[] ctorArgs,
-        ComponentLifeCycleMethod[] lifeCycleMethods);
+        ComponentCallback[] lifeCycleMethods);
 
     Object registerComponentImplementation(Class compClass, Object[] ctorArgs,
-        ComponentLifeCycleMethod[] lifeCycleMethods);
+        ComponentCallback[] lifeCycleMethods);
 
     // Constructor arguments registration ==========================================================
 
@@ -42,12 +42,11 @@ public interface MutableContainer extends Container
 
     // Lifecycle methods registration ==============================================================
 
-    Object registerComponentLifeCycleMethods(Object compKey, ComponentLifeCycleMethod[] methods);
+    Object registerComponentCallbacks(Object compKey, ComponentCallback[] methods);
 
-    Object registerComponentLifeCycleMethods(Class compIntf, Object compType,
-        ComponentLifeCycleMethod[] methods);
+    Object registerComponentCallbacks(Class compIntf, Object compType, ComponentCallback[] methods);
 
-    Object registerComponentLifeCycleMethods(Class compIntf, ComponentLifeCycleMethod[] methods);
+    Object registerComponentCallbacks(Class compIntf, ComponentCallback[] methods);
 
     // Location registration methods ===============================================================
 
