@@ -27,10 +27,16 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This is the container that houses all components and configurations.
+ * This is a mutable container that houses components and their configuration data.
+ * <p>
+ * Although components and configuration data can be added to this container at runtime, the initial
+ * build step should typically be in a single startup thread.
+ * <p>
+ * This container is not thread safe; so any registrations that may occur during runtime needs to
+ * synchronized by the client.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.7 2004-05-29 16:43:33 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.8 2004-06-14 04:23:45 harishkswamy Exp $
  */
 public class DefaultContainer implements MutableContainer
 {
@@ -80,12 +86,39 @@ public class DefaultContainer implements MutableContainer
     /**
      * @return Component key.
      */
+    public Object registerComponentImplementation(Object compKey, Object srcCompKey)
+    {
+        Component comp = getComponent(compKey);
+
+        comp.registerImplementation(getComponent(srcCompKey));
+
+        return compKey;
+    }
+
+    /**
+     * @return Component key.
+     */
     public Object registerComponentImplementation(Object compKey, Class compClass,
         Object[] ctorArgs, ComponentCallback[] callbacks)
     {
         Component comp = getComponent(compKey);
 
         comp.registerImplementation(compClass, ctorArgs, callbacks);
+
+        return compKey;
+    }
+
+    /**
+     * Registers an external factory for the component.
+     * 
+     * @return Component key.
+     */
+    public Object registerComponentFactory(Object compKey, Object compFac, String facMethodName,
+        Object[] facMethodArgs, ComponentCallback[] callbacks)
+    {
+        Component comp = getComponent(compKey);
+
+        comp.registerFactory(compFac, facMethodName, facMethodArgs, callbacks);
 
         return compKey;
     }

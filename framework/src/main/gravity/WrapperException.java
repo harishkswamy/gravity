@@ -18,11 +18,11 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
- * Wraps and converts non {@link java.lang.RuntimeException}s to {@link java.lang.RuntimeException}s
- * In addition, it is capable of adding the supplied message to the wrapped exception.
+ * Wraps and converts non {@link java.lang.RuntimeException}s to {@link java.lang.RuntimeException}
+ * s In addition, it is capable of adding the supplied message to the wrapped exception.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: WrapperException.java,v 1.1 2004-05-10 17:29:05 harishkswamy Exp $
+ * @version $Id: WrapperException.java,v 1.2 2004-06-14 04:23:42 harishkswamy Exp $
  */
 public class WrapperException extends RuntimeException
 {
@@ -61,8 +61,8 @@ public class WrapperException extends RuntimeException
 
             return we;
         }
-        else
-            return new WrapperException(t, msg);
+
+        return new WrapperException(t, msg);
     }
 
     public String getMessage()

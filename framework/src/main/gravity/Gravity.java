@@ -31,7 +31,7 @@ import java.util.Properties;
  * This class stores the framework properties that can be accessed and/or modified anytime.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Gravity.java,v 1.10 2004-05-29 16:56:40 harishkswamy Exp $
+ * @version $Id: Gravity.java,v 1.11 2004-06-14 04:23:41 harishkswamy Exp $
  */
 public class Gravity
 {
@@ -77,8 +77,7 @@ public class Gravity
         return INSTANCE;
     }
 
-    // Instance code
-    // ===============================================================================
+    // Instance code ===============================================================================
 
     /**
      * Stores the framework properties.
@@ -99,10 +98,11 @@ public class Gravity
 
     public synchronized void initialize(Properties props)
     {
-        if (_props == null)
-            _props = props;
-        else
-            _props.putAll(props);
+        if (_props != null)
+            throw new UsageException("Gravity is already initialized, use setProperty() to add "
+                + "properties to Gravity.");
+
+        _props = props;
 
         _container = newMutableContainer();
     }
@@ -138,7 +138,8 @@ public class Gravity
 
     /**
      * Initializes the framework by loading the framework properties from the default properties
-     * file - gravity.properties. The default properties file is expected to be in the classpath.
+     * file - gravity.properties. The default properties file is expected to be in the classpath
+     * root.
      */
     public void initialize()
     {
@@ -241,6 +242,9 @@ public class Gravity
         return startup(fPath);
     }
 
+    /**
+     * This returns the container managed by this Gravity instance.
+     */
     public Container getContainer()
     {
         return _container;

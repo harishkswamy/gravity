@@ -20,18 +20,29 @@ package gravity;
  * component is simply an object that has an interface, an implementation and a
  * {@link gravity.ComponentStrategy strategy}.
  * <p>
- * Every component has a unique identity typically comprised of the interface and a type (any
- * String) and there will be only one object of each component (a flyweight).
+ * Every component has a unique identity typically comprised of the interface and an optional type
+ * (any String) and there will be only one object of each component.
  * <p>
  * The Component is also a factory for component instances just like {@link java.lang.Class}. The
- * identity of the component instances (not to be confused with the component identity) is dependent
- * on the state of the component.
+ * identity of the component instances (not to be confused with the component identity) and their
+ * life is dependent on the component strategy.
+ * <p>
+ * Components may share an implementation and a strategy. This will allow multiple components to
+ * act as facets of the same implementation.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.8 2004-05-29 16:40:00 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.9 2004-06-14 04:23:44 harishkswamy Exp $
  */
 public interface Component
 {
+    /**
+     * This method should be used to register an implementation for this component.
+     * 
+     * @param comp
+     *        Component, the implementation of which will be used.
+     */
+    void registerImplementation(Component comp);
+
     /**
      * This method should be used to register an implementation for this component.
      * 
@@ -40,11 +51,16 @@ public interface Component
      * @param ctorArgs
      *        Component constructor arguments. This is simply an array of the constructor argument
      *        values that will be used in the order it is provided.
-     * @param lifeCycleMethods
+     * @param callbacks
      *        Component methods to be invoked during component life cycle stages.
      */
-    void registerImplementation(Class compClass, Object[] ctorArgs,
-        ComponentCallback[] lifeCycleMethods);
+    void registerImplementation(Class compClass, Object[] ctorArgs, ComponentCallback[] callbacks);
+
+    /**
+     * This method will allow registration of a factory for creating instances of the component.
+     */
+    void registerFactory(Object compFac, String facMethodName, Object[] facMethodArgs,
+        ComponentCallback[] callbacks);
 
     /**
      * This method may be used to register the location of the component registration. The sole

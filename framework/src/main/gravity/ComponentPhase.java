@@ -15,15 +15,26 @@
 package gravity;
 
 /**
- * This is an enumerated type. It enumerates the stages of component lifecycle.
+ * This is an enumerated type. It enumerates the phases of component lifecycle.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentPhase.java,v 1.1 2004-05-27 03:36:29 harishkswamy Exp $
+ * @version $Id: ComponentPhase.java,v 1.2 2004-06-14 04:23:43 harishkswamy Exp $
  */
 public class ComponentPhase
 {
+    /**
+     * The phase during which component dependencies are injected.
+     */
     public static final ComponentPhase INJECTION = new ComponentPhase("Injection");
+
+    /**
+     * The phase during which components are initialized, after instantiation.
+     */
     public static final ComponentPhase START_UP  = new ComponentPhase("Start-Up");
+
+    /**
+     * The phase during which components are shutdown.
+     */
     public static final ComponentPhase SHUTDOWN  = new ComponentPhase("Shutdown");
 
     private String                     _name;

@@ -18,8 +18,9 @@ package gravity;
  * This is a marker interface.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentInvocationHandler.java,v 1.4 2004-05-27 03:36:30 harishkswamy Exp $
+ * @version $Id: ComponentInvocationHandler.java,v 1.5 2004-06-14 04:23:40 harishkswamy Exp $
  */
 public interface ComponentInvocationHandler
 {
+    // This is a marker interface.
 }

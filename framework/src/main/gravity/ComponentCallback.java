@@ -14,11 +14,9 @@
 
 package gravity;
 
-import gravity.util.Utils;
-
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentCallback.java,v 1.2 2004-05-27 05:32:27 harishkswamy Exp $
+ * @version $Id: ComponentCallback.java,v 1.3 2004-06-14 04:23:40 harishkswamy Exp $
  */
 public class ComponentCallback
 {
@@ -50,7 +48,8 @@ public class ComponentCallback
 
     public String toString()
     {
-        return "[Name: " + _name + ", Arguments: " + Utils.arrayToString(_arguments)
-            + ", Component Phase: " + _componentPhase + "]";
+        // Arguments are not returned cause if any of them are proxies, they will be realized
+        // inappropriately
+        return "[Name: " + _name + ", Component Phase: " + _componentPhase + "]";
     }
 }

@@ -18,12 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This is the container that houses all components and configurations.
+ * The container houses all components and their configuration data and serve the housed 
+ * components and data when requested.
  * <p>
- * This is a singleton and should typically be built in a single startup thread.
+ * The container also manages the life cycle of the housed components.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Container.java,v 1.3 2004-05-29 16:43:34 harishkswamy Exp $
+ * @version $Id: Container.java,v 1.4 2004-06-14 04:23:44 harishkswamy Exp $
  */
 public interface Container
 {

@@ -16,7 +16,7 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Location.java,v 1.1 2004-05-10 17:29:02 harishkswamy Exp $
+ * @version $Id: Location.java,v 1.2 2004-06-14 04:23:43 harishkswamy Exp $
  */
 public class Location
 {
@@ -28,9 +28,39 @@ public class Location
         _resourceUrlString = urlStr;
         _lineNumber = lineNum;
     }
-    
+
     public String toString()
     {
         return "[Resource: " + _resourceUrlString + ", Line: " + _lineNumber + "]";
+    }
+
+    public boolean equals(Object obj)
+    {
+        if (obj == this)
+            return true;
+
+        if (!(obj instanceof Location))
+            return false;
+
+        Location loc = (Location) obj;
+
+        boolean rsrcIsEqual = _resourceUrlString == null ? loc._resourceUrlString == null
+            : _resourceUrlString.equals(loc._resourceUrlString);
+
+        if (rsrcIsEqual && _lineNumber == loc._lineNumber)
+            return true;
+
+        return false;
+    }
+
+    public int hashCode()
+    {
+        int result = 17;
+
+        result = 37 * result + (_resourceUrlString == null ? 0 : _resourceUrlString.hashCode());
+
+        result = 37 * result + _lineNumber;
+
+        return result;
     }
 }
