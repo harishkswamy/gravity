@@ -18,7 +18,7 @@ package gravity;
  * This is an enumerated type. It enumerates the phases of component lifecycle.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentPhase.java,v 1.2 2004-06-14 04:23:43 harishkswamy Exp $
+ * @version $Id: ComponentPhase.java,v 1.3 2004-09-02 03:56:17 harishkswamy Exp $
  */
 public class ComponentPhase
 {
@@ -38,10 +38,43 @@ public class ComponentPhase
     public static final ComponentPhase SHUTDOWN  = new ComponentPhase("Shutdown");
 
     private String                     _name;
+    private volatile int               _hashCode;
 
-    private ComponentPhase(String name)
+    protected ComponentPhase(String name)
     {
         _name = name;
+    }
+
+    public boolean equals(Object obj)
+    {
+        if (obj == this)
+            return true;
+
+        if (!(obj instanceof ComponentPhase))
+            return false;
+
+        ComponentPhase phase = (ComponentPhase) obj;
+
+        boolean phaseIsEqual = (_name == null) ? (phase._name == null) : _name.equals(phase._name);
+
+        if (phaseIsEqual)
+            return true;
+
+        return false;
+    }
+
+    public int hashCode()
+    {
+        if (_hashCode == 0)
+        {
+            int result = 17;
+
+            result = 37 * result + (_name == null ? 0 : _name.hashCode());
+
+            _hashCode = result;
+        }
+
+        return _hashCode;
     }
 
     public String toString()
