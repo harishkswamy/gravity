@@ -29,7 +29,7 @@ import java.util.Map;
  * 
  * @author Howard Lewis Ship
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtils.java,v 1.6 2004-09-02 04:20:02 harishkswamy Exp $
+ * @version $Id: ReflectUtils.java,v 1.7 2004-11-17 20:21:32 harishkswamy Exp $
  */
 public class ReflectUtils
 {
@@ -187,10 +187,15 @@ public class ReflectUtils
                 return methods[i];
         }
 
-        throw new UsageException(Message.CANNOT_FIND_METHOD, methodName,
-            typesToString(argTypes), targetClass);
+        throw new UsageException(Message.CANNOT_FIND_METHOD, methodName, typesToString(argTypes),
+            targetClass);
     }
 
+    /**
+     * Invokes the provided method on the provided target object with the provided arguments.
+     * 
+     * @return Returns the result of the method invocation.
+     */
     public static Object invokeMethod(Object target, String methodName, Object[] args)
     {
         Class[] argTypes = null;
@@ -203,9 +208,13 @@ public class ReflectUtils
     }
 
     /**
-     * This method invokes the provided method relectively on the propvided target object with the
-     * provided arguments. The {@link Component} parameter is simply used in forming a message in
+     * This method invokes the provided method relectively on the provided target object with the
+     * provided arguments. The {@link Component}parameter is simply used in forming a message in
      * the event of an error and can be passed a null.
+     * 
+     * @return Returns the result of the method invocation.
+     * @throws WrapperException
+     *             {@link Message#CANNOT_INVOKE_METHOD}
      */
     public static Object invokeMethod(Object target, Method method, Object[] args, Component comp)
     {
