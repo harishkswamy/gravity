@@ -28,7 +28,7 @@ import java.util.Properties;
  * {@link gravity.plugins.bsh.BshPlugin}).
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Plugin.java,v 1.6 2004-09-02 04:04:47 harishkswamy Exp $
+ * @version $Id: Plugin.java,v 1.7 2004-11-17 19:42:21 harishkswamy Exp $
  */
 public interface Plugin
 {
@@ -38,5 +38,5 @@ public interface Plugin
      * This method will take the plugin properties and the container, and build its modules and
      * populate the provided container.
      */
-    void startup(Properties props, MutableContainer container);
+    void startup(final Properties props, final MutableContainer container);
 }
