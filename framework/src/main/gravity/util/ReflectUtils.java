@@ -27,7 +27,7 @@ import java.util.Map;
  * 
  * @author Howard Lewis Ship
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtils.java,v 1.4 2004-05-29 17:00:07 harishkswamy Exp $
+ * @version $Id: ReflectUtils.java,v 1.5 2004-06-14 04:20:28 harishkswamy Exp $
  */
 public class ReflectUtils
 {
@@ -104,8 +104,8 @@ public class ReflectUtils
             {
                 if (paramTypes[i].isPrimitive())
                     return false;
-                else
-                    continue;
+
+                continue;
             }
 
             if (!isCompatible(paramTypes[i], valueTypes[i]))
@@ -155,9 +155,11 @@ public class ReflectUtils
      */
     public static Object invokeConstructor(Class targetClass, Object[] args)
     {
+        Class[] argTypes = null;
+
         try
         {
-            Class[] argTypes = getTypes(args);
+            argTypes = getTypes(args);
 
             Constructor ctor = findConstructor(targetClass, argTypes);
 
@@ -165,7 +167,8 @@ public class ReflectUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to invoke constructor for: " + targetClass);
+            throw WrapperException.wrap(e, "Unable to invoke constructor: " + targetClass + "("
+                + typesToString(argTypes) + ")");
         }
     }
 
@@ -188,9 +191,11 @@ public class ReflectUtils
 
     public static Object invokeMethod(Object target, String methodName, Object[] args)
     {
+        Class[] argTypes = null;
+
         try
         {
-            Class[] argTypes = getTypes(args);
+            argTypes = getTypes(args);
 
             Method method = findMethod(target.getClass(), methodName, argTypes);
 
@@ -198,8 +203,8 @@ public class ReflectUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to invoke method: \"" + methodName
-                + "\" with value: \"" + Utils.arrayToString(args) + "\" on object: " + target);
+            throw WrapperException.wrap(e, "Unable to invoke method: " + methodName + "("
+                + typesToString(argTypes) + ")");
         }
     }
 }
