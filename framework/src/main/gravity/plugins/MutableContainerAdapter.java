@@ -15,6 +15,7 @@
 package gravity.plugins;
 
 import gravity.ComponentCallback;
+import gravity.ComponentStrategyType;
 import gravity.Location;
 import gravity.MutableContainer;
 
@@ -28,7 +29,7 @@ import java.util.Map;
  * 
  * @see gravity.MutableContainer
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainerAdapter.java,v 1.4 2004-08-10 16:24:38 harishkswamy Exp $
+ * @version $Id: MutableContainerAdapter.java,v 1.5 2004-11-17 19:54:14 harishkswamy Exp $
  */
 public class MutableContainerAdapter
 {
@@ -528,17 +529,17 @@ public class MutableContainerAdapter
 
     public Object singleton(Object compKey)
     {
-        return _container.wrapComponentStrategyWithSingleton(compKey);
+        return _container.wrapComponentStrategy(compKey, ComponentStrategyType.SINGLETON);
     }
 
     public Object pooling(Object compKey)
     {
-        return _container.wrapComponentStrategyWithPooling(compKey);
+        return _container.wrapComponentStrategy(compKey, ComponentStrategyType.POOLING);
     }
 
     public Object threadLocal(Object compKey)
     {
-        return _container.wrapComponentStrategyWithThreadLocal(compKey);
+        return _container.wrapComponentStrategy(compKey, ComponentStrategyType.THREAD_LOCAL);
     }
 
     // Config point definition helper methods =================================
