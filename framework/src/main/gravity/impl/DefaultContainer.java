@@ -30,7 +30,7 @@ import java.util.Map;
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.6 2004-05-27 03:36:33 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.7 2004-05-29 16:43:33 harishkswamy Exp $
  */
 public class DefaultContainer implements MutableContainer
 {
@@ -44,17 +44,22 @@ public class DefaultContainer implements MutableContainer
      */
     private Map _configuarationCache = new HashMap();
 
-    private ComponentKey getComponentKey(Class compIntf, Object compType)
+    public Object getComponentKey(Class compIntf, Object compType)
     {
-        return new ComponentKey(compIntf, compType);
+        return ComponentKey.get(compIntf, compType);
     }
 
-    protected Component newDefaultComponent(ComponentKey compKey)
+    public Object getComponentKey(Class compIntf)
     {
-        return new DefaultComponent(compKey);
+        return ComponentKey.get(compIntf, null);
     }
 
-    private Component getComponent(ComponentKey compKey)
+    protected Component newDefaultComponent(Object compKey)
+    {
+        return new DefaultComponent((ComponentKey) compKey);
+    }
+
+    private Component getComponent(Object compKey)
     {
         Component compFactory = (Component) _componentCache.get(compKey);
 
@@ -75,11 +80,9 @@ public class DefaultContainer implements MutableContainer
     /**
      * @return Component key.
      */
-    public Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
+    public Object registerComponentImplementation(Object compKey, Class compClass,
         Object[] ctorArgs, ComponentCallback[] callbacks)
     {
-        ComponentKey compKey = getComponentKey(compIntf, compType);
-
         Component comp = getComponent(compKey);
 
         comp.registerImplementation(compClass, ctorArgs, callbacks);
@@ -87,134 +90,56 @@ public class DefaultContainer implements MutableContainer
         return compKey;
     }
 
-    public Object registerComponentImplementation(Class compIntf, Class compClass,
-        Object[] ctorArgs, ComponentCallback[] callbacks)
-    {
-        return registerComponentImplementation(compIntf, null, compClass, ctorArgs, callbacks);
-    }
-
-    public Object registerComponentImplementation(Class compClass, Object compType,
-        Object[] ctorArgs, ComponentCallback[] callbacks)
-    {
-        return registerComponentImplementation(compClass, compType, compClass, ctorArgs, callbacks);
-    }
-
-    public Object registerComponentImplementation(Class compClass, Object[] ctorArgs,
-        ComponentCallback[] callbacks)
-    {
-        return registerComponentImplementation(compClass, null, compClass, ctorArgs, callbacks);
-    }
-
     // Constructor arguments registration ===============================================
 
     public Object registerComponentConstructorArguments(Object compKey, Object[] args)
     {
-        Component comp = (Component) _componentCache.get(compKey);
+        Component comp = getComponent(compKey);
 
         comp.registerConstructorArguments(args);
 
         return compKey;
     }
 
-    public Object registerComponentConstructorArguments(Class compIntf, Object compType,
-        Object[] args)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, compType);
-
-        return registerComponentConstructorArguments(compKey, args);
-    }
-
-    public Object registerComponentConstructorArguments(Class compIntf, Object[] args)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, null);
-
-        return registerComponentConstructorArguments(compKey, args);
-    }
-
     // LifeCycle methods registration ===============================================
 
     public Object registerComponentCallbacks(Object compKey, ComponentCallback[] callbacks)
     {
-        Component comp = (Component) _componentCache.get(compKey);
+        Component comp = getComponent(compKey);
 
-        comp.registerCallbackMethods(callbacks);
+        comp.registerCallbacks(callbacks);
 
         return compKey;
-    }
-
-    public Object registerComponentCallbacks(Class compIntf, Object compType,
-        ComponentCallback[] callbacks)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, compType);
-
-        return registerComponentCallbacks(compKey, callbacks);
-    }
-
-    public Object registerComponentCallbacks(Class compIntf, ComponentCallback[] callbacks)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, null);
-
-        return registerComponentCallbacks(compKey, callbacks);
     }
 
     // Location registration methods ===============================================================
 
     public Object registerComponentRegistrationLocation(Object compKey, Location location)
     {
-        Component comp = (Component) _componentCache.get(compKey);
+        Component comp = getComponent(compKey);
 
         comp.setRegistrationLocation(location);
 
         return compKey;
     }
 
-    public Object registerComponentRegistrationLocation(Class compIntf, Object compType,
-        Location location)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, compType);
-
-        return registerComponentRegistrationLocation(compKey, location);
-    }
-
-    public Object registerComponentRegistrationLocation(Class compIntf, Location location)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, null);
-
-        return registerComponentRegistrationLocation(compKey, location);
-    }
-
     public Object registerComponentRetrievalLocation(Object compKey, Location location)
     {
-        Component comp = (Component) _componentCache.get(compKey);
+        Component comp = getComponent(compKey);
 
         comp.setRetrievalLocation(location);
 
         return compKey;
     }
 
-    public Object registerComponentRetrievalLocation(Class compIntf, Object compType,
-        Location location)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, compType);
-
-        return registerComponentRetrievalLocation(compKey, location);
-    }
-
-    public Object registerComponentRetrievalLocation(Class compIntf, Location location)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, null);
-
-        return registerComponentRetrievalLocation(compKey, location);
-    }
-
     // Component factory decorator methods =========================================================
 
     /**
-     * @return Component _key.
+     * @return Component key.
      */
     public Object wrapComponentStrategyWithSingleton(Object compKey)
     {
-        Component comp = (Component) _componentCache.get(compKey);
+        Component comp = getComponent(compKey);
 
         comp.wrapStrategyWithSingleton();
 
@@ -223,7 +148,7 @@ public class DefaultContainer implements MutableContainer
 
     public Object wrapComponentStrategyWithPooling(Object compKey)
     {
-        Component comp = (Component) _componentCache.get(compKey);
+        Component comp = getComponent(compKey);
 
         comp.wrapStrategyWithPooling();
 
@@ -232,7 +157,7 @@ public class DefaultContainer implements MutableContainer
 
     public Object wrapComponentStrategyWithThreadLocal(Object compKey)
     {
-        Component comp = (Component) _componentCache.get(compKey);
+        Component comp = getComponent(compKey);
 
         comp.wrapStrategyWithThreadLocal();
 
@@ -261,56 +186,30 @@ public class DefaultContainer implements MutableContainer
 
     // Container methods ===========================================================================
 
+    /**
+     * Gets the component registered for the supplied component key (component interface + component
+     * implementation type).
+     * 
+     * @return The component registered for the supplied key.
+     * @throws UsageException
+     *         When no component is registered for the supplied key.
+     */
     public Object getComponentInstance(Object compKey)
     {
-        Component comp = getComponent((ComponentKey) compKey);
+        Component comp = getComponent(compKey);
 
         return comp.getInstance();
     }
 
-    /**
-     * Gets the service registered for the supplied service _key (service interface + service
-     * implementation type).
-     * 
-     * @return The service registered for the supplied _key.
-     * @throws UsageException
-     *         When no service is registered for the supplied _key.
-     */
-    public Object getComponentInstance(Class compIntf, Object compType)
+    public void collectComponentInstance(Object compKey, Object compInst)
     {
-        ComponentKey compKey = getComponentKey(compIntf, compType);
-
-        return getComponentInstance(compKey);
-    }
-
-    /**
-     * Gets the default service registered for the supplied service interface.
-     * 
-     * @return The service registered for the supplied _key.
-     * @throws UsageException
-     *         When no service is registered for the supplied _key.
-     */
-    public Object getComponentInstance(Class compIntf)
-    {
-        return getComponentInstance(compIntf, null);
-    }
-
-    public void collectComponentInstance(Class compIntf, Object compType, Object compInst)
-    {
-        ComponentKey compKey = getComponentKey(compIntf, compType);
-
         Component comp = getComponent(compKey);
 
         comp.collectInstance(compInst);
     }
 
-    public void collectComponentInstance(Class compIntf, Object comp)
-    {
-        collectComponentInstance(compIntf, null, comp);
-    }
-
     /**
-     * Gets the configuration registered for the supplied _key.
+     * Gets the configuration registered for the supplied key.
      * 
      * @return The configuration list.
      */
@@ -329,7 +228,7 @@ public class DefaultContainer implements MutableContainer
     }
 
     /**
-     * Gets the configuration registered for the supplied _key.
+     * Gets the configuration registered for the supplied key.
      * 
      * @return The configuration map.
      */
@@ -353,7 +252,7 @@ public class DefaultContainer implements MutableContainer
     }
 
     /**
-     * Wipes out the services and configurations registered in the registry.
+     * Wipes out the components and configurations registered with the container.
      */
     public void cleanup()
     {

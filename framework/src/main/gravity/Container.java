@@ -18,65 +18,51 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This is the container that houses all services and configurations.
+ * This is the container that houses all components and configurations.
  * <p>
  * This is a singleton and should typically be built in a single startup thread.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Container.java,v 1.2 2004-05-27 03:36:30 harishkswamy Exp $
+ * @version $Id: Container.java,v 1.3 2004-05-29 16:43:34 harishkswamy Exp $
  */
 public interface Container
 {
-    public Object getComponentInstance(Object compKey);
+    Object getComponentKey(Class compIntf, Object compType);
+
+    Object getComponentKey(Class compIntf);
 
     /**
-     * Gets the service registered for the supplied service _key (service interface + service
+     * Gets the component registered for the supplied component key (component interface + component
      * implementation type).
      * 
-     * @return The service registered for the supplied _key.
+     * @return The component registered for the supplied key.
      * @throws UsageException
-     *         When no service is registered for the supplied _key.
+     *         When no component is registered for the supplied key.
      */
-    Object getComponentInstance(Class compClass, Object compType);
-
-    /**
-     * Gets the default service registered for the supplied service interface.
-     * 
-     * @return The service registered for the supplied _key.
-     * @throws IllegalArgumentException
-     *         When no service is registered for the supplied _key.
-     */
-    Object getComponentInstance(Class compClass);
+    Object getComponentInstance(Object compKey);
 
     /**
      * This method should be used to return a component instance obtained via one of the
-     * getComponentInstance(...) methods. This method is primarily used for returning pooled
-     * components.
+     * {@link Container#getComponentInstance(Object)}methods. This method is primarily used for
+     * returning pooled components.
      */
-    void collectComponentInstance(Class compIntf, Object compType, Object comp);
+    void collectComponentInstance(Object compKey, Object comp);
 
     /**
-     * This method should be used to return a component instance obtained via one of the
-     * getComponentInstance(...) methods. This method is primarily used for returning pooled
-     * components.
-     */
-    void collectComponentInstance(Class compIntf, Object comp);
-
-    /**
-     * Gets the configuration registered for the supplied _key.
+     * Gets the configuration registered for the supplied key.
      * 
      * @return The configuration list.
      * @throws IllegalArgumentException
-     *         When no configuration is registered for the supplied _key.
+     *         When no configuration is registered for the supplied key.
      */
     List getConfigurationList(Object configKey);
 
     /**
-     * Gets the configuration registered for the supplied _key.
+     * Gets the configuration registered for the supplied key.
      * 
      * @return The configuration map.
      * @throws IllegalArgumentException
-     *         When no configuration is registered for the supplied _key.
+     *         When no configuration is registered for the supplied key.
      */
     Map getConfigurationMap(Object configKey);
 
@@ -87,7 +73,7 @@ public interface Container
     void handlePreThreadTermination();
 
     /**
-     * Wipes out the services and configurations registered in the registry.
+     * Wipes out the components and configurations registered with the container.
      */
     void cleanup();
 }

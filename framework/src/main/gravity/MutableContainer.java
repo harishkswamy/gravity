@@ -16,51 +16,26 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainer.java,v 1.4 2004-05-27 03:36:32 harishkswamy Exp $
+ * @version $Id: MutableContainer.java,v 1.5 2004-05-29 16:43:33 harishkswamy Exp $
  */
 public interface MutableContainer extends Container
 {
-    Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Object[] ctorArgs, ComponentCallback[] lifeCycleMethods);
-
-    Object registerComponentImplementation(Class compIntf, Class compClass, Object[] ctorArgs,
-        ComponentCallback[] lifeCycleMethods);
-
-    Object registerComponentImplementation(Class compClass, Object compType, Object[] ctorArgs,
-        ComponentCallback[] lifeCycleMethods);
-
-    Object registerComponentImplementation(Class compClass, Object[] ctorArgs,
-        ComponentCallback[] lifeCycleMethods);
+    Object registerComponentImplementation(Object compKey, Class compClass, Object[] ctorArgs,
+        ComponentCallback[] callbacks);
 
     // Constructor arguments registration ==========================================================
 
     Object registerComponentConstructorArguments(Object compKey, Object[] args);
 
-    Object registerComponentConstructorArguments(Class compIntf, Object compType, Object[] args);
-
-    Object registerComponentConstructorArguments(Class compIntf, Object[] args);
-
     // Lifecycle methods registration ==============================================================
 
     Object registerComponentCallbacks(Object compKey, ComponentCallback[] methods);
-
-    Object registerComponentCallbacks(Class compIntf, Object compType, ComponentCallback[] methods);
-
-    Object registerComponentCallbacks(Class compIntf, ComponentCallback[] methods);
 
     // Location registration methods ===============================================================
 
     Object registerComponentRegistrationLocation(Object compKey, Location location);
 
-    Object registerComponentRegistrationLocation(Class compIntf, Object compType, Location location);
-
-    Object registerComponentRegistrationLocation(Class compIntf, Location location);
-
     Object registerComponentRetrievalLocation(Object compKey, Location location);
-
-    Object registerComponentRetrievalLocation(Class compIntf, Object compType, Location location);
-
-    Object registerComponentRetrievalLocation(Class compIntf, Location location);
 
     // Component strategy decorator methods ========================================================
 
