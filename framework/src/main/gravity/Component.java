@@ -31,7 +31,7 @@ package gravity;
  * as facets of the same implementation.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.10 2004-09-02 04:04:47 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.11 2004-11-17 19:39:44 harishkswamy Exp $
  */
 public interface Component
 {
@@ -112,19 +112,9 @@ public interface Component
     void setRetrievalLocation(Location location);
 
     /**
-     * This method will change the strategy for this component to singleton.
+     * This method will change the strategy for this component to that of the provided type.
      */
-    void wrapStrategyWithSingleton();
-
-    /**
-     * This method will change the strategy for this component to pooling.
-     */
-    void wrapStrategyWithPooling();
-
-    /**
-     * This method will change the strategy for this component to thread local.
-     */
-    void wrapStrategyWithThreadLocal();
+    void wrapStrategy(ComponentStrategyType strategyType);
 
     /**
      * This method should be used to return a component instance obtained via {@link #getInstance()}.
