@@ -26,12 +26,12 @@ import java.util.Properties;
 //TODO Fix exception handling. Need more explicit exceptions.
 /**
  * This class is the gateway to the framework. It provides helper methods to initialize the
- * framework and obtain a fully constructed registry.
+ * framework and obtain a fully constructed container.
  * <p>
  * This class stores the framework properties that can be accessed and/or modified anytime.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Gravity.java,v 1.9 2004-05-27 03:36:29 harishkswamy Exp $
+ * @version $Id: Gravity.java,v 1.10 2004-05-29 16:56:40 harishkswamy Exp $
  */
 public class Gravity
 {
@@ -85,8 +85,7 @@ public class Gravity
      */
     private Properties       _props;
 
-    // TODO delete registry reference after startup?
-    private MutableContainer _registry;
+    private MutableContainer _container;
 
     protected Gravity()
     {
@@ -105,7 +104,7 @@ public class Gravity
         else
             _props.putAll(props);
 
-        _registry = newMutableContainer();
+        _container = newMutableContainer();
     }
 
     /**
@@ -134,9 +133,7 @@ public class Gravity
 
     private String getPropertiesUrlString()
     {
-        String fPath = System.getProperty(PROPERTIES_PATH_KEY);
-
-        return fPath == null ? DEFAULT_PROPERTIES_PATH : fPath;
+        return System.getProperty(PROPERTIES_PATH_KEY, DEFAULT_PROPERTIES_PATH);
     }
 
     /**
@@ -192,7 +189,7 @@ public class Gravity
 
             Plugin plugin = getPlugin(props.getProperty(PLUGIN_CLASS_NAME_KEY));
 
-            plugin.startup(props, _registry);
+            plugin.startup(props, _container);
         }
     }
 
@@ -202,7 +199,7 @@ public class Gravity
 
         acceptPlugins();
 
-        return _registry;
+        return _container;
     }
 
     /**
@@ -244,8 +241,13 @@ public class Gravity
         return startup(fPath);
     }
 
+    public Container getContainer()
+    {
+        return _container;
+    }
+
     /**
-     * Gets the gravity property value for the supplied _key.
+     * Gets the gravity property value for the supplied key.
      */
     public String getProperty(String key)
     {
@@ -257,7 +259,7 @@ public class Gravity
     }
 
     /**
-     * Sets the gravity property with the supplied _key/value pair.
+     * Sets the gravity property with the supplied key/value pair.
      * <p>
      * Properties are only expected to be set during startup prior to building the {@link Container}
      * which should typically happen in a single startup thread.
@@ -278,6 +280,6 @@ public class Gravity
     public void shutdown()
     {
         _props = null;
-        _registry = null;
+        _container = null;
     }
 }
