@@ -16,7 +16,7 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ProxyableComponent.java,v 1.2 2004-06-14 04:23:43 harishkswamy Exp $
+ * @version $Id: ProxyableComponent.java,v 1.3 2004-08-10 16:25:20 harishkswamy Exp $
  */
 public interface ProxyableComponent extends Component
 {
@@ -26,9 +26,9 @@ public interface ProxyableComponent extends Component
     Class getInterface();
 
     /**
-     * Returns the implementation for this component.
+     * Returns the factory for this component.
      */
-    Object getImplementation();
+    Object getFactory();
 
     /**
      * This method will return a concrete instance of this component. The component instance

@@ -27,7 +27,7 @@ import gravity.ProxyableComponent;
  * component is simply one facet of the implementation.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.11 2004-06-14 04:23:45 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.12 2004-08-10 16:25:19 harishkswamy Exp $
  */
 public class DefaultComponent implements ProxyableComponent
 {
@@ -52,7 +52,7 @@ public class DefaultComponent implements ProxyableComponent
     {
         ProxyableComponent pComp = (ProxyableComponent) comp;
 
-        _factory = (ComponentFactory) pComp.getImplementation();
+        _factory = (ComponentFactory) pComp.getFactory();
     }
 
     public void registerImplementation(Class compClass, Object[] ctorArgs,
@@ -92,7 +92,7 @@ public class DefaultComponent implements ProxyableComponent
         return _key.getComponentInterface();
     }
 
-    public Object getImplementation()
+    public Object getFactory()
     {
         return _factory;
     }
@@ -126,8 +126,6 @@ public class DefaultComponent implements ProxyableComponent
     {
         return _factory.newInstance(this);
     }
-
-    // End - Construct new instance ================================================================
 
     public void collectInstance(Object inst)
     {

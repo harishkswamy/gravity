@@ -40,7 +40,7 @@ import java.util.List;
  * the same implementation, they all share the same component factory.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentFactory.java,v 1.2 2004-06-14 04:39:43 harishkswamy Exp $
+ * @version $Id: ComponentFactory.java,v 1.3 2004-08-10 16:25:20 harishkswamy Exp $
  */
 public class ComponentFactory
 {
@@ -264,9 +264,9 @@ public class ComponentFactory
      * 
      * @return Fully constructed and initialized component.
      * @throws UsageException
-     *         When the supplied implementation class is null.
+     *             When the supplied implementation class is null.
      * @throws WrapperException
-     *         When there is any problem while building the component.
+     *             When there is any problem while building the component.
      * @see gravity.DynamicWeaver#weave(Object)
      */
     public Object newInstance(ProxyableComponent comp)
@@ -306,6 +306,10 @@ public class ComponentFactory
 
     public String toString()
     {
-        return "[Class: " + _implementation + ", Strategy:" + _componentStrategy + "]";
+        if (_factoryDelegate == null)
+            return "[Class: " + _implementation + ", Strategy:" + _componentStrategy + "]";
+
+        return "[Delegate: " + _factoryDelegate + ", Factory Method: " + _factoryMethodName
+            + ", Strategy:" + _componentStrategy + "]";
     }
 }
