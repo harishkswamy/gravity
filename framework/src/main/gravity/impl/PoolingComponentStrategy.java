@@ -20,46 +20,45 @@ import gravity.util.Pool;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentStrategy.java,v 1.1 2004-05-22 20:19:34 harishkswamy Exp $
+ * @version $Id: PoolingComponentStrategy.java,v 1.2 2004-06-14 04:15:19 harishkswamy Exp $
  */
 public class PoolingComponentStrategy extends LazyLoadingComponentStrategy
 {
     private Pool _pool;
 
-    public PoolingComponentStrategy(ComponentStrategy decorator, ProxyableComponent component,
-        int poolSize)
+    public PoolingComponentStrategy(ComponentStrategy decorator, int poolSize)
     {
-        super(decorator, component);
+        super(decorator);
 
         _pool = new Pool(poolSize);
     }
 
-    public PoolingComponentStrategy(ComponentStrategy delegate, ProxyableComponent component)
+    public PoolingComponentStrategy(ComponentStrategy delegate)
     {
-        this(delegate, component, 0);
+        this(delegate, 0);
     }
 
-    public Object getConcreteComponentInstance()
+    public Object getConcreteComponentInstance(ProxyableComponent component)
     {
-        Object component = _pool.loan();
+        Object compInst = _pool.loan();
 
-        if (component == null)
+        if (compInst == null)
         {
-            component = super.getConcreteComponentInstance();
+            compInst = super.getConcreteComponentInstance(component);
 
-            _pool.loaned(component);
+            _pool.loaned(compInst);
         }
 
-        return component;
+        return compInst;
     }
 
-    public void collectComponentInstance(Object comp)
+    public void collectComponentInstance(Object compInst)
     {
-        _pool.collect(comp);
+        _pool.collect(compInst);
     }
 
     public String toString()
     {
-        return "[Pooled: " + super.toString() + "]";
+        return " [Pooling" + decoratedStrategyToString() + "] ";
     }
 }

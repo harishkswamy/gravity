@@ -20,24 +20,29 @@ import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DispatchingComponentStrategy.java,v 1.1 2004-05-22 20:19:35 harishkswamy Exp $
+ * @version $Id: DispatchingComponentStrategy.java,v 1.2 2004-06-14 04:15:19 harishkswamy Exp $
  */
 public class DispatchingComponentStrategy extends ComponentStrategyDecorator
 {
-    public DispatchingComponentStrategy(ComponentStrategy decorator, ProxyableComponent component)
+    public DispatchingComponentStrategy(ComponentStrategy decorator)
     {
-        super(decorator, component);
+        super(decorator);
     }
 
-    public Object getComponentInstance()
+    public Object getComponentInstance(ProxyableComponent component)
     {
         ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
 
-        return proxy.newInstance(_component);
+        return proxy.newInstance(component);
     }
 
     public boolean isDispatching()
     {
         return true;
+    }
+
+    public String toString()
+    {
+        return " [Dispatching" + decoratedStrategyToString() + "] ";
     }
 }

@@ -16,7 +16,7 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentStrategy.java,v 1.1 2004-05-22 20:19:30 harishkswamy Exp $
+ * @version $Id: ComponentStrategy.java,v 1.2 2004-06-14 04:15:21 harishkswamy Exp $
  */
 public interface ComponentStrategy
 {
@@ -32,7 +32,7 @@ public interface ComponentStrategy
      * The advantage of using this method is that an instance of the component may be obtained even
      * prior to registering an implementation for the component.
      */
-    Object getComponentInstance();
+    Object getComponentInstance(ProxyableComponent component);
 
     /**
      * This method will return a concrete instance of this component. The component instance
@@ -42,7 +42,7 @@ public interface ComponentStrategy
      * @throws WrapperException
      *         Wraps the actual exception thrown while obtaining the concrete component instance.
      */
-    Object getConcreteComponentInstance();
+    Object getConcreteComponentInstance(ProxyableComponent component);
 
     /**
      * This method will accept a component instance and return it to its cache.

@@ -19,15 +19,15 @@ import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentStrategy.java,v 1.1 2004-05-22 20:19:35 harishkswamy Exp $
+ * @version $Id: SingletonComponentStrategy.java,v 1.2 2004-06-14 04:15:19 harishkswamy Exp $
  */
 public class SingletonComponentStrategy extends LazyLoadingComponentStrategy
 {
     private Object _componentInstance;
 
-    public SingletonComponentStrategy(ComponentStrategy delegate, ProxyableComponent component)
+    public SingletonComponentStrategy(ComponentStrategy delegate)
     {
-        super(delegate, component);
+        super(delegate);
     }
 
     private synchronized void cacheComponent(Object componentInstance)
@@ -36,16 +36,16 @@ public class SingletonComponentStrategy extends LazyLoadingComponentStrategy
             _componentInstance = componentInstance;
     }
 
-    public Object getConcreteComponentInstance()
+    public Object getConcreteComponentInstance(ProxyableComponent component)
     {
         if (_componentInstance == null)
-            cacheComponent(super.getConcreteComponentInstance());
+            cacheComponent(super.getConcreteComponentInstance(component));
 
         return _componentInstance;
     }
 
     public String toString()
     {
-        return "[Singleton: " + super.toString() + "]";
+        return " [Singleton" + decoratedStrategyToString() + "] ";
     }
 }

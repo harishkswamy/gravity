@@ -21,31 +21,31 @@ import gravity.util.ThreadPreTerminationObserver;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentStrategy.java,v 1.1 2004-05-22 20:19:31 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentStrategy.java,v 1.2 2004-06-14 04:15:19 harishkswamy Exp $
  */
 public class ThreadLocalComponentStrategy extends DispatchingComponentStrategy implements
     ThreadPreTerminationObserver
 {
     private CleanableThreadLocal _threadLocal;
 
-    public ThreadLocalComponentStrategy(ComponentStrategy delegate, ProxyableComponent component)
+    public ThreadLocalComponentStrategy(ComponentStrategy delegate)
     {
-        super(delegate, component);
+        super(delegate);
 
         // This will register for ThreadEvents and notify us when appropriate.
         _threadLocal = new CleanableThreadLocal(this);
     }
 
-    private synchronized void cacheComponent(Object component)
+    private synchronized void cacheComponent(Object compInst)
     {
         if (_threadLocal.get() == null)
-            _threadLocal.set(component);
+            _threadLocal.set(compInst);
     }
 
-    public Object getConcreteComponentInstance()
+    public Object getConcreteComponentInstance(ProxyableComponent component)
     {
         if (_threadLocal.get() == null)
-            cacheComponent(super.getConcreteComponentInstance());
+            cacheComponent(super.getConcreteComponentInstance(component));
 
         return _threadLocal.get();
     }
@@ -61,6 +61,6 @@ public class ThreadLocalComponentStrategy extends DispatchingComponentStrategy i
 
     public String toString()
     {
-        return "[Thread Local: " + super.toString() + "]";
+        return " [Thread Local" + decoratedStrategyToString() + "] ";
     }
 }

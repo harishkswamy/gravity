@@ -20,24 +20,29 @@ import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: LazyLoadingComponentStrategy.java,v 1.1 2004-05-22 20:19:33 harishkswamy Exp $
+ * @version $Id: LazyLoadingComponentStrategy.java,v 1.2 2004-06-14 04:15:20 harishkswamy Exp $
  */
 public class LazyLoadingComponentStrategy extends ComponentStrategyDecorator
 {
-    public LazyLoadingComponentStrategy(ComponentStrategy decorator, ProxyableComponent component)
+    public LazyLoadingComponentStrategy(ComponentStrategy decorator)
     {
-        super(decorator, component);
+        super(decorator);
     }
 
-    public Object getComponentInstance()
+    public Object getComponentInstance(ProxyableComponent component)
     {
         ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
 
-        return proxy.newInstance(_component);
+        return proxy.newInstance(component);
     }
 
     public boolean isDispatching()
     {
         return false;
+    }
+
+    public String toString()
+    {
+        return " [Lazy Loading" + decoratedStrategyToString() + "] ";
     }
 }
