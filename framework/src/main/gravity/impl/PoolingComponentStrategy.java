@@ -15,17 +15,27 @@
 package gravity.impl;
 
 import gravity.ComponentStrategy;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.util.Pool;
 
 /**
+ * This is a lazy loading strategy that will pool the generated concrete component instances. When
+ * the use for the returned instance is over, it can be returned back to the pool via
+ * {@link #collectComponentInstance(Object)}. The size of the pool can be configured by overriding
+ * {@link gravity.impl.ComponentFactory#newPoolingStrategy(ComponentStrategy)}and creating this
+ * strategy via {@link PoolingComponentStrategy(ComponentStrategy, int)}.
+ * 
+ * @see gravity.util.Pool
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentStrategy.java,v 1.2 2004-06-14 04:15:19 harishkswamy Exp $
+ * @version $Id: PoolingComponentStrategy.java,v 1.3 2004-09-02 04:04:48 harishkswamy Exp $
  */
 public class PoolingComponentStrategy extends LazyLoadingComponentStrategy
 {
     private Pool _pool;
 
+    /**
+     * Creates a new pooling strategy with a pool of the specified size.
+     */
     public PoolingComponentStrategy(ComponentStrategy decorator, int poolSize)
     {
         super(decorator);
@@ -33,18 +43,24 @@ public class PoolingComponentStrategy extends LazyLoadingComponentStrategy
         _pool = new Pool(poolSize);
     }
 
+    /**
+     * Creates a new pooling strategy with a pool of the default size.
+     */
     public PoolingComponentStrategy(ComponentStrategy delegate)
     {
         this(delegate, 0);
     }
 
-    public Object getConcreteComponentInstance(ProxyableComponent component)
+    /**
+     *
+     */
+    public Object getComponentInstance(RealizableComponent component)
     {
         Object compInst = _pool.loan();
 
         if (compInst == null)
         {
-            compInst = super.getConcreteComponentInstance(component);
+            compInst = super.getComponentInstance(component);
 
             _pool.loaned(compInst);
         }

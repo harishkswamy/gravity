@@ -15,8 +15,13 @@
 package gravity;
 
 /**
+ * This is a callback that users can use to plugin some code at different phases in the life-cycle
+ * of the component. The various phases at which callbacks can be plugged are defined in
+ * {@link gravity.ComponentPhase}.
+ * 
+ * @see gravity.ComponentPhase
  * @author Harish Krishnaswamy
- * @version $Id: ComponentCallback.java,v 1.3 2004-06-14 04:23:40 harishkswamy Exp $
+ * @version $Id: ComponentCallback.java,v 1.4 2004-09-02 04:04:47 harishkswamy Exp $
  */
 public class ComponentCallback
 {

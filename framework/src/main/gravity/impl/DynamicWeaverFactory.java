@@ -18,14 +18,15 @@ import gravity.DynamicWeaver;
 import gravity.Gravity;
 import gravity.WrapperException;
 import gravity.util.ClassUtils;
+import gravity.util.Message;
 
 /**
  * This is a factory that produces {@link gravity.DynamicWeaver}.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DynamicWeaverFactory.java,v 1.3 2004-05-18 20:52:04 harishkswamy Exp $
+ * @version $Id: DynamicWeaverFactory.java,v 1.4 2004-09-02 04:04:48 harishkswamy Exp $
  */
-public class DynamicWeaverFactory
+public final class DynamicWeaverFactory
 {
     private static DynamicWeaver _weaver;
 
@@ -61,7 +62,8 @@ public class DynamicWeaverFactory
         }
         catch (ClassCastException e)
         {
-            throw WrapperException.wrap(e, className + " must implement gravity.DynamicWeaver.");
+            throw WrapperException.wrap(e, Message.INVALID_CLASS_TYPE, className,
+                "gravity.DynamicWeaver");
         }
     }
 

@@ -14,29 +14,34 @@
 
 package gravity.impl;
 
-import gravity.ComponentInvocationHandler;
 import gravity.ComponentProxy;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.WrapperException;
 import gravity.util.ClassUtils;
+import gravity.util.Message;
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
 
 /**
+ * This is the CgLib version of {@link gravity.ComponentProxy}.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentProxy.java,v 1.4 2004-05-22 20:19:33 harishkswamy Exp $
+ * @version $Id: CglibComponentProxy.java,v 1.5 2004-09-02 04:04:49 harishkswamy Exp $
  */
 public class CglibComponentProxy implements ComponentProxy
 {
     /**
-     * This method must return a Cglib callback.
+     * This method can be overriden to provided a custom {@link Callback}.
      */
-    protected ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)
+    protected Callback newComponentInvocationHandler(RealizableComponent comp)
     {
         return new CglibComponentInvocationHandler(comp);
     }
 
-    public Object newInstance(ProxyableComponent comp)
+    /**
+     * This creates a new proxy instance for the provided component.
+     */
+    public Object newInstance(RealizableComponent comp)
     {
         try
         {
@@ -46,13 +51,13 @@ public class CglibComponentProxy implements ComponentProxy
 
             enhancer.setSuperclass(comp.getInterface());
 
-            enhancer.setCallback((Callback) newComponentInvocationHandler(comp));
+            enhancer.setCallback(newComponentInvocationHandler(comp));
 
             return enhancer.create();
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to create proxy for: " + comp);
+            throw WrapperException.wrap(e, Message.CANNOT_CREATE_PROXY, comp);
         }
     }
 }

@@ -14,38 +14,46 @@
 
 package gravity.impl;
 
-import gravity.ComponentInvocationHandler;
 import gravity.ComponentProxy;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.WrapperException;
 import gravity.util.ClassUtils;
+import gravity.util.Message;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
 /**
+ * This is the JDK version of {@link gravity.ComponentProxy}.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxy.java,v 1.4 2004-05-22 20:19:35 harishkswamy Exp $
+ * @version $Id: JdkComponentProxy.java,v 1.5 2004-09-02 04:04:49 harishkswamy Exp $
  */
 public class JdkComponentProxy implements ComponentProxy
 {
-    protected ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)
+    /**
+     * This method can be overriden to provided a custom {@link InvocationHandler}.
+     */
+    protected InvocationHandler newComponentInvocationHandler(RealizableComponent comp)
     {
         return new JdkComponentInvocationHandler(comp);
     }
 
-    public Object newInstance(ProxyableComponent comp)
+    /**
+     * This creates a new proxy instance for the provided component.
+     */
+    public Object newInstance(RealizableComponent comp)
     {
         try
         {
             ClassLoader classLoader = ClassUtils.getClassLoader(comp.getInterface());
 
             return Proxy.newProxyInstance(classLoader, new Class[]{comp.getInterface()},
-                (InvocationHandler) newComponentInvocationHandler(comp));
+                newComponentInvocationHandler(comp));
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to create proxy for: " + comp);
+            throw WrapperException.wrap(e, Message.CANNOT_CREATE_PROXY, comp);
         }
     }
 }

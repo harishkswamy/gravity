@@ -17,7 +17,7 @@ package gravity.impl;
 import gravity.Component;
 import gravity.ComponentCallback;
 import gravity.Location;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 
 /**
  * This is the default component implementation. This implementation delegates instance creation to
@@ -27,9 +27,9 @@ import gravity.ProxyableComponent;
  * component is simply one facet of the implementation.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.12 2004-08-10 16:25:19 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.13 2004-09-02 04:04:48 harishkswamy Exp $
  */
-public class DefaultComponent implements ProxyableComponent
+public class DefaultComponent implements RealizableComponent
 {
     private ComponentKey     _key;
     private ComponentFactory _factory;
@@ -50,9 +50,7 @@ public class DefaultComponent implements ProxyableComponent
 
     public void registerImplementation(Component comp)
     {
-        ProxyableComponent pComp = (ProxyableComponent) comp;
-
-        _factory = (ComponentFactory) pComp.getFactory();
+        _factory = (ComponentFactory) comp.getFactory();
     }
 
     public void registerImplementation(Class compClass, Object[] ctorArgs,

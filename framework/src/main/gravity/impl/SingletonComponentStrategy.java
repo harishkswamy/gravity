@@ -15,11 +15,11 @@
 package gravity.impl;
 
 import gravity.ComponentStrategy;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentStrategy.java,v 1.2 2004-06-14 04:15:19 harishkswamy Exp $
+ * @version $Id: SingletonComponentStrategy.java,v 1.3 2004-09-02 04:04:49 harishkswamy Exp $
  */
 public class SingletonComponentStrategy extends LazyLoadingComponentStrategy
 {
@@ -30,16 +30,16 @@ public class SingletonComponentStrategy extends LazyLoadingComponentStrategy
         super(delegate);
     }
 
-    private synchronized void cacheComponent(Object componentInstance)
+    private synchronized void cache(Object componentInstance)
     {
         if (_componentInstance == null)
             _componentInstance = componentInstance;
     }
 
-    public Object getConcreteComponentInstance(ProxyableComponent component)
+    public Object getComponentInstance(RealizableComponent component)
     {
         if (_componentInstance == null)
-            cacheComponent(super.getConcreteComponentInstance(component));
+            cache(super.getComponentInstance(component));
 
         return _componentInstance;
     }

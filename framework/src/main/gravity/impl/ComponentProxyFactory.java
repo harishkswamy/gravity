@@ -18,17 +18,23 @@ import gravity.ComponentProxy;
 import gravity.Gravity;
 import gravity.WrapperException;
 import gravity.util.ClassUtils;
+import gravity.util.Message;
 
 /**
+ * This is a factory that produces {@link gravity.ComponentProxy}. By default this class produces a
+ * proxy generator of type {@link gravity.impl.JdkComponentProxy}, but it can produce custom
+ * generators simply by accessing the Gravity property
+ * {@link gravity.Gravity#COMPONENT_PROXY_CLASS_NAME_KEY}when it is set to a custom class name.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxyFactory.java,v 1.3 2004-05-22 20:19:34 harishkswamy Exp $
+ * @version $Id: ComponentProxyFactory.java,v 1.4 2004-09-02 04:04:49 harishkswamy Exp $
  */
-public class ComponentProxyFactory
+public final class ComponentProxyFactory
 {
     private static final ComponentProxyFactory INSTANCE = new ComponentProxyFactory();
     private ComponentProxy                     _proxy;
 
-    protected ComponentProxyFactory()
+    private ComponentProxyFactory()
     {
         // Singleton
     }
@@ -56,7 +62,8 @@ public class ComponentProxyFactory
         }
         catch (ClassCastException e)
         {
-            throw WrapperException.wrap(e, className + " must implement gravity.ComponentProxy.");
+            throw WrapperException.wrap(e, Message.INVALID_CLASS_TYPE, className,
+                "gravity.ComponentProxy");
         }
     }
 

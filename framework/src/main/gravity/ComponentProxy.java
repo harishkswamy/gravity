@@ -18,9 +18,12 @@ package gravity;
  * This will act as a proxy for the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxy.java,v 1.4 2004-05-22 20:19:30 harishkswamy Exp $
+ * @version $Id: ComponentProxy.java,v 1.5 2004-09-02 04:04:47 harishkswamy Exp $
  */
 public interface ComponentProxy
 {
-    Object newInstance(ProxyableComponent comp);
+    /**
+     * Implementations will produce proxies for the provided component.
+     */
+    Object newInstance(RealizableComponent comp);
 }

@@ -14,17 +14,19 @@
 
 package gravity.impl;
 
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import net.sf.cglib.proxy.Dispatcher;
 
 /**
+ * This is the CgLib version of component invocation handler.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentInvocationHandler.java,v 1.3 2004-05-18 20:52:03 harishkswamy Exp $
+ * @version $Id: CglibComponentInvocationHandler.java,v 1.4 2004-09-02 04:04:49 harishkswamy Exp $
  */
 public class CglibComponentInvocationHandler extends AbstractComponentInvocationHandler implements
     Dispatcher
 {
-    public CglibComponentInvocationHandler(ProxyableComponent comp)
+    public CglibComponentInvocationHandler(RealizableComponent comp)
     {
         super(comp);
     }

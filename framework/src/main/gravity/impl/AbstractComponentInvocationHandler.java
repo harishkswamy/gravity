@@ -14,25 +14,42 @@
 
 package gravity.impl;
 
-import gravity.ComponentInvocationHandler;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.WrapperException;
+import gravity.util.Message;
 
 /**
+ * This class is basically a template for various proxy-invocation-handler-implementations to use.
+ * This class defines the algorithm to obtain a concrete component instance that subclasses must
+ * use.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: AbstractComponentInvocationHandler.java,v 1.3 2004-05-18 20:52:04 harishkswamy Exp $
+ * @version $Id: AbstractComponentInvocationHandler.java,v 1.4 2004-09-02 04:04:49 harishkswamy Exp $
  */
-public abstract class AbstractComponentInvocationHandler implements ComponentInvocationHandler
+public abstract class AbstractComponentInvocationHandler
 {
-    protected ProxyableComponent _component;
-    protected Object             _componentInstance;
+    protected RealizableComponent _component;
 
-    protected AbstractComponentInvocationHandler(ProxyableComponent comp)
+    /**
+     * This instance is cached here so if the component is not in dispatching state, the calls to
+     * the component will always go to the originally returned instance.
+     */
+    protected Object              _componentInstance;
+
+    protected AbstractComponentInvocationHandler(RealizableComponent comp)
     {
         _component = comp;
     }
 
-    protected Object getConcreteComponentInstance()
+    /**
+     * This is the the algorithm to obtain a concrete component instance that subclasses must use.
+     * <p>
+     * The state of the proxyable component is checked for every call here to enable the dynamic
+     * behavior. This way a component can change its strategy even after the instance was returned
+     * to the caller and yet it will always obey the strategy (ThreadLocal/Lazy/Pooled ...)
+     * prevalent at the time of the call.
+     */
+    protected final Object getConcreteComponentInstance()
     {
         try
         {
@@ -42,6 +59,11 @@ public abstract class AbstractComponentInvocationHandler implements ComponentInv
             {
                 instance = _component.getConcreteInstance();
 
+                /*
+                 * The cached instance should be cleared here so it can be garbage-collected and if
+                 * ever the component returns to a non-dispatching state, the first call after, will
+                 * get a new instance - handled in the else block.
+                 */
                 _componentInstance = null;
             }
             else
@@ -56,8 +78,8 @@ public abstract class AbstractComponentInvocationHandler implements ComponentInv
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to get concrete instance for component: "
-                + _component);
+            throw WrapperException.wrap(e, Message.CANNOT_GET_CONCRETE_COMPONENT_INSTANCE,
+                _component);
         }
     }
 }

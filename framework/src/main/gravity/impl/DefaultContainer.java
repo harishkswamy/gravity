@@ -36,7 +36,7 @@ import java.util.Map;
  * synchronized by the client.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.8 2004-06-14 04:23:45 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.9 2004-09-02 04:04:49 harishkswamy Exp $
  */
 public class DefaultContainer implements MutableContainer
 {
@@ -67,16 +67,16 @@ public class DefaultContainer implements MutableContainer
 
     private Component getComponent(Object compKey)
     {
-        Component compFactory = (Component) _componentCache.get(compKey);
+        Component comp = (Component) _componentCache.get(compKey);
 
-        if (compFactory == null)
+        if (comp == null)
         {
-            compFactory = newDefaultComponent(compKey);
+            comp = newDefaultComponent(compKey);
 
-            _componentCache.put(compKey, compFactory);
+            _componentCache.put(compKey, comp);
         }
 
-        return compFactory;
+        return comp;
     }
 
     // MutableContainer methods ====================================================================

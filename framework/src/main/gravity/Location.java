@@ -15,8 +15,11 @@
 package gravity;
 
 /**
+ * This class locates a particular component entry in the configuration files with a precision upto
+ * the line number. This is primarily used in the messages in the event of an exception.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: Location.java,v 1.2 2004-06-14 04:23:43 harishkswamy Exp $
+ * @version $Id: Location.java,v 1.3 2004-09-02 04:04:48 harishkswamy Exp $
  */
 public class Location
 {

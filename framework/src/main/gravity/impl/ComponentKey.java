@@ -18,8 +18,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * This is the key that will uniquely identify a component within the container. This key is 
+ * composed of the component interface and optionally a component type (a string identifier).
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentKey.java,v 1.3 2004-05-29 16:38:10 harishkswamy Exp $
+ * @version $Id: ComponentKey.java,v 1.4 2004-09-02 04:04:48 harishkswamy Exp $
  */
 public class ComponentKey
 {

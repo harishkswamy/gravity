@@ -19,17 +19,23 @@ import java.util.Map;
 
 /**
  * The container houses all components and their configuration data and serve the housed 
- * components and data when requested.
+ * components and configuration data when requested.
  * <p>
  * The container also manages the life cycle of the housed components.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Container.java,v 1.4 2004-06-14 04:23:44 harishkswamy Exp $
+ * @version $Id: Container.java,v 1.5 2004-09-02 04:04:47 harishkswamy Exp $
  */
 public interface Container
 {
+    /**
+     * Generates and returns a key from the given interface and type.
+     */
     Object getComponentKey(Class compIntf, Object compType);
 
+    /**
+     * Generates and returns a key from the given interface.
+     */
     Object getComponentKey(Class compIntf);
 
     /**

@@ -15,13 +15,13 @@
 package gravity.impl;
 
 import gravity.ComponentStrategy;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.util.CleanableThreadLocal;
 import gravity.util.ThreadPreTerminationObserver;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentStrategy.java,v 1.2 2004-06-14 04:15:19 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentStrategy.java,v 1.3 2004-09-02 04:04:48 harishkswamy Exp $
  */
 public class ThreadLocalComponentStrategy extends DispatchingComponentStrategy implements
     ThreadPreTerminationObserver
@@ -42,10 +42,10 @@ public class ThreadLocalComponentStrategy extends DispatchingComponentStrategy i
             _threadLocal.set(compInst);
     }
 
-    public Object getConcreteComponentInstance(ProxyableComponent component)
+    public Object getComponentInstance(RealizableComponent component)
     {
         if (_threadLocal.get() == null)
-            cacheComponent(super.getConcreteComponentInstance(component));
+            cacheComponent(super.getComponentInstance(component));
 
         return _threadLocal.get();
     }

@@ -14,21 +14,22 @@
 
 package gravity.impl;
 
-import gravity.ProxyableComponent;
-import gravity.WrapperException;
+import gravity.RealizableComponent;
+import gravity.util.ReflectUtils;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
+ * This is the JDK version of component invocation handler.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentInvocationHandler.java,v 1.4 2004-05-27 21:01:07 harishkswamy Exp $
+ * @version $Id: JdkComponentInvocationHandler.java,v 1.5 2004-09-02 04:04:48 harishkswamy Exp $
  */
 public class JdkComponentInvocationHandler extends AbstractComponentInvocationHandler implements
     InvocationHandler
 {
-    public JdkComponentInvocationHandler(ProxyableComponent comp)
+    public JdkComponentInvocationHandler(RealizableComponent comp)
     {
         super(comp);
     }
@@ -37,17 +38,6 @@ public class JdkComponentInvocationHandler extends AbstractComponentInvocationHa
     {
         Object instance = getConcreteComponentInstance();
 
-        try
-        {
-            return method.invoke(instance, args);
-        }
-        catch (Throwable t)
-        {
-            if (t instanceof InvocationTargetException)
-                t = ((InvocationTargetException) t).getTargetException();
-
-            throw WrapperException.wrap(t, "Unable to invoke method: " + method + " on component: "
-                + _component);
-        }
+        return ReflectUtils.invokeMethod(instance, method, args, _component);
     }
 }
