@@ -21,7 +21,7 @@ import java.util.Map;
  * component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentFactory.java,v 1.1 2004-05-10 17:29:04 harishkswamy Exp $
+ * @version $Id: ComponentFactory.java,v 1.2 2004-05-12 04:43:36 harishkswamy Exp $
  */
 public interface ComponentFactory
 {
@@ -66,16 +66,6 @@ public interface ComponentFactory
      * of an error.
      */
     void registerComponentRetrievalLocation(Location location);
-
-    /**
-     * This method will return a concrete instance of the component registered with this factory.
-     * The component instance indentity is implementation dependent. This method will throw a
-     * runtime exception if invoked prior to registering an implementation for the component.
-     * 
-     * @throws WrapperException
-     *         Wraps the actual exception thrown while obtaining the concrete component instance.
-     */
-    Object getConcreteComponentInstance();
 
     /**
      * This method should be used to return a component instance obtained via
