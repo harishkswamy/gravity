@@ -16,15 +16,23 @@ package gravity.impl;
 
 import gravity.Component;
 import gravity.ComponentCallback;
+import gravity.ComponentStrategyType;
 import gravity.Location;
 import gravity.MutableContainer;
+import gravity.MutableContext;
+import gravity.Plugin;
 import gravity.UsageException;
+import gravity.util.ClassUtils;
 import gravity.util.ThreadEvent;
+import gravity.util.Utils;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * This is a mutable container that houses components and their configuration data.
@@ -32,23 +40,92 @@ import java.util.Map;
  * Although components and configuration data can be added to this container at runtime, the initial
  * build step should typically be in a single startup thread.
  * <p>
- * This container is not thread safe; so any registrations that may occur during runtime needs to
- * synchronized by the client.
+ * This container is not thread safe; so any concurrent registrations that may occur during runtime
+ * needs to synchronized by the client.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.9 2004-09-02 04:04:49 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.10 2004-11-17 19:49:04 harishkswamy Exp $
  */
-public class DefaultContainer implements MutableContainer
+public final class DefaultContainer implements MutableContainer
 {
+    private MutableContext _context;
+
     /**
      * Components container.
      */
-    private Map _componentCache      = new HashMap();
+    private Map            _componentCache      = new HashMap();
 
     /**
      * Configurations container.
      */
-    private Map _configuarationCache = new HashMap();
+    private Map            _configuarationCache = new HashMap();
+
+    /**
+     * This method can be overridden to retrieve plugn manifest files from other sources.
+     * 
+     * @return Returns an enumeration of plugin manifest files found in the classpath.
+     * @see MutableContainer#PLUGIN_MANIFEST_FILE_PATH
+     */
+    protected Enumeration getPluginManifestFiles()
+    {
+        return ClassUtils.getResources(PLUGIN_MANIFEST_FILE_PATH);
+    }
+
+    /**
+     * @return Returns the location of the plugin manifest file from the provided URL.
+     */
+    protected String getPluginLocation(URL url)
+    {
+        String urlStr = url.toString();
+
+        return urlStr.substring(0, urlStr.lastIndexOf(PLUGIN_MANIFEST_FILE_PATH));
+    }
+
+    private Plugin getPlugin(Properties pluginProps)
+    {
+        String pluginClassName = pluginProps.getProperty(Plugin.class.getName());
+
+        // Return the plugin from the plugin manifest file
+        if (pluginClassName != null)
+            return (Plugin) ClassUtils.newInstance(pluginClassName);
+
+        // Return the default plugin
+        return (Plugin) _context.newApiInstance(Plugin.class.getName(), null);
+    }
+
+    private void acceptPlugins()
+    {
+        Enumeration e = getPluginManifestFiles();
+
+        while (e.hasMoreElements())
+        {
+            URL url = (URL) e.nextElement();
+
+            Properties props = _context.getProperties();
+
+            // This will override the defaults defined in the framework properties.
+            props.putAll(Utils.loadProperties(url));
+
+            props.setProperty(Plugin.LOCATION_URL_KEY, getPluginLocation(url));
+
+            Plugin plugin = getPlugin(props);
+
+            plugin.startup(props, this);
+        }
+    }
+
+    private void load()
+    {
+        acceptPlugins();
+    }
+
+    public DefaultContainer(MutableContext context)
+    {
+        _context = context;
+        _context.setContainer(this);
+
+        load();
+    }
 
     public Object getComponentKey(Class compIntf, Object compType)
     {
@@ -60,18 +137,15 @@ public class DefaultContainer implements MutableContainer
         return ComponentKey.get(compIntf, null);
     }
 
-    protected Component newDefaultComponent(Object compKey)
-    {
-        return new DefaultComponent((ComponentKey) compKey);
-    }
-
     private Component getComponent(Object compKey)
     {
         Component comp = (Component) _componentCache.get(compKey);
 
         if (comp == null)
         {
-            comp = newDefaultComponent(compKey);
+            Object[] args = new Object[]{_context, compKey};
+
+            comp = (Component) _context.newApiInstance(Component.class.getName(), args);
 
             _componentCache.put(compKey, comp);
         }
@@ -170,29 +244,11 @@ public class DefaultContainer implements MutableContainer
     /**
      * @return Component key.
      */
-    public Object wrapComponentStrategyWithSingleton(Object compKey)
+    public Object wrapComponentStrategy(Object compKey, ComponentStrategyType strategyType)
     {
         Component comp = getComponent(compKey);
 
-        comp.wrapStrategyWithSingleton();
-
-        return compKey;
-    }
-
-    public Object wrapComponentStrategyWithPooling(Object compKey)
-    {
-        Component comp = getComponent(compKey);
-
-        comp.wrapStrategyWithPooling();
-
-        return compKey;
-    }
-
-    public Object wrapComponentStrategyWithThreadLocal(Object compKey)
-    {
-        Component comp = getComponent(compKey);
-
-        comp.wrapStrategyWithThreadLocal();
+        comp.wrapStrategy(strategyType);
 
         return compKey;
     }
@@ -225,7 +281,7 @@ public class DefaultContainer implements MutableContainer
      * 
      * @return The component registered for the supplied key.
      * @throws UsageException
-     *         When no component is registered for the supplied key.
+     *             When no component is registered for the supplied key.
      */
     public Object getComponentInstance(Object compKey)
     {
