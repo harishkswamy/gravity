@@ -1,9 +1,9 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN" 
 	"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
 
-    <!ENTITY ApiRoot "../api/org/apache/tapestry">
-    <!ENTITY BshPlugin '<ulink url="&ApiRoot;/gravity/plugins/BshPlugin.html"><classname>BshPlugin</classname></ulink>'>
-    <!ENTITY ComponentCallback '<ulink url="&ApiRoot;/gravity/ComponentCallback.html"><classname>ComponentCallback</classname></ulink>'>
+    <!ENTITY ApiRoot "../api/gravity">
+    <!ENTITY BshPlugin '<ulink url="&ApiRoot;/plugins/BshPlugin.html"><classname>BshPlugin</classname></ulink>'>
+    <!ENTITY ComponentCallback '<ulink url="&ApiRoot;/ComponentCallback.html"><classname>ComponentCallback</classname></ulink>'>
 
     <!ENTITY componentKey '<emphasis role="options">{<replaceable>&lt;Component Key of type Object&gt;</replaceable> | <replaceable>&lt;Component Interface Class&gt;</replaceable><emphasis role="optional">[, <replaceable>&lt;Component Type of type Object&gt;</replaceable>]</emphasis>}</emphasis>'>
 
