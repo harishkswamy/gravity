@@ -14,19 +14,19 @@
 
 package gravity.plugins;
 
-import gravity.ComponentLifeCycleMethod;
-import gravity.ComponentLifeCyclePhase;
+import gravity.ComponentCallback;
+import gravity.ComponentPhase;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginHelper.java,v 1.1 2004-05-24 00:38:41 harishkswamy Exp $
+ * @version $Id: BshPluginHelper.java,v 1.2 2004-05-27 03:33:48 harishkswamy Exp $
  */
 public class BshPluginHelper
 {
-    public ComponentLifeCycleMethod newComponentMethod(Object[] args, ComponentLifeCyclePhase stage)
+    public ComponentCallback newComponentMethod(Object[] args, ComponentPhase phase)
     {
         if (args == null || args.length == 0)
             return null;
@@ -38,28 +38,28 @@ public class BshPluginHelper
         for (int i = 1; i < args.length; i++)
             mthdArgs[i - 1] = args[i];
 
-        return new ComponentLifeCycleMethod(methodName, mthdArgs, stage);
+        return new ComponentCallback(methodName, mthdArgs, phase);
     }
 
-    public ComponentLifeCycleMethod newInjectionMethod(Object[] args)
+    public ComponentCallback newInjectionMethod(Object[] args)
     {
-        return newComponentMethod(args, ComponentLifeCyclePhase.INJECTION);
+        return newComponentMethod(args, ComponentPhase.INJECTION);
     }
 
-    public ComponentLifeCycleMethod newStartUpMethod(Object[] args)
+    public ComponentCallback newStartupMethod(Object[] args)
     {
-        return newComponentMethod(args, ComponentLifeCyclePhase.START_UP);
+        return newComponentMethod(args, ComponentPhase.START_UP);
     }
 
-    public ComponentLifeCycleMethod newShutdownMethod(Object[] args)
+    public ComponentCallback newShutdownMethod(Object[] args)
     {
-        return newComponentMethod(args, ComponentLifeCyclePhase.SHUTDOWN);
+        return newComponentMethod(args, ComponentPhase.SHUTDOWN);
     }
 
-    public ComponentLifeCycleMethod[] toComponentLifeCycleMethodArray(Object[] methods)
+    public ComponentCallback[] toComponentCallbackArray(Object[] methods)
     {
         List methodList = Arrays.asList(methods);
         
-        return(ComponentLifeCycleMethod[]) methodList.toArray(new ComponentLifeCycleMethod[0]);
+        return(ComponentCallback[]) methodList.toArray(new ComponentCallback[0]);
     }
 }
