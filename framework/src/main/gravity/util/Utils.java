@@ -23,7 +23,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Utils.java,v 1.3 2004-05-29 17:01:41 harishkswamy Exp $
+ * @version $Id: Utils.java,v 1.4 2004-06-14 04:21:07 harishkswamy Exp $
  */
 public class Utils
 {
@@ -91,23 +91,5 @@ public class Utils
         {
             throw WrapperException.wrap(e, "Cannot load properties from " + url);
         }
-    }
-
-    public static String arrayToString(Object[] objs)
-    {
-        if (objs == null)
-            return "null";
-
-        if (objs.length <= 0)
-            return "[]";
-
-        StringBuffer buf = new StringBuffer();
-
-        for (int i = 0; i < objs.length - 1; i++)
-            buf.append(objs[i]).append(", ");
-
-        buf.append(objs[objs.length - 1]);
-
-        return buf.toString();
     }
 }
