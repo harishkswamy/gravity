@@ -14,10 +14,10 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!-- $Id: common-build.xml,v 1.5 2004-09-02 03:48:53 harishkswamy Exp $ -->
+<!-- $Id: common-build.xml,v 1.6 2004-09-02 13:34:19 harishkswamy Exp $ -->
 <project name="common-build" basedir="." default="coverage">
 
-	<!-- ========== Executable Targets ======================================== -->
+	<!-- =================== Begin: init targets ==================== -->
 
 	<target name="pre-init" />
 
@@ -89,6 +89,10 @@
 
 	<target name="post-init" />
 
+	<!-- =================== End: init targets ==================== -->
+
+	<!-- ================ Begin: clean targets ================== -->
+
 	<target name="pre-clean" />
 
 	<target name="clean" description="Cleanup the build space" depends="init, pre-clean">
@@ -100,6 +104,10 @@
 	</target>
 
 	<target name="post-clean" />
+
+	<!-- ================ End: clean targets ================== -->
+
+	<!-- ================ Begin: set-up targets ================== -->
 
 	<target name="pre-set-up" />
 
@@ -115,6 +123,10 @@
 	</target>
 
 	<target name="post-set-up" />
+
+	<!-- ================ End: set-up targets ================== -->
+
+	<!-- ================ Begin: compile macros/targets ================== -->
 
 	<macrodef name="compile-macro">
 		<attribute name="srcdir" default="${main.src.dir}" />
@@ -145,6 +157,10 @@
 		               classpath="main.classpath"
 		/>
 	</target>
+
+	<!-- ================ End: compile macros/targets ================== -->
+
+	<!-- ================ Begin: test macros/targets ================== -->
 
 	<macrodef name="test-macro">
 		<attribute name="classpath" default="test.classpath" />
@@ -181,11 +197,12 @@
 		<test-macro />
 	</target>
 
-	<!-- ========== Begin: Documentation targets ========== -->
+	<!-- ================ End: test macros/targets ================== -->
 
-	<!-- Clover code coverage targets -->
+	<!-- ========== Begin: Clover code coverage targets ========== -->
+
 	<target name="coverage" depends="compile-test">
-		<!-- Compile test classes first prior to turning the instrumentation on; hence the
+		<!-- Compile test classes first prior to turning Clover instrumentation on; hence the
              dependency on "compile-test". -->
 
 		<!-- Import Clover tasks and types -->
@@ -221,7 +238,10 @@
 		<clover-setup enabled="no" />
 	</target>
 
-	<!-- Javadoc target -->
+	<!-- ========== End: Clover code coverage targets ========== -->
+
+	<!-- ========== Begin: javadoc targets ========== -->
+
 	<target name="javadoc" description="Build Javadoc documentation" depends="compile-main">
 		<mkdir dir="${docs.build.dir}/api" />
 
@@ -238,7 +258,9 @@
 		/>
 	</target>
 
-	<!-- User's Manual targets - borrowed from dynaop -->
+	<!-- ========== End: javadoc targets ========== -->
+
+	<!-- ========== Begin: User's Manual targets - borrowed from dynaop ========== -->
 
 	<target name="untar.docbook" unless="docbook.untarred">
 		<property name="docbook.tgz" value="${manual.src.dir}/${docbook.basename}.tar.gz" />
@@ -267,7 +289,9 @@
 
 	<target name="manual" description="Generate User's Guide." depends="set-up, manual-render" />
 
-	<!-- ========== End: Documentation targets ========== -->
+	<!-- ========== End: User's Manual targets - borrowed from dynaop ========== -->
+
+	<!-- ========== Begin: jar macros/targets ========== -->
 
 	<macrodef name="jar-macro">
 		<attribute name="includes" default="**/*" />
@@ -293,11 +317,25 @@
 
 	<target name="jar" description="Create binary distribution" depends="compile-main, jar-sub" />
 
-	<target name="all" depends="clean, coverage, javadoc, manual, jar" />
+	<!-- ========== End: jar macros/targets ========== -->
 
-	<target name="dist" depends="set-up">
+	<!-- ========== Begin: all targets ========== -->
+
+	<target name="all"
+	        description="Run all targets except dist"
+	        depends="clean, coverage, javadoc, manual, jar"
+	/>
+
+	<!-- ========== End: all targets ========== -->
+
+	<!-- ========== Begin: dist targets ========== -->
+
+	<target name="dist" description="Copy docs from build to dist folder" depends="set-up">
 		<copy todir="${www.dir}/docs">
 			<fileset dir="${docs.build.dir}" includes="**" excludes="${docbook.basename}/" />
 		</copy>
 	</target>
+
+	<!-- ========== End: dist targets ========== -->
+
 </project>
