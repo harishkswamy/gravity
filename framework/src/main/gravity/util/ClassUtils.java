@@ -20,13 +20,16 @@ import gravity.WrapperException;
 import java.net.URL;
 import java.util.Enumeration;
 
-// TODO fix messages usability, change cannot to unable
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ClassUtils.java,v 1.5 2004-09-02 13:50:41 harishkswamy Exp $
+ * @version $Id: ClassUtils.java,v 1.6 2004-11-17 20:19:08 harishkswamy Exp $
  */
 public class ClassUtils
 {
+    /**
+     * @return Returns the current thread's context class loader; when not found it returns the
+     *         system class loader.
+     */
     public static ClassLoader getClassLoader()
     {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -34,6 +37,10 @@ public class ClassUtils
         return loader == null ? ClassLoader.getSystemClassLoader() : loader;
     }
 
+    /**
+     * @return Returns the class loader of the provided class; when not found it returns the class
+     *         loader from {@link #getClassLoader()}.
+     */
     public static ClassLoader getClassLoader(Class clazz)
     {
         ClassLoader loader = clazz.getClassLoader();
@@ -42,9 +49,12 @@ public class ClassUtils
     }
 
     /**
+     * Loads the resource from the class loader returned by {@link #getClassLoader()}.
+     * 
      * @return The URL of the resource identified by the provided path.
      * @throws UsageException
      *             When the provided path does not translate to a valid resource.
+     * @see ClassLoader#getResource(java.lang.String)
      */
     public static URL getResource(String path)
     {
@@ -56,6 +66,13 @@ public class ClassUtils
         return url;
     }
 
+    /**
+     * Creates and returns the {@link URL}from the provided URL string.
+     * 
+     * @throws WrapperException
+     *             {@link Message#CANNOT_BUILD_URL}: When a valid URL cannot be built from the
+     *             provided URL string.
+     */
     public static URL newUrl(String urlStr)
     {
         try
@@ -68,6 +85,13 @@ public class ClassUtils
         }
     }
 
+    /**
+     * @return Returns an enumeration of URLs to resources found with provided string path using the
+     *         class loader returned by {@link #getClassLoader()}.
+     * @throws WrapperException
+     *             {@link Message#CANNOT_GET_RESOURCE}
+     * @see ClassLoader#getResources(java.lang.String)
+     */
     public static Enumeration getResources(String path)
     {
         try
@@ -81,6 +105,11 @@ public class ClassUtils
     }
 
     // TODO move to ReflectUtils
+    /**
+     * @return Returns a new instance of the provided class that is created via reflection.
+     * @throws WrapperException
+     *             {@link Message#CANNOT_INSTANTIATE_OBJECT}
+     */
     public static Object newInstance(Class clazz)
     {
         try
@@ -93,6 +122,12 @@ public class ClassUtils
         }
     }
 
+    /**
+     * @return Loads and returns the Class for the provided class name from the class loader
+     *         returned by {@link #getClassLoader()}.
+     * @throws WrapperException
+     *             {@link Message#CANNOT_LOAD_CLASS}
+     */
     public static Class loadClass(String className)
     {
         try
@@ -106,6 +141,12 @@ public class ClassUtils
     }
 
     // TODO move to ReflectUtils
+    /**
+     * Loads the class for the provided class name and returns a new instance that is created via
+     * reflection.
+     * @see #loadClass(String)
+     * @see #newInstance(Class)
+     */
     public static Object newInstance(String className)
     {
         Class clazz = loadClass(className);
