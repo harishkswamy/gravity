@@ -24,7 +24,7 @@ import java.util.Map;
  * The container also manages the life cycle of the housed components.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Container.java,v 1.5 2004-09-02 04:04:47 harishkswamy Exp $
+ * @version $Id: Container.java,v 1.6 2004-09-02 04:21:25 harishkswamy Exp $
  */
 public interface Container
 {
@@ -43,8 +43,6 @@ public interface Container
      * implementation type).
      * 
      * @return The component registered for the supplied key.
-     * @throws UsageException
-     *         When no component is registered for the supplied key.
      */
     Object getComponentInstance(Object compKey);
 
@@ -59,8 +57,6 @@ public interface Container
      * Gets the configuration registered for the supplied key.
      * 
      * @return The configuration list.
-     * @throws IllegalArgumentException
-     *         When no configuration is registered for the supplied key.
      */
     List getConfigurationList(Object configKey);
 
@@ -68,8 +64,6 @@ public interface Container
      * Gets the configuration registered for the supplied key.
      * 
      * @return The configuration map.
-     * @throws IllegalArgumentException
-     *         When no configuration is registered for the supplied key.
      */
     Map getConfigurationMap(Object configKey);
 
