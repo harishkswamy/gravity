@@ -22,11 +22,11 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadEvent.java,v 1.1 2004-05-20 11:42:32 harishkswamy Exp $
+ * @version $Id: ThreadEvent.java,v 1.2 2004-05-27 03:34:55 harishkswamy Exp $
  */
 public class ThreadEvent
 {
-    private static ThreadEvent INSTANCE = new ThreadEvent();
+    private static final ThreadEvent INSTANCE = new ThreadEvent();
 
     public static ThreadEvent getInstance()
     {
@@ -34,7 +34,7 @@ public class ThreadEvent
     }
 
     private ThreadLocal _threadLocal = new ThreadLocal();
-    
+
     private void initialize()
     {
         Map observerTypes = new HashMap();
@@ -44,7 +44,7 @@ public class ThreadEvent
         _threadLocal.set(observerTypes);
     }
 
-    public ThreadEvent()
+    protected ThreadEvent()
     {
         initialize();
     }
@@ -73,7 +73,7 @@ public class ThreadEvent
 
             observer.handleThreadPreTermination();
         }
-        
+
         removeObservers(ThreadPreTerminationObserver.class);
     }
 
@@ -83,7 +83,7 @@ public class ThreadEvent
 
         observers.add(observer);
     }
-    
+
     public void cleanUp()
     {
         initialize();
