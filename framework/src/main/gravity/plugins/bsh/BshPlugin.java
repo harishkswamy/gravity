@@ -38,7 +38,7 @@ import bsh.TargetError;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPlugin.java,v 1.1 2004-09-02 04:06:31 harishkswamy Exp $
+ * @version $Id: BshPlugin.java,v 1.2 2004-11-17 19:54:47 harishkswamy Exp $
  */
 public class BshPlugin implements Plugin
 {
@@ -118,11 +118,11 @@ public class BshPlugin implements Plugin
         return new MutableContainerAdapter(container);
     }
 
-    public void startup(Properties pluginProps, MutableContainer container)
+    public void startup(final Properties props, final MutableContainer container)
     {
         _container = newMutableContainerAdapter(container);
 
-        String moduleNames = pluginProps.getProperty(MODULE_NAMES);
+        String moduleNames = props.getProperty(MODULE_NAMES);
 
         List pathStrs = Utils.splitQuoted(moduleNames, ',');
 
@@ -135,7 +135,7 @@ public class BshPlugin implements Plugin
             if (Utils.isBlank(pathStr))
                 continue;
 
-            pathStr = pluginProps.getProperty(LOCATION_URL_KEY) + pathStr;
+            pathStr = props.getProperty(LOCATION_URL_KEY) + pathStr;
 
             URL url = ClassUtils.newUrl(pathStr);
 
