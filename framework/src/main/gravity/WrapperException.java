@@ -14,32 +14,30 @@
 
 package gravity;
 
+import gravity.util.Message;
+
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Wraps and converts non {@link java.lang.RuntimeException}s to {@link java.lang.RuntimeException}
- * s In addition, it is capable of adding the supplied message to the wrapped exception.
+ * s. In addition, it is capable of realizing provided message code and adding the message to the
+ * wrapped exception. All wrapped message codes are cached and can be queried to see if a particular
+ * message code exists.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: WrapperException.java,v 1.2 2004-06-14 04:23:42 harishkswamy Exp $
+ * @version $Id: WrapperException.java,v 1.3 2004-09-02 03:52:22 harishkswamy Exp $
  */
 public class WrapperException extends RuntimeException
 {
-    private String    _msg;
-    private Throwable _wrapped;
+    //~ Static Methods ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    private WrapperException(Throwable t)
-    {
-        _wrapped = t;
-    }
-
-    private WrapperException(Throwable t, String msg)
-    {
-        _wrapped = t;
-        _msg = msg;
-    }
-
+    /**
+     * Wraps and returns non-RuntimeExceptions in WrapperException; RuntimeExceptions are returned
+     * unaltered.
+     */
     public static RuntimeException wrap(Throwable t)
     {
         if (t instanceof RuntimeException)
@@ -48,23 +46,114 @@ public class WrapperException extends RuntimeException
         return new WrapperException(t);
     }
 
-    public static RuntimeException wrap(Throwable t, String msg)
+    /**
+     * Convenience method for {@link #wrap(Throwable, String, Object[])}.
+     */
+    public static RuntimeException wrap(Throwable t, String msgCode)
     {
-        if (msg == null)
+        return wrap(t, msgCode, null);
+    }
+
+    /**
+     * Convenience method for {@link #wrap(Throwable, String, Object[])}.
+     */
+    public static RuntimeException wrap(Throwable t, String msgCode, Object msgPart1)
+    {
+        return wrap(t, msgCode, new Object[]{msgPart1});
+    }
+
+    /**
+     * Convenience method for {@link #wrap(Throwable, String, Object[])}.
+     */
+    public static RuntimeException wrap(Throwable t, String msgCode, Object msgPart1,
+        Object msgPart2)
+    {
+        return wrap(t, msgCode, new Object[]{msgPart1, msgPart2});
+    }
+
+    /**
+     * Convenience method for {@link #wrap(Throwable, String, Object[])}.
+     */
+    public static RuntimeException wrap(Throwable t, String msgCode, Object msgPart1,
+        Object msgPart2, Object msgPart3)
+    {
+        return wrap(t, msgCode, new Object[]{msgPart1, msgPart2, msgPart3});
+    }
+
+    /**
+     * Wraps and returns the provided throwable with a formatted message built from the provided
+     * message code and parts.
+     * 
+     * @throws WrapperException
+     *             When a formatted message cannot be built.
+     */
+    public static RuntimeException wrap(Throwable t, String msgCode, Object[] msgParts)
+    {
+        if (msgCode == null)
             return wrap(t);
 
         if (t instanceof WrapperException)
         {
             WrapperException we = (WrapperException) t;
 
-            we._msg = (we._msg == null) ? msg : msg + "\n\t" + we._msg;
+            we.prependMessage(msgCode, msgParts);
 
             return we;
         }
 
-        return new WrapperException(t, msg);
+        return new WrapperException(t, msgCode, msgParts);
     }
 
+    //~ Instance Variables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    private String    _msg;
+    private Throwable _wrapped;
+    private List      _msgCodes = new ArrayList();
+
+    //~ Constructors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    private WrapperException(Throwable t)
+    {
+        _wrapped = t;
+    }
+
+    private WrapperException(Throwable t, String msgCode, Object[] msgParts)
+    {
+        // Wrapped is accessed within formatMessage so it needs to be set prior to making the call.
+        _wrapped = t;
+        _msg = formatMessage(msgCode, msgParts);
+    }
+
+    private String formatMessage(String msgCode, Object[] msgParts)
+    {
+        try
+        {
+            _msgCodes.add(msgCode);
+
+            return Message.formatSpecial(msgCode, msgParts);
+        }
+        catch (Exception e)
+        {
+            _msg = "Unable to format message for code: " + msgCode + "\n\tWhile throwing: "
+                + getWrapped();
+            _wrapped = e;
+
+            throw this;
+        }
+    }
+
+    private void prependMessage(String msgCode, Object[] msgParts)
+    {
+        String msg = formatMessage(msgCode, msgParts);
+
+        _msg = (_msg == null) ? msg : (msg + "\n\t" + _msg);
+    }
+
+    //~ Inherited Methods ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    /**
+     * Returns the message for this and all wrapped exceptions.
+     */
     public String getMessage()
     {
         return _msg == null ? _wrapped.getMessage() : _msg;
@@ -108,8 +197,22 @@ public class WrapperException extends RuntimeException
         }
     }
 
+    //~ Public Methods ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    /**
+     * @return Returns the root cause that is wrapped in this exception.
+     */
     public Throwable getWrapped()
     {
         return _wrapped;
+    }
+
+    /**
+     * @return true, if the provided message code IS wrapped in this exception.
+     * @return false, if the provided message code is NOT wrapped in this exception.
+     */
+    public boolean isMessageCode(String msgCode)
+    {
+        return _msgCodes.contains(msgCode);
     }
 }

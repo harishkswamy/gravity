@@ -15,13 +15,35 @@
 package gravity;
 
 /**
+ * This exception is thrown when the usage of the framework is at fault.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: UsageException.java,v 1.1 2004-05-10 17:29:01 harishkswamy Exp $
+ * @version $Id: UsageException.java,v 1.2 2004-09-02 03:52:21 harishkswamy Exp $
  */
-public class UsageException extends RuntimeException
+public class UsageException extends GravityRuntimeException
 {
-    public UsageException(String message)
+    public UsageException(String messageCode)
     {
-        super(message);
+        super(messageCode);
+    }
+
+    public UsageException(String messageCode, Object msgPart1)
+    {
+        super(messageCode, msgPart1);
+    }
+
+    public UsageException(String messageCode, Object msgPart1, Object msgPart2)
+    {
+        super(messageCode, msgPart1, msgPart2);
+    }
+
+    public UsageException(String messageCode, Object msgPart1, Object msgPart2, Object msgPart3)
+    {
+        super(messageCode, msgPart1, msgPart2, msgPart3);
+    }
+
+    public UsageException(String messageCode, Object[] msgParts)
+    {
+        super(messageCode, msgParts);
     }
 }
