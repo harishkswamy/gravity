@@ -7,7 +7,10 @@ bart   = componentKey( Child.class,  "bart" );
 lisa   = componentKey( Child.class,  "lisa" );
 maggie = componentKey( Child.class,  "maggie" );
 
+// fatherHomer is simply a different view/role of homer
 fatherHomer = componentImpl( componentKey(Parent.class, "homer"), homer );
+
+// motherMarge is simply a different view/role of marge
 motherMarge = componentImpl( componentKey(Parent.class, "marge"), marge );
 
 singleton
@@ -15,7 +18,7 @@ singleton
     componentImpl
     (
         homer, Father.class,
-        constructorArgs( "Homer Simpson", componentInst(marge), configList("bars") )
+        constructorArgs( "Homer Simpson", marge, configList("bars") )
     )
 );
 
@@ -38,8 +41,8 @@ singleton
     )
 );
 
-componentImpl( bart, Son.class, constructorArgs( "Bart Simpson", componentInst(fatherHomer), componentInst(motherMarge) ));
+componentImpl( bart, Son.class, constructorArgs( "Bart Simpson", fatherHomer, componentInst(motherMarge) ));
 
-componentImpl( lisa, Daughter.class, constructorArgs( "Lisa Simpson", componentInst(fatherHomer), componentInst(motherMarge) ));
+componentImpl( lisa, Daughter.class, constructorArgs( "Lisa Simpson", componentInst(fatherHomer), motherMarge ));
 
-componentImpl( maggie, Infant.class, constructorArgs( "Maggie Simpson", componentInst(fatherHomer), componentInst(motherMarge) ));
+componentImpl( maggie, Infant.class, constructorArgs( "Maggie Simpson", fatherHomer, motherMarge ));
