@@ -2,7 +2,7 @@
 <html>
 <head>
   <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gravity Framework - Release 1.0-alpha-2</title>
+<title>Gravity Framework - Release 1.0-beta-1</title>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../style.css" TITLE="Style">
 </head>
 <body>
@@ -13,7 +13,7 @@
   <TR>
     <TD colspan="6" class="reportHeader">
     <TABLE width="100%"><TR>
-    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-alpha-2 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Thu May 20 2004 12:31:34 EDT</DIV>
+    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-beta-1 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Wed May 26 2004 22:29:55 EDT</DIV>
             <DIV class="navBar"><a href="../pkgs-summary.html"><b>Overview</b></a>&nbsp;&nbsp;&nbsp;<a href="pkg-summary.html"><b>Package</b></a>&nbsp;&nbsp;&nbsp;<font class="navBarCurrent">File</font></DIV>
     
 <DIV class="navBarLink">
@@ -28,7 +28,7 @@
          <tr>
            <td nowrap><b>file stats:</b></td>
            <td align="right"><b>LOC:</b></td>
-           <td align="right">99</td>
+           <td align="right">111</td>
            <td width="10%">&nbsp;</td>
            <td align="right"><b>Methods:</b></td>
            <td align="right">0</td>
@@ -36,7 +36,7 @@
          <tr>
            <td></td>
            <td align="right"><b>NCLOC:</b></td>
-           <td align="right">12</td>
+           <td align="right">14</td>
            <td width="10%">&nbsp;</td>
            <td align="right"><b>Classes:</b></td>
            <td align="right">1</td>
@@ -283,7 +283,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> java.util.Map; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -295,7 +295,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * The component is the central concept of the framework around which everything else revolves. A</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -307,7 +307,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * component is the entity that can be configured by the {@link gravity.Container container}. A</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -319,7 +319,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * The component is the central concept of the framework around which everything else revolves. A</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * component is simply an object that has an interface, an implementation and a</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -331,7 +331,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * component is the entity that can be configured by the {@link gravity.Container container}. A</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * {@link gravity.ComponentStrategy state}.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -343,7 +343,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * component is simply an object that has an interface, an implementation and a</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * &lt;p&gt;</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -355,7 +355,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * {@link gravity.ComponentState state}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * Every component has a unique identity typically comprised of the interface and a type (any</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -367,7 +367,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * String) and there will be only one object of each component (a flyweight).</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -379,7 +379,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * Every component has a unique identity typically comprised of the interface and a type (any</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * &lt;p&gt;</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -391,7 +391,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * String) and there will be only one object of each component (a flyweight).</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * The Component is also a factory for component instances just like {@link java.lang.Class}. The</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -403,7 +403,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * identity of the component instances (not to be confused with the component identity) is dependent</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -415,7 +415,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * The Component is also a factory for component instances just like {@link java.lang.Class}. The</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * on the state of the component.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -427,7 +427,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * identity of the component instances (not to be confused with the component identity) is dependent</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * </span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -439,7 +439,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * on the state of the component.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@author</span> Harish Krishnaswamy</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -451,7 +451,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * </span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: Component.html,v 1.2 2004-05-27 03:39:33 harishkswamy Exp $</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -463,36 +463,12 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@author</span> Harish Krishnaswamy</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;33
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: Component.html,v 1.1 2004-05-20 16:36:55 harishkswamy Exp $</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;34
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
 <TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> */</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-   <A name="Component">&nbsp;35</A>
+   <A name="Component">&nbsp;33</A>
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -504,7 +480,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;36
+    &nbsp;34
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -516,7 +492,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;37
+    &nbsp;35
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -528,7 +504,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;38
+    &nbsp;36
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -540,7 +516,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;39
+    &nbsp;37
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -552,7 +528,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;40
+    &nbsp;38
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -564,7 +540,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;41
+    &nbsp;39
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -576,19 +552,19 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;42
+    &nbsp;40
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@param</span> compCtorArgs</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@param</span> ctorArgs</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;43
+    &nbsp;41
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -600,7 +576,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;44
+    &nbsp;42
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -612,6 +588,30 @@
  <TR>
 
  <TD align="right" class="lineCount">
+    &nbsp;43
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@param</span> lifeCycleMethods</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;44
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     *        Component methods to be invoked during component life cycle stages.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
     &nbsp;45
 </TD>
 
@@ -619,7 +619,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@param</span> compSetrArgs</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -631,7 +631,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     *        Component setter arguments. This is a map of the implementation property names and</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> registerImplementation(Class compClass, Object[] ctorArgs, </SPAN></TD>
 </TR>
  <TR>
 
@@ -643,7 +643,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     *        their values.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          ComponentCallback[] lifeCycleMethods); </SPAN></TD>
 </TR>
  <TR>
 
@@ -655,7 +655,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -667,7 +667,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> registerImplementation(Class compClass, Object[] compCtorArgs, Map compSetrArgs); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -679,7 +679,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method may be used to register the location of the component registration. The sole</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -691,7 +691,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * purpose of this method is to provide error messages with precise location information in the</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -703,7 +703,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method may be used to register the location of the component registration. The sole</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * event of an error.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -715,7 +715,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * purpose of this method is to provide error messages with precise location information in the</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -727,7 +727,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * event of an error.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> setRegistrationLocation(Location location); </SPAN></TD>
 </TR>
  <TR>
 
@@ -739,7 +739,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -751,7 +751,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> setRegistrationLocation(Location location); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -763,7 +763,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method allows registration of the implementation's constructor arguments. These</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -775,7 +775,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * arguments will be appended to the already existing arguments. The order of the arguments will</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -787,7 +787,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method will return an instance (concrete or hollow) of this component. The component</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * determine the constructor that will selected for instatiation.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -799,7 +799,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * instance indentity is dependent on the state of the component.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -811,7 +811,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> registerConstructorArguments(Object[] args); </SPAN></TD>
 </TR>
  <TR>
 
@@ -823,7 +823,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Only the following is true of the returned component instance:</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -835,7 +835,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;li&gt;The returned component instance will be of the registered component interface type.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -847,7 +847,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;li&gt;Method invocations on the returned component instance will be completed successfully</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method allows registration of the implementation's life cycle methods. These methods</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -859,7 +859,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * provided an implementation was registered prior to the method invocation.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * will be appended to the already existing methods. The method invocations will be in the same</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -871,7 +871,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * order it has been provided.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -883,7 +883,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * The advantage of using this method is that an instance of the component may be obtained even</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -895,7 +895,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * prior to registering an implementation for the component.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> registerCallbackMethods(ComponentCallback[] lifeCycleMethods); </SPAN></TD>
 </TR>
  <TR>
 
@@ -907,7 +907,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -919,7 +919,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      Object getInstance(); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -931,7 +931,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method will return an instance (concrete or hollow) of this component. The component</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -943,7 +943,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * instance indentity is dependent on the state of the component.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -955,7 +955,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method may be used to register the location of the component retrieval. The sole purpose</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -967,7 +967,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * of this method is to provide error messages with precise location information in the event of</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Only the following is true of the returned component instance:</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -979,7 +979,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * an error.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;li&gt;The returned component instance will be of the registered component interface type.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -991,7 +991,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;li&gt;Method invocations on the returned component instance will be completed successfully</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1003,7 +1003,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> setRetrievalLocation(Location location); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * provided an implementation was registered prior to the method invocation.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1015,7 +1015,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1027,7 +1027,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * The advantage of using this method is that an instance of the component may be obtained even</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1039,7 +1039,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method will change the state of this component to singleton.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * prior to registering an implementation for the component.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1063,7 +1063,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> wrapStateWithSingleton(); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      Object getInstance(); </SPAN></TD>
 </TR>
  <TR>
 
@@ -1099,7 +1099,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method will change the state of this component to pooling.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method may be used to register the location of the component retrieval. The sole purpose</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1111,7 +1111,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * of this method is to provide error messages with precise location information in the event of</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1123,7 +1123,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> wrapStateWithPooling(); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * an error.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1135,7 +1135,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1147,7 +1147,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> setRetrievalLocation(Location location); </SPAN></TD>
 </TR>
  <TR>
 
@@ -1159,7 +1159,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method will change the state of this component to thread local.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1171,7 +1171,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1183,7 +1183,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> wrapStateWithThreadLocal(); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method will change the state of this component to singleton.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1195,7 +1195,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1207,7 +1207,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> wrapStrategyWithSingleton(); </SPAN></TD>
 </TR>
  <TR>
 
@@ -1219,7 +1219,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method should be used to return a component instance obtained via {@link #getInstance()}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1231,7 +1231,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method is primarily used for returning pooled components.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1243,7 +1243,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method will change the state of this component to pooling.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1255,12 +1255,156 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> collectInstance(Object comp); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
     &nbsp;99
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> wrapStrategyWithPooling(); </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;100
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;101
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;102
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method will change the state of this component to thread local.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;103
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;104
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> wrapStrategyWithThreadLocal(); </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;105
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;106
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;107
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method should be used to return a component instance obtained via {@link #getInstance()}.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;108
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This method is primarily used for returning pooled components.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;109
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;110
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">void</span> collectInstance(Object comp); </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;111
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1276,7 +1420,7 @@
 <TR><TD class="footer" colspan="6">
 <table>
 <tr>
- <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Thu May 20 2004 12:31:35 EDT</i>.</td>
+ <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Wed May 26 2004 22:29:55 EDT</i>.</td>
 <td>&nbsp;</td><td style="BORDER-LEFT: #9c9c9c 1px solid;">&nbsp;</td><td>Open Source License registered to the Gravity Project. This license of Clover is provided to support the development of Gravity only. </td>
 </tr>
 </table>

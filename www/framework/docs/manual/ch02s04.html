@@ -1,0 +1,64 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Terminology</title><link rel="stylesheet" href="manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.64.1"><link rel="home" href="index.html" title="Gravity - Manual"><link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Gravity Overview"><link rel="previous" href="ch02s03.html" title="Design Model"><link rel="next" href="ch02s05.html" title="Plugins"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="header">Gravity - Manual</div><div class="shadow"></div><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Terminology</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s03.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;2.&nbsp;Gravity Overview</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02s05.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="gravity-terminology"></a>Terminology</h2></div></div><div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="term.component"></a>Component (<span class="emphasis"><em>Flyweight</em></span>)</h3></div></div><div></div></div><p>
+                Component is a managed unit of software that performs a specific task and is 
+                part of a bigger cohesive system.
+                </p><div class="itemizedlist"><ul type="disc"><li><p>
+                        A component has a clearly defined interface and of course an 
+                        implementation.
+                    </p></li><li><p>
+                        A component has a well defined lifecycle: instatiation, injection, 
+                        start-up and shutdown.
+                    </p></li><li><p>
+                        A component is uniquely identified by the component key which is typically 
+                        comprised of the component interface and an optional string identifier.
+                    </p></li><li><p>
+                        A component is a factory for component instances (similar to java.lang.Class).
+                    </p></li><li><p>
+                        A component produces component instances using a 
+                        <a href="ch02s04.html#term.strategy" title="Component Strategy (Strategy, Decorator)"><i class="firstterm">Component Strategy</i></a>.
+                    </p></li><li><p>
+                        A component can change its strategy on the fly at runtime. When the 
+                        strategy is changed, all component instances (including the ones that
+                        were created prior to the strategy change) will behave in accordance 
+                        with the new strategy.
+                    </p></li></ul></div><p>
+            </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="term.strategy"></a>Component Strategy (<span class="emphasis"><em>Strategy, Decorator</em></span>)</h3></div></div><div></div></div><p>
+                Component Strategy is the technique used by the component in producing instances.
+                The strategy determines the identity of the instances produced by the component.
+                </p><div class="itemizedlist"><ul type="disc"><li><p>
+                        Component strategies are of two categories: Lazy Loading and Dispatching.
+                        All strategies fall under one of these two categories; Singleton and Pooling 
+                        fall under Lazy Loading and Thread Local falls under Dispatching.
+                    </p></li><li><p>
+                        Component strategies are decoratable; a component may use Thread Local 
+                        strategy, and the Thread Local strategy may in turn use a Pooling strategy.
+                    </p></li></ul></div><p>
+            </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="term.proxy"></a>Component Proxy (<span class="emphasis"><em>Proxy, Singleton</em></span>)</h3></div></div><div></div></div><p>
+                Component Proxy is the component counterpart that produces component proxy
+                instances.
+                </p><div class="itemizedlist"><ul type="disc"><li><p>
+                        A component proxy instance will stand-in for the component instance and 
+                        control access to it; it can be thought of as a
+                        component instance controller. Hence the ability to change the behavior of the 
+                        component instance when the component strategy changes.
+                    </p></li><li><p>
+                        A component proxy instance will be composed of the component - the instance
+                        of which is being proxied.
+                    </p></li><li><p>
+                        A component proxy instance will either cache the component instance and 
+                        delegate all calls to the cached instance, or it will dispatch all 
+                        calls to the component. The behavior is dictated by the component 
+                        strategy at the time of the call.
+                    </p></li></ul></div><p>
+            </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="term.proxy"></a>Container (<span class="emphasis"><em>Flyweight Factory</em></span>)</h3></div></div><div></div></div><p>
+                Container is the factory for components. Container creates and caches components
+                based on the component key. Container is also a 
+                component manager; it manages the lifecycle of the component.
+            </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="term.module"></a>Module</h3></div></div><div></div></div><p>
+                A module is simply a collection of components grouped together primarily for the 
+                purpose of manageability. A module is typically a logical grouping of components.
+            </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="term.plugin"></a>Plugin (<span class="emphasis"><em>Plugin</em></span>)</h3></div></div><div></div></div><p>
+                A plugin is a collection of related components grouped together in different modules.
+                A plugin is typically an application that accomplishes a specific goal.
+            </p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s03.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02s05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Design Model&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Plugins</td></tr></table></div><div class="footer"><table class="table"><tr><td><a href="http://gravity.dev.java.net/">http://gravity.dev.java.net/</a></td><td class="right">DocBook styles borrowed from dynaop</td></tr><tr><td><a href="http://myworkspace.sf.net/">http://myworkspace.sf.net/</a></td><td class="right"><a href="http://dynaop.dev.java.net/">http://dynaop.dev.java.net/</a></td></tr></table></div></body></html>

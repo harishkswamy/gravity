@@ -2,7 +2,7 @@
 <html>
 <head>
   <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gravity Framework - Release 1.0-alpha-2</title>
+<title>Gravity Framework - Release 1.0-beta-1</title>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../style.css" TITLE="Style">
 </head>
 <body>
@@ -13,7 +13,7 @@
   <TR>
     <TD colspan="6" class="reportHeader">
     <TABLE width="100%"><TR>
-    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-alpha-2 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Thu May 20 2004 12:31:34 EDT</DIV>
+    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-beta-1 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Wed May 26 2004 22:29:55 EDT</DIV>
             <DIV class="navBar"><a href="../../pkgs-summary.html"><b>Overview</b></a>&nbsp;&nbsp;&nbsp;<a href="pkg-summary.html"><b>Package</b></a>&nbsp;&nbsp;&nbsp;<font class="navBarCurrent">File</font></DIV>
     
 <DIV class="navBarLink">
@@ -394,7 +394,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: ClassUtils.html,v 1.2 2004-05-20 16:36:58 harishkswamy Exp $</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: ClassUtils.html,v 1.3 2004-05-27 03:39:42 harishkswamy Exp $</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -439,10 +439,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 30: method entered 105 times.">&nbsp;105</A>
+    <A title="Line 30: method entered 111 times.">&nbsp;111</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 30: method entered 105 times.">    <span class="keyword">public</span> <span class="keyword">static</span> ClassLoader getClassLoader()</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 30: method entered 111 times.">    <span class="keyword">public</span> <span class="keyword">static</span> ClassLoader getClassLoader()</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -464,10 +464,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 32: statement executed 105 times.">&nbsp;105</A>
+    <A title="Line 32: statement executed 111 times.">&nbsp;111</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 32: statement executed 105 times.">        ClassLoader loader = Thread.currentThread().getContextClassLoader();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 32: statement executed 111 times.">        ClassLoader loader = Thread.currentThread().getContextClassLoader();</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -489,10 +489,10 @@
 </TD>
 
 <TD align="right" class="coverageCountHilight">
-    <A title="Line 34: expression evaluated to true 0 times, false 105 times.">&nbsp;105</A>
+    <A title="Line 34: expression evaluated to true 0 times, false 111 times.">&nbsp;111</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 34: expression evaluated to true 0 times, false 105 times.">        <span class="keyword">return</span> loader == <span class="keyword">null</span> ? ClassLoader.getSystemClassLoader() : loader;</A>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 34: expression evaluated to true 0 times, false 111 times.">        <span class="keyword">return</span> loader == <span class="keyword">null</span> ? ClassLoader.getSystemClassLoader() : loader;</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -526,10 +526,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 37: method entered 43 times.">&nbsp;43</A>
+    <A title="Line 37: method entered 39 times.">&nbsp;39</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 37: method entered 43 times.">    <span class="keyword">public</span> <span class="keyword">static</span> ClassLoader getClassLoader(Class clazz)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 37: method entered 39 times.">    <span class="keyword">public</span> <span class="keyword">static</span> ClassLoader getClassLoader(Class clazz)</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -551,10 +551,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 39: statement executed 43 times.">&nbsp;43</A>
+    <A title="Line 39: statement executed 39 times.">&nbsp;39</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 39: statement executed 43 times.">        ClassLoader loader = clazz.getClassLoader();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 39: statement executed 39 times.">        ClassLoader loader = clazz.getClassLoader();</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -576,10 +576,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 41: statement executed 41 times.">&nbsp;41</A>
+    <A title="Line 41: statement executed 39 times.">&nbsp;39</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 41: statement executed 41 times.">        <span class="keyword">return</span> loader == <span class="keyword">null</span> ? getClassLoader() : loader;</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 41: statement executed 39 times.">        <span class="keyword">return</span> loader == <span class="keyword">null</span> ? getClassLoader() : loader;</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -613,10 +613,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 44: method entered 88 times.">&nbsp;88</A>
+    <A title="Line 44: method entered 95 times.">&nbsp;95</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 44: method entered 88 times.">    <span class="keyword">public</span> <span class="keyword">static</span> URL getResource(String path)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 44: method entered 95 times.">    <span class="keyword">public</span> <span class="keyword">static</span> URL getResource(String path)</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -638,10 +638,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 46: statement executed 88 times.">&nbsp;88</A>
+    <A title="Line 46: statement executed 95 times.">&nbsp;95</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 46: statement executed 88 times.">        URL url = getClassLoader().getResource(path);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 46: statement executed 95 times.">        URL url = getClassLoader().getResource(path);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -663,10 +663,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 48: statement executed 88 times.">&nbsp;88</A>
+    <A title="Line 48: statement executed 95 times.">&nbsp;95</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 48: statement executed 88 times.">        <span class="keyword">if</span> (url == <span class="keyword">null</span>)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 48: statement executed 95 times.">        <span class="keyword">if</span> (url == <span class="keyword">null</span>)</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -701,10 +701,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 51: statement executed 86 times.">&nbsp;86</A>
+    <A title="Line 51: statement executed 93 times.">&nbsp;93</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 51: statement executed 86 times.">        <span class="keyword">return</span> url;</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 51: statement executed 93 times.">        <span class="keyword">return</span> url;</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1441,7 +1441,7 @@
 <TR><TD class="footer" colspan="6">
 <table>
 <tr>
- <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Thu May 20 2004 12:31:35 EDT</i>.</td>
+ <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Wed May 26 2004 22:29:55 EDT</i>.</td>
 <td>&nbsp;</td><td style="BORDER-LEFT: #9c9c9c 1px solid;">&nbsp;</td><td>Open Source License registered to the Gravity Project. This license of Clover is provided to support the development of Gravity only. </td>
 </tr>
 </table>

@@ -1,0 +1,52 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Chapter&nbsp;1.&nbsp;Introduction</title><link rel="stylesheet" href="manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.64.1"><link rel="home" href="index.html" title="Gravity - Manual"><link rel="up" href="index.html" title="Gravity - Manual"><link rel="previous" href="index.html" title="Gravity - Manual"><link rel="next" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Gravity Overview"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="header">Gravity - Manual</div><div class="shadow"></div><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter&nbsp;1.&nbsp;Introduction</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch02.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="introduction"></a>Chapter&nbsp;1.&nbsp;Introduction</h2></div></div><div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="ch01.html#dependency-injection">Dependency Injection</a></span></dt><dd><dl><dt><span class="section"><a href="ch01.html#injection-types">Types of Injection</a></span></dt></dl></dd></dl></div><p>
+        Software components seldom operate in isolation; they often collaborate with other components
+        to form a cohesive whole. This collaboration leads to dependencies between components that
+        is often times a hassle to manage.
+    </p><div class="example"><a name="d0e15"></a><p class="title"><b>Example&nbsp;1.1.&nbsp;Conventional Dependency Management</b></p><pre class="programlisting">class ComponentA
+{
+    void doSomething()
+    {
+        ...
+        <span class="bad-code">ComponentB componentB = componentBFactory.getComponentB();</span>
+        componentB.doSomething();
+        ...
+        <span class="bad-code">ComponentC componentC = componentCFactory.getComponentC();</span>
+        componentC.doSomething();
+        ...
+    }
+}</pre></div><p>
+        This obscures the business logic in code and leads to a proliferation of factories.
+    </p><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="dependency-injection"></a>Dependency Injection</h2></div></div><div></div></div><p>
+            <i class="firstterm">Dependency Injection / Invertion of Control</i> is the design pattern 
+            employed to free the components from the hassle of managing their dependencies. Instead, 
+            the dependencies are configured and injected into the component by an external entity - the 
+            container.
+        </p><div class="example"><a name="d0e36"></a><p class="title"><b>Example&nbsp;1.2.&nbsp;Dependency Management via Injection</b></p><pre class="programlisting">class ComponentA
+{
+    ComponentB _componentB;
+    ComponentC _componentC;
+    
+    void doSomething()
+    {
+        ...
+        _componentB.doSomething();
+        ...
+        _componentC.doSomething();
+        ...
+    }
+}</pre></div><p>
+            Here the dependencies are already there when the component needs it; hence the code is clear
+            and there are no factories littered thought the system.
+        </p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="injection-types"></a>Types of Injection</h3></div></div><div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d0e46"></a>Constructor Injection</h4></div></div><div></div></div><p>
+                    Constructor Injection is a technique used to inject component dependencies via 
+                    the component's constructor.
+                </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d0e51"></a>Method Injection</h4></div></div><div></div></div><p>
+                    Method Injection is a technique used to inject component dependencies via the
+                    component's public methods.
+                </p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a name="d0e56"></a>Combo Injection</h4></div></div><div></div></div><p>
+                    Combo Injection is a combination of constructor and method injections.
+                    Combo Injection is a technique used to inject component dependencies via both 
+                    the component's constructor and its methods.
+                </p></div></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="index.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch02.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Gravity - Manual&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;2.&nbsp;Gravity Overview</td></tr></table></div><div class="footer"><table class="table"><tr><td><a href="http://gravity.dev.java.net/">http://gravity.dev.java.net/</a></td><td class="right">DocBook styles borrowed from dynaop</td></tr><tr><td><a href="http://myworkspace.sf.net/">http://myworkspace.sf.net/</a></td><td class="right"><a href="http://dynaop.dev.java.net/">http://dynaop.dev.java.net/</a></td></tr></table></div></body></html>

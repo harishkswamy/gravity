@@ -2,7 +2,7 @@
 <html>
 <head>
   <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gravity Framework - Release 1.0-alpha-2</title>
+<title>Gravity Framework - Release 1.0-beta-1</title>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../style.css" TITLE="Style">
 </head>
 <body>
@@ -13,7 +13,7 @@
   <TR>
     <TD colspan="6" class="reportHeader">
     <TABLE width="100%"><TR>
-    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-alpha-2 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Thu May 20 2004 12:31:34 EDT</DIV>
+    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-beta-1 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Wed May 26 2004 22:29:55 EDT</DIV>
             <DIV class="navBar"><a href="../../pkgs-summary.html"><b>Overview</b></a>&nbsp;&nbsp;&nbsp;<a href="pkg-summary.html"><b>Package</b></a>&nbsp;&nbsp;&nbsp;<font class="navBarCurrent">File</font></DIV>
     
 <DIV class="navBarLink">
@@ -28,15 +28,15 @@
          <tr>
            <td nowrap><b>file stats:</b></td>
            <td align="right"><b>LOC:</b></td>
-           <td align="right">64</td>
+           <td align="right">51</td>
            <td width="10%">&nbsp;</td>
            <td align="right"><b>Methods:</b></td>
-           <td align="right">3</td>
+           <td align="right">2</td>
          </tr>
          <tr>
            <td></td>
            <td align="right"><b>NCLOC:</b></td>
-           <td align="right">39</td>
+           <td align="right">27</td>
            <td width="10%">&nbsp;</td>
            <td align="right"><b>Classes:</b></td>
            <td align="right">1</td>
@@ -415,7 +415,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: JdkComponentProxy.html,v 1.1 2004-05-20 16:36:50 harishkswamy Exp $</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: JdkComponentProxy.html,v 1.2 2004-05-27 03:39:26 harishkswamy Exp $</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -460,10 +460,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 32: method entered 18 times.">&nbsp;18</A>
+    <A title="Line 32: method entered 17 times.">&nbsp;17</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 32: method entered 18 times.">    <span class="keyword">public</span> ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 32: method entered 17 times.">    <span class="keyword">protected</span> ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -485,10 +485,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 34: statement executed 18 times.">&nbsp;18</A>
+    <A title="Line 34: statement executed 17 times.">&nbsp;17</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 34: statement executed 18 times.">        <span class="keyword">return</span> <span class="keyword">new</span> JdkComponentInvocationHandler(comp);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 34: statement executed 17 times.">        <span class="keyword">return</span> <span class="keyword">new</span> JdkComponentInvocationHandler(comp);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -522,10 +522,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 37: method entered 19 times.">&nbsp;19</A>
+    <A title="Line 37: method entered 18 times.">&nbsp;18</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 37: method entered 19 times.">    <span class="keyword">public</span> Object newInstance(Class compIntf, ComponentInvocationHandler handler)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 37: method entered 18 times.">    <span class="keyword">public</span> Object newInstance(ProxyableComponent comp)</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -547,10 +547,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 39: statement executed 19 times.">&nbsp;19</A>
+    <A title="Line 39: statement executed 18 times.">&nbsp;18</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 39: statement executed 19 times.">        <span class="keyword">try</span></A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 39: statement executed 18 times.">        <span class="keyword">try</span></A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -572,10 +572,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 41: statement executed 19 times.">&nbsp;19</A>
+    <A title="Line 41: statement executed 18 times.">&nbsp;18</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 41: statement executed 19 times.">            ClassLoader classLoader = ClassUtils.getClassLoader(compIntf);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 41: statement executed 18 times.">            ClassLoader classLoader = ClassUtils.getClassLoader(comp.getInterface());</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -597,10 +597,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 43: statement executed 18 times.">&nbsp;18</A>
+    <A title="Line 43: statement executed 17 times.">&nbsp;17</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 43: statement executed 18 times.">            <span class="keyword">return</span> Proxy.newProxyInstance(classLoader, <span class="keyword">new</span> Class[]{compIntf},</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 43: statement executed 17 times.">            <span class="keyword">return</span> Proxy.newProxyInstance(classLoader, <span class="keyword">new</span> Class[]{comp.getInterface()},</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -613,7 +613,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">                  (InvocationHandler) handler); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">                  (InvocationHandler) newComponentInvocationHandler(comp)); </SPAN></TD>
 </TR>
  <TR>
 
@@ -661,7 +661,7 @@
     <A title="Line 48: statement executed 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 48: statement executed 2 times.">            <span class="keyword">throw</span> WrapperException.wrap(e, <span class="string">"Unable to create proxy for: "</span> + compIntf);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 48: statement executed 2 times.">            <span class="keyword">throw</span> WrapperException.wrap(e, <span class="string">"Unable to create proxy for: "</span> + comp);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -698,166 +698,6 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;52
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 52: method entered 1 time.">&nbsp;1</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 52: method entered 1 time.">    <span class="keyword">public</span> ComponentInvocationHandler getComponentInvocationHandler(Object proxy)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;53
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;54
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 54: statement executed 1 time.">&nbsp;1</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 54: statement executed 1 time.">        <span class="keyword">try</span></A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;55
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;56
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 56: statement executed 1 time.">&nbsp;1</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 56: statement executed 1 time.">            <span class="keyword">return</span> (ComponentInvocationHandler) Proxy.getInvocationHandler(proxy);</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;57
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;58
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="keyword">catch</span> (Exception e) </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;59
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;60
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 60: statement executed 1 time.">&nbsp;1</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 60: statement executed 1 time.">            <span class="keyword">throw</span> WrapperException.wrap(e, <span class="string">"Unable to get component invocation handler from: "</span></A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;61
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">                  + proxy); </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;62
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;63
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;64
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
 <TD class="srcCell">  <SPAN class="srcLine">  } </SPAN></TD>
 </TR>
 </TBODY>
@@ -867,7 +707,7 @@
 <TR><TD class="footer" colspan="6">
 <table>
 <tr>
- <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Thu May 20 2004 12:31:35 EDT</i>.</td>
+ <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Wed May 26 2004 22:29:55 EDT</i>.</td>
 <td>&nbsp;</td><td style="BORDER-LEFT: #9c9c9c 1px solid;">&nbsp;</td><td>Open Source License registered to the Gravity Project. This license of Clover is provided to support the development of Gravity only. </td>
 </tr>
 </table>

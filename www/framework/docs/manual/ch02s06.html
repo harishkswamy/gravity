@@ -1,0 +1,27 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Modules</title><link rel="stylesheet" href="manual.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.64.1"><link rel="home" href="index.html" title="Gravity - Manual"><link rel="up" href="ch02.html" title="Chapter&nbsp;2.&nbsp;Gravity Overview"><link rel="previous" href="ch02s05.html" title="Plugins"><link rel="next" href="ch03.html" title="Chapter&nbsp;3.&nbsp;BeanShell Specification Reference"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="header">Gravity - Manual</div><div class="shadow"></div><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Modules</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch02s05.html">Prev</a>&nbsp;</td><th width="60%" align="center">Chapter&nbsp;2.&nbsp;Gravity Overview</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch03.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d0e272"></a>Modules</h2></div></div><div></div></div><p>
+            Modules are simply a collection of components. The manner in which components are 
+            specified within the modules is entirely plugin specific.
+        </p><div class="example"><a name="d0e277"></a><p class="title"><b>Example&nbsp;2.2.&nbsp;Module Specification File (BeanShell)</b></p><pre class="programlisting">import <i class="replaceable"><tt>components.pkg</tt></i>;
+
+// Register a component implementation
+<span class="keyword">componentImpl</span>
+(
+    // Component being registered
+    <i class="replaceable"><tt>ComponentA.class</tt></i>,
+
+    // Register dependencies via constructor injection
+    <span class="keyword">constructorArgs</span>( <i class="replaceable"><tt>"firstArg", 23.1</tt></i> ),
+
+    // Register life cycle methods
+    <span class="keyword">callbacks</span>
+    (
+        // Register dependencies via method injection
+        <span class="keyword">injection</span>("<i class="replaceable"><tt>setComponentB</tt></i>", <span class="keyword">componentInst</span>( <i class="replaceable"><tt>ComponentB.class</tt></i> )),
+        <span class="keyword">injection</span>("<i class="replaceable"><tt>setComponentC</tt></i>", <span class="keyword">componentInst</span>( <i class="replaceable"><tt>ComponentC.class</tt></i> )),
+
+        // Register startup methods
+        <span class="keyword">startup</span>("<i class="replaceable"><tt>initialize</tt></i>")
+    )
+);</pre></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch02s05.html">Prev</a>&nbsp;</td><td width="20%" align="center"><a accesskey="u" href="ch02.html">Up</a></td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch03.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Plugins&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Chapter&nbsp;3.&nbsp;BeanShell Specification Reference</td></tr></table></div><div class="footer"><table class="table"><tr><td><a href="http://gravity.dev.java.net/">http://gravity.dev.java.net/</a></td><td class="right">DocBook styles borrowed from dynaop</td></tr><tr><td><a href="http://myworkspace.sf.net/">http://myworkspace.sf.net/</a></td><td class="right"><a href="http://dynaop.dev.java.net/">http://dynaop.dev.java.net/</a></td></tr></table></div></body></html>

@@ -2,7 +2,7 @@
 <html>
 <head>
   <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gravity Framework - Release 1.0-alpha-2</title>
+<title>Gravity Framework - Release 1.0-beta-1</title>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../../style.css" TITLE="Style">
 </head>
 <body>
@@ -13,7 +13,7 @@
   <TR>
     <TD colspan="6" class="reportHeader">
     <TABLE width="100%"><TR>
-    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-alpha-2 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Thu May 20 2004 12:31:34 EDT</DIV>
+    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-beta-1 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Wed May 26 2004 22:29:55 EDT</DIV>
             <DIV class="navBar"><a href="../../pkgs-summary.html"><b>Overview</b></a>&nbsp;&nbsp;&nbsp;<a href="pkg-summary.html"><b>Package</b></a>&nbsp;&nbsp;&nbsp;<font class="navBarCurrent">File</font></DIV>
     
 <DIV class="navBarLink">
@@ -28,15 +28,15 @@
          <tr>
            <td nowrap><b>file stats:</b></td>
            <td align="right"><b>LOC:</b></td>
-           <td align="right">251</td>
+           <td align="right">289</td>
            <td width="10%">&nbsp;</td>
            <td align="right"><b>Methods:</b></td>
-           <td align="right">22</td>
+           <td align="right">24</td>
          </tr>
          <tr>
            <td></td>
            <td align="right"><b>NCLOC:</b></td>
-           <td align="right">148</td>
+           <td align="right">178</td>
            <td width="10%">&nbsp;</td>
            <td align="right"><b>Classes:</b></td>
            <td align="right">1</td>
@@ -60,18 +60,18 @@
         	   DefaultComponent.java
 	    </TD>
    
-    <TD class="graphPercent" align="center">81.2%</TD>
-    <TD class="graphPercent" align="center">93.9%</TD>
-    <TD class="graphPercent" align="center">100%</TD>
-    <TD class="graphBarLeft" align="center"><B>93.1%</B></TD>
+    <TD class="graphPercent" align="center">63.6%</TD>
+    <TD class="graphPercent" align="center">78.7%</TD>
+    <TD class="graphPercent" align="center">91.7%</TD>
+    <TD class="graphBarLeft" align="center"><B>78.5%</B></TD>
     <TD class="graphBar">
             <TABLE class="barGraph" cellspacing="0">
         <TBODY>
           <TR>
 	               <TD class="covered"><img alt="coverage" src="../../img/trans.gif"
-                   width="186" height="12"></TD>
+                   width="157" height="12"></TD>
             <TD class="uncovered"><img alt="coverage" src="../../img/trans.gif"
-                   width="14" height="12"></TD>
+                   width="43" height="12"></TD>
 	   	  </TR>
 	</TBODY>
       </TABLE>
@@ -286,7 +286,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.ComponentState; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.ComponentCallback; </SPAN></TD>
 </TR>
  <TR>
 
@@ -298,7 +298,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.Location; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.ComponentPhase; </SPAN></TD>
 </TR>
  <TR>
 
@@ -310,7 +310,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.ProxyableComponent; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.ComponentStrategy; </SPAN></TD>
 </TR>
  <TR>
 
@@ -322,7 +322,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.UsageException; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.Location; </SPAN></TD>
 </TR>
  <TR>
 
@@ -334,7 +334,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.WrapperException; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.ProxyableComponent; </SPAN></TD>
 </TR>
  <TR>
 
@@ -346,7 +346,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.util.ClassUtils; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.UsageException; </SPAN></TD>
 </TR>
  <TR>
 
@@ -358,7 +358,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.util.ReflectUtils; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.WrapperException; </SPAN></TD>
 </TR>
  <TR>
 
@@ -370,7 +370,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.util.ClassUtils; </SPAN></TD>
 </TR>
  <TR>
 
@@ -382,7 +382,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> java.util.Iterator; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.util.ReflectUtils; </SPAN></TD>
 </TR>
  <TR>
 
@@ -394,7 +394,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> java.util.Map; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -406,7 +406,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> java.util.ArrayList; </SPAN></TD>
 </TR>
  <TR>
 
@@ -418,7 +418,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> java.util.Arrays; </SPAN></TD>
 </TR>
  <TR>
 
@@ -430,7 +430,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * This is a flyweight that will be shared by all its proxy instances.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> java.util.List; </SPAN></TD>
 </TR>
  <TR>
 
@@ -442,7 +442,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * </span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -454,7 +454,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@author</span> Harish Krishnaswamy</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -466,7 +466,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: DefaultComponent.html,v 1.1 2004-05-20 16:36:49 harishkswamy Exp $</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * This is a flyweight that will be shared by all its proxy instances.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -478,19 +478,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * </span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-   <A name="DefaultComponent">&nbsp;34</A>
+    &nbsp;34
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">public</span> <span class="keyword">class</span> DefaultComponent <span class="keyword">implements</span> ProxyableComponent </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@author</span> Harish Krishnaswamy</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -502,7 +502,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: DefaultComponent.html,v 1.2 2004-05-27 03:39:26 harishkswamy Exp $</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -514,19 +514,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> ComponentKey   _key; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> */</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;37
+   <A name="DefaultComponent">&nbsp;37</A>
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Location       _retrievalLocation; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">public</span> <span class="keyword">class</span> DefaultComponent <span class="keyword">implements</span> ProxyableComponent </SPAN></TD>
 </TR>
  <TR>
 
@@ -538,7 +538,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Class          _implementation; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  { </SPAN></TD>
 </TR>
  <TR>
 
@@ -550,7 +550,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Object[]       _constructorDependencies; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> ComponentKey        _key; </SPAN></TD>
 </TR>
  <TR>
 
@@ -562,7 +562,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Map            _methodDependencies; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Location            _retrievalLocation; </SPAN></TD>
 </TR>
  <TR>
 
@@ -574,7 +574,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Location       _registrationLocation; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Class               _implementation; </SPAN></TD>
 </TR>
  <TR>
 
@@ -586,7 +586,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> ComponentState _componentState; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Object[]            _constructorDependencies; </SPAN></TD>
 </TR>
  <TR>
 
@@ -598,20 +598,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> ComponentCallback[] _callbackMethods; </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;44
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 44: method entered 62 times.">&nbsp;62</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 44: method entered 62 times.">    <span class="keyword">public</span> DefaultComponent(ComponentKey compKey)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Location            _registrationLocation; </SPAN></TD>
 </TR>
  <TR>
 
@@ -623,25 +622,12 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;46
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 46: statement executed 62 times.">&nbsp;62</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 46: statement executed 62 times.">        _key = compKey;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> ComponentStrategy   _componentStrategy; </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;47
+    &nbsp;46
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -653,27 +639,40 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;48
+    &nbsp;47
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 48: statement executed 62 times.">&nbsp;62</A>
+    <A title="Line 47: method entered 53 times.">&nbsp;53</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 48: statement executed 62 times.">        _componentState = <span class="keyword">new</span> LazyLoadingComponentState(<span class="keyword">null</span>, <span class="keyword">this</span>);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 47: method entered 53 times.">    <span class="keyword">public</span> DefaultComponent(ComponentKey compKey)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;49
+    &nbsp;48
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;49
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 49: statement executed 53 times.">&nbsp;53</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 49: statement executed 53 times.">        _key = compKey;</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -694,10 +693,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 51: method entered 27 times.">&nbsp;27</A>
+    <A title="Line 51: statement executed 53 times.">&nbsp;53</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 51: method entered 27 times.">    <span class="keyword">public</span> Object getInstance()</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 51: statement executed 53 times.">        _componentStrategy = <span class="keyword">new</span> LazyLoadingComponentStrategy(<span class="keyword">null</span>, <span class="keyword">this</span>);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -710,37 +709,12 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;53
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 53: statement executed 27 times.">&nbsp;27</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 53: statement executed 27 times.">        <span class="keyword">return</span> _componentState.getComponentInstance();</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;54
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
 <TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;55
+    &nbsp;53
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -752,14 +726,39 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
+    &nbsp;54
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 54: method entered 27 times.">&nbsp;27</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 54: method entered 27 times.">    <span class="keyword">public</span> Object getInstance()</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;55
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
     &nbsp;56
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 56: method entered 73 times.">&nbsp;73</A>
+    <A title="Line 56: statement executed 27 times.">&nbsp;27</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 56: method entered 73 times.">    <span class="keyword">public</span> <span class="keyword">void</span> registerImplementation(Class compClass, Object[] ctorDeps, Map setrDeps)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 56: statement executed 27 times.">        <span class="keyword">return</span> _componentStrategy.getComponentInstance();</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -772,20 +771,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;58
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 58: statement executed 73 times.">&nbsp;73</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 58: statement executed 73 times.">        _implementation = compClass;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -794,24 +792,23 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 59: statement executed 73 times.">&nbsp;73</A>
+    <A title="Line 59: method entered 49 times.">&nbsp;49</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 59: statement executed 73 times.">        _constructorDependencies = ctorDeps;</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 59: method entered 49 times.">    <span class="keyword">public</span> <span class="keyword">void</span> registerImplementation(Class compClass, Object[] ctorDeps,</A>
 </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;60
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 60: statement executed 73 times.">&nbsp;73</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 60: statement executed 73 times.">        _methodDependencies = setrDeps;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          ComponentCallback[] lifeCycleMethods) </SPAN></TD>
 </TR>
  <TR>
 
@@ -823,19 +820,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;62
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 62: statement executed 49 times.">&nbsp;49</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 62: statement executed 49 times.">        _implementation = compClass;</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -844,36 +842,36 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 63: method entered 35 times.">&nbsp;35</A>
+    <A title="Line 63: statement executed 49 times.">&nbsp;49</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 63: method entered 35 times.">    <span class="keyword">public</span> <span class="keyword">void</span> setRegistrationLocation(Location location)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 63: statement executed 49 times.">        _constructorDependencies = ctorDeps;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;64
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 64: statement executed 49 times.">&nbsp;49</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 64: statement executed 49 times.">        _callbackMethods = lifeCycleMethods;</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;64
+    &nbsp;65
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;65
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 65: statement executed 35 times.">&nbsp;35</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 65: statement executed 35 times.">        _registrationLocation = location;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -885,37 +883,25 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;67
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
 <TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;68
+    &nbsp;67
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 68: method entered 13 times.">&nbsp;13</A>
+    <A title="Line 67: method entered 35 times.">&nbsp;35</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 68: method entered 13 times.">    <span class="keyword">public</span> <span class="keyword">void</span> setRetrievalLocation(Location location)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 67: method entered 35 times.">    <span class="keyword">public</span> <span class="keyword">void</span> setRegistrationLocation(Location location)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;69
+    &nbsp;68
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -927,15 +913,27 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;70
+    &nbsp;69
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 70: statement executed 13 times.">&nbsp;13</A>
+    <A title="Line 69: statement executed 35 times.">&nbsp;35</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 70: statement executed 13 times.">        _retrievalLocation = location;</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 69: statement executed 35 times.">        _registrationLocation = location;</A>
 </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;70
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -947,37 +945,25 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;72
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
 <TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;73
+    &nbsp;72
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 73: method entered 29 times.">&nbsp;29</A>
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 72: method not entered.">&nbsp;0</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 73: method entered 29 times.">    <span class="keyword">public</span> Class getInterface()</A>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 72: method not entered.">    <span class="keyword">public</span> <span class="keyword">void</span> registerConstructorArguments(Object[] args)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;74
+    &nbsp;73
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -989,14 +975,27 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
+    &nbsp;74
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 74: statement not executed.">&nbsp;0</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 74: statement not executed.">        <span class="keyword">if</span> (_constructorDependencies == <span class="keyword">null</span>)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
     &nbsp;75
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 75: statement executed 29 times.">&nbsp;29</A>
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 75: statement not executed.">&nbsp;0</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 75: statement executed 29 times.">        <span class="keyword">return</span> _key.getComponentInterface();</A>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 75: statement not executed.">            _constructorDependencies = args;</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1009,7 +1008,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1021,57 +1020,57 @@
       &nbsp;&nbsp;
 </TD>
 
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="keyword">else</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;78
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;79
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 79: statement not executed.">&nbsp;0</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 79: statement not executed.">            List deps = <span class="keyword">new</span> ArrayList(Arrays.asList(_constructorDependencies));</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;80
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
 <TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;78
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 78: method entered 40 times.">&nbsp;40</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 78: method entered 40 times.">    <span class="keyword">public</span> <span class="keyword">boolean</span> isInDispatchingState()</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;79
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;80
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 80: statement executed 40 times.">&nbsp;40</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 80: statement executed 40 times.">        <span class="keyword">return</span> _componentState.isDispatching();</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
     &nbsp;81
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 81: statement not executed.">&nbsp;0</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 81: statement not executed.">            deps.addAll(Arrays.asList(args));</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1091,11 +1090,11 @@
     &nbsp;83
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 83: method entered 7 times.">&nbsp;7</A>
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 83: statement not executed.">&nbsp;0</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 83: method entered 7 times.">    <span class="keyword">private</span> ComponentState getStateToDecorate()</A>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 83: statement not executed.">            _constructorDependencies = deps.toArray();</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1108,63 +1107,12 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;85
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 85: statement executed 7 times.">&nbsp;7</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 85: statement executed 7 times.">        <span class="keyword">if</span> (_componentState.getClass() == LazyLoadingComponentState.<span class="keyword">class</span>)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;86
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 86: statement executed 6 times.">&nbsp;6</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 86: statement executed 6 times.">            <span class="keyword">return</span> <span class="keyword">null</span>;</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;87
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="keyword">else</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;88
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 88: statement executed 1 time.">&nbsp;1</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 88: statement executed 1 time.">            <span class="keyword">return</span> _componentState;</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;89
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1176,7 +1124,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;90
+    &nbsp;86
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1188,32 +1136,20 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;91
+    &nbsp;87
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 91: method entered 3 times.">&nbsp;3</A>
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 87: method not entered.">&nbsp;0</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 91: method entered 3 times.">    <span class="keyword">protected</span> SingletonComponentState newSingletonState(ComponentState state,</A>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 87: method not entered.">    <span class="keyword">public</span> <span class="keyword">void</span> registerCallbackMethods(ComponentCallback[] lifeCycleMethods)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;92
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          ProxyableComponent comp) </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;93
+    &nbsp;88
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1225,14 +1161,76 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
+    &nbsp;89
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 89: statement not executed.">&nbsp;0</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 89: statement not executed.">        <span class="keyword">if</span> (_callbackMethods == <span class="keyword">null</span>)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;90
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 90: statement not executed.">&nbsp;0</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 90: statement not executed.">            _callbackMethods = lifeCycleMethods;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;91
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;92
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="keyword">else</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;93
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
     &nbsp;94
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 94: statement executed 3 times.">&nbsp;3</A>
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 94: statement not executed.">&nbsp;0</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 94: statement executed 3 times.">        <span class="keyword">return</span> <span class="keyword">new</span> SingletonComponentState(state, comp);</A>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 94: statement not executed.">            List methods = <span class="keyword">new</span> ArrayList(Arrays.asList(_callbackMethods));</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1245,12 +1243,25 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;96
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 96: statement not executed.">&nbsp;0</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 96: statement not executed.">            methods.addAll(Arrays.asList(lifeCycleMethods));</A>
+</SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;96
+    &nbsp;97
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1262,27 +1273,15 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;97
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 97: method entered 3 times.">&nbsp;3</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 97: method entered 3 times.">    <span class="keyword">public</span> <span class="keyword">void</span> wrapStateWithSingleton()</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
     &nbsp;98
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 98: statement not executed.">&nbsp;0</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 98: statement not executed.">            _callbackMethods = (ComponentCallback[]) methods.toArray(<span class="keyword">new</span> ComponentCallback[0]);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1294,38 +1293,24 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// If already in singleton state, do nothing</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;100
-</TD>
-
-<TD align="right" class="coverageCountHilight">
-    <A title="Line 100: expression evaluated to true 0 times, false 3 times.">&nbsp;3</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 100: expression evaluated to true 0 times, false 3 times.">        <span class="keyword">if</span> (_componentState <span class="keyword">instanceof</span> SingletonComponentState)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;101
-</TD>
-
-<TD align="right" class="coverageCountHilight">
-    <A title="Line 101: statement not executed.">&nbsp;0</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 101: statement not executed.">            <span class="keyword">return</span>;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;102
+    &nbsp;100
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;101
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1337,27 +1322,40 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;103
+    &nbsp;102
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 103: statement executed 3 times.">&nbsp;3</A>
+    <A title="Line 102: method entered 13 times.">&nbsp;13</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 103: statement executed 3 times.">        _componentState = newSingletonState(getStateToDecorate(), <span class="keyword">this</span>);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 102: method entered 13 times.">    <span class="keyword">public</span> <span class="keyword">void</span> setRetrievalLocation(Location location)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;104
+    &nbsp;103
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;104
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 104: statement executed 13 times.">&nbsp;13</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 104: statement executed 13 times.">        _retrievalLocation = location;</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1369,25 +1367,37 @@
       &nbsp;&nbsp;
 </TD>
 
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;106
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
 <TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;106
+    &nbsp;107
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 106: method entered 2 times.">&nbsp;2</A>
+    <A title="Line 107: method entered 76 times.">&nbsp;76</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 106: method entered 2 times.">    <span class="keyword">protected</span> PoolingComponentState newPoolingState(ComponentState state, ProxyableComponent comp)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 107: method entered 76 times.">    <span class="keyword">public</span> Class getInterface()</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;107
+    &nbsp;108
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1399,27 +1409,15 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;108
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 108: statement executed 2 times.">&nbsp;2</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 108: statement executed 2 times.">        <span class="keyword">return</span> <span class="keyword">new</span> PoolingComponentState(state, comp);</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
     &nbsp;109
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 109: statement executed 76 times.">&nbsp;76</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 109: statement executed 76 times.">        <span class="keyword">return</span> _key.getComponentInterface();</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1431,32 +1429,32 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;111
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 111: method entered 2 times.">&nbsp;2</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 111: method entered 2 times.">    <span class="keyword">public</span> <span class="keyword">void</span> wrapStateWithPooling()</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;112
+    &nbsp;111
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;112
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 112: method entered 38 times.">&nbsp;38</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 112: method entered 38 times.">    <span class="keyword">public</span> <span class="keyword">boolean</span> isInDispatchingState()</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1468,7 +1466,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// If already in pooling state, do nothing</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
@@ -1476,25 +1474,24 @@
     &nbsp;114
 </TD>
 
-<TD align="right" class="coverageCountHilight">
-    <A title="Line 114: expression evaluated to true 0 times, false 2 times.">&nbsp;2</A>
+<TD align="right" class="lineCountHilight">
+    <A title="Line 114: statement executed 38 times.">&nbsp;38</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 114: expression evaluated to true 0 times, false 2 times.">        <span class="keyword">if</span> (_componentState <span class="keyword">instanceof</span> PoolingComponentState)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 114: statement executed 38 times.">        <span class="keyword">return</span> _componentStrategy.isDispatching();</A>
 </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;115
 </TD>
 
-<TD align="right" class="coverageCountHilight">
-    <A title="Line 115: statement not executed.">&nbsp;0</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 115: statement not executed.">            <span class="keyword">return</span>;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -1515,10 +1512,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 117: statement executed 2 times.">&nbsp;2</A>
+    <A title="Line 117: method entered 7 times.">&nbsp;7</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 117: statement executed 2 times.">        _componentState = newPoolingState(getStateToDecorate(), <span class="keyword">this</span>);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 117: method entered 7 times.">    <span class="keyword">private</span> ComponentStrategy getStrategyToDecorate()</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1531,19 +1528,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;119
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 119: statement executed 7 times.">&nbsp;7</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 119: statement executed 7 times.">        <span class="keyword">if</span> (_componentStrategy.getClass() == LazyLoadingComponentStrategy.<span class="keyword">class</span>)</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1552,10 +1550,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 120: method entered 2 times.">&nbsp;2</A>
+    <A title="Line 120: statement executed 6 times.">&nbsp;6</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 120: method entered 2 times.">    <span class="keyword">protected</span> ThreadLocalComponentState newThreadLocalState(ComponentState state,</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 120: statement executed 6 times.">            <span class="keyword">return</span> <span class="keyword">null</span>;</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1568,37 +1566,25 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          ProxyableComponent comp) </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;122
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="keyword">else</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;123
+    &nbsp;122
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 123: statement executed 2 times.">&nbsp;2</A>
+    <A title="Line 122: statement executed 1 time.">&nbsp;1</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 123: statement executed 2 times.">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadLocalComponentState(state, comp);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 122: statement executed 1 time.">            <span class="keyword">return</span> _componentStrategy;</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;124
+    &nbsp;123
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1610,7 +1596,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;125
+    &nbsp;124
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1622,15 +1608,27 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;126
+    &nbsp;125
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 126: method entered 2 times.">&nbsp;2</A>
+    <A title="Line 125: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 126: method entered 2 times.">    <span class="keyword">public</span> <span class="keyword">void</span> wrapStateWithThreadLocal()</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 125: method entered 3 times.">    <span class="keyword">protected</span> SingletonComponentStrategy newSingletonStrategy(ComponentStrategy strategy,</A>
 </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;126
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          ProxyableComponent comp) </SPAN></TD>
 </TR>
  <TR>
 
@@ -1646,71 +1644,21 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;128
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// If already in thread local state, do nothing</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;129
-</TD>
-
-<TD align="right" class="coverageCountHilight">
-    <A title="Line 129: expression evaluated to true 0 times, false 2 times.">&nbsp;2</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 129: expression evaluated to true 0 times, false 2 times.">        <span class="keyword">if</span> (_componentState <span class="keyword">instanceof</span> ThreadLocalComponentState)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;130
-</TD>
-
-<TD align="right" class="coverageCountHilight">
-    <A title="Line 130: statement not executed.">&nbsp;0</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 130: statement not executed.">            <span class="keyword">return</span>;</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;131
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;132
-</TD>
-
 <TD align="right" class="lineCountHilight">
-    <A title="Line 132: statement executed 2 times.">&nbsp;2</A>
+    <A title="Line 128: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 132: statement executed 2 times.">        _componentState = newThreadLocalState(getStateToDecorate(), <span class="keyword">this</span>);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 128: statement executed 3 times.">        <span class="keyword">return</span> <span class="keyword">new</span> SingletonComponentStrategy(strategy, comp);</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;133
+    &nbsp;129
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1722,7 +1670,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;134
+    &nbsp;130
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1734,14 +1682,64 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;135
+    &nbsp;131
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 135: method entered 23 times.">&nbsp;23</A>
+    <A title="Line 131: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 135: method entered 23 times.">    <span class="keyword">public</span> Object getConcreteInstance()</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 131: method entered 3 times.">    <span class="keyword">public</span> <span class="keyword">void</span> wrapStrategyWithSingleton()</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;132
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;133
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// If already in singleton state, do nothing</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;134
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 134: expression evaluated to true 0 times, false 3 times.">&nbsp;3</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 134: expression evaluated to true 0 times, false 3 times.">        <span class="keyword">if</span> (_componentStrategy <span class="keyword">instanceof</span> SingletonComponentStrategy)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;135
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 135: statement not executed.">&nbsp;0</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 135: statement not executed.">            <span class="keyword">return</span>;</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1754,7 +1752,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1763,10 +1761,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 137: statement executed 23 times.">&nbsp;23</A>
+    <A title="Line 137: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 137: statement executed 23 times.">        <span class="keyword">return</span> _componentState.getConcreteComponentInstance();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 137: statement executed 3 times.">        _componentStrategy = newSingletonStrategy(getStrategyToDecorate(), <span class="keyword">this</span>);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1795,15 +1793,16 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;140
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 140: method entered 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">// Construct new instance ======================================================================</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 140: method entered 2 times.">    <span class="keyword">protected</span> PoolingComponentStrategy newPoolingStrategy(ComponentStrategy strategy,</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1815,25 +1814,12 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;142
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 142: method entered 18 times.">&nbsp;18</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 142: method entered 18 times.">    <span class="keyword">private</span> <span class="keyword">void</span> setDependencies(Object inst, Map methodDeps)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          ProxyableComponent comp) </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;143
+    &nbsp;142
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1845,33 +1831,32 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;144
+    &nbsp;143
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 144: statement executed 18 times.">&nbsp;18</A>
+    <A title="Line 143: statement executed 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 144: statement executed 18 times.">        <span class="keyword">if</span> (methodDeps == <span class="keyword">null</span>)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;145
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 145: statement executed 16 times.">&nbsp;16</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 145: statement executed 16 times.">            <span class="keyword">return</span>;</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 143: statement executed 2 times.">        <span class="keyword">return</span> <span class="keyword">new</span> PoolingComponentStrategy(strategy, comp);</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;146
+    &nbsp;144
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;145
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1883,15 +1868,27 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;147
+    &nbsp;146
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 147: statement executed 2 times.">&nbsp;2</A>
+    <A title="Line 146: method entered 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 147: statement executed 2 times.">        <span class="keyword">for</span> (Iterator itr = methodDeps.keySet().iterator(); itr.hasNext();)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 146: method entered 2 times.">    <span class="keyword">public</span> <span class="keyword">void</span> wrapStrategyWithPooling()</A>
 </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;147
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
@@ -1903,7 +1900,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// If already in pooling state, do nothing</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1911,17 +1908,30 @@
     &nbsp;149
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 149: statement executed 4 times.">&nbsp;4</A>
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 149: expression evaluated to true 0 times, false 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 149: statement executed 4 times.">            String methodName = (String) itr.next();</A>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 149: expression evaluated to true 0 times, false 2 times.">        <span class="keyword">if</span> (_componentStrategy <span class="keyword">instanceof</span> PoolingComponentStrategy)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;150
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 150: statement not executed.">&nbsp;0</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 150: statement not executed.">            <span class="keyword">return</span>;</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;150
+    &nbsp;151
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1933,27 +1943,15 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;151
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 151: statement executed 4 times.">&nbsp;4</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 151: statement executed 4 times.">            ReflectUtils.invokeMethod(inst, methodName, methodDeps.get(methodName));</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
     &nbsp;152
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 152: statement executed 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 152: statement executed 2 times.">        _componentStrategy = newPoolingStrategy(getStrategyToDecorate(), <span class="keyword">this</span>);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1981,15 +1979,16 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;155
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 155: method entered 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 155: method entered 2 times.">    <span class="keyword">protected</span> ThreadLocalComponentStrategy newThreadLocalStrategy(ComponentStrategy strategy,</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2001,7 +2000,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Gives {@link gravity.DynamicWeaver}an opportunity to weave the supplied object and then it</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          ProxyableComponent comp) </SPAN></TD>
 </TR>
  <TR>
 
@@ -2013,124 +2012,25 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * sets any dependencies via the setter methods with the provided property name/value map.</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;158
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;159
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 159: method entered 18 times.">&nbsp;18</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 159: method entered 18 times.">    <span class="keyword">private</span> Object initializeService(Object inst, Map methodDeps)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;160
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
 <TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
-    &nbsp;161
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// This is the hook to let cross-cutting concerns be weaved into the component.</span> </SPAN></TD>
-</TR>
- <TR>
-
  <TD align="right" class="lineCountHilight">
-    &nbsp;162
+    &nbsp;158
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 162: statement executed 18 times.">&nbsp;18</A>
+    <A title="Line 158: statement executed 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 162: statement executed 18 times.">        Object enhInst = DynamicWeaverFactory.getDynamicWeaver().weave(inst);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 158: statement executed 2 times.">        <span class="keyword">return</span> <span class="keyword">new</span> ThreadLocalComponentStrategy(strategy, comp);</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;163
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;164
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 164: statement executed 18 times.">&nbsp;18</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 164: statement executed 18 times.">        setDependencies(enhInst, methodDeps);</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;165
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;166
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 166: statement executed 18 times.">&nbsp;18</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 166: statement executed 18 times.">        <span class="keyword">return</span> enhInst;</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;167
+    &nbsp;159
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2142,7 +2042,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;168
+    &nbsp;160
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2150,6 +2050,106 @@
 </TD>
 
 <TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;161
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 161: method entered 2 times.">&nbsp;2</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 161: method entered 2 times.">    <span class="keyword">public</span> <span class="keyword">void</span> wrapStrategyWithThreadLocal()</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;162
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;163
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// If already in thread local state, do nothing</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;164
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 164: expression evaluated to true 0 times, false 2 times.">&nbsp;2</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 164: expression evaluated to true 0 times, false 2 times.">        <span class="keyword">if</span> (_componentStrategy <span class="keyword">instanceof</span> ThreadLocalComponentStrategy)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;165
+</TD>
+
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 165: statement not executed.">&nbsp;0</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 165: statement not executed.">            <span class="keyword">return</span>;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;166
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;167
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 167: statement executed 2 times.">&nbsp;2</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 167: statement executed 2 times.">        _componentStrategy = newThreadLocalStrategy(getStrategyToDecorate(), <span class="keyword">this</span>);</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;168
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2161,19 +2161,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;170
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 170: method entered 23 times.">&nbsp;23</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Builds a service via constructor injection.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 170: method entered 23 times.">    <span class="keyword">public</span> Object getConcreteInstance()</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2185,19 +2186,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;172
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 172: statement executed 23 times.">&nbsp;23</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Instantiates the service from the supplied class and arguments and initializes it.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 172: statement executed 23 times.">        <span class="keyword">return</span> _componentStrategy.getConcreteComponentInstance();</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2209,7 +2211,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2221,7 +2223,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Fully constructed and initialized service.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -2233,50 +2235,12 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">// Construct new instance ======================================================================</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;176
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 176: method entered 16 times.">&nbsp;16</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 176: method entered 16 times.">    <span class="keyword">private</span> Object constructViaComboInjection(Class implClass, Object[] ctorDeps, Map methodDeps)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;177
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;178
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 178: statement executed 16 times.">&nbsp;16</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 178: statement executed 16 times.">        Object instance = ReflectUtils.invokeConstructor(implClass, ctorDeps);</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;179
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2288,14 +2252,52 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
+    &nbsp;177
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 177: method entered 16 times.">&nbsp;16</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 177: method entered 16 times.">    <span class="keyword">private</span> <span class="keyword">void</span> invokeInitializationMethods(Object instance)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;178
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;179
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 179: statement executed 16 times.">&nbsp;16</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 179: statement executed 16 times.">        <span class="keyword">if</span> (_callbackMethods == <span class="keyword">null</span>)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
     &nbsp;180
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 180: statement executed 16 times.">&nbsp;16</A>
+    <A title="Line 180: statement executed 14 times.">&nbsp;14</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 180: statement executed 16 times.">        <span class="keyword">return</span> initializeService(instance, methodDeps);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 180: statement executed 14 times.">            <span class="keyword">return</span>;</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2308,19 +2310,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;182
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 182: statement executed 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 182: statement executed 2 times.">        <span class="keyword">for</span> (<span class="keyword">int</span> i = 0; i &lt; _callbackMethods.length; i++)</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2332,31 +2335,33 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;184
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 184: statement executed 4 times.">&nbsp;4</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Builds a service via setter injection.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 184: statement executed 4 times.">            ComponentCallback method = _callbackMethods[i];</A>
+</SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;185
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 185: statement executed 4 times.">&nbsp;4</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 185: statement executed 4 times.">            ComponentPhase phase = method.getLifeCyclePhase();</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2368,19 +2373,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Instantiates the service from the supplied class and initializes it.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;187
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 187: expression evaluated to true 4 times, false 0 times.">&nbsp;4</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 187: expression evaluated to true 4 times, false 0 times.">            <span class="keyword">if</span> (phase == ComponentPhase.INJECTION || phase == ComponentPhase.START_UP)</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2392,32 +2398,32 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Fully constructed and initialized service.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">              { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;189
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 189: statement executed 4 times.">&nbsp;4</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 189: statement executed 4 times.">                ReflectUtils.invokeMethod(instance, method.getName(), method.getArguments());</A>
+</SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;189
+    &nbsp;190
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;190
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 190: method entered 3 times.">&nbsp;3</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 190: method entered 3 times.">    <span class="keyword">private</span> Object constructViaMethodInjection(Class implClass, Map methodDeps)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">              } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2429,20 +2435,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;192
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 192: statement executed 3 times.">&nbsp;3</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 192: statement executed 3 times.">        Object instance = ClassUtils.newInstance(implClass);</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2458,45 +2463,8 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;194
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 194: statement executed 2 times.">&nbsp;2</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 194: statement executed 2 times.">        <span class="keyword">return</span> initializeService(instance, methodDeps);</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;195
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;196
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;197
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2508,175 +2476,31 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;198
+    &nbsp;195
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Builds a service via constructor and/or setter injection.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Gives {@link gravity.DynamicWeaver}an opportunity to weave the supplied object and then it</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;199
+    &nbsp;196
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * sets any dependencies via the setter methods with the provided property name/value map.</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;200
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * When the supplied array of constructor arguments is null, this method will use the setter</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;201
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * injection strategy, otherwise it uses the constructor injection strategy.</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;202
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;203
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * When both the array of constructor arguments and the map of setter properties are supplied,</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;204
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * this method will do a combo injection (constructor injection + setter injection).</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;205
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;206
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Fully constructed and initialized service.</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;207
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@throws</span> UsageException</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;208
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     *         When the supplied implementation class is null.</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;209
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@throws</span> WrapperException</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;210
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     *         When there is any problem while building the service.</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;211
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@see</span> gravity.DynamicWeaver#weave(Object)</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;212
+    &nbsp;197
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2688,20 +2512,20 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;213
+    &nbsp;198
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 213: method entered 21 times.">&nbsp;21</A>
+    <A title="Line 198: method entered 16 times.">&nbsp;16</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 213: method entered 21 times.">    <span class="keyword">public</span> Object newInstance()</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 198: method entered 16 times.">    <span class="keyword">private</span> Object initializeComponent(Object instance)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;214
+    &nbsp;199
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2713,27 +2537,210 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;215
+    &nbsp;200
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// TODO make this a passive aggressive check</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// This is the hook to let cross-cutting concerns be weaved into the component.</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;216
+    &nbsp;201
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 216: statement executed 21 times.">&nbsp;21</A>
+    <A title="Line 201: statement executed 16 times.">&nbsp;16</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 216: statement executed 21 times.">        <span class="keyword">if</span> (_implementation == <span class="keyword">null</span>)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 201: statement executed 16 times.">        Object enhInst = DynamicWeaverFactory.getDynamicWeaver().weave(instance);</A>
 </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;202
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;203
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 203: statement executed 16 times.">&nbsp;16</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 203: statement executed 16 times.">        invokeInitializationMethods(enhInst);</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;204
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;205
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 205: statement executed 16 times.">&nbsp;16</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 205: statement executed 16 times.">        <span class="keyword">return</span> enhInst;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;206
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;207
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;208
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;209
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Builds a service via constructor injection.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;210
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;211
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Instantiates the service from the supplied class and arguments and initializes it.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;212
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;213
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Fully constructed and initialized service.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;214
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;215
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 215: method entered 14 times.">&nbsp;14</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 215: method entered 14 times.">    <span class="keyword">private</span> Object constructViaComboInjection()</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;216
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
@@ -2742,10 +2749,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 217: statement executed 2 times.">&nbsp;2</A>
+    <A title="Line 217: statement executed 14 times.">&nbsp;14</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 217: statement executed 2 times.">            <span class="keyword">throw</span> <span class="keyword">new</span> UsageException(<span class="string">"Implementation not registered for component: "</span> + <span class="keyword">this</span></A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 217: statement executed 14 times.">        Object instance = ReflectUtils.invokeConstructor(_implementation, _constructorDependencies);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2758,32 +2765,32 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">                  + <span class="string">" at location: "</span> + _retrievalLocation); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;219
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 219: statement executed 14 times.">&nbsp;14</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 219: statement executed 14 times.">        <span class="keyword">return</span> initializeComponent(instance);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;219
+    &nbsp;220
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;220
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 220: statement executed 19 times.">&nbsp;19</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 220: statement executed 19 times.">        <span class="keyword">try</span></A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2795,20 +2802,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;222
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 222: statement executed 19 times.">&nbsp;19</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 222: statement executed 19 times.">            Object instance;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2820,33 +2826,31 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Builds a service via setter injection.</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;224
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 224: statement executed 19 times.">&nbsp;19</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 224: statement executed 19 times.">            <span class="keyword">if</span> (_constructorDependencies == <span class="keyword">null</span>)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;225
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 225: statement executed 3 times.">&nbsp;3</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 225: statement executed 3 times.">                instance = constructViaMethodInjection(_implementation, _methodDependencies);</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Instantiates the service from the supplied class and initializes it.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2858,7 +2862,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2870,32 +2874,32 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">              <span class="keyword">else</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;228
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 228: statement executed 16 times.">&nbsp;16</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 228: statement executed 16 times.">                instance = constructViaComboInjection(_implementation, _constructorDependencies,</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Fully constructed and initialized service.</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;229
+    &nbsp;228
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">                      _methodDependencies); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;229
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 229: method entered 3 times.">&nbsp;3</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 229: method entered 3 times.">    <span class="keyword">private</span> Object constructViaMethodInjection()</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2907,7 +2911,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
@@ -2916,10 +2920,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 231: statement executed 18 times.">&nbsp;18</A>
+    <A title="Line 231: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 231: statement executed 18 times.">            <span class="keyword">return</span> instance;</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 231: statement executed 3 times.">        Object instance = ClassUtils.newInstance(_implementation);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2932,19 +2936,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;233
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 233: statement executed 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="keyword">catch</span> (Exception e) </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 233: statement executed 2 times.">        <span class="keyword">return</span> initializeComponent(instance);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2956,20 +2961,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;235
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 235: statement executed 1 time.">&nbsp;1</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 235: statement executed 1 time.">            <span class="keyword">throw</span> WrapperException.wrap(e, <span class="string">"Unable to construct new instance for component: "</span></A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -2981,7 +2985,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">                  + <span class="keyword">this</span> + <span class="string">" at location: "</span> + _registrationLocation); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2993,7 +2997,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Builds a service via constructor and/or setter injection.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3005,7 +3009,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3017,7 +3021,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * When the supplied array of constructor arguments is null, this method will use the setter</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3029,7 +3033,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">// End - Construct new instance ================================================================</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * injection strategy, otherwise it uses the constructor injection strategy.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3041,20 +3045,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;242
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 242: method entered 2 times.">&nbsp;2</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 242: method entered 2 times.">    <span class="keyword">public</span> <span class="keyword">void</span> collectInstance(Object inst)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * When both the array of constructor arguments and the map of setter properties are supplied,</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3066,20 +3069,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * this method will do a combo injection (constructor injection + setter injection).</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;244
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 244: statement executed 2 times.">&nbsp;2</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 244: statement executed 2 times.">        _componentState.collectComponentInstance(inst);</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3091,7 +3093,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Fully constructed and initialized service.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3103,20 +3105,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@throws</span> UsageException</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;247
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 247: method entered 10 times.">&nbsp;10</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 247: method entered 10 times.">    <span class="keyword">public</span> String toString()</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     *         When the supplied implementation class is null.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3128,20 +3129,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@throws</span> WrapperException</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;249
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 249: statement executed 10 times.">&nbsp;10</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 249: statement executed 10 times.">        <span class="keyword">return</span> <span class="string">"[Key: "</span> + _key + <span class="string">", Implementation: "</span> + _implementation + <span class="string">"]"</span>;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     *         When there is any problem while building the service.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3153,12 +3153,482 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@see</span> gravity.DynamicWeaver#weave(Object)</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
     &nbsp;251
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;252
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 252: method entered 21 times.">&nbsp;21</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 252: method entered 21 times.">    <span class="keyword">public</span> Object newInstance()</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;253
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;254
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// TODO make this a passive aggressive check</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;255
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 255: statement executed 21 times.">&nbsp;21</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 255: statement executed 21 times.">        <span class="keyword">if</span> (_implementation == <span class="keyword">null</span>)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;256
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 256: statement executed 4 times.">&nbsp;4</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 256: statement executed 4 times.">            <span class="keyword">throw</span> <span class="keyword">new</span> UsageException(<span class="string">"Implementation not registered for component: "</span> + <span class="keyword">this</span></A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;257
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">                  + <span class="string">" at location: "</span> + _retrievalLocation); </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;258
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;259
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 259: statement executed 17 times.">&nbsp;17</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 259: statement executed 17 times.">        <span class="keyword">try</span></A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;260
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;261
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 261: statement executed 17 times.">&nbsp;17</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 261: statement executed 17 times.">            Object instance;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;262
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;263
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 263: statement executed 17 times.">&nbsp;17</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 263: statement executed 17 times.">            <span class="keyword">if</span> (_constructorDependencies == <span class="keyword">null</span>)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;264
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 264: statement executed 3 times.">&nbsp;3</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 264: statement executed 3 times.">                instance = constructViaMethodInjection();</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;265
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;266
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">              <span class="keyword">else</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;267
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 267: statement executed 14 times.">&nbsp;14</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 267: statement executed 14 times.">                instance = constructViaComboInjection();</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;268
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;269
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 269: statement executed 16 times.">&nbsp;16</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 269: statement executed 16 times.">            <span class="keyword">return</span> instance;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;270
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;271
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="keyword">catch</span> (Exception e) </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;272
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;273
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 273: statement executed 1 time.">&nbsp;1</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 273: statement executed 1 time.">            <span class="keyword">throw</span> WrapperException.wrap(e, <span class="string">"Unable to construct new instance for component: "</span></A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;274
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">                  + <span class="keyword">this</span> + <span class="string">" at location: "</span> + _registrationLocation); </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;275
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;276
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;277
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;278
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">// End - Construct new instance ================================================================</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;279
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;280
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 280: method entered 2 times.">&nbsp;2</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 280: method entered 2 times.">    <span class="keyword">public</span> <span class="keyword">void</span> collectInstance(Object inst)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;281
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;282
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 282: statement executed 2 times.">&nbsp;2</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 282: statement executed 2 times.">        _componentStrategy.collectComponentInstance(inst);</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;283
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;284
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;285
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 285: method entered 15 times.">&nbsp;15</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 285: method entered 15 times.">    <span class="keyword">public</span> String toString()</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;286
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;287
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 287: statement executed 15 times.">&nbsp;15</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 287: statement executed 15 times.">        <span class="keyword">return</span> <span class="string">"[Key: "</span> + _key + <span class="string">", Implementation: "</span> + _implementation + <span class="string">"]"</span>;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;288
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;289
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -3174,7 +3644,7 @@
 <TR><TD class="footer" colspan="6">
 <table>
 <tr>
- <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Thu May 20 2004 12:31:35 EDT</i>.</td>
+ <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Wed May 26 2004 22:29:55 EDT</i>.</td>
 <td>&nbsp;</td><td style="BORDER-LEFT: #9c9c9c 1px solid;">&nbsp;</td><td>Open Source License registered to the Gravity Project. This license of Clover is provided to support the development of Gravity only. </td>
 </tr>
 </table>
