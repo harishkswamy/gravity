@@ -22,7 +22,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Message.java,v 1.1 2004-09-02 03:52:21 harishkswamy Exp $
+ * @version $Id: Message.java,v 1.2 2004-11-17 20:20:58 harishkswamy Exp $
  */
 public class Message
 {
@@ -31,6 +31,7 @@ public class Message
     public static final String      GRAVITY_NOT_INITIALIZED                 = "GRAVITY_NOT_INITIALIZED";
     public static final String      GRAVITY_ALREADY_INITIALIZED             = "GRAVITY_ALREADY_INITIALIZED";
     public static final String      COMPONENT_IMPLEMENTATION_NOT_REGISTERED = "COMPONENT_IMPLEMENTATION_NOT_REGISTERED";
+    public static final String      COMPONENT_INTERFACE_MUST_NOT_BE_NULL    = "COMPONENT_INTERFACE_MUST_NOT_BE_NULL";
     public static final String      CANNOT_CONSTRUCT_COMPONENT_INSTANCE     = "CANNOT_CONSTRUCT_COMPONENT_INSTANCE";
     public static final String      CANNOT_FIND_CONSTRUCTOR                 = "CANNOT_FIND_CONSTRUCTOR";
     public static final String      CANNOT_INVOKE_CONSTRUCTOR               = "CANNOT_INVOKE_CONSTRUCTOR";
