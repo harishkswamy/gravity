@@ -17,13 +17,20 @@ package gravity;
 import java.util.Map;
 
 /**
- * The Component is an object that has an interface, an implementation and
- * {@link gravity.ComponentState state}. The Component is also a factory that produce instances of
- * itself just like {@link java.lang.Class}. The identity of the instances produced by the
- * component is dependent on the state of the component.
+ * The component is the central concept of the framework around which everything else revolves. A
+ * component is the entity that can be configured by the {@link gravity.Container container}. A
+ * component is simply an object that has an interface, an implementation and a
+ * {@link gravity.ComponentState state}.
+ * <p>
+ * Every component has a unique identity typically comprised of the interface and a type (any
+ * String) and there will be only one object of each component (a flyweight).
+ * <p>
+ * The Component is also a factory for component instances just like {@link java.lang.Class}. The
+ * identity of the component instances (not to be confused with the component identity) is dependent
+ * on the state of the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.3 2004-05-18 20:52:00 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.4 2004-05-20 11:41:10 harishkswamy Exp $
  */
 public interface Component
 {
