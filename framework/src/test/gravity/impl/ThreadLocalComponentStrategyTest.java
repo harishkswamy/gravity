@@ -23,15 +23,15 @@ import org.easymock.MockControl;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentStrategyTest.java,v 1.1 2004-05-22 20:19:27 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentStrategyTest.java,v 1.2 2004-06-14 04:24:26 harishkswamy Exp $
  */
 public class ThreadLocalComponentStrategyTest extends TestCase
 {
     private ThreadLocalComponentStrategy _state;
-    private ProxyableComponent        _mockComp;
-    private MockControl               _compControl;
+    private ProxyableComponent           _mockComp;
+    private MockControl                  _compControl;
     private ComponentStrategy            _mockState;
-    private MockControl               _stateControl;
+    private MockControl                  _stateControl;
 
     private void setUpMockComp()
     {
@@ -43,7 +43,7 @@ public class ThreadLocalComponentStrategyTest extends TestCase
     {
         setUpMockComp();
 
-        _state = new ThreadLocalComponentStrategy(null, _mockComp);
+        _state = new ThreadLocalComponentStrategy(null);
     }
 
     public void setUpDecoratedState()
@@ -53,7 +53,7 @@ public class ThreadLocalComponentStrategyTest extends TestCase
         _stateControl = MockControl.createStrictControl(ComponentStrategy.class);
         _mockState = (ComponentStrategy) _stateControl.getMock();
 
-        _state = new ThreadLocalComponentStrategy(_mockState, _mockComp);
+        _state = new ThreadLocalComponentStrategy(_mockState);
     }
 
     public void tearDown()
@@ -70,8 +70,8 @@ public class ThreadLocalComponentStrategyTest extends TestCase
 
         _compControl.replay();
 
-        Object rtnInst1 = _state.getConcreteComponentInstance();
-        Object rtnInst2 = _state.getConcreteComponentInstance();
+        Object rtnInst1 = _state.getConcreteComponentInstance(_mockComp);
+        Object rtnInst2 = _state.getConcreteComponentInstance(_mockComp);
 
         _compControl.verify();
 
@@ -86,12 +86,12 @@ public class ThreadLocalComponentStrategyTest extends TestCase
         _compControl.replay();
 
         Object compInst = new Object();
-        _stateControl.expectAndReturn(_mockState.getConcreteComponentInstance(), compInst, 1);
+        _stateControl.expectAndReturn(_mockState.getConcreteComponentInstance(_mockComp), compInst, 1);
 
         _stateControl.replay();
 
-        Object rtnInst1 = _state.getConcreteComponentInstance();
-        Object rtnInst2 = _state.getConcreteComponentInstance();
+        Object rtnInst1 = _state.getConcreteComponentInstance(_mockComp);
+        Object rtnInst2 = _state.getConcreteComponentInstance(_mockComp);
 
         _compControl.verify();
         _stateControl.verify();
@@ -120,17 +120,24 @@ public class ThreadLocalComponentStrategyTest extends TestCase
         _mockState.collectComponentInstance(null);
 
         Object compInst = new Object();
-        _stateControl.expectAndReturn(_mockState.getConcreteComponentInstance(), compInst, 1);
+        _stateControl.expectAndReturn(_mockState.getConcreteComponentInstance(_mockComp), compInst, 1);
 
         _mockState.collectComponentInstance(compInst);
 
         _stateControl.replay();
 
         _state.handleThreadPreTermination();
-        _state.getConcreteComponentInstance();
+        _state.getConcreteComponentInstance(_mockComp);
         _state.handleThreadPreTermination();
 
         _compControl.verify();
         _stateControl.verify();
+    }
+
+    public void testToString()
+    {
+        setUpState();
+        
+        assertEquals(_state.toString(), " [Thread Local] ");
     }
 }

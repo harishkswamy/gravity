@@ -20,7 +20,7 @@ import java.net.URL;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTest.java,v 1.3 2004-05-18 20:51:58 harishkswamy Exp $
+ * @version $Id: GravityTest.java,v 1.4 2004-06-14 04:24:28 harishkswamy Exp $
  */
 public class GravityTest extends GravityTestCase
 {
@@ -41,7 +41,16 @@ public class GravityTest extends GravityTestCase
     public void testReinitialize()
     {
         Gravity.getInstance().initialize();
-        Gravity.getInstance().initialize();
+
+        try
+        {
+            Gravity.getInstance().initialize();
+        }
+        catch (Exception e)
+        {
+            assertSuperString(e, "Gravity is already initialized, use setProperty() to add "
+                + "properties to Gravity.");
+        }
     }
 
     public void testStartup()
@@ -107,6 +116,15 @@ public class GravityTest extends GravityTestCase
         {
             assertSuperString(e, "Cannot find resource: Non-existent.properties");
         }
+    }
+    
+    public void testGetContainer()
+    {
+        Container container = Gravity.getInstance().startup();
+        
+        Container container2 = Gravity.getInstance().getContainer();
+        
+        assertSame(container, container2);
     }
 
     public void testGravityProperties()

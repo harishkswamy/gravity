@@ -24,7 +24,7 @@ import junit.framework.TestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTestCase.java,v 1.1 2004-05-10 17:29:08 harishkswamy Exp $
+ * @version $Id: GravityTestCase.java,v 1.2 2004-06-14 04:24:28 harishkswamy Exp $
  */
 public class GravityTestCase extends TestCase
 {
@@ -38,7 +38,7 @@ public class GravityTestCase extends TestCase
         if (t.toString().indexOf(msg) > -1)
             return;
 
-        fail("Expected super-string of: <" + msg + ">\n\tbut was: <" + t.toString() + ">");
+        fail("Expected super-string of: <" + msg + ">\n\tbut was: <" + t + ">");
     }
 
     protected void writeFile(String fPath, String content)

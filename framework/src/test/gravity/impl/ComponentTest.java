@@ -31,7 +31,7 @@ import java.util.List;
 // TODO test location in messages
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentTest.java,v 1.5 2004-05-27 03:36:28 harishkswamy Exp $
+ * @version $Id: ComponentTest.java,v 1.6 2004-06-14 04:24:26 harishkswamy Exp $
  */
 public class ComponentTest extends GravityTestCase
 {
@@ -73,7 +73,8 @@ public class ComponentTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Implementation not registered for component: " + state);
+            assertSuperString(e, "Neither implementation nor factory registered for component: "
+                + state);
         }
     }
 
@@ -112,8 +113,8 @@ public class ComponentTest extends GravityTestCase
 
     public void testBuildServiceViaMethodInjection()
     {
-        ComponentCallback mthd1 = new ComponentCallback("setPrimitive", new Object[]{new Integer(5)},
-            START_UP);
+        ComponentCallback mthd1 = new ComponentCallback("setPrimitive",
+            new Object[]{new Integer(5)}, START_UP);
         ComponentCallback mthd2 = new ComponentCallback("setObject", new Object[]{new ArrayList()},
             START_UP);
         ComponentCallback[] methods = {mthd1, mthd2};
@@ -131,8 +132,8 @@ public class ComponentTest extends GravityTestCase
 
     public void testBuildServiceViaComboInjection()
     {
-        ComponentCallback mthd1 = new ComponentCallback("setPrimitive", new Object[]{new Integer(5)},
-            START_UP);
+        ComponentCallback mthd1 = new ComponentCallback("setPrimitive",
+            new Object[]{new Integer(5)}, START_UP);
         ComponentCallback mthd2 = new ComponentCallback("setObject", new Object[]{new ArrayList()},
             START_UP);
         ComponentCallback[] methods = {mthd1, mthd2};

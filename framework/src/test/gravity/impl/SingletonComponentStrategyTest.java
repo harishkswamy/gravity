@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentStrategyTest.java,v 1.1 2004-05-22 20:19:27 harishkswamy Exp $
+ * @version $Id: SingletonComponentStrategyTest.java,v 1.2 2004-06-14 04:24:26 harishkswamy Exp $
  */
 public class SingletonComponentStrategyTest extends GravityTestCase
 {
@@ -48,24 +48,24 @@ public class SingletonComponentStrategyTest extends GravityTestCase
         return comp;
     }
 
-    private ComponentStrategy newSingletonComponent(ProxyableComponent comp)
+    private ComponentStrategy newSingletonComponent()
     {
-        ComponentStrategy factory = new LazyLoadingComponentStrategy(null, comp);
+        ComponentStrategy factory = new LazyLoadingComponentStrategy(null);
 
-        return new SingletonComponentStrategy(factory, comp);
+        return new SingletonComponentStrategy(factory);
     }
 
     public void testGetComponentInstance()
     {
         ProxyableComponent comp = newComponent(MockComboService.class, null);
 
-        ComponentStrategy factory = newSingletonComponent(comp);
+        ComponentStrategy factory = newSingletonComponent();
 
-        MockComboService service = (MockComboService) factory.getComponentInstance();
+        MockComboService service = (MockComboService) factory.getComponentInstance(comp);
 
         assertNotNull(service);
 
-        MockComboService service2 = (MockComboService) factory.getComponentInstance();
+        MockComboService service2 = (MockComboService) factory.getComponentInstance(comp);
 
         assertTrue(service != service2);
     }
@@ -92,11 +92,10 @@ public class SingletonComponentStrategyTest extends GravityTestCase
 
     public void testToString()
     {
-        ProxyableComponent comp = newComponent(MockComboService.class, null);
-        ComponentStrategy factory = newSingletonComponent(comp);
+        //ProxyableComponent comp = newComponent(MockComboService.class, null);
+        ComponentStrategy factory = newSingletonComponent();
 
         assertEquals(factory.toString(),
-            "[Singleton: [Key: [Component Interface: interface gravity.mocks.MockComboService,"
-                + " Component Type: default], Implementation: null]]");
+            " [Singleton [Lazy Loading] ] ");
     }
 }

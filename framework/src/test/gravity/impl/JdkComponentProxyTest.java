@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxyTest.java,v 1.4 2004-05-22 20:19:28 harishkswamy Exp $
+ * @version $Id: JdkComponentProxyTest.java,v 1.5 2004-06-14 04:24:27 harishkswamy Exp $
  */
 public class JdkComponentProxyTest extends GravityTestCase
 {
@@ -90,7 +90,8 @@ public class JdkComponentProxyTest extends GravityTestCase
         {
             assertSuperString(e, "Unable to get concrete instance for component: "
                 + "[Key: [Component Interface: interface gravity.mocks.MockService, "
-                + "Component Type: default], Implementation: null]");
+                + "Component Type: default], Component Factory: [Class: null, Strategy: "
+                + "[Lazy Loading] ]");
         }
     }
 
@@ -118,7 +119,8 @@ public class JdkComponentProxyTest extends GravityTestCase
         {
             assertSuperString(e, "java.lang.IllegalArgumentException: Unable to create proxy for: "
                 + "[Key: [Component Interface: class gravity.mocks.MockComboServiceImpl, "
-                + "Component Type: default], Implementation: null]");
+                + "Component Type: default], Component Factory: [Class: null, Strategy: "
+                + "[Lazy Loading] ]");
         }
     }
 

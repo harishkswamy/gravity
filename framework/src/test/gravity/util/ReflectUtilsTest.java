@@ -23,7 +23,7 @@ import java.text.Format;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtilsTest.java,v 1.3 2004-05-24 00:38:44 harishkswamy Exp $
+ * @version $Id: ReflectUtilsTest.java,v 1.4 2004-06-14 04:24:30 harishkswamy Exp $
  */
 public class ReflectUtilsTest extends GravityTestCase
 {
@@ -84,8 +84,7 @@ public class ReflectUtilsTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e,
-                "Unable to invoke constructor for: class java.text.Format with: (null)");
+            assertSuperString(e, "Unable to invoke constructor: class java.text.Format()");
         }
     }
 
@@ -143,8 +142,7 @@ public class ReflectUtilsTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e,
-                "Unable to invoke method: \"null\" with value: \"null\" on object:");
+            assertSuperString(e, "Unable to invoke method: null()");
         }
     }
 }

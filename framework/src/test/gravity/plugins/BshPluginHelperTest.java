@@ -14,45 +14,65 @@
 
 package gravity.plugins;
 
-import gravity.ComponentPhase;
 import gravity.ComponentCallback;
+import gravity.ComponentPhase;
 import junit.framework.TestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginHelperTest.java,v 1.3 2004-05-27 05:32:26 harishkswamy Exp $
+ * @version $Id: BshPluginHelperTest.java,v 1.4 2004-06-14 04:24:29 harishkswamy Exp $
  */
 public class BshPluginHelperTest extends TestCase
 {
     private BshPluginHelper _helper = new BshPluginHelper();
 
-    public void testNewDependencyMethod()
+    public void testNewComponentCallbackForEmptyArgs()
     {
-        ComponentCallback mthd = _helper.newInjectionMethod(new Object[]{"someMethod", new Object(),
-            new Integer(3)});
+        ComponentCallback callback = _helper.newComponentCallback(new Object[0],
+            ComponentPhase.INJECTION);
+        
+        assertNull(callback);
+    }
+
+    public void testNewInjectionCallback()
+    {
+        ComponentCallback mthd = _helper.newInjectionCallback(new Object[]{"someMethod",
+            new Object(), new Integer(3)});
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
         assertTrue(mthd.getComponentPhase() == ComponentPhase.INJECTION);
     }
 
-    public void testNewStartUpMethod()
+    public void testNewStartUpCallback()
     {
-        ComponentCallback mthd = _helper.newStartupMethod(new Object[]{"someMethod", new Object(),
-            new Integer(3)});
+        ComponentCallback mthd = _helper.newStartupCallback(new Object[]{"someMethod",
+            new Object(), new Integer(3)});
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
         assertTrue(mthd.getComponentPhase() == ComponentPhase.START_UP);
     }
 
-    public void testNewShutdownMethod()
+    public void testNewShutdownCallback()
     {
-        ComponentCallback mthd = _helper.newShutdownMethod(new Object[]{"someMethod", new Object(),
-            new Integer(3)});
+        ComponentCallback mthd = _helper.newShutdownCallback(new Object[]{"someMethod",
+            new Object(), new Integer(3)});
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
         assertTrue(mthd.getComponentPhase() == ComponentPhase.SHUTDOWN);
+    }
+
+    public void testToComponentArrayCallback()
+    {
+        Object[] Objs = new Object[2];
+
+        Objs[0] = new ComponentCallback("name1", new Object[]{"1"}, ComponentPhase.INJECTION);
+        Objs[1] = new ComponentCallback("name2", new Object[]{"2"}, ComponentPhase.INJECTION);
+
+        ComponentCallback[] callbacks = _helper.toComponentCallbackArray(Objs);
+
+        assertTrue(callbacks.length == 2);
     }
 }

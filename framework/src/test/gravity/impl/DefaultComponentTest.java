@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponentTest.java,v 1.1 2004-05-17 03:03:49 harishkswamy Exp $
+ * @version $Id: DefaultComponentTest.java,v 1.2 2004-06-14 04:24:26 harishkswamy Exp $
  */
 public class DefaultComponentTest extends GravityTestCase
 {
@@ -103,6 +103,8 @@ public class DefaultComponentTest extends GravityTestCase
 
         assertEquals(factory.toString(),
             "[Key: [Component Interface: interface gravity.mocks.MockComboService,"
-                + " Component Type: default], Implementation: null]");
+                + " Component Type: default], Component Factory: [Class: null, Strategy:"
+                + " [Lazy Loading] ], Registration Location: null,"
+                + " Last Retrieval Location: null]");
     }
 }

@@ -14,11 +14,11 @@
 
 package gravity.plugins;
 
-import gravity.ComponentPhase;
 import gravity.ComponentCallback;
-import gravity.Gravity;
+import gravity.ComponentPhase;
 import gravity.GravityTestCase;
-import gravity.impl.DefaultContainer;
+import gravity.Location;
+import gravity.MutableContainer;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 
@@ -27,280 +27,607 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.easymock.MockControl;
+
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainerAdapterTest.java,v 1.2 2004-05-27 03:36:29 harishkswamy Exp $
+ * @version $Id: MutableContainerAdapterTest.java,v 1.3 2004-06-14 04:24:29 harishkswamy Exp $
  */
 public class MutableContainerAdapterTest extends GravityTestCase
 {
-    private static final ComponentPhase START_UP   = ComponentPhase.START_UP;
-
-    final Map                                    _servReg   = new HashMap();
-    final Map                                    _configReg = new HashMap();
-    final MutableContainerAdapter                _registry  = new MutableContainerAdapter(
-                                                                new DefaultContainer());
+    private MutableContainerAdapter _containerAdapter;
+    private MockControl             _containerControl;
+    private MutableContainer        _mockContainer;
 
     public void setUp()
     {
-        Gravity.getInstance().initialize();
+        _containerControl = MockControl.createStrictControl(MutableContainer.class);
+        _mockContainer = (MutableContainer) _containerControl.getMock();
+
+        _containerAdapter = new MutableContainerAdapter(_mockContainer);
     }
 
-    public void tearDown()
+    public void testComponentImplFromAnotherComponent()
     {
-        Gravity.getInstance().shutdown();
+        Object compKey = new Object();
+        Object srcCompKey = new Object();
+
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            srcCompKey), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+        _containerControl.replay();
+
+        Object rtnCompKey = _containerAdapter.componentImpl(compKey, srcCompKey);
+
+        _containerControl.verify();
+
+        assertSame(compKey, rtnCompKey);
     }
 
-    public void testRegisterCustomIntfComponentImplViaComboInjection()
+    public void testComponentKeyWithInterface()
     {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
+        Object key = new Object();
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(List.class), key, 1);
+        _containerControl.replay();
 
-        ComponentCallback[] methods = {new ComponentCallback("setObject",
-            new Object[]{new Object()}, START_UP)};
+        Object rtnKey = _containerAdapter.componentKey(List.class);
 
-        Object key = _registry.componentImpl(MockComboService.class, "variant",
+        assertSame(key, rtnKey);
+    }
+
+    public void testComponentKeyWithInterfaceAndType()
+    {
+        Object key = new Object();
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(List.class, "variant"),
+            key, 1);
+        _containerControl.replay();
+
+        Object rtnKey = _containerAdapter.componentKey(List.class, "variant");
+
+        assertSame(key, rtnKey);
+    }
+
+    public void testComponentImplWithKey()
+    {
+        Object key = new Object();
+        Object[] cArgs = new Object[0];
+        ComponentCallback[] callbacks = new ComponentCallback[0];
+
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
+            MockComboServiceImpl.class, cArgs, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
+            MockComboServiceImpl.class, cArgs, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
+            MockComboServiceImpl.class, null, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
+            MockComboServiceImpl.class, null, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+        _containerControl.replay();
+
+        Object rtnVal1 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, cArgs,
+            callbacks);
+        Object rtnVal2 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, cArgs);
+        Object rtnVal3 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, callbacks);
+        Object rtnVal4 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class);
+
+        _containerControl.verify();
+
+        assertSame(rtnVal1, key);
+        assertSame(rtnVal2, key);
+        assertSame(rtnVal3, key);
+        assertSame(rtnVal4, key);
+    }
+
+    private void setUpMockControl(Object compKey, String compType, Object[] cArgs,
+        ComponentCallback[] methods)
+    {
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
+            compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, cArgs, methods), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
+            compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, cArgs, null), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
+            compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, null, methods), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
+            compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, null, null), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.replay();
+    }
+
+    public void testCustomComponentImplWithInterface()
+    {
+        Object[] cArgs = new Object[0];
+
+        ComponentCallback[] methods = new ComponentCallback[0];
+
+        Object compKey = new Object();
+
+        setUpMockControl(compKey, "variant", cArgs, methods);
+
+        Object rtnKey1 = _containerAdapter.componentImpl(MockComboService.class, "variant",
             MockComboServiceImpl.class, cArgs, methods);
+        Object rtnKey2 = _containerAdapter.componentImpl(MockComboService.class, "variant",
+            MockComboServiceImpl.class, cArgs);
+        Object rtnKey3 = _containerAdapter.componentImpl(MockComboService.class, "variant",
+            MockComboServiceImpl.class, methods);
+        Object rtnKey4 = _containerAdapter.componentImpl(MockComboService.class, "variant",
+            MockComboServiceImpl.class);
 
-        Object key2 = _registry.componentImpl(MockComboService.class, "variant",
+        _containerControl.verify();
+
+        assertEquals(rtnKey1, compKey);
+        assertEquals(rtnKey2, compKey);
+        assertEquals(rtnKey3, compKey);
+        assertEquals(rtnKey4, compKey);
+    }
+
+    public void testDefaultComponentImplWithInterface()
+    {
+        Object[] cArgs = new Object[0];
+
+        ComponentCallback[] methods = new ComponentCallback[0];
+
+        Object compKey = new Object();
+
+        setUpMockControl(compKey, null, cArgs, methods);
+
+        Object rtnKey1 = _containerAdapter.componentImpl(MockComboService.class,
             MockComboServiceImpl.class, cArgs, methods);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterCustomIntfComponentImplViaConstructorInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Object key = _registry.componentImpl(MockComboService.class, "variant",
+        Object rtnKey2 = _containerAdapter.componentImpl(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
+        Object rtnKey3 = _containerAdapter.componentImpl(MockComboService.class,
+            MockComboServiceImpl.class, methods);
+        Object rtnKey4 = _containerAdapter.componentImpl(MockComboService.class,
+            MockComboServiceImpl.class);
 
-        Object key2 = _registry.componentImpl(MockComboService.class, "variant",
-            MockComboServiceImpl.class, cArgs);
+        _containerControl.verify();
 
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
+        assertEquals(rtnKey1, compKey);
+        assertEquals(rtnKey2, compKey);
+        assertEquals(rtnKey3, compKey);
+        assertEquals(rtnKey4, compKey);
     }
 
-    public void testRegisterCustomIntfComponentImplViaSetterInjection()
+    private void setUpImplMockControl(Object compKey, String compType, Object[] cArgs,
+        ComponentCallback[] methods)
     {
-        ComponentCallback[] methods = {new ComponentCallback("setObject",
-            new Object[]{new Object()}, START_UP)};
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(
+            MockComboServiceImpl.class, compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, cArgs, methods), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
 
-        Object key = _registry.componentImpl(MockComboService.class, "variant",
-            MockComboServiceImpl.class, methods, null);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(
+            MockComboServiceImpl.class, compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, cArgs, null), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
 
-        Object key2 = _registry.componentImpl(MockComboService.class, "variant",
-            MockComboServiceImpl.class, methods, null);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(
+            MockComboServiceImpl.class, compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, null, methods), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
 
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(
+            MockComboServiceImpl.class, compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, null, null), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.replay();
     }
 
-    public void testRegisterDefaultIntfComponentImplViaComboInjection()
+    public void testRegisterCustomComponentImplWithClass()
     {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
+        Object[] cArgs = new Object[0];
 
-        ComponentCallback[] methods = {new ComponentCallback("setObject",
-            new Object[]{new Object()}, START_UP)};
+        ComponentCallback[] methods = new ComponentCallback[0];
 
-        Object key = _registry.componentImpl(MockComboService.class, MockComboServiceImpl.class,
+        Object compKey = new Object();
+
+        setUpImplMockControl(compKey, "variant", cArgs, methods);
+
+        Object rtnKey1 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant",
             cArgs, methods);
-
-        Object key2 = _registry.componentImpl(MockComboService.class, MockComboServiceImpl.class,
-            cArgs, methods);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultIntfComponentImplViaConstructorInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Object key = _registry.componentImpl(MockComboService.class, MockComboServiceImpl.class,
+        Object rtnKey2 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant",
             cArgs);
+        Object rtnKey3 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant",
+            methods);
+        Object rtnKey4 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant");
 
-        Object key2 = _registry.componentImpl(MockComboService.class, MockComboServiceImpl.class,
-            cArgs);
+        _containerControl.verify();
 
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
+        assertEquals(rtnKey1, compKey);
+        assertEquals(rtnKey2, compKey);
+        assertEquals(rtnKey3, compKey);
+        assertEquals(rtnKey4, compKey);
     }
 
-    public void testRegisterDefaultIntfComponentImplViaSetterInjection()
+    public void testRegisterDefaultComponentImplWithClass()
     {
-        ComponentCallback[] methods = {new ComponentCallback("setObject",
-            new Object[]{new Object()}, START_UP)};
+        Object[] cArgs = new Object[0];
 
-        Object key = _registry.componentImpl(MockComboService.class, MockComboServiceImpl.class,
-            methods, null);
+        ComponentCallback[] methods = new ComponentCallback[0];
 
-        Object key2 = _registry.componentImpl(MockComboService.class, MockComboServiceImpl.class,
-            methods, null);
+        Object compKey = new Object();
 
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
+        setUpImplMockControl(compKey, null, cArgs, methods);
+
+        Object rtnKey1 = _containerAdapter.componentImpl(MockComboServiceImpl.class, cArgs, methods);
+        Object rtnKey2 = _containerAdapter.componentImpl(MockComboServiceImpl.class, cArgs);
+        Object rtnKey3 = _containerAdapter.componentImpl(MockComboServiceImpl.class, methods);
+        Object rtnKey4 = _containerAdapter.componentImpl(MockComboServiceImpl.class);
+
+        _containerControl.verify();
+
+        assertEquals(rtnKey1, compKey);
+        assertEquals(rtnKey2, compKey);
+        assertEquals(rtnKey3, compKey);
+        assertEquals(rtnKey4, compKey);
     }
 
-    public void testRegisterCustomClassComponentImplViaComboInjection()
+    public void testComponentFacWithKey()
     {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
+        Object key = new Object();
+        Object fac = new Object();
+        Object[] mArgs = new Object[0];
+        ComponentCallback[] callbacks = new ComponentCallback[0];
 
-        ComponentCallback[] methods = {new ComponentCallback("setObject",
-            new Object[]{new Object()}, START_UP)};
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", mArgs, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
 
-        Object key = _registry.componentImpl(MockComboServiceImpl.class, "variant", cArgs, methods);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", mArgs, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
 
-        Object key2 = _registry.componentImpl(MockComboServiceImpl.class, "variant", cArgs, methods);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", null, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
 
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", null, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+
+        _containerControl.replay();
+
+        Object rtnVal1 = _containerAdapter.componentFac(key, fac, "method", mArgs, callbacks);
+        Object rtnVal2 = _containerAdapter.componentFac(key, fac, "method", mArgs);
+        Object rtnVal3 = _containerAdapter.componentFac(key, fac, "method", callbacks);
+        Object rtnVal4 = _containerAdapter.componentFac(key, fac, "method");
+
+        _containerControl.verify();
+
+        assertSame(rtnVal1, key);
+        assertSame(rtnVal2, key);
+        assertSame(rtnVal3, key);
+        assertSame(rtnVal4, key);
     }
 
-    public void testRegisterCustomClassComponentImplViaConstructorInjection()
+    private void setUpMockControlForComponentFac(Class intf, Object type, Object key, Object fac,
+        Object[] mArgs, ComponentCallback[] callbacks)
     {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", mArgs, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
 
-        Object key = _registry.componentImpl(MockComboServiceImpl.class, "variant", cArgs);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", mArgs, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
 
-        Object key2 = _registry.componentImpl(MockComboServiceImpl.class, "variant", cArgs);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", null, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
 
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", null, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
 
-    public void testRegisterCustomClassComponentImplViaSetterInjection()
-    {
-        ComponentCallback[] methods = {new ComponentCallback("setObject",
-            new Object[]{new Object()}, START_UP)};
+        _containerControl.replay();
 
-        Object key = _registry.componentImpl(MockComboServiceImpl.class, "variant", methods, null);
-
-        Object key2 = _registry.componentImpl(MockComboServiceImpl.class, "variant", methods, null);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultClassComponentImplViaComboInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        ComponentCallback[] methods = {new ComponentCallback("setObject",
-            new Object[]{new Object()}, START_UP)};
-
-        Object key = _registry.componentImpl(MockComboServiceImpl.class, cArgs, methods, null);
-
-        Object key2 = _registry.componentImpl(MockComboServiceImpl.class, cArgs, methods, null);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultClassComponentImplViaConstructorInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Object key = _registry.componentImpl(MockComboServiceImpl.class, cArgs);
-
-        Object key2 = _registry.componentImpl(MockComboServiceImpl.class, cArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultClassComponentImplViaSetterInjection()
-    {
-        ComponentCallback[] methods = {new ComponentCallback("setObject",
-            new Object[]{new Object()}, START_UP)};
-
-        Object key = _registry.componentImpl(MockComboServiceImpl.class, methods);
-
-        Object key2 = _registry.componentImpl(MockComboServiceImpl.class, methods);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
     }
 
     // Factory decorator tests ================================
 
-    public void testMakeComponentSingleton()
+    public void testComponentFacWithInterfaceAndType()
     {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
+        Class intf = MockComboService.class;
+        Object type = "variant";
+        Object key = new Object();
+        Object fac = new Object();
+        Object[] mArgs = new Object[0];
+        ComponentCallback[] callbacks = new ComponentCallback[0];
 
-        Object key = _registry.componentImpl(MockComboServiceImpl.class, cArgs);
+        setUpMockControlForComponentFac(intf, type, key, fac, mArgs, callbacks);
 
-        Object key2 = _registry.singleton(key);
+        Object rtnVal1 = _containerAdapter.componentFac(intf, type, fac, "method", mArgs, callbacks);
+        Object rtnVal2 = _containerAdapter.componentFac(intf, type, fac, "method", mArgs);
+        Object rtnVal3 = _containerAdapter.componentFac(intf, type, fac, "method", callbacks);
+        Object rtnVal4 = _containerAdapter.componentFac(intf, type, fac, "method");
 
-        assertNotNull(key);
-        assertNotNull(key2);
+        _containerControl.verify();
+
+        assertSame(rtnVal1, key);
+        assertSame(rtnVal2, key);
+        assertSame(rtnVal3, key);
+        assertSame(rtnVal4, key);
+    }
+
+    public void testComponentFacWithInterface()
+    {
+        Class intf = MockComboService.class;
+        Object key = new Object();
+        Object fac = new Object();
+        Object[] mArgs = new Object[0];
+        ComponentCallback[] callbacks = new ComponentCallback[0];
+
+        setUpMockControlForComponentFac(intf, null, key, fac, mArgs, callbacks);
+
+        Object rtnVal1 = _containerAdapter.componentFac(intf, fac, "method", mArgs, callbacks);
+        Object rtnVal2 = _containerAdapter.componentFac(intf, fac, "method", mArgs);
+        Object rtnVal3 = _containerAdapter.componentFac(intf, fac, "method", callbacks);
+        Object rtnVal4 = _containerAdapter.componentFac(intf, fac, "method");
+
+        _containerControl.verify();
+
+        assertSame(rtnVal1, key);
+        assertSame(rtnVal2, key);
+        assertSame(rtnVal3, key);
+        assertSame(rtnVal4, key);
+    }
+
+    // add constructor args tests
+
+    public void testAddWithKey()
+    {
+        Object key = new Object();
+        Object[] cArgs = new Object[0];
+        ComponentCallback callback = new ComponentCallback("name", cArgs, ComponentPhase.INJECTION);
+        ComponentCallback[] callbacks = {callback};
+
+        _containerControl.expectAndReturn(_mockContainer.registerComponentConstructorArguments(key,
+            cArgs), key, 1);
+        _containerControl.expectAndReturn(
+            _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.replay();
+
+        Object rtnVal1 = _containerAdapter.add(key, cArgs);
+        //Object rtnVal2 = _containerAdapter.add(key, callback);
+        Object rtnVal3 = _containerAdapter.add(key, callbacks);
+
+        _containerControl.verify();
+
+        assertSame(rtnVal1, key);
+        //assertSame(rtnVal2, key);
+        assertSame(rtnVal3, key);
+    }
+
+    public void testAddWithInterfaceAndType()
+    {
+        Class intf = MockComboService.class;
+        Object type = "variant";
+        Object key = new Object();
+        Object[] cArgs = new Object[0];
+        ComponentCallback callback = new ComponentCallback("name", cArgs, ComponentPhase.INJECTION);
+        ComponentCallback[] callbacks = {callback};
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentConstructorArguments(key,
+            cArgs), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(
+            _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.replay();
+
+        Object rtnVal1 = _containerAdapter.add(intf, type, cArgs);
+        //Object rtnVal2 = _containerAdapter.add(key, callback);
+        Object rtnVal3 = _containerAdapter.add(intf, type, callbacks);
+
+        _containerControl.verify();
+
+        assertSame(rtnVal1, key);
+        //assertSame(rtnVal2, key);
+        assertSame(rtnVal3, key);
+    }
+
+    public void testAddWithInterface()
+    {
+        Class intf = MockComboService.class;
+        Object key = new Object();
+        Object[] cArgs = new Object[0];
+        ComponentCallback callback = new ComponentCallback("name", cArgs, ComponentPhase.INJECTION);
+        ComponentCallback[] callbacks = {callback};
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentConstructorArguments(key,
+            cArgs), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf), key, 1);
+        _containerControl.expectAndReturn(
+            _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.replay();
+
+        Object rtnVal1 = _containerAdapter.add(intf, cArgs);
+        //Object rtnVal2 = _containerAdapter.add(key, callback);
+        Object rtnVal3 = _containerAdapter.add(intf, callbacks);
+
+        _containerControl.verify();
+
+        assertSame(rtnVal1, key);
+        //assertSame(rtnVal2, key);
+        assertSame(rtnVal3, key);
+    }
+
+    public void testSingleton()
+    {
+        Object key = new Object();
+
+        _containerControl.expectAndReturn(_mockContainer.wrapComponentStrategyWithSingleton(key),
+            key, 1);
+        _containerControl.replay();
+
+        Object key2 = _containerAdapter.singleton(key);
+
+        _containerControl.verify();
+
+        assertEquals(key, key2);
+    }
+
+    public void testPooling()
+    {
+        Object key = new Object();
+
+        _containerControl.expectAndReturn(_mockContainer.wrapComponentStrategyWithPooling(key),
+            key, 1);
+        _containerControl.replay();
+
+        Object key2 = _containerAdapter.pooling(key);
+
+        _containerControl.verify();
+
+        assertEquals(key, key2);
+    }
+
+    public void testThreadLocal()
+    {
+        Object key = new Object();
+
+        _containerControl.expectAndReturn(_mockContainer.wrapComponentStrategyWithThreadLocal(key),
+            key, 1);
+        _containerControl.replay();
+
+        Object key2 = _containerAdapter.threadLocal(key);
+
+        _containerControl.verify();
+
         assertEquals(key, key2);
     }
 
     public void testGetComponentInstanceFromKey()
     {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
+        Object key = new Object();
+        Object comp = new Object();
 
-        Object key = _registry.componentImpl(MockComboService.class, cArgs);
+        _containerControl.expectAndReturn(_mockContainer.getComponentInstance(key), comp, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRetrievalLocation(key,
+            new Location(null, 0)), key, 1);
+        _containerControl.replay();
 
-        Object comp = _registry.componentInst(key);
+        Object rtnComp = _containerAdapter.componentInst(key);
 
-        assertNotNull(comp);
+        _containerControl.verify();
+
+        assertSame(comp, rtnComp);
     }
 
     public void testGetComponentInstance()
     {
-        Object comp = _registry.componentInst(MockComboService.class, "variant");
-        Object comp2 = _registry.componentInst(MockComboService.class);
+        Object key = new Object();
+        Object comp = new Object();
 
-        assertNotNull(comp);
-        assertNotNull(comp2);
-        assertTrue(comp != comp2);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
+            null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.getComponentInstance(key), comp, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRetrievalLocation(key,
+            new Location(null, 0)), key, 1);
+        _containerControl.replay();
+
+        Object rtnComp = _containerAdapter.componentInst(MockComboService.class);
+
+        _containerControl.verify();
+
+        assertSame(comp, rtnComp);
     }
 
     public void testRegisterAndGetConfigurationList()
     {
-        _registry.configItem("dbProps", "oracle.jdbc.driver...");
-        _registry.configItem("dbProps", "jdbc:oracle:thin:...");
-        _registry.configItem("dbProps", "scott");
-        _registry.configItem("dbProps", "tiger");
+        _containerControl.expectAndReturn(_mockContainer.registerConfiguration("dbProps",
+            "oracle.jdbc.driver..."), "dbProps");
 
-        List dbProps = _registry.configList("dbProps");
+        List list = new ArrayList();
+        _containerControl.expectAndReturn(_mockContainer.getConfigurationList("dbProps"), list, 1);
+        _containerControl.replay();
 
-        assertTrue(dbProps.size() == 4);
-        assertEquals(dbProps.get(2), "scott");
+        _containerAdapter.configItem("dbProps", "oracle.jdbc.driver...");
+
+        List dbProps = _containerAdapter.configList("dbProps");
+
+        _containerControl.verify();
+
+        assertSame(dbProps, list);
     }
 
     public void testRegisterAndGetConfigurationMap()
     {
-        _registry.configItem("dbProps", "driver", "oracle.jdbc.driver...");
-        _registry.configItem("dbProps", "dbString", "jdbc:oracle:thin:...");
-        _registry.configItem("dbProps", "userName", "scott");
-        _registry.configItem("dbProps", "password", "tiger");
+        _containerControl.expectAndReturn(_mockContainer.registerConfiguration("dbProps", "driver",
+            "oracle.jdbc.driver..."), "dbProps");
 
-        Map dbProps = _registry.configMap("dbProps");
+        Map map = new HashMap();
+        _containerControl.expectAndReturn(_mockContainer.getConfigurationMap("dbProps"), map, 1);
+        _containerControl.replay();
 
-        assertTrue(dbProps.size() == 4);
-        assertEquals(dbProps.get("userName"), "scott");
+        _containerAdapter.configItem("dbProps", "driver", "oracle.jdbc.driver...");
+
+        Map dbProps = _containerAdapter.configMap("dbProps");
+
+        _containerControl.verify();
+
+        assertSame(dbProps, map);
     }
 
     public void testGetNonExistentConfig()
     {
-        List list = _registry.configList("configKey");
+        List list = new ArrayList();
+        _containerControl.expectAndReturn(_mockContainer.getConfigurationList("NonExistent"), list,
+            1);
+        _containerControl.replay();
 
-        assertNotNull(list);
-        assertTrue(list.size() == 0);
+        List dbProps = _containerAdapter.configList("NonExistent");
+
+        _containerControl.verify();
+
+        assertSame(dbProps, list);
     }
 }

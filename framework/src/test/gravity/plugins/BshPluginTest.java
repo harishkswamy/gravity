@@ -21,20 +21,21 @@ import gravity.Plugin;
 import gravity.impl.DefaultContainer;
 import gravity.util.ClassUtils;
 
+import java.util.Enumeration;
 import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginTest.java,v 1.4 2004-05-24 00:38:38 harishkswamy Exp $
+ * @version $Id: BshPluginTest.java,v 1.5 2004-06-14 04:24:29 harishkswamy Exp $
  */
 public class BshPluginTest extends GravityTestCase
 {
-    private MutableContainer _registry;
+    private MutableContainer _container;
 
     public void setUp()
     {
         Gravity.getInstance().initialize();
-        _registry = new DefaultContainer();
+        _container = new DefaultContainer();
     }
 
     public void tearDown()
@@ -43,41 +44,53 @@ public class BshPluginTest extends GravityTestCase
         Gravity.getInstance().shutdown();
     }
 
-    private String getPluginUrlLocation()
+    private String getPluginUrlStr()
     {
-        String urlStr = ClassUtils.getResource(Gravity.PLUGIN_MANIFEST_FILE_PATH).toString();
+        Enumeration urls = ClassUtils.getResources(Gravity.PLUGIN_MANIFEST_FILE_PATH);
+
+        String urlStr = null;
+
+        while (urls.hasMoreElements())
+        {
+            urlStr = urls.nextElement().toString();
+
+            if (urlStr.indexOf("test/META-INF") > -1)
+                break;
+
+            urlStr = null;
+        }
+
         return urlStr.substring(0, urlStr.lastIndexOf(Gravity.PLUGIN_MANIFEST_FILE_PATH));
     }
 
     private void startup(String moduleNames)
     {
-        String urlStr = ClassUtils.getResource(Gravity.PLUGIN_MANIFEST_FILE_PATH).toString();
-        urlStr = urlStr.substring(0, urlStr.lastIndexOf(Gravity.PLUGIN_MANIFEST_FILE_PATH));
+        String urlStr = getPluginUrlStr();
 
         Properties props = new Properties();
         props.setProperty(Plugin.LOCATION_URL_KEY, urlStr);
         props.setProperty(BshPlugin.MODULE_NAMES, moduleNames);
 
-        new BshPlugin().startup(props, _registry);
+        new BshPlugin().startup(props, _container);
     }
 
     public void testStartupEmptyModule()
     {
         startup("gravity/impl/empty.mdl.bsh");
 
-        assertNotNull(_registry);
+        assertNotNull(_container);
     }
 
     public void testBuildMultipleModules()
     {
         startup("gravity/impl/empty.mdl.bsh, gravity.mdl.bsh");
 
-        assertNotNull(_registry);
+        assertNotNull(_container);
     }
 
     public void testBuildNonExistentModule()
     {
-        String urlStr = getPluginUrlLocation();
+        String urlStr = getPluginUrlStr();
         String modPath = "gravity/impl/non-existent.mdl.bsh";
 
         try
@@ -96,7 +109,7 @@ public class BshPluginTest extends GravityTestCase
     {
         startup("\t, , \n, gravity.mdl.bsh");
 
-        assertNotNull(_registry);
+        assertNotNull(_container);
     }
 
     public void testConfigExecError()
@@ -116,8 +129,8 @@ public class BshPluginTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Container configuration execution error in module: "
-                + ClassUtils.getResource(fPath + fName));
+            assertSuperString(e, "Plugin specification execution error at: [Resource: "
+                + ClassUtils.getResource(fPath + fName) + ", Line: 1]");
         }
     }
 
@@ -138,8 +151,8 @@ public class BshPluginTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Container configuration error in module: "
-                + ClassUtils.getResource(fPath + fName));
+            assertSuperString(e, "Plugin specification error at: [Resource: "
+                + ClassUtils.getResource(fPath + fName) + ", Line: 1]");
         }
     }
 }

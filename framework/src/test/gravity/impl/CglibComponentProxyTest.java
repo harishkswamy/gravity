@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentProxyTest.java,v 1.4 2004-05-22 20:19:26 harishkswamy Exp $
+ * @version $Id: CglibComponentProxyTest.java,v 1.5 2004-06-14 04:24:26 harishkswamy Exp $
  */
 public class CglibComponentProxyTest extends GravityTestCase
 {
@@ -70,9 +70,10 @@ public class CglibComponentProxyTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Unable to get concrete instance for component: "
-                + "[Key: [Component Interface: interface gravity.mocks.MockService, "
-                + "Component Type: default], Implementation: null]");
+            assertSuperString(e, "Unable to get concrete instance for component: [Key: "
+                + "[Component Interface: interface gravity.mocks.MockService, Component Type: "
+                + "default], Component Factory: [Class: null, Strategy: [Lazy Loading] ], "
+                + "Registration Location: null, Last Retrieval Location: null]");
         }
     }
 
