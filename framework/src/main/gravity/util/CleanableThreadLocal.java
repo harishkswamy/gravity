@@ -19,7 +19,7 @@ package gravity.util;
  * {@link gravity.util.ThreadEvent}to be notified.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: CleanableThreadLocal.java,v 1.1 2004-05-20 11:42:31 harishkswamy Exp $
+ * @version $Id: CleanableThreadLocal.java,v 1.2 2004-06-14 04:22:10 harishkswamy Exp $
  */
 public class CleanableThreadLocal implements ThreadPreTerminationObserver
 {
@@ -54,6 +54,7 @@ public class CleanableThreadLocal implements ThreadPreTerminationObserver
 
     public CleanableThreadLocal()
     {
+        // No args constructor
     }
 
     public CleanableThreadLocal(ThreadPreTerminationObserver observer)
