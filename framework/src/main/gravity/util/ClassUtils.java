@@ -22,7 +22,7 @@ import java.util.Enumeration;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ClassUtils.java,v 1.1 2004-05-10 17:28:52 harishkswamy Exp $
+ * @version $Id: ClassUtils.java,v 1.2 2004-05-13 06:12:29 harishkswamy Exp $
  */
 public class ClassUtils
 {
@@ -48,6 +48,18 @@ public class ClassUtils
             throw new UsageException("Cannot find resource: " + path);
 
         return url;
+    }
+    
+    public static URL newUrl(String urlStr)
+    {
+        try
+        {
+            return new URL(urlStr);
+        }
+        catch (Exception e)
+        {
+            throw WrapperException.wrap(e, "Unable to build URL from: " + urlStr);
+        }
     }
 
     public static Enumeration getResources(String path)
