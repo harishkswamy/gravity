@@ -14,7 +14,7 @@
 
 package gravity.impl;
 
-import gravity.ComponentState;
+import gravity.ComponentStrategy;
 import gravity.Location;
 import gravity.ProxyableComponent;
 import gravity.UsageException;
@@ -26,29 +26,31 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
+ * This is a flyweight that will be shared by all its proxy instances.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.4 2004-05-18 21:29:35 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.5 2004-05-22 20:19:31 harishkswamy Exp $
  */
 public class DefaultComponent implements ProxyableComponent
 {
-    private ComponentKey   _key;
-    private Location       _retrievalLocation;
-    private Class          _implementation;
-    private Object[]       _constructorDependencies;
-    private Map            _methodDependencies;
-    private Location       _registrationLocation;
-    private ComponentState _componentState;
+    private ComponentKey      _key;
+    private Location          _retrievalLocation;
+    private Class             _implementation;
+    private Object[]          _constructorDependencies;
+    private Map               _methodDependencies;
+    private Location          _registrationLocation;
+    private ComponentStrategy _componentStrategy;
 
     public DefaultComponent(ComponentKey compKey)
     {
         _key = compKey;
 
-        _componentState = new LazyLoadingComponentState(null, this);
+        _componentStrategy = new LazyLoadingComponentStrategy(null, this);
     }
 
     public Object getInstance()
     {
-        return _componentState.getComponentInstance();
+        return _componentStrategy.getComponentInstance();
     }
 
     public void registerImplementation(Class compClass, Object[] ctorDeps, Map setrDeps)
@@ -75,78 +77,80 @@ public class DefaultComponent implements ProxyableComponent
 
     public boolean isInDispatchingState()
     {
-        return _componentState.isDispatching();
+        return _componentStrategy.isDispatching();
     }
 
-    private ComponentState getStateToDecorate()
+    private ComponentStrategy getStrategyToDecorate()
     {
-        if (_componentState.getClass() == LazyLoadingComponentState.class)
+        if (_componentStrategy.getClass() == LazyLoadingComponentStrategy.class)
             return null;
         else
-            return _componentState;
+            return _componentStrategy;
     }
 
-    protected SingletonComponentState newSingletonState(ComponentState state,
+    protected SingletonComponentStrategy newSingletonStrategy(ComponentStrategy strategy,
         ProxyableComponent comp)
     {
-        return new SingletonComponentState(state, comp);
+        return new SingletonComponentStrategy(strategy, comp);
     }
 
-    public void wrapStateWithSingleton()
+    public void wrapStrategyWithSingleton()
     {
         // If already in singleton state, do nothing
-        if (_componentState instanceof SingletonComponentState)
+        if (_componentStrategy instanceof SingletonComponentStrategy)
             return;
 
-        _componentState = newSingletonState(getStateToDecorate(), this);
+        _componentStrategy = newSingletonStrategy(getStrategyToDecorate(), this);
     }
 
-    protected PoolingComponentState newPoolingState(ComponentState state, ProxyableComponent comp)
-    {
-        return new PoolingComponentState(state, comp);
-    }
-
-    public void wrapStateWithPooling()
-    {
-        // If already in pooling state, do nothing
-        if (_componentState instanceof PoolingComponentState)
-            return;
-
-        _componentState = newPoolingState(getStateToDecorate(), this);
-    }
-
-    protected ThreadLocalComponentState newThreadLocalState(ComponentState state,
+    protected PoolingComponentStrategy newPoolingStrategy(ComponentStrategy strategy,
         ProxyableComponent comp)
     {
-        return new ThreadLocalComponentState(state, comp);
+        return new PoolingComponentStrategy(strategy, comp);
     }
 
-    public void wrapStateWithThreadLocal()
+    public void wrapStrategyWithPooling()
     {
-        // If already in thread local state, do nothing
-        if (_componentState instanceof ThreadLocalComponentState)
+        // If already in pooling state, do nothing
+        if (_componentStrategy instanceof PoolingComponentStrategy)
             return;
 
-        _componentState = newThreadLocalState(getStateToDecorate(), this);
+        _componentStrategy = newPoolingStrategy(getStrategyToDecorate(), this);
+    }
+
+    protected ThreadLocalComponentStrategy newThreadLocalStrategy(ComponentStrategy strategy,
+        ProxyableComponent comp)
+    {
+        return new ThreadLocalComponentStrategy(strategy, comp);
+    }
+
+    public void wrapStrategyWithThreadLocal()
+    {
+        // If already in thread local state, do nothing
+        if (_componentStrategy instanceof ThreadLocalComponentStrategy)
+            return;
+
+        _componentStrategy = newThreadLocalStrategy(getStrategyToDecorate(), this);
     }
 
     public Object getConcreteInstance()
     {
-        return _componentState.getConcreteComponentInstance();
+        return _componentStrategy.getConcreteComponentInstance();
     }
 
     // Construct new instance ======================================================================
 
-    private void setDependencies(Object inst, Map methodDeps)
+    // TODO allow initialization methods to have multiple parameters
+    private void invokeInitializationMethods(Object instance)
     {
-        if (methodDeps == null)
+        if (_methodDependencies == null)
             return;
 
-        for (Iterator itr = methodDeps.keySet().iterator(); itr.hasNext();)
+        for (Iterator itr = _methodDependencies.keySet().iterator(); itr.hasNext();)
         {
             String methodName = (String) itr.next();
 
-            ReflectUtils.invokeMethod(inst, methodName, methodDeps.get(methodName));
+            ReflectUtils.invokeMethod(instance, methodName, _methodDependencies.get(methodName));
         }
     }
 
@@ -154,12 +158,12 @@ public class DefaultComponent implements ProxyableComponent
      * Gives {@link gravity.DynamicWeaver}an opportunity to weave the supplied object and then it
      * sets any dependencies via the setter methods with the provided property name/value map.
      */
-    private Object initializeService(Object inst, Map methodDeps)
+    private Object initializeComponent(Object instance)
     {
         // This is the hook to let cross-cutting concerns be weaved into the component.
-        Object enhInst = DynamicWeaverFactory.getDynamicWeaver().weave(inst);
+        Object enhInst = DynamicWeaverFactory.getDynamicWeaver().weave(instance);
 
-        setDependencies(enhInst, methodDeps);
+        invokeInitializationMethods(enhInst);
 
         return enhInst;
     }
@@ -171,11 +175,11 @@ public class DefaultComponent implements ProxyableComponent
      * 
      * @return Fully constructed and initialized service.
      */
-    private Object constructViaComboInjection(Class implClass, Object[] ctorDeps, Map methodDeps)
+    private Object constructViaComboInjection()
     {
-        Object instance = ReflectUtils.invokeConstructor(implClass, ctorDeps);
+        Object instance = ReflectUtils.invokeConstructor(_implementation, _constructorDependencies);
 
-        return initializeService(instance, methodDeps);
+        return initializeComponent(instance);
     }
 
     /**
@@ -185,11 +189,11 @@ public class DefaultComponent implements ProxyableComponent
      * 
      * @return Fully constructed and initialized service.
      */
-    private Object constructViaMethodInjection(Class implClass, Map methodDeps)
+    private Object constructViaMethodInjection()
     {
-        Object instance = ClassUtils.newInstance(implClass);
+        Object instance = ClassUtils.newInstance(_implementation);
 
-        return initializeService(instance, methodDeps);
+        return initializeComponent(instance);
     }
 
     /**
@@ -220,11 +224,10 @@ public class DefaultComponent implements ProxyableComponent
             Object instance;
 
             if (_constructorDependencies == null)
-                instance = constructViaMethodInjection(_implementation, _methodDependencies);
+                instance = constructViaMethodInjection();
 
             else
-                instance = constructViaComboInjection(_implementation, _constructorDependencies,
-                    _methodDependencies);
+                instance = constructViaComboInjection();
 
             return instance;
         }
@@ -239,7 +242,7 @@ public class DefaultComponent implements ProxyableComponent
 
     public void collectInstance(Object inst)
     {
-        _componentState.collectComponentInstance(inst);
+        _componentStrategy.collectComponentInstance(inst);
     }
 
     public String toString()

@@ -14,7 +14,7 @@
 
 package gravity.impl;
 
-import gravity.ComponentState;
+import gravity.ComponentStrategy;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.ProxyableComponent;
@@ -25,9 +25,9 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentStateTest.java,v 1.3 2004-05-18 20:51:56 harishkswamy Exp $
+ * @version $Id: SingletonComponentStrategyTest.java,v 1.1 2004-05-22 20:19:27 harishkswamy Exp $
  */
-public class SingletonComponentStateTest extends GravityTestCase
+public class SingletonComponentStrategyTest extends GravityTestCase
 {
     public void setUp()
     {
@@ -48,18 +48,18 @@ public class SingletonComponentStateTest extends GravityTestCase
         return comp;
     }
 
-    private ComponentState newSingletonComponent(ProxyableComponent comp)
+    private ComponentStrategy newSingletonComponent(ProxyableComponent comp)
     {
-        ComponentState factory = new LazyLoadingComponentState(null, comp);
+        ComponentStrategy factory = new LazyLoadingComponentStrategy(null, comp);
 
-        return new SingletonComponentState(factory, comp);
+        return new SingletonComponentStrategy(factory, comp);
     }
 
     public void testGetComponentInstance()
     {
         ProxyableComponent comp = newComponent(MockComboService.class, null);
 
-        ComponentState factory = newSingletonComponent(comp);
+        ComponentStrategy factory = newSingletonComponent(comp);
 
         MockComboService service = (MockComboService) factory.getComponentInstance();
 
@@ -80,7 +80,7 @@ public class SingletonComponentStateTest extends GravityTestCase
 
         MockComboService service = (MockComboService) comp.getInstance();
 
-        comp.wrapStateWithSingleton();
+        comp.wrapStrategyWithSingleton();
 
         MockComboService service2 = (MockComboService) comp.getInstance();
 
@@ -93,7 +93,7 @@ public class SingletonComponentStateTest extends GravityTestCase
     public void testToString()
     {
         ProxyableComponent comp = newComponent(MockComboService.class, null);
-        ComponentState factory = newSingletonComponent(comp);
+        ComponentStrategy factory = newSingletonComponent(comp);
 
         assertEquals(factory.toString(),
             "[Singleton: [Key: [Component Interface: interface gravity.mocks.MockComboService,"

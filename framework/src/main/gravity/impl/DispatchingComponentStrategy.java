@@ -14,18 +14,17 @@
 
 package gravity.impl;
 
-import gravity.ComponentInvocationHandler;
 import gravity.ComponentProxy;
-import gravity.ComponentState;
+import gravity.ComponentStrategy;
 import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DispatchingComponentState.java,v 1.3 2004-05-18 20:52:06 harishkswamy Exp $
+ * @version $Id: DispatchingComponentStrategy.java,v 1.1 2004-05-22 20:19:35 harishkswamy Exp $
  */
-public class DispatchingComponentState extends ComponentStateDecorator
+public class DispatchingComponentStrategy extends ComponentStrategyDecorator
 {
-    public DispatchingComponentState(ComponentState decorator, ProxyableComponent component)
+    public DispatchingComponentStrategy(ComponentStrategy decorator, ProxyableComponent component)
     {
         super(decorator, component);
     }
@@ -34,9 +33,7 @@ public class DispatchingComponentState extends ComponentStateDecorator
     {
         ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
 
-        ComponentInvocationHandler handler = proxy.newComponentInvocationHandler(_component);
-
-        return proxy.newInstance(_component.getInterface(), handler);
+        return proxy.newInstance(_component);
     }
 
     public boolean isDispatching()

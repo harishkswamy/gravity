@@ -16,9 +16,9 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentState.java,v 1.3 2004-05-18 20:52:00 harishkswamy Exp $
+ * @version $Id: ComponentStrategy.java,v 1.1 2004-05-22 20:19:30 harishkswamy Exp $
  */
-public interface ComponentState
+public interface ComponentStrategy
 {
     /**
      * This method will return an instance (concrete or hollow) of the component. The component

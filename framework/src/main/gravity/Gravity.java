@@ -31,7 +31,7 @@ import java.util.Properties;
  * This class stores the framework properties that can be accessed and/or modified anytime.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Gravity.java,v 1.7 2004-05-18 20:52:00 harishkswamy Exp $
+ * @version $Id: Gravity.java,v 1.8 2004-05-22 20:19:29 harishkswamy Exp $
  */
 public class Gravity
 {
@@ -87,9 +87,14 @@ public class Gravity
     // TODO delete registry reference after startup?
     private MutableContainer _registry;
 
-    private Gravity()
+    protected Gravity()
     {
         // Singleton.
+    }
+    
+    protected MutableContainer newMutableContainer()
+    {
+        return new DefaultContainer();
     }
 
     public synchronized void initialize(Properties props)
@@ -99,9 +104,7 @@ public class Gravity
         else
             _props.putAll(props);
 
-        // Load and initialize the registry
-        // TODO decouple registry implementation
-        _registry = new DefaultContainer();
+        _registry = newMutableContainer();
     }
 
     /**

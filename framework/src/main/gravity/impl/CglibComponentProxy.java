@@ -21,51 +21,38 @@ import gravity.WrapperException;
 import gravity.util.ClassUtils;
 import net.sf.cglib.proxy.Callback;
 import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.Factory;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentProxy.java,v 1.3 2004-05-18 20:52:03 harishkswamy Exp $
+ * @version $Id: CglibComponentProxy.java,v 1.4 2004-05-22 20:19:33 harishkswamy Exp $
  */
 public class CglibComponentProxy implements ComponentProxy
 {
-    public ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)
+    /**
+     * This method must return a Cglib callback.
+     */
+    protected ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)
     {
         return new CglibComponentInvocationHandler(comp);
     }
 
-    public Object newInstance(Class compIntf, ComponentInvocationHandler handler)
+    public Object newInstance(ProxyableComponent comp)
     {
         try
         {
             Enhancer enhancer = new Enhancer();
 
-            enhancer.setClassLoader(ClassUtils.getClassLoader(compIntf));
+            enhancer.setClassLoader(ClassUtils.getClassLoader(comp.getInterface()));
 
-            enhancer.setSuperclass(compIntf);
+            enhancer.setSuperclass(comp.getInterface());
 
-            enhancer.setCallback((Callback) handler);
+            enhancer.setCallback((Callback) newComponentInvocationHandler(comp));
 
             return enhancer.create();
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to create proxy for: " + compIntf);
-        }
-    }
-
-    public ComponentInvocationHandler getComponentInvocationHandler(Object proxy)
-    {
-        try
-        {
-            Factory cglibFactory = (Factory) proxy;
-
-            return (ComponentInvocationHandler) cglibFactory.getCallback(0);
-        }
-        catch (Exception e)
-        {
-            throw WrapperException.wrap(e, "Unable to get component invocation handler from: "
-                + proxy);
+            throw WrapperException.wrap(e, "Unable to create proxy for: " + comp);
         }
     }
 }

@@ -21,14 +21,14 @@ import gravity.util.ClassUtils;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxyFactory.java,v 1.2 2004-05-18 20:52:05 harishkswamy Exp $
+ * @version $Id: ComponentProxyFactory.java,v 1.3 2004-05-22 20:19:34 harishkswamy Exp $
  */
 public class ComponentProxyFactory
 {
     private static final ComponentProxyFactory INSTANCE = new ComponentProxyFactory();
     private ComponentProxy                     _proxy;
 
-    private ComponentProxyFactory()
+    protected ComponentProxyFactory()
     {
         // Singleton
     }

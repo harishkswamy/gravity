@@ -29,7 +29,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainerTest.java,v 1.1 2004-05-18 20:51:55 harishkswamy Exp $
+ * @version $Id: DefaultContainerTest.java,v 1.2 2004-05-22 20:19:25 harishkswamy Exp $
  */
 public class DefaultContainerTest extends GravityTestCase
 {
@@ -326,7 +326,7 @@ public class DefaultContainerTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object key2 = _registry.wrapComponentStateWithSingleton(key);
+        Object key2 = _registry.wrapComponentStrategyWithSingleton(key);
 
         assertNotNull(key);
         assertEquals(key, key2);
@@ -345,7 +345,7 @@ public class DefaultContainerTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object key2 = _registry.wrapComponentStateWithPooling(key);
+        Object key2 = _registry.wrapComponentStrategyWithPooling(key);
 
         assertNotNull(key);
         assertEquals(key, key2);
@@ -377,7 +377,7 @@ public class DefaultContainerTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object key2 = _registry.wrapComponentStateWithThreadLocal(key);
+        Object key2 = _registry.wrapComponentStrategyWithThreadLocal(key);
 
         assertNotNull(key);
         assertEquals(key, key2);
@@ -399,11 +399,11 @@ public class DefaultContainerTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object key2 = _registry.wrapComponentStateWithPooling(key);
+        Object key2 = _registry.wrapComponentStrategyWithPooling(key);
 
         Object serv = _registry.getComponentInstance(MockComboService.class);
 
-        _registry.wrapComponentStateWithThreadLocal(key2);
+        _registry.wrapComponentStrategyWithThreadLocal(key2);
 
         Object serv2 = _registry.getComponentInstance(MockComboService.class);
 

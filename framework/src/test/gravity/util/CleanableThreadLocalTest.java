@@ -20,7 +20,7 @@ import org.easymock.MockControl;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: CleanableThreadLocalTest.java,v 1.1 2004-05-20 11:46:55 harishkswamy Exp $
+ * @version $Id: CleanableThreadLocalTest.java,v 1.2 2004-05-22 20:19:38 harishkswamy Exp $
  */
 public class CleanableThreadLocalTest extends TestCase
 {
@@ -40,7 +40,7 @@ public class CleanableThreadLocalTest extends TestCase
 
         _local = new CleanableThreadLocal(_observerMock);
     }
-    
+
     public void tearDown()
     {
         ThreadEvent.getInstance().cleanUp();
@@ -83,28 +83,28 @@ public class CleanableThreadLocalTest extends TestCase
 
         _observerMock.handleThreadPreTermination();
         _observerControl.setVoidCallable(2);
-        
+
         _observerControl.replay();
-        
+
         _local.handleThreadPreTermination();
         _local.handleThreadPreTermination();
-        
+
         _observerControl.verify();
     }
-    
+
     public void testInitialized()
     {
         setUpObservedLocal();
 
         _observerMock.handleThreadPreTermination();
-        
+
         _observerControl.replay();
 
         _local.set("xyz");
         ThreadEvent.getInstance().notifyPreTerminationObservers();
-        
+
         _observerControl.verify();
-        
+
         assertNull(_local.get());
     }
 }

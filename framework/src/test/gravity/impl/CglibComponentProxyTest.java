@@ -14,7 +14,6 @@
 
 package gravity.impl;
 
-import gravity.ComponentInvocationHandler;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.ProxyableComponent;
@@ -23,11 +22,10 @@ import gravity.mocks.MockComboServiceImpl;
 import gravity.mocks.MockService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentProxyTest.java,v 1.3 2004-05-18 20:51:56 harishkswamy Exp $
+ * @version $Id: CglibComponentProxyTest.java,v 1.4 2004-05-22 20:19:26 harishkswamy Exp $
  */
 public class CglibComponentProxyTest extends GravityTestCase
 {
@@ -53,18 +51,16 @@ public class CglibComponentProxyTest extends GravityTestCase
 
     public void testNewComponentProxy()
     {
-        ComponentInvocationHandler handler = _proxyFactory.newComponentInvocationHandler(newComponent(
+        MockService service = (MockService) _proxyFactory.newInstance(newComponent(
             MockService.class, null));
-
-        MockService service = (MockService) _proxyFactory.newInstance(MockService.class, handler);
 
         assertNotNull(service);
     }
 
     public void testNullFactory()
     {
-        MockService service = (MockService) _proxyFactory.newInstance(MockService.class,
-            _proxyFactory.newComponentInvocationHandler(null));
+        MockService service = (MockService) _proxyFactory.newInstance(newComponent(
+            MockService.class, null));
 
         try
         {
@@ -74,7 +70,9 @@ public class CglibComponentProxyTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Unable to get concrete instance for component: null");
+            assertSuperString(e, "Unable to get concrete instance for component: "
+                + "[Key: [Component Interface: interface gravity.mocks.MockService, "
+                + "Component Type: default], Implementation: null]");
         }
     }
 
@@ -82,8 +80,7 @@ public class CglibComponentProxyTest extends GravityTestCase
     {
         ProxyableComponent comp = newComponent(MockComboService.class, null);
 
-        MockComboService service = (MockComboService) _proxyFactory.newInstance(
-            MockComboService.class, _proxyFactory.newComponentInvocationHandler(comp));
+        MockComboService service = (MockComboService) _proxyFactory.newInstance(comp);
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
 
@@ -94,8 +91,7 @@ public class CglibComponentProxyTest extends GravityTestCase
 
     public void testNewClassProxy()
     {
-        Object obj = _proxyFactory.newInstance(ArrayList.class,
-            _proxyFactory.newComponentInvocationHandler(null));
+        Object obj = _proxyFactory.newInstance(newComponent(ArrayList.class, null));
 
         assertNotNull(obj);
         assertTrue(obj instanceof ArrayList);
@@ -105,36 +101,13 @@ public class CglibComponentProxyTest extends GravityTestCase
     {
         try
         {
-            _proxyFactory.newInstance(null, null);
+            _proxyFactory.newInstance(null);
 
             unreachable();
         }
         catch (Exception e)
         {
             assertSuperString(e, "java.lang.NullPointerException: Unable to create proxy for: null");
-        }
-    }
-
-    public void testGetComponentInvocationHandler()
-    {
-        JdkComponentProxy proxy = new JdkComponentProxy();
-
-        ProxyableComponent comp = newComponent(MockComboService.class, null);
-        Object obj = proxy.newInstance(List.class, proxy.newComponentInvocationHandler(comp));
-
-        Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
-        comp.registerImplementation(MockComboServiceImpl.class, cArgs, null);
-
-        try
-        {
-            _proxyFactory.getComponentInvocationHandler(obj);
-
-            unreachable();
-        }
-        catch (Exception e)
-        {
-            assertSuperString(e, "java.lang.ClassCastException:"
-                + " Unable to get component invocation handler from: " + obj);
         }
     }
 }

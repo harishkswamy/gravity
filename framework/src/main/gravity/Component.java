@@ -20,7 +20,7 @@ import java.util.Map;
  * The component is the central concept of the framework around which everything else revolves. A
  * component is the entity that can be configured by the {@link gravity.Container container}. A
  * component is simply an object that has an interface, an implementation and a
- * {@link gravity.ComponentState state}.
+ * {@link gravity.ComponentStrategy state}.
  * <p>
  * Every component has a unique identity typically comprised of the interface and a type (any
  * String) and there will be only one object of each component (a flyweight).
@@ -30,7 +30,7 @@ import java.util.Map;
  * on the state of the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.4 2004-05-20 11:41:10 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.5 2004-05-22 20:19:29 harishkswamy Exp $
  */
 public interface Component
 {
@@ -79,17 +79,17 @@ public interface Component
     /**
      * This method will change the state of this component to singleton.
      */
-    void wrapStateWithSingleton();
+    void wrapStrategyWithSingleton();
 
     /**
      * This method will change the state of this component to pooling.
      */
-    void wrapStateWithPooling();
+    void wrapStrategyWithPooling();
 
     /**
      * This method will change the state of this component to thread local.
      */
-    void wrapStateWithThreadLocal();
+    void wrapStrategyWithThreadLocal();
 
     /**
      * This method should be used to return a component instance obtained via {@link #getInstance()}.

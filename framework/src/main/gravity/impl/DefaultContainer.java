@@ -18,19 +18,18 @@ import gravity.Component;
 import gravity.Location;
 import gravity.MutableContainer;
 import gravity.UsageException;
-import gravity.util.*;
+import gravity.util.ThreadEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-// TODO need support for pooled components
 /**
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.3 2004-05-20 11:43:33 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.4 2004-05-22 20:19:32 harishkswamy Exp $
  */
 public class DefaultContainer implements MutableContainer
 {
@@ -216,29 +215,29 @@ public class DefaultContainer implements MutableContainer
     /**
      * @return Component _key.
      */
-    public Object wrapComponentStateWithSingleton(Object compKey)
+    public Object wrapComponentStrategyWithSingleton(Object compKey)
     {
         Component comp = (Component) _componentCache.get(compKey);
 
-        comp.wrapStateWithSingleton();
+        comp.wrapStrategyWithSingleton();
 
         return compKey;
     }
 
-    public Object wrapComponentStateWithPooling(Object compKey)
+    public Object wrapComponentStrategyWithPooling(Object compKey)
     {
         Component comp = (Component) _componentCache.get(compKey);
 
-        comp.wrapStateWithPooling();
+        comp.wrapStrategyWithPooling();
 
         return compKey;
     }
 
-    public Object wrapComponentStateWithThreadLocal(Object compKey)
+    public Object wrapComponentStrategyWithThreadLocal(Object compKey)
     {
         Component comp = (Component) _componentCache.get(compKey);
 
-        comp.wrapStateWithThreadLocal();
+        comp.wrapStrategyWithThreadLocal();
 
         return compKey;
     }

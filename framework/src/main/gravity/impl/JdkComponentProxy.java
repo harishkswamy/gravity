@@ -25,40 +25,27 @@ import java.lang.reflect.Proxy;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxy.java,v 1.3 2004-05-18 20:52:05 harishkswamy Exp $
+ * @version $Id: JdkComponentProxy.java,v 1.4 2004-05-22 20:19:35 harishkswamy Exp $
  */
 public class JdkComponentProxy implements ComponentProxy
 {
-    public ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)
+    protected ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)
     {
         return new JdkComponentInvocationHandler(comp);
     }
 
-    public Object newInstance(Class compIntf, ComponentInvocationHandler handler)
+    public Object newInstance(ProxyableComponent comp)
     {
         try
         {
-            ClassLoader classLoader = ClassUtils.getClassLoader(compIntf);
+            ClassLoader classLoader = ClassUtils.getClassLoader(comp.getInterface());
 
-            return Proxy.newProxyInstance(classLoader, new Class[]{compIntf},
-                (InvocationHandler) handler);
+            return Proxy.newProxyInstance(classLoader, new Class[]{comp.getInterface()},
+                (InvocationHandler) newComponentInvocationHandler(comp));
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to create proxy for: " + compIntf);
-        }
-    }
-
-    public ComponentInvocationHandler getComponentInvocationHandler(Object proxy)
-    {
-        try
-        {
-            return (ComponentInvocationHandler) Proxy.getInvocationHandler(proxy);
-        }
-        catch (Exception e)
-        {
-            throw WrapperException.wrap(e, "Unable to get component invocation handler from: "
-                + proxy);
+            throw WrapperException.wrap(e, "Unable to create proxy for: " + comp);
         }
     }
 }

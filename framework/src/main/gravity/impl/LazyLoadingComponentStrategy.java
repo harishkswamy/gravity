@@ -14,16 +14,30 @@
 
 package gravity.impl;
 
-import gravity.GravityTestCase;
+import gravity.ComponentProxy;
+import gravity.ComponentStrategy;
+import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentStateTest.java,v 1.1 2004-05-17 03:03:43 harishkswamy Exp $
+ * @version $Id: LazyLoadingComponentStrategy.java,v 1.1 2004-05-22 20:19:33 harishkswamy Exp $
  */
-public class PoolingComponentStateTest extends GravityTestCase
+public class LazyLoadingComponentStrategy extends ComponentStrategyDecorator
 {
-    public void testDecorated()
+    public LazyLoadingComponentStrategy(ComponentStrategy decorator, ProxyableComponent component)
     {
+        super(decorator, component);
+    }
 
+    public Object getComponentInstance()
+    {
+        ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
+
+        return proxy.newInstance(_component);
+    }
+
+    public boolean isDispatching()
+    {
+        return false;
     }
 }

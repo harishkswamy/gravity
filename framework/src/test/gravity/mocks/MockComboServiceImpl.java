@@ -18,15 +18,16 @@ import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MockComboServiceImpl.java,v 1.2 2004-05-18 04:56:34 harishkswamy Exp $
+ * @version $Id: MockComboServiceImpl.java,v 1.3 2004-05-22 20:19:28 harishkswamy Exp $
  */
 public class MockComboServiceImpl implements MockComboService
 {
-    List        _list;
-    int         _id;
-    MockService _mockService;
-    Object      _object;
-    int         _primitive;
+    int          _id;
+    List         _list;
+    MockService  _mockService;
+    Object       _object;
+    int          _primitive;
+    volatile int _hashCode;
 
     public MockComboServiceImpl(int id, List list)
     {

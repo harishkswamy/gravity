@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gravity;
+package gravity.impl;
+
+import gravity.GravityTestCase;
 
 /**
- * This will act as a proxy for the component.
- * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxy.java,v 1.4 2004-05-22 20:19:30 harishkswamy Exp $
+ * @version $Id: PoolingComponentStrategyTest.java,v 1.1 2004-05-22 20:19:26 harishkswamy Exp $
  */
-public interface ComponentProxy
+public class PoolingComponentStrategyTest extends GravityTestCase
 {
-    Object newInstance(ProxyableComponent comp);
+    public void testDecorated()
+    {
+
+    }
 }

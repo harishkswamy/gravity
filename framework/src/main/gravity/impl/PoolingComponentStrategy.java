@@ -14,45 +14,52 @@
 
 package gravity.impl;
 
-import gravity.ComponentState;
+import gravity.ComponentStrategy;
 import gravity.ProxyableComponent;
+import gravity.util.Pool;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentStateDecorator.java,v 1.3 2004-05-18 20:52:05 harishkswamy Exp $
+ * @version $Id: PoolingComponentStrategy.java,v 1.1 2004-05-22 20:19:34 harishkswamy Exp $
  */
-public abstract class ComponentStateDecorator implements ComponentState
+public class PoolingComponentStrategy extends LazyLoadingComponentStrategy
 {
-    protected ComponentState     _decoratedState;
-    protected ProxyableComponent _component;
+    private Pool _pool;
 
-    protected ComponentStateDecorator(ComponentState decoratedState, ProxyableComponent component)
+    public PoolingComponentStrategy(ComponentStrategy decorator, ProxyableComponent component,
+        int poolSize)
     {
-        _decoratedState = decoratedState;
+        super(decorator, component);
 
-        _component = component;
+        _pool = new Pool(poolSize);
+    }
+
+    public PoolingComponentStrategy(ComponentStrategy delegate, ProxyableComponent component)
+    {
+        this(delegate, component, 0);
     }
 
     public Object getConcreteComponentInstance()
     {
-        if (_decoratedState == null)
-            return _component.newInstance();
+        Object component = _pool.loan();
 
-        else
-            return _decoratedState.getConcreteComponentInstance();
+        if (component == null)
+        {
+            component = super.getConcreteComponentInstance();
+
+            _pool.loaned(component);
+        }
+
+        return component;
     }
 
     public void collectComponentInstance(Object comp)
     {
-        if (_decoratedState != null)
-            _decoratedState.collectComponentInstance(comp);
+        _pool.collect(comp);
     }
 
     public String toString()
     {
-        if (_decoratedState == null)
-            return _component.toString();
-        else
-            return _decoratedState.toString();
+        return "[Pooled: " + super.toString() + "]";
     }
 }

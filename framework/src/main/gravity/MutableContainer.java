@@ -18,44 +18,44 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainer.java,v 1.1 2004-05-18 20:52:01 harishkswamy Exp $
+ * @version $Id: MutableContainer.java,v 1.2 2004-05-22 20:19:31 harishkswamy Exp $
  */
 public interface MutableContainer extends Container
 {
     Object registerComponentImplementation(Class intf, Object implType, Class implClass,
-        Object[] ctorArgs, Map setrArgs);
+        Object[] ctorArgs, Map methodArgs);
 
     Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
         Object[] ctorArgs);
 
     Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Map setrArgs);
+        Map methodArgs);
 
     // Default service registration convenience methods ============================================
 
     Object registerComponentImplementation(Class compIntf, Class compClass, Object[] ctorArgs,
-        Map setrArgs);
+        Map methodArgs);
 
     Object registerComponentImplementation(Class compIntf, Class compClass, Object[] ctorArgs);
 
-    Object registerComponentImplementation(Class compIntf, Class compClass, Map setrArgs);
+    Object registerComponentImplementation(Class compIntf, Class compClass, Map methodArgs);
 
     // Variant component registration convenience methods ==========================================
 
     Object registerComponentImplementation(Class compClass, Object compType, Object[] ctorArgs,
-        Map setrArgs);
+        Map methodArgs);
 
     Object registerComponentImplementation(Class compClass, Object compType, Object[] ctorArgs);
 
-    Object registerComponentImplementation(Class compClass, Object compType, Map setrArgs);
+    Object registerComponentImplementation(Class compClass, Object compType, Map methodArgs);
 
     // Default component registration convenience methods ==========================================
 
-    Object registerComponentImplementation(Class compClass, Object[] ctorArgs, Map setrArgs);
+    Object registerComponentImplementation(Class compClass, Object[] ctorArgs, Map methodArgs);
 
     Object registerComponentImplementation(Class compClass, Object[] ctorArgs);
 
-    Object registerComponentImplementation(Class compClass, Map setrArgs);
+    Object registerComponentImplementation(Class compClass, Map methodArgs);
 
     // Location registration methods ===============================================================
 
@@ -74,34 +74,31 @@ public interface MutableContainer extends Container
     // Component state decorator methods ===========================================================
 
     /**
-     * This method will add a singleton state to the current component state. This method may be
-     * invoked anytime prior to the first method invocation on the component, to take effect.
+     * This method will add a singleton strategy to the current component strategy.
      * 
      * @param compKey
      *        Component Key.
      * @return Component Key.
      */
-    Object wrapComponentStateWithSingleton(Object compKey);
+    Object wrapComponentStrategyWithSingleton(Object compKey);
 
     /**
-     * This method will add a pooling state to the current component state. This method may be
-     * invoked anytime prior to the first method invocation on the component, to take effect.
+     * This method will add a pooling strategy to the current component strategy.
      * 
      * @param compKey
      *        Component Key.
      * @return Component Key.
      */
-    Object wrapComponentStateWithPooling(Object compKey);
+    Object wrapComponentStrategyWithPooling(Object compKey);
 
     /**
-     * This method will add a thread local state to the current component state. This method may be
-     * invoked anytime prior to the first method invocation on the component, to take effect.
+     * This method will add a thread local strategy to the current component strategy.
      * 
      * @param compKey
      *        Component Key.
      * @return Component Key.
      */
-    Object wrapComponentStateWithThreadLocal(Object compKey);
+    Object wrapComponentStrategyWithThreadLocal(Object compKey);
 
     // Configuration methods =======================================================================
 

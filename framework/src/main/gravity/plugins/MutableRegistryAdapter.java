@@ -25,7 +25,7 @@ import java.util.Map;
  * 
  * @see gravity.MutableContainer
  * @author Harish Krishnaswamy
- * @version $Id: MutableRegistryAdapter.java,v 1.4 2004-05-18 20:52:07 harishkswamy Exp $
+ * @version $Id: MutableRegistryAdapter.java,v 1.5 2004-05-22 20:19:37 harishkswamy Exp $
  */
 public class MutableRegistryAdapter
 {
@@ -186,17 +186,17 @@ public class MutableRegistryAdapter
 
     public Object singleton(Object compKey)
     {
-        return _registry.wrapComponentStateWithSingleton(compKey);
+        return _registry.wrapComponentStrategyWithSingleton(compKey);
     }
 
     public Object pooling(Object compKey)
     {
-        return _registry.wrapComponentStateWithPooling(compKey);
+        return _registry.wrapComponentStrategyWithPooling(compKey);
     }
 
     public Object threadLocal(Object compKey)
     {
-        return _registry.wrapComponentStateWithThreadLocal(compKey);
+        return _registry.wrapComponentStrategyWithThreadLocal(compKey);
     }
 
     // Config point definition helper methods =================================

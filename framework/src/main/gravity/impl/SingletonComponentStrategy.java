@@ -14,18 +14,18 @@
 
 package gravity.impl;
 
-import gravity.ComponentState;
+import gravity.ComponentStrategy;
 import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentState.java,v 1.3 2004-05-18 20:52:05 harishkswamy Exp $
+ * @version $Id: SingletonComponentStrategy.java,v 1.1 2004-05-22 20:19:35 harishkswamy Exp $
  */
-public class SingletonComponentState extends LazyLoadingComponentState
+public class SingletonComponentStrategy extends LazyLoadingComponentStrategy
 {
     private Object _componentInstance;
 
-    public SingletonComponentState(ComponentState delegate, ProxyableComponent component)
+    public SingletonComponentStrategy(ComponentStrategy delegate, ProxyableComponent component)
     {
         super(delegate, component);
     }

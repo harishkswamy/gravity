@@ -14,21 +14,21 @@
 
 package gravity.impl;
 
-import gravity.ComponentState;
+import gravity.ComponentStrategy;
 import gravity.ProxyableComponent;
 import gravity.util.CleanableThreadLocal;
 import gravity.util.ThreadPreTerminationObserver;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentState.java,v 1.4 2004-05-20 11:42:30 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentStrategy.java,v 1.1 2004-05-22 20:19:31 harishkswamy Exp $
  */
-public class ThreadLocalComponentState extends DispatchingComponentState implements
+public class ThreadLocalComponentStrategy extends DispatchingComponentStrategy implements
     ThreadPreTerminationObserver
 {
     private CleanableThreadLocal _threadLocal;
 
-    public ThreadLocalComponentState(ComponentState delegate, ProxyableComponent component)
+    public ThreadLocalComponentStrategy(ComponentStrategy delegate, ProxyableComponent component)
     {
         super(delegate, component);
 

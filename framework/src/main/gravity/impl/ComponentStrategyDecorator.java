@@ -14,52 +14,45 @@
 
 package gravity.impl;
 
-import gravity.ComponentState;
+import gravity.ComponentStrategy;
 import gravity.ProxyableComponent;
-import gravity.util.Pool;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentState.java,v 1.3 2004-05-18 20:52:02 harishkswamy Exp $
+ * @version $Id: ComponentStrategyDecorator.java,v 1.1 2004-05-22 20:19:32 harishkswamy Exp $
  */
-public class PoolingComponentState extends LazyLoadingComponentState
+public abstract class ComponentStrategyDecorator implements ComponentStrategy
 {
-    private Pool _pool;
+    protected ComponentStrategy     _decoratedState;
+    protected ProxyableComponent _component;
 
-    public PoolingComponentState(ComponentState decorator, ProxyableComponent component,
-        int poolSize)
+    protected ComponentStrategyDecorator(ComponentStrategy decoratedState, ProxyableComponent component)
     {
-        super(decorator, component);
+        _decoratedState = decoratedState;
 
-        _pool = new Pool(poolSize);
-    }
-
-    public PoolingComponentState(ComponentState delegate, ProxyableComponent component)
-    {
-        this(delegate, component, 0);
+        _component = component;
     }
 
     public Object getConcreteComponentInstance()
     {
-        Object component = _pool.loan();
+        if (_decoratedState == null)
+            return _component.newInstance();
 
-        if (component == null)
-        {
-            component = super.getConcreteComponentInstance();
-
-            _pool.loaned(component);
-        }
-
-        return component;
+        else
+            return _decoratedState.getConcreteComponentInstance();
     }
 
     public void collectComponentInstance(Object comp)
     {
-        _pool.collect(comp);
+        if (_decoratedState != null)
+            _decoratedState.collectComponentInstance(comp);
     }
 
     public String toString()
     {
-        return "[Pooled: " + super.toString() + "]";
+        if (_decoratedState == null)
+            return _component.toString();
+        else
+            return _decoratedState.toString();
     }
 }
