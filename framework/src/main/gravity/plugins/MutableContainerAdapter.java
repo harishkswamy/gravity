@@ -23,10 +23,12 @@ import java.util.Map;
 
 /**
  * This is an adapter to MutableContainer intended to be used by plugins.
+ * <p>
+ * All methods except <code>componentInst</code> return the {@link gravity.impl.ComponentKey}.
  * 
  * @see gravity.MutableContainer
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainerAdapter.java,v 1.3 2004-06-14 04:23:44 harishkswamy Exp $
+ * @version $Id: MutableContainerAdapter.java,v 1.4 2004-08-10 16:24:38 harishkswamy Exp $
  */
 public class MutableContainerAdapter
 {
@@ -112,9 +114,19 @@ public class MutableContainerAdapter
         return _container.registerComponentRegistrationLocation(compKey, getCurrentLocation());
     }
 
+    public Object componentImpl(Object compKey, Class compClass, Object[] ctorArgs,
+        ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(compKey, compClass, ctorArgs, callbacks);
+    }
+
     public Object componentImpl(Object compKey, Class compClass, Object[] ctorArgs)
     {
-        return componentImpl(compKey, compClass, ctorArgs, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(compKey, compClass, ctorArgs, callbacks);
     }
 
     public Object componentImpl(Object compKey, Class compClass, ComponentCallback[] callbacks)
@@ -122,9 +134,18 @@ public class MutableContainerAdapter
         return componentImpl(compKey, compClass, null, callbacks);
     }
 
+    public Object componentImpl(Object compKey, Class compClass, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(compKey, compClass, null, callbacks);
+    }
+
     public Object componentImpl(Object compKey, Class compClass)
     {
-        return componentImpl(compKey, compClass, null, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(compKey, compClass, null, callbacks);
     }
 
     // Factory registration by component key ================================
@@ -137,9 +158,19 @@ public class MutableContainerAdapter
         return _container.registerComponentRegistrationLocation(compKey, getCurrentLocation());
     }
 
+    public Object componentFac(Object compKey, Object fac, String facMthdName,
+        Object[] facMthdArgs, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentFac(compKey, fac, facMthdName, facMthdArgs, callbacks);
+    }
+
     public Object componentFac(Object compKey, Object fac, String facMthdName, Object[] facMthdArgs)
     {
-        return componentFac(compKey, fac, facMthdName, facMthdArgs, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentFac(compKey, fac, facMthdName, facMthdArgs, callbacks);
     }
 
     public Object componentFac(Object compKey, Object fac, String facMthdName,
@@ -148,9 +179,19 @@ public class MutableContainerAdapter
         return componentFac(compKey, fac, facMthdName, null, callbacks);
     }
 
+    public Object componentFac(Object compKey, Object fac, String facMthdName,
+        ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentFac(compKey, fac, facMthdName, null, callbacks);
+    }
+
     public Object componentFac(Object compKey, Object fac, String facMthdName)
     {
-        return componentFac(compKey, fac, facMthdName, null, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentFac(compKey, fac, facMthdName, null, callbacks);
     }
 
     // Implementation registration by interface and type =========================
@@ -163,9 +204,19 @@ public class MutableContainerAdapter
         return componentImpl(compKey, compClass, ctorArgs, callbacks);
     }
 
+    public Object componentImpl(Class compIntf, Object compType, Class compClass,
+        Object[] ctorArgs, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(compIntf, compType, compClass, ctorArgs, callbacks);
+    }
+
     public Object componentImpl(Class compIntf, Object compType, Class compClass, Object[] ctorArgs)
     {
-        return componentImpl(compIntf, compType, compClass, ctorArgs, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(compIntf, compType, compClass, ctorArgs, callbacks);
     }
 
     public Object componentImpl(Class compIntf, Object compType, Class compClass,
@@ -174,9 +225,19 @@ public class MutableContainerAdapter
         return componentImpl(compIntf, compType, compClass, null, callbacks);
     }
 
+    public Object componentImpl(Class compIntf, Object compType, Class compClass,
+        ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(compIntf, compType, compClass, null, callbacks);
+    }
+
     public Object componentImpl(Class compIntf, Object compType, Class compClass)
     {
-        return componentImpl(compIntf, compType, compClass, null, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(compIntf, compType, compClass, null, callbacks);
     }
 
     // Factory registration by component interface and type ==========================
@@ -190,9 +251,19 @@ public class MutableContainerAdapter
     }
 
     public Object componentFac(Class compIntf, Object compType, Object fac, String facMthdName,
+        Object[] facMthdArgs, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentFac(compIntf, compType, fac, facMthdName, facMthdArgs, callbacks);
+    }
+
+    public Object componentFac(Class compIntf, Object compType, Object fac, String facMthdName,
         Object[] facMthdArgs)
     {
-        return componentFac(compIntf, compType, fac, facMthdName, facMthdArgs, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentFac(compIntf, compType, fac, facMthdName, facMthdArgs, callbacks);
     }
 
     public Object componentFac(Class compIntf, Object compType, Object fac, String facMthdName,
@@ -201,9 +272,19 @@ public class MutableContainerAdapter
         return componentFac(compIntf, compType, fac, facMthdName, null, callbacks);
     }
 
+    public Object componentFac(Class compIntf, Object compType, Object fac, String facMthdName,
+        ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentFac(compIntf, compType, fac, facMthdName, null, callbacks);
+    }
+
     public Object componentFac(Class compIntf, Object compType, Object fac, String facMthdName)
     {
-        return componentFac(compIntf, compType, fac, facMthdName, null, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentFac(compIntf, compType, fac, facMthdName, null, callbacks);
     }
 
     // Implementation registration methods by interface =========================
@@ -214,9 +295,19 @@ public class MutableContainerAdapter
         return componentImpl(compIntf, null, compClass, ctorArgs, callbacks);
     }
 
+    public Object componentImpl(Class compIntf, Class compClass, Object[] ctorArgs,
+        ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(compIntf, null, compClass, ctorArgs, callbacks);
+    }
+
     public Object componentImpl(Class compIntf, Class compClass, Object[] ctorArgs)
     {
-        return componentImpl(compIntf, null, compClass, ctorArgs, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(compIntf, null, compClass, ctorArgs, callbacks);
     }
 
     public Object componentImpl(Class compIntf, Class compClass, ComponentCallback[] callbacks)
@@ -224,9 +315,18 @@ public class MutableContainerAdapter
         return componentImpl(compIntf, null, compClass, null, callbacks);
     }
 
+    public Object componentImpl(Class compIntf, Class compClass, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(compIntf, null, compClass, null, callbacks);
+    }
+
     public Object componentImpl(Class compIntf, Class compClass)
     {
-        return componentImpl(compIntf, null, compClass, null, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(compIntf, null, compClass, null, callbacks);
     }
 
     // Factory registration by component interface ==============================
@@ -239,9 +339,19 @@ public class MutableContainerAdapter
         return componentFac(compKey, fac, facMthdName, facMthdArgs, callbacks);
     }
 
+    public Object componentFac(Class compIntf, Object fac, String facMthdName,
+        Object[] facMthdArgs, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentFac(compIntf, fac, facMthdName, facMthdArgs, callbacks);
+    }
+
     public Object componentFac(Class compIntf, Object fac, String facMthdName, Object[] facMthdArgs)
     {
-        return componentFac(compIntf, null, fac, facMthdName, facMthdArgs, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentFac(compIntf, null, fac, facMthdName, facMthdArgs, callbacks);
     }
 
     public Object componentFac(Class compIntf, Object fac, String facMthdName,
@@ -250,9 +360,19 @@ public class MutableContainerAdapter
         return componentFac(compIntf, null, fac, facMthdName, null, callbacks);
     }
 
+    public Object componentFac(Class compIntf, Object fac, String facMthdName,
+        ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentFac(compIntf, null, fac, facMthdName, null, callbacks);
+    }
+
     public Object componentFac(Class compIntf, Object fac, String facMthdName)
     {
-        return componentFac(compIntf, null, fac, facMthdName, null, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentFac(compIntf, null, fac, facMthdName, null, callbacks);
     }
 
     // Implementation registration methods by implClass and type =========================
@@ -263,9 +383,19 @@ public class MutableContainerAdapter
         return componentImpl(implClass, compType, implClass, cArgs, callbacks);
     }
 
+    public Object componentImpl(Class implClass, Object compType, Object[] cArgs,
+        ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(implClass, compType, implClass, cArgs, callbacks);
+    }
+
     public Object componentImpl(Class implClass, Object compType, Object[] cArgs)
     {
-        return componentImpl(implClass, compType, implClass, cArgs, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(implClass, compType, implClass, cArgs, callbacks);
     }
 
     public Object componentImpl(Class implClass, Object compType, ComponentCallback[] callbacks)
@@ -273,9 +403,18 @@ public class MutableContainerAdapter
         return componentImpl(implClass, compType, implClass, null, callbacks);
     }
 
+    public Object componentImpl(Class implClass, Object compType, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(implClass, compType, implClass, null, callbacks);
+    }
+
     public Object componentImpl(Class compClass, Object compType)
     {
-        return componentImpl(compClass, compType, compClass, null, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(compClass, compType, compClass, null, callbacks);
     }
 
     // Implementation registration methods by implClass =======================
@@ -285,9 +424,18 @@ public class MutableContainerAdapter
         return componentImpl(implClass, null, implClass, cArgs, callbacks);
     }
 
+    public Object componentImpl(Class implClass, Object[] cArgs, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(implClass, null, implClass, cArgs, callbacks);
+    }
+
     public Object componentImpl(Class implClass, Object[] cArgs)
     {
-        return componentImpl(implClass, null, implClass, cArgs, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(implClass, null, implClass, cArgs, callbacks);
     }
 
     public Object componentImpl(Class implClass, ComponentCallback[] callbacks)
@@ -295,9 +443,18 @@ public class MutableContainerAdapter
         return componentImpl(implClass, null, implClass, null, callbacks);
     }
 
+    public Object componentImpl(Class implClass, ComponentCallback callback)
+    {
+        ComponentCallback[] callbacks = {callback};
+
+        return componentImpl(implClass, null, implClass, null, callbacks);
+    }
+
     public Object componentImpl(Class compClass)
     {
-        return componentImpl(compClass, null, compClass, null, null);
+        ComponentCallback[] callbacks = null;
+
+        return componentImpl(compClass, null, compClass, null, callbacks);
     }
 
     // Constructor arguments registration ==========================================
