@@ -2,7 +2,7 @@
 <html>
 <head>
   <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gravity Framework - Release 1.0-alpha-1</title>
+<title>Gravity Framework - Release 1.0-alpha-2</title>
 <LINK REL ="stylesheet" TYPE="text/css" HREF="../style.css" TITLE="Style">
 </head>
 <body>
@@ -13,7 +13,7 @@
   <TR>
     <TD colspan="6" class="reportHeader">
     <TABLE width="100%"><TR>
-    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-alpha-1 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Wed May 12 2004 00:35:24 EDT</DIV>
+    <TD valign="top" class="titleText">Clover coverage report -   Gravity Framework - Release 1.0-alpha-2 <DIV class="timestamp"><b>Coverage timestamp:</b>&nbsp;Thu May 20 2004 12:31:34 EDT</DIV>
             <DIV class="navBar"><a href="../pkgs-summary.html"><b>Overview</b></a>&nbsp;&nbsp;&nbsp;<a href="pkg-summary.html"><b>Package</b></a>&nbsp;&nbsp;&nbsp;<font class="navBarCurrent">File</font></DIV>
     
 <DIV class="navBarLink">
@@ -28,15 +28,15 @@
          <tr>
            <td nowrap><b>file stats:</b></td>
            <td align="right"><b>LOC:</b></td>
-           <td align="right">249</td>
+           <td align="right">278</td>
            <td width="10%">&nbsp;</td>
            <td align="right"><b>Methods:</b></td>
-           <td align="right">15</td>
+           <td align="right">19</td>
          </tr>
          <tr>
            <td></td>
            <td align="right"><b>NCLOC:</b></td>
-           <td align="right">106</td>
+           <td align="right">126</td>
            <td width="10%">&nbsp;</td>
            <td align="right"><b>Classes:</b></td>
            <td align="right">1</td>
@@ -62,16 +62,16 @@
    
     <TD class="graphPercent" align="center">92.9%</TD>
     <TD class="graphPercent" align="center">100%</TD>
-    <TD class="graphPercent" align="center">93.3%</TD>
-    <TD class="graphBarLeft" align="center"><B>97.1%</B></TD>
+    <TD class="graphPercent" align="center">100%</TD>
+    <TD class="graphBarLeft" align="center"><B>98.7%</B></TD>
     <TD class="graphBar">
             <TABLE class="barGraph" cellspacing="0">
         <TBODY>
           <TR>
 	               <TD class="covered"><img alt="coverage" src="../img/trans.gif"
-                   width="194" height="12"></TD>
+                   width="197" height="12"></TD>
             <TD class="uncovered"><img alt="coverage" src="../img/trans.gif"
-                   width="6" height="12"></TD>
+                   width="3" height="12"></TD>
 	   	  </TR>
 	</TBODY>
       </TABLE>
@@ -286,7 +286,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.impl.DefaultRegistry; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="keyword">import</span> gravity.impl.DefaultContainer; </SPAN></TD>
 </TR>
  <TR>
 
@@ -394,7 +394,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">//TODO Fix exception handling. Need more explicit exceptions.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -406,7 +406,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * This class is the gateway to the framework. It provides static helper methods to initialize the</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -418,7 +418,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * framework and obtain a fully constructed registry.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * This class is the gateway to the framework. It provides helper methods to initialize the</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -430,7 +430,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * framework and obtain a fully constructed registry.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -442,7 +442,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * This class stores the framework properties that can be accessed and/or modified.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * &lt;p&gt;</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -454,7 +454,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * This class stores the framework properties that can be accessed and/or modified anytime.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -466,7 +466,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * This class is typically expected to be used in a single thread and only during startup and</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * </span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -478,7 +478,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * shutdown.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@author</span> Harish Krishnaswamy</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -490,7 +490,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * </span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: Gravity.html,v 1.2 2004-05-20 16:36:54 harishkswamy Exp $</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -502,36 +502,12 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@author</span> Harish Krishnaswamy</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;36
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> * <span class="javadoc">@version</span> $Id: Gravity.html,v 1.1 2004-05-12 04:49:46 harishkswamy Exp $</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;37
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
 <TD class="srcCell">  <SPAN class="srcLine">  <span class="comment"> */</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-   <A name="Gravity">&nbsp;38</A>
+   <A name="Gravity">&nbsp;36</A>
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -543,7 +519,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;39
+    &nbsp;37
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -555,7 +531,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;40
+    &nbsp;38
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -567,7 +543,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;41
+    &nbsp;39
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -579,7 +555,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;42
+    &nbsp;40
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -591,7 +567,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;43
+    &nbsp;41
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -603,6 +579,30 @@
  <TR>
 
  <TD align="right" class="lineCount">
+    &nbsp;42
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">public</span> <span class="keyword">static</span> final String  PLUGIN_MANIFEST_FILE_PATH      = <span class="string">"META-INF/gravity-plugin.properties"</span>; </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;43
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
     &nbsp;44
 </TD>
 
@@ -610,7 +610,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">public</span> <span class="keyword">static</span> final String     PLUGIN_MANIFEST_FILE_PATH          = <span class="string">"META-INF/gravity-plugin.properties"</span>; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">public</span> <span class="keyword">static</span> final String  PLUGIN_CLASS_NAME_KEY          = <span class="string">"pluginClassName"</span>; </SPAN></TD>
 </TR>
  <TR>
 
@@ -634,7 +634,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">public</span> <span class="keyword">static</span> final String     PLUGIN_CLASS_NAME                  = <span class="string">"pluginClassName"</span>; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -646,7 +646,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This is name of the property that specifies the class name of the custom</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -658,7 +658,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * {@link ComponentProxy}.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -670,7 +670,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This is name of the property that specifies the class name of the custom</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -682,7 +682,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * {@link ComponentProxyFactory}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">public</span> <span class="keyword">static</span> final String  COMPONENT_PROXY_CLASS_NAME_KEY = <span class="string">"componentProxyClassName"</span>; </SPAN></TD>
 </TR>
  <TR>
 
@@ -694,7 +694,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -706,7 +706,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">public</span> <span class="keyword">static</span> final String     COMPONENT_PROXY_FACTORY_CLASS_NAME = <span class="string">"componentProxyFactoryClassName"</span>; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -718,7 +718,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This is name of the property that specifies the class name of the custom</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -730,7 +730,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * {@link DynamicWeaver}.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -742,7 +742,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This is name of the property that specifies the class name of the custom</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -754,7 +754,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * {@link DynamicWeaver}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">public</span> <span class="keyword">static</span> final String  DYNAMIC_WEAVER_CLASS_NAME_KEY  = <span class="string">"dynamicWeaverClassName"</span>; </SPAN></TD>
 </TR>
  <TR>
 
@@ -766,7 +766,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -778,7 +778,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">public</span> <span class="keyword">static</span> final String     DYNAMIC_WEAVER_CLASS_NAME          = <span class="string">"dynamicWeaverClassName"</span>; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -790,7 +790,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This is name of the system property that specifies the name and location of the gravity</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -802,7 +802,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * properties file.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -814,7 +814,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This is name of the system property that specifies the name and location of the gravity</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -826,7 +826,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * properties file.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> <span class="keyword">static</span> final String PROPERTIES_PATH_KEY            = <span class="string">"gravity.properties"</span>; </SPAN></TD>
 </TR>
  <TR>
 
@@ -838,7 +838,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -850,7 +850,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> <span class="keyword">static</span> final String    PROPERTIES_PATH_KEY                = <span class="string">"gravity.properties"</span>; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -862,7 +862,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This is the name of the default properties file that will be used when not supplied. This</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -874,7 +874,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * file should be placed in the classpath root to be recognized.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -886,7 +886,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * This is the name of the default properties file that will be used when not supplied. This</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -898,7 +898,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * file should be placed in the classpath root to be recognized.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> <span class="keyword">static</span> final String DEFAULT_PROPERTIES_PATH        = <span class="string">"gravity.properties"</span>; </SPAN></TD>
 </TR>
  <TR>
 
@@ -910,7 +910,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -922,7 +922,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> <span class="keyword">static</span> final String    DEFAULT_PROPERTIES_PATH            = <span class="string">"gravity.properties"</span>; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -934,7 +934,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Singleton instance.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -946,7 +946,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -958,7 +958,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Stores the framework properties.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> <span class="keyword">static</span> Gravity      INSTANCE                       = <span class="keyword">new</span> Gravity(); </SPAN></TD>
 </TR>
  <TR>
 
@@ -970,19 +970,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;75
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 75: method entered 215 times.">&nbsp;215</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> <span class="keyword">static</span> Properties      _props; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 75: method entered 215 times.">    <span class="keyword">public</span> <span class="keyword">static</span> Gravity getInstance()</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -994,19 +995,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;77
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 77: statement executed 215 times.">&nbsp;215</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">// TODO cleanup registry after startup</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 77: statement executed 215 times.">        <span class="keyword">return</span> INSTANCE;</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1018,7 +1020,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> <span class="keyword">static</span> MutableRegistry _registry; </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -1034,16 +1036,15 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;80
 </TD>
 
-<TD align="right" class="coverageCountHilight">
-    <A title="Line 80: method not entered.">&nbsp;0</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 80: method not entered.">    <span class="keyword">private</span> Gravity()</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">// Instance code ===============================================================================</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1055,7 +1056,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1067,7 +1068,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Static class.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1079,7 +1080,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Stores the framework properties.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1091,7 +1092,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1103,7 +1104,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> Properties       _props; </SPAN></TD>
 </TR>
  <TR>
 
@@ -1115,7 +1116,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework by loading the framework properties from the supplied URL.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1127,20 +1128,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">// TODO delete registry reference after startup?</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;88
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 88: method entered 97 times.">&nbsp;97</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 88: method entered 97 times.">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> initialize(URL url)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="keyword">private</span> MutableContainer _registry; </SPAN></TD>
 </TR>
  <TR>
 
@@ -1152,7 +1152,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1161,24 +1161,23 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 90: statement executed 97 times.">&nbsp;97</A>
+    <A title="Line 90: method entered 12 times.">&nbsp;12</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 90: statement executed 97 times.">        <span class="keyword">if</span> (_props != <span class="keyword">null</span>)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 90: method entered 12 times.">    <span class="keyword">private</span> Gravity()</A>
 </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;91
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 91: statement executed 3 times.">&nbsp;3</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 91: statement executed 3 times.">            <span class="keyword">return</span>;</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
@@ -1190,20 +1189,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Singleton.</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;93
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 93: statement executed 94 times.">&nbsp;94</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 93: statement executed 94 times.">        _props = Utils.loadProperties(url);</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -1219,15 +1217,16 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;95
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 95: method entered 92 times.">&nbsp;92</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Load and initialize the registry</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 95: method entered 92 times.">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> initialize(Properties props)</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1239,7 +1238,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// TODO decouple registry implementation</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
@@ -1248,23 +1247,24 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 97: statement executed 93 times.">&nbsp;93</A>
+    <A title="Line 97: statement executed 92 times.">&nbsp;92</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 97: statement executed 93 times.">        _registry = <span class="keyword">new</span> DefaultRegistry();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 97: statement executed 92 times.">        <span class="keyword">if</span> (_props == <span class="keyword">null</span>)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;98
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 98: statement executed 91 times.">&nbsp;91</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 98: statement executed 91 times.">            _props = props;</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1276,7 +1276,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="keyword">else</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1285,10 +1285,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 100: method entered 97 times.">&nbsp;97</A>
+    <A title="Line 100: statement executed 1 time.">&nbsp;1</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 100: method entered 97 times.">    <span class="keyword">private</span> <span class="keyword">static</span> URL getPropertiesUrl(String fPath)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 100: statement executed 1 time.">            _props.putAll(props);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1301,20 +1301,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;102
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 102: statement executed 97 times.">&nbsp;97</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 102: statement executed 97 times.">        <span class="keyword">return</span> ClassUtils.getResource(fPath);</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Load and initialize the registry</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1326,19 +1325,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// TODO decouple registry implementation</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;104
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 104: statement executed 92 times.">&nbsp;92</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 104: statement executed 92 times.">        _registry = <span class="keyword">new</span> DefaultContainer();</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1350,7 +1350,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -1362,7 +1362,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework by loading the framework properties from the supplied file path.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1374,7 +1374,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * The file path is relative to the classpath root.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1386,25 +1386,37 @@
       &nbsp;&nbsp;
 </TD>
 
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework by loading the framework properties from the supplied URL.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;109
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
 <TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;109
+    &nbsp;110
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 109: method entered 94 times.">&nbsp;94</A>
+    <A title="Line 110: method entered 63 times.">&nbsp;63</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 109: method entered 94 times.">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> initialize(String fPath)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 110: method entered 63 times.">    <span class="keyword">public</span> <span class="keyword">void</span> initialize(URL url)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;110
+    &nbsp;111
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1416,45 +1428,20 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;111
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 111: statement executed 94 times.">&nbsp;94</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 111: statement executed 94 times.">        URL url = getPropertiesUrl(fPath);</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
     &nbsp;112
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;113
-</TD>
-
 <TD align="right" class="lineCountHilight">
-    <A title="Line 113: statement executed 93 times.">&nbsp;93</A>
+    <A title="Line 112: statement executed 63 times.">&nbsp;63</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 113: statement executed 93 times.">        initialize(url);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 112: statement executed 63 times.">        initialize(Utils.loadProperties(url));</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;114
+    &nbsp;113
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1466,7 +1453,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;115
+    &nbsp;114
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1478,20 +1465,20 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;116
+    &nbsp;115
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 116: method entered 95 times.">&nbsp;95</A>
+    <A title="Line 115: method entered 66 times.">&nbsp;66</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 116: method entered 95 times.">    <span class="keyword">private</span> <span class="keyword">static</span> String getPropertiesUrlString()</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 115: method entered 66 times.">    <span class="keyword">private</span> URL getPropertiesUrl(String fPath)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;117
+    &nbsp;116
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1503,15 +1490,27 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;118
+    &nbsp;117
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 118: statement executed 95 times.">&nbsp;95</A>
+    <A title="Line 117: statement executed 66 times.">&nbsp;66</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 118: statement executed 95 times.">        String fPath = System.getProperty(PROPERTIES_PATH_KEY);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 117: statement executed 66 times.">        <span class="keyword">return</span> ClassUtils.getResource(fPath);</A>
 </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;118
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -1527,45 +1526,8 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;120
-</TD>
-
-<TD align="right" class="coverageCountHilight">
-    <A title="Line 120: expression evaluated to true 95 times, false 0 times.">&nbsp;95</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 120: expression evaluated to true 95 times, false 0 times.">        <span class="keyword">return</span> fPath == <span class="keyword">null</span> ? DEFAULT_PROPERTIES_PATH : fPath;</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;121
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;122
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;123
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1577,31 +1539,31 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;124
+    &nbsp;121
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework by loading the framework properties from the default properties</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework by loading the framework properties from the supplied file path.</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;125
+    &nbsp;122
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * file - gravity.properties. The default properties file is expected to be in the classpath.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * The file path is relative to the classpath root.</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;126
+    &nbsp;123
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1613,20 +1575,20 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;127
+    &nbsp;124
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 127: method entered 93 times.">&nbsp;93</A>
+    <A title="Line 124: method entered 63 times.">&nbsp;63</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 127: method entered 93 times.">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> initialize()</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 124: method entered 63 times.">    <span class="keyword">public</span> <span class="keyword">void</span> initialize(String fPath)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;128
+    &nbsp;125
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1638,15 +1600,52 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;129
+    &nbsp;126
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 129: statement executed 93 times.">&nbsp;93</A>
+    <A title="Line 126: statement executed 63 times.">&nbsp;63</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 129: statement executed 93 times.">        String fPath = getPropertiesUrlString();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 126: statement executed 63 times.">        URL url = getPropertiesUrl(fPath);</A>
 </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;127
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;128
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 128: statement executed 62 times.">&nbsp;62</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 128: statement executed 62 times.">        initialize(url);</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;129
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -1667,10 +1666,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 131: statement executed 93 times.">&nbsp;93</A>
+    <A title="Line 131: method entered 64 times.">&nbsp;64</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 131: statement executed 93 times.">        initialize(fPath);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 131: method entered 64 times.">    <span class="keyword">private</span> String getPropertiesUrlString()</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1683,12 +1682,25 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;133
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 133: statement executed 64 times.">&nbsp;64</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 133: statement executed 64 times.">        String fPath = System.getProperty(PROPERTIES_PATH_KEY);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;133
+    &nbsp;134
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1700,40 +1712,27 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;134
+    &nbsp;135
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 134: method entered 3 times.">&nbsp;3</A>
+<TD align="right" class="coverageCountHilight">
+    <A title="Line 135: expression evaluated to true 64 times, false 0 times.">&nbsp;64</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 134: method entered 3 times.">    <span class="keyword">public</span> <span class="keyword">static</span> Enumeration getPluginManifestFiles()</A>
+<TD class="srcCell">  <SPAN class="srcLineHilight">  <A title="Line 135: expression evaluated to true 64 times, false 0 times.">        <span class="keyword">return</span> fPath == <span class="keyword">null</span> ? DEFAULT_PROPERTIES_PATH : fPath;</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;135
+    &nbsp;136
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;136
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 136: statement executed 3 times.">&nbsp;3</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 136: statement executed 3 times.">        <span class="keyword">return</span> ClassUtils.getResources(PLUGIN_MANIFEST_FILE_PATH);</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -1745,7 +1744,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1757,20 +1756,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;139
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 139: method entered 3 times.">&nbsp;3</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 139: method entered 3 times.">    <span class="keyword">private</span> <span class="keyword">static</span> Plugin getPlugin(String pluginClassName)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework by loading the framework properties from the default properties</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1782,7 +1780,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * file - gravity.properties. The default properties file is expected to be in the classpath.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1794,7 +1792,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Return the plugin from the plugin manifest file</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -1803,36 +1801,36 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 142: statement executed 3 times.">&nbsp;3</A>
+    <A title="Line 142: method entered 62 times.">&nbsp;62</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 142: statement executed 3 times.">        <span class="keyword">if</span> (pluginClassName != <span class="keyword">null</span>)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;143
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 143: statement executed 1 time.">&nbsp;1</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 143: statement executed 1 time.">            <span class="keyword">return</span> (Plugin) ClassUtils.newInstance(pluginClassName);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 142: method entered 62 times.">    <span class="keyword">public</span> <span class="keyword">void</span> initialize()</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;144
+    &nbsp;143
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;144
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 144: statement executed 62 times.">&nbsp;62</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 144: statement executed 62 times.">        String fPath = getPropertiesUrlString();</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -1844,7 +1842,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Return the plugin (global) from the gravity.properties file</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1853,10 +1851,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 146: statement executed 2 times.">&nbsp;2</A>
+    <A title="Line 146: statement executed 62 times.">&nbsp;62</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 146: statement executed 2 times.">        pluginClassName = _props.getProperty(PLUGIN_CLASS_NAME);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 146: statement executed 62 times.">        initialize(fPath);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1869,20 +1867,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;148
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 148: statement executed 2 times.">&nbsp;2</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 148: statement executed 2 times.">        <span class="keyword">if</span> (pluginClassName != <span class="keyword">null</span>)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -1891,10 +1888,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 149: statement executed 1 time.">&nbsp;1</A>
+    <A title="Line 149: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 149: statement executed 1 time.">            <span class="keyword">return</span> (Plugin) ClassUtils.newInstance(pluginClassName);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 149: method entered 3 times.">    <span class="keyword">protected</span> Enumeration getPluginManifestFiles()</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -1907,37 +1904,25 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;151
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Return the default plugin</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;152
+    &nbsp;151
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 152: statement executed 1 time.">&nbsp;1</A>
+    <A title="Line 151: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 152: statement executed 1 time.">        <span class="keyword">return</span> <span class="keyword">new</span> BshPlugin();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 151: statement executed 3 times.">        <span class="keyword">return</span> ClassUtils.getResources(PLUGIN_MANIFEST_FILE_PATH);</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;153
+    &nbsp;152
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1949,7 +1934,7 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;154
+    &nbsp;153
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1961,20 +1946,20 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;155
+    &nbsp;154
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 155: method entered 3 times.">&nbsp;3</A>
+    <A title="Line 154: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 155: method entered 3 times.">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> acceptPlugins()</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 154: method entered 3 times.">    <span class="keyword">protected</span> String getPluginLocation(URL url)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;156
+    &nbsp;155
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -1986,20 +1971,20 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;157
+    &nbsp;156
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 157: statement executed 3 times.">&nbsp;3</A>
+    <A title="Line 156: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 157: statement executed 3 times.">        Enumeration e = getPluginManifestFiles();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 156: statement executed 3 times.">        String urlStr = url.toString();</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;158
+    &nbsp;157
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2011,15 +1996,27 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;159
+    &nbsp;158
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 159: statement executed 3 times.">&nbsp;3</A>
+    <A title="Line 158: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 159: statement executed 3 times.">        <span class="keyword">while</span> (e.hasMoreElements())</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 158: statement executed 3 times.">        <span class="keyword">return</span> urlStr.substring(0, urlStr.lastIndexOf(PLUGIN_MANIFEST_FILE_PATH));</A>
 </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;159
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2031,7 +2028,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -2040,10 +2037,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 161: statement executed 3 times.">&nbsp;3</A>
+    <A title="Line 161: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 161: statement executed 3 times.">            URL url = (URL) e.nextElement();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 161: method entered 3 times.">    <span class="keyword">private</span> Plugin getPlugin(String pluginClassName)</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2056,32 +2053,32 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;163
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 163: statement executed 3 times.">&nbsp;3</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 163: statement executed 3 times.">            Properties props = Utils.loadProperties(url);</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;164
+    &nbsp;163
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Return the plugin from the plugin manifest file</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;164
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 164: statement executed 3 times.">&nbsp;3</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 164: statement executed 3 times.">        <span class="keyword">if</span> (pluginClassName != <span class="keyword">null</span>)</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2090,10 +2087,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 165: statement executed 3 times.">&nbsp;3</A>
+    <A title="Line 165: statement executed 1 time.">&nbsp;1</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 165: statement executed 3 times.">            Plugin plugin = getPlugin(props.getProperty(PLUGIN_CLASS_NAME));</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 165: statement executed 1 time.">            <span class="keyword">return</span> (Plugin) ClassUtils.newInstance(pluginClassName);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2110,28 +2107,28 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
-    &nbsp;167
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 167: statement executed 3 times.">&nbsp;3</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 167: statement executed 3 times.">            plugin.startup(props, _registry);</A>
-</SPAN></TD>
-</TR>
- <TR>
-
  <TD align="right" class="lineCount">
-    &nbsp;168
+    &nbsp;167
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Return the plugin (global) from the gravity.properties file</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;168
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 168: statement executed 2 times.">&nbsp;2</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 168: statement executed 2 times.">        pluginClassName = _props.getProperty(PLUGIN_CLASS_NAME_KEY);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2143,31 +2140,33 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;170
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
 <TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
+    &nbsp;170
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 170: statement executed 2 times.">&nbsp;2</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 170: statement executed 2 times.">        <span class="keyword">if</span> (pluginClassName != <span class="keyword">null</span>)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
     &nbsp;171
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 171: statement executed 1 time.">&nbsp;1</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 171: statement executed 1 time.">            <span class="keyword">return</span> (Plugin) ClassUtils.newInstance(pluginClassName);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2179,7 +2178,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework from the supplied URL and builds the {@link Registry}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -2191,19 +2190,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          <span class="comment">// Return the default plugin</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;174
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 174: statement executed 1 time.">&nbsp;1</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Newly built {@link Registry}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 174: statement executed 1 time.">        <span class="keyword">return</span> <span class="keyword">new</span> BshPlugin();</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2215,7 +2215,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@see</span> Gravity#initialize(URL)</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2227,7 +2227,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -2239,7 +2239,7 @@
     <A title="Line 177: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 177: method entered 3 times.">    <span class="keyword">public</span> <span class="keyword">static</span> Registry startup(URL url)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 177: method entered 3 times.">    <span class="keyword">private</span> <span class="keyword">void</span> acceptPlugins()</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2264,7 +2264,7 @@
     <A title="Line 179: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 179: statement executed 3 times.">        initialize(url);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 179: statement executed 3 times.">        Enumeration e = getPluginManifestFiles();</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2289,7 +2289,7 @@
     <A title="Line 181: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 181: statement executed 3 times.">        acceptPlugins();</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 181: statement executed 3 times.">        <span class="keyword">while</span> (e.hasMoreElements())</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2302,7 +2302,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          { </SPAN></TD>
 </TR>
  <TR>
 
@@ -2314,7 +2314,7 @@
     <A title="Line 183: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 183: statement executed 3 times.">        <span class="keyword">return</span> _registry;</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 183: statement executed 3 times.">            URL url = (URL) e.nextElement();</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2327,19 +2327,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;185
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 185: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 185: statement executed 3 times.">            Properties props = Utils.loadProperties(url);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2351,19 +2352,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;187
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 187: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework from the supplied properties file path and builds the</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 187: statement executed 3 times.">            props.setProperty(Plugin.LOCATION_URL_KEY, getPluginLocation(url));</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2375,19 +2377,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * {@link Registry}. The file path is relative to the classpath root.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;189
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 189: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 189: statement executed 3 times.">            Plugin plugin = getPlugin(props.getProperty(PLUGIN_CLASS_NAME_KEY));</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2399,19 +2402,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Newly built {@link Registry}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;191
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 191: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@see</span> Gravity#initialize(String)</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 191: statement executed 3 times.">            plugin.startup(props, _registry);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2423,20 +2427,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">          } </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;193
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 193: method entered 3 times.">&nbsp;3</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 193: method entered 3 times.">    <span class="keyword">public</span> <span class="keyword">static</span> Registry startup(String fPath)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2448,7 +2451,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -2457,10 +2460,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 195: statement executed 3 times.">&nbsp;3</A>
+    <A title="Line 195: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 195: statement executed 3 times.">        URL url = getPropertiesUrl(fPath);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 195: method entered 3 times.">    <span class="keyword">public</span> Container startup(Properties props)</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2473,7 +2476,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
@@ -2485,7 +2488,7 @@
     <A title="Line 197: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 197: statement executed 3 times.">        <span class="keyword">return</span> startup(url);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 197: statement executed 3 times.">        initialize(props);</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -2498,19 +2501,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;199
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 199: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 199: statement executed 3 times.">        acceptPlugins();</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2522,19 +2526,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;201
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 201: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework from the default properties file and builds the {@link Registry}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 201: statement executed 3 times.">        <span class="keyword">return</span> _registry;</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2546,7 +2551,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * The file path is relative to the classpath root.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2558,7 +2563,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -2570,7 +2575,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Newly built {@link Registry}.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2582,7 +2587,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@see</span> Gravity#initialize()</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework from the supplied URL and builds the {@link Container}.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2594,20 +2599,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;207
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 207: method entered 2 times.">&nbsp;2</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 207: method entered 2 times.">    <span class="keyword">public</span> <span class="keyword">static</span> Registry startup()</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Newly built {@link Container}.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2619,98 +2623,12 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@see</span> Gravity#initialize(URL)</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;209
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 209: statement executed 2 times.">&nbsp;2</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 209: statement executed 2 times.">        String fPath = getPropertiesUrlString();</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;210
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;211
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 211: statement executed 2 times.">&nbsp;2</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 211: statement executed 2 times.">        <span class="keyword">return</span> startup(fPath);</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;212
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;213
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;214
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;215
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Gets the gravity property value for the supplied key.</span> </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;216
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2722,20 +2640,20 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;217
+    &nbsp;210
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 217: method entered 23 times.">&nbsp;23</A>
+    <A title="Line 210: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 217: method entered 23 times.">    <span class="keyword">public</span> <span class="keyword">static</span> String getProperty(String key)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 210: method entered 3 times.">    <span class="keyword">public</span> Container startup(URL url)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;218
+    &nbsp;211
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -2747,28 +2665,111 @@
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;219
+    &nbsp;212
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 219: statement executed 23 times.">&nbsp;23</A>
+    <A title="Line 212: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 219: statement executed 23 times.">        <span class="keyword">if</span> (_props == <span class="keyword">null</span>)</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 212: statement executed 3 times.">        <span class="keyword">return</span> startup(Utils.loadProperties(url));</A>
 </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
+    &nbsp;213
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;214
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;215
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;216
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework from the supplied properties file path and builds the</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;217
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * {@link Container}. The file path is relative to the classpath root.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;218
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;219
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Newly built {@link Container}.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
     &nbsp;220
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 220: statement executed 1 time.">&nbsp;1</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 220: statement executed 1 time.">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@see</span> Gravity#initialize(String)</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2780,44 +2781,45 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">                  <span class="string">"Gravity should be initialized prior to accessing its properties."</span>); </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCount">
-    &nbsp;222
-</TD>
-
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCountHilight">
-    &nbsp;223
+    &nbsp;222
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 223: statement executed 22 times.">&nbsp;22</A>
+    <A title="Line 222: method entered 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 223: statement executed 22 times.">        <span class="keyword">return</span> _props.getProperty(key);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 222: method entered 3 times.">    <span class="keyword">public</span> Container startup(String fPath)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;224
+    &nbsp;223
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;224
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 224: statement executed 3 times.">&nbsp;3</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 224: statement executed 3 times.">        URL url = getPropertiesUrl(fPath);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2833,15 +2835,16 @@
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;226
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 226: statement executed 3 times.">&nbsp;3</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 226: statement executed 3 times.">        <span class="keyword">return</span> startup(url);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2853,7 +2856,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Sets the gravity property with the supplied key/value pair.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -2865,7 +2868,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -2877,7 +2880,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Properties are only expected to be set during startup prior to building the {@link Registry}</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2889,7 +2892,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * which should typically happen in a single startup thread.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Initializes the framework from the default properties file and builds the {@link Container}.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2901,20 +2904,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * The file path is relative to the classpath root.</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;232
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 232: method entered 6 times.">&nbsp;6</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 232: method entered 6 times.">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> setProperty(String key, String value)</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * </span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -2926,45 +2928,44 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;234
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 234: statement executed 6 times.">&nbsp;6</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 234: statement executed 6 times.">        <span class="keyword">if</span> (_props == <span class="keyword">null</span>)</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;235
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 235: statement executed 1 time.">&nbsp;1</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 235: statement executed 1 time.">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@return</span> Newly built {@link Container}.</span> </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;236
+    &nbsp;234
 </TD>
 
 <TD align="right" class="coverageCount">
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">                  <span class="string">"Gravity should be initialized prior to accessing its properties."</span>); </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * <span class="javadoc">@see</span> Gravity#initialize()</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;235
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;236
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 236: method entered 2 times.">&nbsp;2</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 236: method entered 2 times.">    <span class="keyword">public</span> Container startup()</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -2976,7 +2977,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
 </TR>
  <TR>
 
@@ -2985,10 +2986,10 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 238: statement executed 5 times.">&nbsp;5</A>
+    <A title="Line 238: statement executed 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 238: statement executed 5 times.">        _props.setProperty(key, value);</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 238: statement executed 2 times.">        String fPath = getPropertiesUrlString();</A>
 </SPAN></TD>
 </TR>
  <TR>
@@ -3001,19 +3002,20 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCount">
+ <TD align="right" class="lineCountHilight">
     &nbsp;240
 </TD>
 
-<TD align="right" class="coverageCount">
-      &nbsp;&nbsp;
+<TD align="right" class="lineCountHilight">
+    <A title="Line 240: statement executed 2 times.">&nbsp;2</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 240: statement executed 2 times.">        <span class="keyword">return</span> startup(fPath);</A>
+</SPAN></TD>
 </TR>
  <TR>
 
@@ -3025,7 +3027,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
 </TR>
  <TR>
 
@@ -3037,7 +3039,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Wipes out the gravity properties.</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
 </TR>
  <TR>
 
@@ -3049,20 +3051,19 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
 </TR>
  <TR>
 
- <TD align="right" class="lineCountHilight">
+ <TD align="right" class="lineCount">
     &nbsp;244
 </TD>
 
-<TD align="right" class="lineCountHilight">
-    <A title="Line 244: method entered 98 times.">&nbsp;98</A>
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 244: method entered 98 times.">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> shutdown()</A>
-</SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Gets the gravity property value for the supplied _key.</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3074,7 +3075,7 @@
       &nbsp;&nbsp;
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
 </TR>
  <TR>
 
@@ -3083,29 +3084,91 @@
 </TD>
 
 <TD align="right" class="lineCountHilight">
-    <A title="Line 246: statement executed 98 times.">&nbsp;98</A>
+    <A title="Line 246: method entered 21 times.">&nbsp;21</A>
 </TD>
 
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 246: statement executed 98 times.">        _props = <span class="keyword">null</span>;</A>
-</SPAN></TD>
-</TR>
- <TR>
-
- <TD align="right" class="lineCountHilight">
-    &nbsp;247
-</TD>
-
-<TD align="right" class="lineCountHilight">
-    <A title="Line 247: statement executed 98 times.">&nbsp;98</A>
-</TD>
-
-<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 247: statement executed 98 times.">        _registry = <span class="keyword">null</span>;</A>
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 246: method entered 21 times.">    <span class="keyword">public</span> String getProperty(String key)</A>
 </SPAN></TD>
 </TR>
  <TR>
 
  <TD align="right" class="lineCount">
+    &nbsp;247
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
     &nbsp;248
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 248: statement executed 21 times.">&nbsp;21</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 248: statement executed 21 times.">        <span class="keyword">if</span> (_props == <span class="keyword">null</span>)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;249
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 249: statement executed 1 time.">&nbsp;1</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 249: statement executed 1 time.">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;250
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">                  <span class="string">"Gravity should be initialized prior to accessing its properties."</span>); </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;251
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;252
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 252: statement executed 20 times.">&nbsp;20</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 252: statement executed 20 times.">        <span class="keyword">return</span> _props.getProperty(key);</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;253
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -3117,7 +3180,302 @@
  <TR>
 
  <TD align="right" class="lineCount">
-    &nbsp;249
+    &nbsp;254
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;255
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;256
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Sets the gravity property with the supplied _key/value pair.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;257
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * &lt;p&gt;</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;258
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Properties are only expected to be set during startup prior to building the {@link Container}</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;259
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * which should typically happen in a single startup thread.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;260
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;261
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 261: method entered 6 times.">&nbsp;6</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 261: method entered 6 times.">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> setProperty(String key, String value)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;262
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;263
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 263: statement executed 6 times.">&nbsp;6</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 263: statement executed 6 times.">        <span class="keyword">if</span> (_props == <span class="keyword">null</span>)</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;264
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 264: statement executed 1 time.">&nbsp;1</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 264: statement executed 1 time.">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;265
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">                  <span class="string">"Gravity should be initialized prior to accessing its properties."</span>); </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;266
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;267
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 267: statement executed 5 times.">&nbsp;5</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 267: statement executed 5 times.">        _props.setProperty(key, value);</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;268
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;269
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">   </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;270
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      <span class="comment">/**</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;271
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     * Wipes out the gravity properties.</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;272
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <span class="comment">     */</span> </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;273
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 273: method entered 94 times.">&nbsp;94</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 273: method entered 94 times.">    <span class="keyword">public</span> <span class="keyword">void</span> shutdown()</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;274
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      { </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;275
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 275: statement executed 94 times.">&nbsp;94</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 275: statement executed 94 times.">        _props = <span class="keyword">null</span>;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCountHilight">
+    &nbsp;276
+</TD>
+
+<TD align="right" class="lineCountHilight">
+    <A title="Line 276: statement executed 94 times.">&nbsp;94</A>
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">  <A title="Line 276: statement executed 94 times.">        _registry = <span class="keyword">null</span>;</A>
+</SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;277
+</TD>
+
+<TD align="right" class="coverageCount">
+      &nbsp;&nbsp;
+</TD>
+
+<TD class="srcCell">  <SPAN class="srcLine">      } </SPAN></TD>
+</TR>
+ <TR>
+
+ <TD align="right" class="lineCount">
+    &nbsp;278
 </TD>
 
 <TD align="right" class="coverageCount">
@@ -3133,7 +3491,7 @@
 <TR><TD class="footer" colspan="6">
 <table>
 <tr>
- <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Wed May 12 2004 00:35:25 EDT</i>.</td>
+ <td><a target="_new" href="http://www.cenqua.com/clover"><img alt="Clover" src="../img/logo.gif" border="0"></a></td><td nowrap><i>Report generated by </i><a target="_new" href="http://www.cenqua.com/clover">Clover v1.3RC4</a><i><BR>Thu May 20 2004 12:31:35 EDT</i>.</td>
 <td>&nbsp;</td><td style="BORDER-LEFT: #9c9c9c 1px solid;">&nbsp;</td><td>Open Source License registered to the Gravity Project. This license of Clover is provided to support the development of Gravity only. </td>
 </tr>
 </table>
