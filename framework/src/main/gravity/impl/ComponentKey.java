@@ -14,17 +14,39 @@
 
 package gravity.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentKey.java,v 1.2 2004-05-17 03:04:04 harishkswamy Exp $
+ * @version $Id: ComponentKey.java,v 1.3 2004-05-29 16:38:10 harishkswamy Exp $
  */
 public class ComponentKey
 {
     private static final String DEFAULT_COMPONENT_TYPE = "default";
 
-    private Class               _componentInterface;
-    private Object              _componentType;
-    private volatile int        _hashCode;
+    private static final Map    KEYS                   = new HashMap();
+
+    public static ComponentKey get(Class compIntf, Object compType)
+    {
+        ComponentKey compKey = (ComponentKey) KEYS.get("" + compIntf + compType);
+
+        if (compKey == null)
+        {
+            compKey = new ComponentKey(compIntf, compType);
+
+            synchronized (KEYS)
+            {
+                KEYS.put("" + compIntf + compType, compKey);
+            }
+        }
+
+        return compKey;
+    }
+
+    private Class        _componentInterface;
+    private Object       _componentType;
+    private volatile int _hashCode;
 
     public ComponentKey(Class compIntf, Object compType)
     {
