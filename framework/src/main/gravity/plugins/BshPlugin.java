@@ -14,6 +14,7 @@
 
 package gravity.plugins;
 
+import gravity.Location;
 import gravity.MutableContainer;
 import gravity.Plugin;
 import gravity.WrapperException;
@@ -23,17 +24,19 @@ import gravity.util.Utils;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import bsh.EvalError;
 import bsh.Interpreter;
 import bsh.TargetError;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPlugin.java,v 1.6 2004-05-24 00:38:41 harishkswamy Exp $
+ * @version $Id: BshPlugin.java,v 1.7 2004-06-14 04:18:33 harishkswamy Exp $
  */
 public class BshPlugin implements Plugin
 {
@@ -47,24 +50,23 @@ public class BshPlugin implements Plugin
     private Interpreter             _interpreter;
     private MutableContainerAdapter _container;
 
-    private void handleInterpreterException(Exception e, URL url)
+    private void handleInterpreterException(Throwable e, URL url)
     {
-        if (e instanceof TargetError)
-        {
-            TargetError te = (TargetError) e;
+        while (e instanceof TargetError)
+            e = ((TargetError) e).getTarget();
 
-            if (te.getTarget() instanceof FileNotFoundException)
-                throw WrapperException.wrap(te, "Unable to find module: " + url + "\n\n" + e);
+        Location loc = new Location(url.toString(), _container.getCurrentLineNumber());
+        
+        if (e instanceof EvalError)
+            throw WrapperException.wrap(e, "Plugin specification error at: " + loc);
 
-            else if (te.getTarget() instanceof TargetError)
-                throw WrapperException.wrap(te,
-                    "Container configuration execution error in module: " + url + "\n\n" + e);
+        else if (e instanceof FileNotFoundException)
+            throw WrapperException.wrap(e, "Unable to find module: " + url);
 
-            else
-                throw WrapperException.wrap(e, "Container configuration error in module: " + url);
-        }
-        else
-            throw WrapperException.wrap(e, "Container configuration error in module: " + url);
+        else if (e instanceof InvocationTargetException)
+            e = ((InvocationTargetException) e).getTargetException();
+
+        throw WrapperException.wrap(e, "Plugin specification execution error at: " + loc);
     }
 
     private void buildModule(URL url)
@@ -76,7 +78,7 @@ public class BshPlugin implements Plugin
             _interpreter.set("$url$", url);
             _interpreter.eval("evalFile($url$, $container$)");
         }
-        catch (Exception e)
+        catch (Throwable e)
         {
             handleInterpreterException(e, url);
         }
@@ -109,14 +111,14 @@ public class BshPlugin implements Plugin
         }
     }
 
-    protected MutableContainerAdapter newMutableContainerAdapter(MutableContainer registry)
+    protected MutableContainerAdapter newMutableContainerAdapter(MutableContainer container)
     {
-        return new MutableContainerAdapter(registry);
+        return new MutableContainerAdapter(container);
     }
 
-    public void startup(Properties pluginProps, MutableContainer registry)
+    public void startup(Properties pluginProps, MutableContainer container)
     {
-        _container = newMutableContainerAdapter(registry);
+        _container = newMutableContainerAdapter(container);
 
         String moduleNames = pluginProps.getProperty(MODULE_NAMES);
 
