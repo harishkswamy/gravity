@@ -27,7 +27,7 @@ import java.util.Map;
  * 
  * @author Howard Lewis Ship
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtils.java,v 1.1 2004-05-10 17:28:52 harishkswamy Exp $
+ * @version $Id: ReflectUtils.java,v 1.2 2004-05-18 21:29:34 harishkswamy Exp $
  */
 public class ReflectUtils
 {
@@ -121,7 +121,7 @@ public class ReflectUtils
                 return constructors[i];
         }
 
-        throw new UsageException("Unable to find constructor " + targetClass.getName() + "("
+        throw new UsageException("Unable to find constructor: " + targetClass.getName() + "("
             + getTypeString(valueTypes) + ")");
     }
 
@@ -156,8 +156,8 @@ public class ReflectUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to invoke constructor for " + targetClass
-                + " with (" + getTypeString(valueTypes) + ")");
+            throw WrapperException.wrap(e, "Unable to invoke constructor for: " + targetClass
+                + " with: (" + getTypeString(valueTypes) + ")");
         }
     }
 
@@ -176,27 +176,24 @@ public class ReflectUtils
                 return methods[i];
         }
 
-        throw new UsageException("Unable to find method " + methodName + "("
-            + getTypeString(valueTypes) + ") in " + targetClass);
+        throw new UsageException("Unable to find method: " + methodName + "("
+            + getTypeString(valueTypes) + ") in: " + targetClass);
     }
 
-    public static Object invokeSetter(Object target, String propName, Object propValue)
+    public static Object invokeMethod(Object target, String methodName, Object methodArg)
     {
         try
         {
-            String methodName = "set" + propName.substring(0, 1).toUpperCase()
-                + propName.substring(1);
-
-            Class[] valueTypes = {propValue == null ? null : propValue.getClass()};
+            Class[] valueTypes = {methodArg == null ? null : methodArg.getClass()};
 
             Method method = findMethod(target.getClass(), methodName, valueTypes);
 
-            return method.invoke(target, new Object[]{propValue});
+            return method.invoke(target, new Object[]{methodArg});
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to set property \"" + propName
-                + "\" with value \"" + propValue + "\" on object " + target);
+            throw WrapperException.wrap(e, "Unable to invoke method: \"" + methodName
+                + "\" with value: \"" + methodArg + "\" on object: " + target);
         }
     }
 }

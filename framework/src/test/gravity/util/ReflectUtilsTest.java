@@ -24,7 +24,7 @@ import java.text.Format;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtilsTest.java,v 1.1 2004-05-10 17:29:12 harishkswamy Exp $
+ * @version $Id: ReflectUtilsTest.java,v 1.2 2004-05-18 21:29:36 harishkswamy Exp $
  */
 public class ReflectUtilsTest extends GravityTestCase
 {
@@ -56,7 +56,7 @@ public class ReflectUtilsTest extends GravityTestCase
         catch (WrapperException e)
         {
             assertSuperString(e.getWrapped(),
-                "Unable to find constructor gravity.mocks.MockComboServiceImpl(null, null)");
+                "Unable to find constructor: gravity.mocks.MockComboServiceImpl(null, null)");
         }
     }
 
@@ -71,7 +71,7 @@ public class ReflectUtilsTest extends GravityTestCase
         catch (WrapperException e)
         {
             assertSuperString(e.getWrapped(),
-                "Unable to find constructor java.lang.Object(java.lang.Integer)");
+                "Unable to find constructor: java.lang.Object(java.lang.Integer)");
         }
     }
 
@@ -86,18 +86,18 @@ public class ReflectUtilsTest extends GravityTestCase
         catch (Exception e)
         {
             assertSuperString(e,
-                "Unable to invoke constructor for class java.text.Format with ()");
+                "Unable to invoke constructor for: class java.text.Format with: ()");
         }
     }
 
     public void testInvokeValidSetter()
     {
         MockSetterServiceImpl obj = new MockSetterServiceImpl();
-        ReflectUtils.invokeSetter(obj, "primitive", new Integer(5));
+        ReflectUtils.invokeMethod(obj, "setPrimitive", new Integer(5));
         assertTrue(obj.getPrimitive() == 5);
 
         Object obj1 = new Object();
-        ReflectUtils.invokeSetter(obj, "object", obj1);
+        ReflectUtils.invokeMethod(obj, "setObject", obj1);
         assertSame(obj.getObject(), obj1);
     }
 
@@ -105,14 +105,14 @@ public class ReflectUtilsTest extends GravityTestCase
     {
         try
         {
-            ReflectUtils.invokeSetter(new Object(), "unavailableProp", "someVal");
+            ReflectUtils.invokeMethod(new Object(), "setUnavailableProp", "someVal");
 
             unreachable();
         }
         catch (WrapperException e)
         {
             assertSuperString(e.getWrapped(),
-                "Unable to find method setUnavailableProp(java.lang.String) in class "
+                "Unable to find method: setUnavailableProp(java.lang.String) in: class "
                     + "java.lang.Object");
         }
     }
@@ -121,14 +121,14 @@ public class ReflectUtilsTest extends GravityTestCase
     {
         try
         {
-            ReflectUtils.invokeSetter(new MockComboServiceImpl(1, null), "primitive", "someVal");
+            ReflectUtils.invokeMethod(new MockComboServiceImpl(1, null), "setPrimitive", "someVal");
 
             unreachable();
         }
         catch (WrapperException e)
         {
             assertSuperString(e.getWrapped(),
-                "Unable to find method setPrimitive(java.lang.String) in class "
+                "Unable to find method: setPrimitive(java.lang.String) in: class "
                     + "gravity.mocks.MockComboServiceImpl");
         }
     }
@@ -137,13 +137,13 @@ public class ReflectUtilsTest extends GravityTestCase
     {
         try
         {
-            ReflectUtils.invokeSetter(new Object(), null, null);
+            ReflectUtils.invokeMethod(new Object(), null, null);
 
             unreachable();
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Unable to set property \"null\" with value \"null\" on object");
+            assertSuperString(e, "Unable to invoke method: \"null\" with value: \"null\" on object:");
         }
     }
 }

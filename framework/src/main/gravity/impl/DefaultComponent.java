@@ -27,15 +27,15 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.3 2004-05-18 20:52:02 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.4 2004-05-18 21:29:35 harishkswamy Exp $
  */
 public class DefaultComponent implements ProxyableComponent
 {
     private ComponentKey   _key;
     private Location       _retrievalLocation;
     private Class          _implementation;
-    private Object[]       _constructorArgs;
-    private Map            _setterArgs;
+    private Object[]       _constructorDependencies;
+    private Map            _methodDependencies;
     private Location       _registrationLocation;
     private ComponentState _componentState;
 
@@ -51,19 +51,19 @@ public class DefaultComponent implements ProxyableComponent
         return _componentState.getComponentInstance();
     }
 
-    public synchronized void registerImplementation(Class compClass, Object[] ctorArgs, Map setrArgs)
+    public void registerImplementation(Class compClass, Object[] ctorDeps, Map setrDeps)
     {
         _implementation = compClass;
-        _constructorArgs = ctorArgs;
-        _setterArgs = setrArgs;
+        _constructorDependencies = ctorDeps;
+        _methodDependencies = setrDeps;
     }
 
-    public synchronized void setRegistrationLocation(Location location)
+    public void setRegistrationLocation(Location location)
     {
         _registrationLocation = location;
     }
 
-    public synchronized void setRetrievalLocation(Location location)
+    public void setRetrievalLocation(Location location)
     {
         _retrievalLocation = location;
     }
@@ -92,7 +92,7 @@ public class DefaultComponent implements ProxyableComponent
         return new SingletonComponentState(state, comp);
     }
 
-    public synchronized void wrapStateWithSingleton()
+    public void wrapStateWithSingleton()
     {
         // If already in singleton state, do nothing
         if (_componentState instanceof SingletonComponentState)
@@ -106,7 +106,7 @@ public class DefaultComponent implements ProxyableComponent
         return new PoolingComponentState(state, comp);
     }
 
-    public synchronized void wrapStateWithPooling()
+    public void wrapStateWithPooling()
     {
         // If already in pooling state, do nothing
         if (_componentState instanceof PoolingComponentState)
@@ -121,7 +121,7 @@ public class DefaultComponent implements ProxyableComponent
         return new ThreadLocalComponentState(state, comp);
     }
 
-    public synchronized void wrapStateWithThreadLocal()
+    public void wrapStateWithThreadLocal()
     {
         // If already in thread local state, do nothing
         if (_componentState instanceof ThreadLocalComponentState)
@@ -137,16 +137,16 @@ public class DefaultComponent implements ProxyableComponent
 
     // Construct new instance ======================================================================
 
-    private void setDependencies(Object impl, Map implSetrArgs)
+    private void setDependencies(Object inst, Map methodDeps)
     {
-        if (implSetrArgs == null)
+        if (methodDeps == null)
             return;
 
-        for (Iterator itr = implSetrArgs.keySet().iterator(); itr.hasNext();)
+        for (Iterator itr = methodDeps.keySet().iterator(); itr.hasNext();)
         {
-            String propertyName = (String) itr.next();
+            String methodName = (String) itr.next();
 
-            ReflectUtils.invokeSetter(impl, propertyName, implSetrArgs.get(propertyName));
+            ReflectUtils.invokeMethod(inst, methodName, methodDeps.get(methodName));
         }
     }
 
@@ -154,14 +154,14 @@ public class DefaultComponent implements ProxyableComponent
      * Gives {@link gravity.DynamicWeaver}an opportunity to weave the supplied object and then it
      * sets any dependencies via the setter methods with the provided property name/value map.
      */
-    private Object initializeService(Object impl, Map implSetrArgs)
+    private Object initializeService(Object inst, Map methodDeps)
     {
         // This is the hook to let cross-cutting concerns be weaved into the component.
-        Object enhImpl = DynamicWeaverFactory.getDynamicWeaver().weave(impl);
+        Object enhInst = DynamicWeaverFactory.getDynamicWeaver().weave(inst);
 
-        setDependencies(enhImpl, implSetrArgs);
+        setDependencies(enhInst, methodDeps);
 
-        return enhImpl;
+        return enhInst;
     }
 
     /**
@@ -171,12 +171,11 @@ public class DefaultComponent implements ProxyableComponent
      * 
      * @return Fully constructed and initialized service.
      */
-    private Object constructViaComboInjection(Class implClass, Object[] implCtorArgs,
-        Map implSetrArgs)
+    private Object constructViaComboInjection(Class implClass, Object[] ctorDeps, Map methodDeps)
     {
-        Object impl = ReflectUtils.invokeConstructor(implClass, implCtorArgs);
+        Object instance = ReflectUtils.invokeConstructor(implClass, ctorDeps);
 
-        return initializeService(impl, implSetrArgs);
+        return initializeService(instance, methodDeps);
     }
 
     /**
@@ -186,11 +185,11 @@ public class DefaultComponent implements ProxyableComponent
      * 
      * @return Fully constructed and initialized service.
      */
-    private Object constructViaSetterInjection(Class implClass, Map implSetrArgs)
+    private Object constructViaMethodInjection(Class implClass, Map methodDeps)
     {
-        Object impl = ClassUtils.newInstance(implClass);
+        Object instance = ClassUtils.newInstance(implClass);
 
-        return initializeService(impl, implSetrArgs);
+        return initializeService(instance, methodDeps);
     }
 
     /**
@@ -218,15 +217,16 @@ public class DefaultComponent implements ProxyableComponent
 
         try
         {
-            Object impl;
+            Object instance;
 
-            if (_constructorArgs == null)
-                impl = constructViaSetterInjection(_implementation, _setterArgs);
+            if (_constructorDependencies == null)
+                instance = constructViaMethodInjection(_implementation, _methodDependencies);
 
             else
-                impl = constructViaComboInjection(_implementation, _constructorArgs, _setterArgs);
+                instance = constructViaComboInjection(_implementation, _constructorDependencies,
+                    _methodDependencies);
 
-            return impl;
+            return instance;
         }
         catch (Exception e)
         {
@@ -237,9 +237,9 @@ public class DefaultComponent implements ProxyableComponent
 
     // End - Construct new instance ================================================================
 
-    public void collectInstance(Object comp)
+    public void collectInstance(Object inst)
     {
-        _componentState.collectComponentInstance(comp);
+        _componentState.collectComponentInstance(inst);
     }
 
     public String toString()

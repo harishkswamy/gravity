@@ -31,7 +31,7 @@ import java.util.Map;
 // TODO test location in messages
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentTest.java,v 1.2 2004-05-18 20:51:55 harishkswamy Exp $
+ * @version $Id: ComponentTest.java,v 1.3 2004-05-18 21:29:37 harishkswamy Exp $
  */
 public class ComponentTest extends GravityTestCase
 {
@@ -108,11 +108,11 @@ public class ComponentTest extends GravityTestCase
         assertTrue(obj.getPrimitive() == 0);
     }
 
-    public void testBuildServiceViaSetrInjection()
+    public void testBuildServiceViaMethodInjection()
     {
         Map args = new HashMap();
-        args.put("primitive", new Integer(5));
-        args.put("object", new ArrayList());
+        args.put("setPrimitive", new Integer(5));
+        args.put("setObject", new ArrayList());
 
         ProxyableComponent state = newComponent(MockSetterService.class, "def", null,
             MockSetterServiceImpl.class, null, args, null);
@@ -128,8 +128,8 @@ public class ComponentTest extends GravityTestCase
     public void testBuildServiceViaComboInjection()
     {
         Map args = new HashMap();
-        args.put("primitive", new Integer(5));
-        args.put("object", new ArrayList());
+        args.put("setPrimitive", new Integer(5));
+        args.put("setObject", new ArrayList());
 
         Object[] cArgs = {new Integer(6), new ArrayList()};
 

@@ -30,7 +30,7 @@ import java.util.Map;
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.1 2004-05-18 20:52:03 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.2 2004-05-18 21:29:35 harishkswamy Exp $
  */
 public class DefaultContainer implements MutableContainer
 {
@@ -68,8 +68,7 @@ public class DefaultContainer implements MutableContainer
         return compFactory;
     }
 
-    // MutableContainer methods
-    // =====================================================================
+    // MutableContainer methods ====================================================================
 
     // Primary component registration method =======================================================
 
