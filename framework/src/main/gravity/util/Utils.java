@@ -23,7 +23,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Utils.java,v 1.4 2004-06-14 04:21:07 harishkswamy Exp $
+ * @version $Id: Utils.java,v 1.5 2004-09-02 04:20:02 harishkswamy Exp $
  */
 public class Utils
 {
@@ -77,6 +77,12 @@ public class Utils
         return false;
     }
 
+    /**
+     * Creates, loads and returns the properties from the URL provided.
+     * 
+     * @throws WrapperException
+     *             When unable to load the properties.
+     */
     public static Properties loadProperties(URL url)
     {
         try
@@ -89,7 +95,7 @@ public class Utils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Cannot load properties from " + url);
+            throw WrapperException.wrap(e, Message.CANNOT_LOAD_PROPERTIES, url);
         }
     }
 }

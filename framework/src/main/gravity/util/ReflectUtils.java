@@ -14,10 +14,12 @@
 
 package gravity.util;
 
+import gravity.Component;
 import gravity.UsageException;
 import gravity.WrapperException;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,25 +29,25 @@ import java.util.Map;
  * 
  * @author Howard Lewis Ship
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtils.java,v 1.5 2004-06-14 04:20:28 harishkswamy Exp $
+ * @version $Id: ReflectUtils.java,v 1.6 2004-09-02 04:20:02 harishkswamy Exp $
  */
 public class ReflectUtils
 {
     /**
      * Map from primitive type to wrapper type.
      */
-    private static final Map _primitiveMap = new HashMap();
+    private static final Map PRIMITIVE_MAP = new HashMap();
 
     static
     {
-        _primitiveMap.put(boolean.class, Boolean.class);
-        _primitiveMap.put(byte.class, Byte.class);
-        _primitiveMap.put(char.class, Character.class);
-        _primitiveMap.put(short.class, Short.class);
-        _primitiveMap.put(int.class, Integer.class);
-        _primitiveMap.put(long.class, Long.class);
-        _primitiveMap.put(float.class, Float.class);
-        _primitiveMap.put(double.class, Double.class);
+        PRIMITIVE_MAP.put(boolean.class, Boolean.class);
+        PRIMITIVE_MAP.put(byte.class, Byte.class);
+        PRIMITIVE_MAP.put(char.class, Character.class);
+        PRIMITIVE_MAP.put(short.class, Short.class);
+        PRIMITIVE_MAP.put(int.class, Integer.class);
+        PRIMITIVE_MAP.put(long.class, Long.class);
+        PRIMITIVE_MAP.put(float.class, Float.class);
+        PRIMITIVE_MAP.put(double.class, Double.class);
     }
 
     private ReflectUtils()
@@ -85,7 +87,7 @@ public class ReflectUtils
 
         if (paramType.isPrimitive())
         {
-            Class wrapperClass = (Class) _primitiveMap.get(paramType);
+            Class wrapperClass = (Class) PRIMITIVE_MAP.get(paramType);
 
             return wrapperClass.isAssignableFrom(valueType);
         }
@@ -125,8 +127,8 @@ public class ReflectUtils
                 return constructors[i];
         }
 
-        throw new UsageException("Unable to find constructor: " + targetClass.getName() + "("
-            + typesToString(argTypes) + ")");
+        throw new UsageException(Message.CANNOT_FIND_CONSTRUCTOR, targetClass.getName(),
+            typesToString(argTypes));
     }
 
     private static Class[] getTypes(Object[] args)
@@ -146,12 +148,12 @@ public class ReflectUtils
      * Searches for a constructor matching against the provided arguments.
      * 
      * @param targetClass
-     *        the class to be instantiated
+     *            the class to be instantiated
      * @param args
-     *        the parameters to pass to the constructor (may be null or empty)
+     *            the parameters to pass to the constructor (may be null or empty)
      * @return the new instance
      * @throws UsageException
-     *         on any failure
+     *             on any failure
      */
     public static Object invokeConstructor(Class targetClass, Object[] args)
     {
@@ -167,8 +169,8 @@ public class ReflectUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to invoke constructor: " + targetClass + "("
-                + typesToString(argTypes) + ")");
+            throw WrapperException.wrap(e, Message.CANNOT_INVOKE_CONSTRUCTOR, targetClass,
+                typesToString(argTypes));
         }
     }
 
@@ -185,26 +187,40 @@ public class ReflectUtils
                 return methods[i];
         }
 
-        throw new UsageException("Unable to find method: " + methodName + "("
-            + typesToString(argTypes) + ") in: " + targetClass);
+        throw new UsageException(Message.CANNOT_FIND_METHOD, methodName,
+            typesToString(argTypes), targetClass);
     }
 
     public static Object invokeMethod(Object target, String methodName, Object[] args)
     {
         Class[] argTypes = null;
 
+        argTypes = getTypes(args);
+
+        Method method = findMethod(target.getClass(), methodName, argTypes);
+
+        return invokeMethod(target, method, args, null);
+    }
+
+    /**
+     * This method invokes the provided method relectively on the propvided target object with the
+     * provided arguments. The {@link Component} parameter is simply used in forming a message in
+     * the event of an error and can be passed a null.
+     */
+    public static Object invokeMethod(Object target, Method method, Object[] args, Component comp)
+    {
         try
         {
-            argTypes = getTypes(args);
-
-            Method method = findMethod(target.getClass(), methodName, argTypes);
-
             return method.invoke(target, args);
         }
-        catch (Exception e)
+        catch (Throwable t)
         {
-            throw WrapperException.wrap(e, "Unable to invoke method: " + methodName + "("
-                + typesToString(argTypes) + ")");
+            while (t instanceof InvocationTargetException)
+                t = ((InvocationTargetException) t).getTargetException();
+
+            String compStr = comp == null ? "" : " on component: " + comp;
+
+            throw WrapperException.wrap(t, Message.CANNOT_INVOKE_METHOD, method, compStr);
         }
     }
 }

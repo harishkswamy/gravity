@@ -23,7 +23,7 @@ import java.util.Enumeration;
 // TODO fix messages usability, change cannot to unable
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ClassUtils.java,v 1.3 2004-05-17 03:03:55 harishkswamy Exp $
+ * @version $Id: ClassUtils.java,v 1.4 2004-09-02 04:20:03 harishkswamy Exp $
  */
 public class ClassUtils
 {
@@ -41,12 +41,17 @@ public class ClassUtils
         return loader == null ? getClassLoader() : loader;
     }
 
+    /**
+     * @return The URL of the resource identified by the provided path.
+     * @throws UsageException
+     *             When the provided path does not translate to a valid resource.
+     */
     public static URL getResource(String path)
     {
         URL url = getClassLoader().getResource(path);
 
         if (url == null)
-            throw new UsageException("Cannot find resource: " + path);
+            throw new UsageException(Message.CANNOT_GET_RESOURCE + path);
 
         return url;
     }
@@ -59,7 +64,7 @@ public class ClassUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to build URL from: " + urlStr);
+            throw WrapperException.wrap(e, Message.CANNOT_BUILD_URL, urlStr);
         }
     }
 
@@ -71,7 +76,7 @@ public class ClassUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Cannot get resources for path: " + path);
+            throw WrapperException.wrap(e, Message.CANNOT_GET_RESOURCE, path);
         }
     }
 
@@ -84,7 +89,7 @@ public class ClassUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Cannot instantiate object for class: " + clazz);
+            throw WrapperException.wrap(e, Message.CANNOT_INSTANTIATE_OBJECT, clazz);
         }
     }
 
@@ -96,7 +101,7 @@ public class ClassUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Cannot load class: " + className);
+            throw WrapperException.wrap(e, Message.CANNOT_LOAD_CLASS, className);
         }
     }
 
