@@ -29,18 +29,18 @@ import java.util.List;
 
 /**
  * The component factory is responsible for producing component instances. The factory uses the
- * {@link gravity.ComponentStrategy} registered with it to produce instances. The strategy will come
+ * {@link gravity.ComponentStrategy}registered with it to produce instances. The strategy will come
  * back to this factory for concrete instances in the event one is needed.
  * <p>
  * Concrete instances are produced either from the registered implementation or the factory
  * delegate. When neither is registered, an exception is thrown, when both are registered, the
  * implementation is used.
  * <p>
- * The ComponentFactory may be shared by multiple components, i.e. when components act as facets
- * of the same implementation, they all share the same component factory.
+ * The ComponentFactory may be shared by multiple components, i.e. when components act as facets of
+ * the same implementation, they all share the same component factory.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentFactory.java,v 1.1 2004-06-14 04:23:45 harishkswamy Exp $
+ * @version $Id: ComponentFactory.java,v 1.2 2004-06-14 04:39:43 harishkswamy Exp $
  */
 public class ComponentFactory
 {
@@ -179,21 +179,25 @@ public class ComponentFactory
 
     // Construct new instance ======================================================================
 
-    private void invokeInitializationCallbacks(Object instance)
+    private void invokeCallbacks(Object instance, ComponentPhase compPhase)
     {
-        if (_callbacks == null)
-            return;
-
         for (int i = 0; i < _callbacks.length; i++)
         {
             ComponentCallback callback = _callbacks[i];
             ComponentPhase phase = callback.getComponentPhase();
 
-            if (phase == ComponentPhase.INJECTION || phase == ComponentPhase.START_UP)
-            {
+            if (compPhase.equals(phase))
                 ReflectUtils.invokeMethod(instance, callback.getName(), callback.getArguments());
-            }
         }
+    }
+
+    private void invokeInitializationCallbacks(Object instance)
+    {
+        if (_callbacks == null)
+            return;
+
+        invokeCallbacks(instance, ComponentPhase.INJECTION);
+        invokeCallbacks(instance, ComponentPhase.START_UP);
     }
 
     /**
