@@ -19,10 +19,16 @@ package gravity;
  * {@link gravity.ComponentStrategy}s to be registered with it.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainer.java,v 1.7 2004-09-02 04:04:48 harishkswamy Exp $
+ * @version $Id: MutableContainer.java,v 1.8 2004-11-17 19:41:21 harishkswamy Exp $
  */
 public interface MutableContainer extends Container
 {
+    /**
+     * This is the path of the plugin file that the builder will use to search for plugins. The path
+     * is relative to the classpath root.
+     */
+    String PLUGIN_MANIFEST_FILE_PATH = "META-INF/gravity-plugin.properties";
+
     /**
      * This is the primary implementation registration method. If the implementation does not need
      * constructor arguments or callbacks this method will allow nulls for them.
@@ -131,31 +137,15 @@ public interface MutableContainer extends Container
     // Component strategy decorator methods ========================================================
 
     /**
-     * This method will add a singleton strategy to the current component strategy.
+     * This method will add a strategy of the provided type to the current component strategy.
      * 
      * @param compKey
      *            The key that identifies the component within the container.
+     * @param strategyType
+     *            The type of strategy to be added.
      * @return Component Key.
      */
-    Object wrapComponentStrategyWithSingleton(Object compKey);
-
-    /**
-     * This method will add a pooling strategy to the current component strategy.
-     * 
-     * @param compKey
-     *            The key that identifies the component within the container.
-     * @return Component Key.
-     */
-    Object wrapComponentStrategyWithPooling(Object compKey);
-
-    /**
-     * This method will add a thread local strategy to the current component strategy.
-     * 
-     * @param compKey
-     *            The key that identifies the component within the container.
-     * @return Component Key.
-     */
-    Object wrapComponentStrategyWithThreadLocal(Object compKey);
+    Object wrapComponentStrategy(Object compKey, ComponentStrategyType strategyType);
 
     // Configuration methods =======================================================================
 
