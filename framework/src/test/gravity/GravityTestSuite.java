@@ -26,7 +26,7 @@ import gravity.impl.PoolingComponentStrategyTest;
 import gravity.impl.SingletonComponentStrategyTest;
 import gravity.impl.ThreadLocalComponentStrategyTest;
 import gravity.plugins.BshPluginTest;
-import gravity.plugins.MutableRegistryAdapterTest;
+import gravity.plugins.MutableContainerAdapterTest;
 import gravity.util.ClassUtilsTest;
 import gravity.util.CleanableThreadLocalTest;
 import gravity.util.ReflectUtilsTest;
@@ -36,7 +36,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTestSuite.java,v 1.5 2004-05-22 20:19:29 harishkswamy Exp $
+ * @version $Id: GravityTestSuite.java,v 1.6 2004-05-24 00:35:31 harishkswamy Exp $
  */
 public class GravityTestSuite
 {
@@ -71,7 +71,7 @@ public class GravityTestSuite
 
         // gravity.plugins package tests
         suite.addTestSuite(BshPluginTest.class);
-        suite.addTestSuite(MutableRegistryAdapterTest.class);
+        suite.addTestSuite(MutableContainerAdapterTest.class);
 
         // gravity.util package tests
         suite.addTestSuite(ClassUtilsTest.class);
