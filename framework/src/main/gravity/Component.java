@@ -18,7 +18,7 @@ package gravity;
  * The component is the central concept of the framework around which everything else revolves. A
  * component is the entity that can be configured by the {@link gravity.Container container}. A
  * component is simply an object that has an interface, an implementation and a
- * {@link gravity.ComponentStrategy state}.
+ * {@link gravity.ComponentStrategy strategy}.
  * <p>
  * Every component has a unique identity typically comprised of the interface and a type (any
  * String) and there will be only one object of each component (a flyweight).
@@ -28,7 +28,7 @@ package gravity;
  * on the state of the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.7 2004-05-27 03:36:30 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.8 2004-05-29 16:40:00 harishkswamy Exp $
  */
 public interface Component
 {
@@ -65,7 +65,7 @@ public interface Component
      * will be appended to the already existing methods. The method invocations will be in the same
      * order it has been provided.
      */
-    void registerCallbackMethods(ComponentCallback[] lifeCycleMethods);
+    void registerCallbacks(ComponentCallback[] callbacks);
 
     /**
      * This method will return an instance (concrete or hollow) of this component. The component
