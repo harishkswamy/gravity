@@ -15,11 +15,14 @@
 package gravity.impl;
 
 import gravity.ComponentStrategy;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 
 /**
+ * This class decorates {@link gravity.ComponentStrategy}. It can decorate the strategies
+ * infinitely deep.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentStrategyDecorator.java,v 1.3 2004-06-14 04:15:20 harishkswamy Exp $
+ * @version $Id: ComponentStrategyDecorator.java,v 1.4 2004-09-02 04:04:18 harishkswamy Exp $
  */
 public abstract class ComponentStrategyDecorator implements ComponentStrategy
 {
@@ -30,22 +33,37 @@ public abstract class ComponentStrategyDecorator implements ComponentStrategy
         _decoratedStrategy = strategy;
     }
 
-    public Object getConcreteComponentInstance(ProxyableComponent component)
+    /**
+     * @return Returns a new concrete instance for the provided component when this strategy does
+     *         not decorate another strategy, otherwise it simply defers to the decorated strategy.
+     */
+    public Object getComponentInstance(RealizableComponent component)
     {
         if (_decoratedStrategy == null)
             return component.newInstance();
 
-        return _decoratedStrategy.getConcreteComponentInstance(component);
+        return _decoratedStrategy.getComponentInstance(component);
     }
 
+    /**
+     * When this strategy decorates another strategy, this method defers to the decorated strategy,
+     * otherwise it does nothing.
+     * <p>
+     * This method is intended to be overridden by subclasses that needs to recollect served
+     * instances like the {@link PoolingComponentStrategy}for example.
+     */
     public void collectComponentInstance(Object comp)
     {
         if (_decoratedStrategy != null)
             _decoratedStrategy.collectComponentInstance(comp);
     }
 
+    /**
+     * @return Returns an empty string when this strategy does not decorate another strategy,
+     *         otherwise it defers to the decorated strategy.
+     */
     public String decoratedStrategyToString()
     {
-        return _decoratedStrategy == null ? "" : _decoratedStrategy + "";
+        return _decoratedStrategy == null ? "" : _decoratedStrategy.toString();
     }
 }

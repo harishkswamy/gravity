@@ -14,13 +14,15 @@
 
 package gravity.impl;
 
-import gravity.ComponentProxy;
 import gravity.ComponentStrategy;
-import gravity.ProxyableComponent;
 
 /**
+ * This is a {@link gravity.impl.ComponentStrategyDecorator}that simply identifies this category of
+ * strategies as "dispatching". Method calls made on components that have this strategy will be
+ * dispatched to this strategy for every call to obtain the concrete instance.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: DispatchingComponentStrategy.java,v 1.2 2004-06-14 04:15:19 harishkswamy Exp $
+ * @version $Id: DispatchingComponentStrategy.java,v 1.3 2004-09-02 04:04:18 harishkswamy Exp $
  */
 public class DispatchingComponentStrategy extends ComponentStrategyDecorator
 {
@@ -29,18 +31,18 @@ public class DispatchingComponentStrategy extends ComponentStrategyDecorator
         super(decorator);
     }
 
-    public Object getComponentInstance(ProxyableComponent component)
-    {
-        ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
-
-        return proxy.newInstance(component);
-    }
-
+    /**
+     * @return true, this is a dispatching strategy.
+     */
     public boolean isDispatching()
     {
         return true;
     }
 
+    /**
+     * @return Returns " [Dispatching" +
+     *         {@link ComponentStrategyDecorator#decoratedStrategyToString()}+ "] "
+     */
     public String toString()
     {
         return " [Dispatching" + decoratedStrategyToString() + "] ";

@@ -14,13 +14,17 @@
 
 package gravity.impl;
 
-import gravity.ComponentProxy;
 import gravity.ComponentStrategy;
-import gravity.ProxyableComponent;
 
 /**
+ * This is a {@link gravity.impl.ComponentStrategyDecorator}that simply identifies this category of
+ * strategies as "lazy loading". Method calls made on components that have this strategy will be
+ * dispatched to this strategy only for the very first call to obtain the concrete instance. All
+ * subsequent calls will directly go to the initial instance returned which will be cached in the
+ * component proxy.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: LazyLoadingComponentStrategy.java,v 1.2 2004-06-14 04:15:20 harishkswamy Exp $
+ * @version $Id: LazyLoadingComponentStrategy.java,v 1.3 2004-09-02 04:04:18 harishkswamy Exp $
  */
 public class LazyLoadingComponentStrategy extends ComponentStrategyDecorator
 {
@@ -29,18 +33,18 @@ public class LazyLoadingComponentStrategy extends ComponentStrategyDecorator
         super(decorator);
     }
 
-    public Object getComponentInstance(ProxyableComponent component)
-    {
-        ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
-
-        return proxy.newInstance(component);
-    }
-
+    /**
+     * @return false, this is a lazy loading strategy.
+     */
     public boolean isDispatching()
     {
         return false;
     }
 
+    /**
+     * @return Returns " [Lazy Loading" +
+     *         {@link ComponentStrategyDecorator#decoratedStrategyToString()}+ "] "
+     */
     public String toString()
     {
         return " [Lazy Loading" + decoratedStrategyToString() + "] ";
