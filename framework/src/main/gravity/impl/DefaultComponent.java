@@ -16,63 +16,69 @@ package gravity.impl;
 
 import gravity.Component;
 import gravity.ComponentCallback;
+import gravity.ComponentInstanceBuilder;
+import gravity.ComponentStrategyType;
+import gravity.Context;
 import gravity.Location;
 import gravity.RealizableComponent;
 
 /**
  * This is the default component implementation. This implementation delegates instance creation to
- * {@link gravity.impl.ComponentFactory ComponentFactory}. The idea behind the delegation is to
- * separate the component interface and implementation so this component can reuse the
- * implementation and strategy of another component. When the implementation is reused, the
- * component is simply one facet of the implementation.
+ * {@link gravity.impl.DefaultComponentInstanceBuilder DefaultComponentInstanceBuilder}. The idea
+ * behind the delegation is to separate the component interface and implementation so this component
+ * can reuse the implementation and strategy of another component. When the implementation is
+ * reused, the component is simply one facet of the implementation.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.13 2004-09-02 04:04:48 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.14 2004-11-17 19:45:45 harishkswamy Exp $
  */
-public class DefaultComponent implements RealizableComponent
+public final class DefaultComponent implements RealizableComponent
 {
-    private ComponentKey     _key;
-    private ComponentFactory _factory;
-    private Location         _registrationLocation;
-    private Location         _retrievalLocation;
+    private ComponentKey             _key;
+    private ComponentInstanceBuilder _instanceBuilder;
+    private Location                 _registrationLocation;
+    private Location                 _retrievalLocation;
 
-    public DefaultComponent(ComponentKey compKey)
+    public DefaultComponent(Context context, ComponentKey compKey)
     {
         _key = compKey;
 
-        _factory = new ComponentFactory();
+        Object[] args = new Object[]{context};
+
+        _instanceBuilder = (ComponentInstanceBuilder) context.newApiInstance(
+            ComponentInstanceBuilder.class.getName(), args);
     }
 
     public Object getInstance()
     {
-        return _factory.getInstance(this);
+        return _instanceBuilder.getInstance(this);
     }
 
     public void registerImplementation(Component comp)
     {
-        _factory = (ComponentFactory) comp.getFactory();
+        _instanceBuilder = (ComponentInstanceBuilder) comp.getFactory();
     }
 
     public void registerImplementation(Class compClass, Object[] ctorArgs,
         ComponentCallback[] callbacks)
     {
-        _factory.registerImplementation(compClass, ctorArgs, callbacks);
+        _instanceBuilder.registerImplementation(compClass, ctorArgs, callbacks);
     }
 
     public void registerFactory(Object compFac, String facMethodName, Object[] facMethodArgs,
         ComponentCallback[] callbacks)
     {
-        _factory.registerFactoryDelegate(compFac, facMethodName, facMethodArgs, callbacks);
+        _instanceBuilder.registerFactoryDelegate(compFac, facMethodName, facMethodArgs, callbacks);
     }
 
     public void registerConstructorArguments(Object[] args)
     {
-        _factory.registerConstructorArguments(args);
+        _instanceBuilder.registerConstructorArguments(args);
     }
 
     public void registerCallbacks(ComponentCallback[] callbacks)
     {
-        _factory.registerCallbacks(callbacks);
+        _instanceBuilder.registerCallbacks(callbacks);
     }
 
     public void setRegistrationLocation(Location location)
@@ -92,47 +98,38 @@ public class DefaultComponent implements RealizableComponent
 
     public Object getFactory()
     {
-        return _factory;
+        return _instanceBuilder;
     }
 
     public boolean isInDispatchingState()
     {
-        return _factory.isInDispatchingState();
+        return _instanceBuilder.isInDispatchingState();
     }
 
-    public void wrapStrategyWithSingleton()
+    public void wrapStrategy(ComponentStrategyType strategyType)
     {
-        _factory.wrapStrategyWithSingleton();
-    }
-
-    public void wrapStrategyWithPooling()
-    {
-        _factory.wrapStrategyWithPooling();
-    }
-
-    public void wrapStrategyWithThreadLocal()
-    {
-        _factory.wrapStrategyWithThreadLocal();
+        _instanceBuilder.wrapStrategy(strategyType);
     }
 
     public Object getConcreteInstance()
     {
-        return _factory.getConcreteInstance(this);
+        return _instanceBuilder.getConcreteInstance(this);
     }
 
     public Object newInstance()
     {
-        return _factory.newInstance(this);
+        return _instanceBuilder.newInstance(this);
     }
 
     public void collectInstance(Object inst)
     {
-        _factory.collectInstance(inst);
+        _instanceBuilder.collectInstance(inst);
     }
 
     public String toString()
     {
-        return "[Key: " + _key + ", Component Factory: " + _factory + ", Registration Location: "
-            + _registrationLocation + ", Last Retrieval Location: " + _retrievalLocation + "]";
+        return "[Key: " + _key + ", Instance Builder: " + _instanceBuilder
+            + ", Registration Location: " + _registrationLocation + ", Last Retrieval Location: "
+            + _retrievalLocation + "]";
     }
 }
