@@ -33,7 +33,7 @@ import java.util.Properties;
  * shutdown.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Gravity.java,v 1.1 2004-05-10 17:29:04 harishkswamy Exp $
+ * @version $Id: Gravity.java,v 1.2 2004-05-13 06:11:52 harishkswamy Exp $
  */
 public class Gravity
 {
@@ -136,6 +136,13 @@ public class Gravity
         return ClassUtils.getResources(PLUGIN_MANIFEST_FILE_PATH);
     }
 
+    public static String getPluginRootPath(URL url)
+    {
+        String urlStr = url.toString();
+
+        return urlStr.substring(0, urlStr.lastIndexOf(PLUGIN_MANIFEST_FILE_PATH));
+    }
+
     private static Plugin getPlugin(String pluginClassName)
     {
         // Return the plugin from the plugin manifest file
@@ -161,6 +168,8 @@ public class Gravity
             URL url = (URL) e.nextElement();
 
             Properties props = Utils.loadProperties(url);
+
+            props.setProperty(Plugin.ROOT_PATH_KEY, getPluginRootPath(url));
 
             Plugin plugin = getPlugin(props.getProperty(PLUGIN_CLASS_NAME));
 

@@ -31,7 +31,7 @@ import bsh.TargetError;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPlugin.java,v 1.1 2004-05-10 17:28:57 harishkswamy Exp $
+ * @version $Id: BshPlugin.java,v 1.2 2004-05-13 06:11:52 harishkswamy Exp $
  */
 public class BshPlugin implements Plugin
 {
@@ -118,7 +118,9 @@ public class BshPlugin implements Plugin
             if (Utils.isBlank(pathStr))
                 continue;
 
-            URL url = ClassUtils.getResource(pathStr);
+            pathStr = pluginProps.getProperty(ROOT_PATH_KEY) + pathStr;
+
+            URL url = ClassUtils.newUrl(pathStr);
 
             buildModule(url);
         }

@@ -18,9 +18,11 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Plugin.java,v 1.1 2004-05-10 17:29:03 harishkswamy Exp $
+ * @version $Id: Plugin.java,v 1.2 2004-05-13 06:11:51 harishkswamy Exp $
  */
 public interface Plugin
 {
+    String ROOT_PATH_KEY = "$pluginRootPathKey$";
+
     void startup(Properties props, MutableRegistry registry);
 }
