@@ -15,9 +15,9 @@
 package gravity.impl;
 
 import gravity.ComponentFactory;
-import gravity.LazyComponentFactory;
 import gravity.Gravity;
 import gravity.GravityTestCase;
+import gravity.LazyComponentFactory;
 import gravity.Location;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentFactoryTest.java,v 1.1 2004-05-10 17:28:43 harishkswamy Exp $
+ * @version $Id: SingletonComponentFactoryTest.java,v 1.2 2004-05-12 04:45:19 harishkswamy Exp $
  */
 public class SingletonComponentFactoryTest extends GravityTestCase
 {
@@ -64,7 +64,7 @@ public class SingletonComponentFactoryTest extends GravityTestCase
 
     public void testBuildComponentInstance()
     {
-        ComponentFactory factory = getFactory(MockComboService.class, null);
+        LazyComponentFactory factory = getFactory(MockComboService.class, null);
 
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
