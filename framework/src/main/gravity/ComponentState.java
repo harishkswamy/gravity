@@ -16,7 +16,7 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentState.java,v 1.1 2004-05-17 03:04:11 harishkswamy Exp $
+ * @version $Id: ComponentState.java,v 1.2 2004-05-18 04:56:31 harishkswamy Exp $
  */
 public interface ComponentState
 {
@@ -36,8 +36,8 @@ public interface ComponentState
 
     /**
      * This method will return a concrete instance of this component. The component instance
-     * indentity is _implementation dependent. This method will throw a runtime exception if invoked
-     * prior to registering an _implementation for the component.
+     * indentity is implementation dependent. This method will throw a runtime exception if invoked
+     * prior to registering an implementation for the component.
      * 
      * @throws WrapperException
      *         Wraps the actual exception thrown while obtaining the concrete component instance.

@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableRegistry.java,v 1.2 2004-05-17 03:04:10 harishkswamy Exp $
+ * @version $Id: MutableRegistry.java,v 1.3 2004-05-18 04:56:30 harishkswamy Exp $
  */
 public interface MutableRegistry extends Registry
 {
@@ -71,31 +71,37 @@ public interface MutableRegistry extends Registry
 
     Object registerComponentRetrievalLocation(Class compIntf, Location location);
 
-    // Component factory decorator methods =========================================================
+    // Component state decorator methods ===========================================================
 
     /**
-     * This method will make the component a singleton. This method may be invoked anytime prior to
-     * the first method invocation on the component, to take effect.
+     * This method will add a singleton state to the current component state. This method may be
+     * invoked anytime prior to the first method invocation on the component, to take effect.
      * 
+     * @param compKey
+     *        Component Key.
      * @return Component Key.
      */
-    Object changeComponentStateToSingleton(Object compKey);
+    Object wrapComponentStateWithSingleton(Object compKey);
 
     /**
-     * This method will make the component pooled. This method may be invoked anytime prior to the
-     * first method invocation on the component, to take effect.
+     * This method will add a pooling state to the current component state. This method may be
+     * invoked anytime prior to the first method invocation on the component, to take effect.
      * 
+     * @param compKey
+     *        Component Key.
      * @return Component Key.
      */
-    Object changeComponentStateToPooling(Object compKey);
+    Object wrapComponentStateWithPooling(Object compKey);
 
     /**
-     * This method will make the component thread local. This method may be invoked anytime prior to
-     * the first method invocation on the component, to take effect.
+     * This method will add a thread local state to the current component state. This method may be
+     * invoked anytime prior to the first method invocation on the component, to take effect.
      * 
+     * @param compKey
+     *        Component Key.
      * @return Component Key.
      */
-    Object changeComponentStateToThreadLocal(Object compKey);
+    Object wrapComponentStateWithThreadLocal(Object compKey);
 
     // Configuration methods =======================================================================
 

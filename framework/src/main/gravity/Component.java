@@ -21,7 +21,7 @@ import java.util.Map;
  * component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.1 2004-05-17 03:04:11 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.2 2004-05-18 04:56:31 harishkswamy Exp $
  */
 public interface Component
 {
@@ -70,17 +70,17 @@ public interface Component
     /**
      * This method will change the state of this component to singleton.
      */
-    void changeStateToSingleton();
+    void wrapStateWithSingleton();
 
     /**
      * This method will change the state of this component to pooling.
      */
-    void changeStateToPooling();
+    void wrapStateWithPooling();
 
     /**
      * This method will change the state of this component to thread local.
      */
-    void changeStateToThreadLocal();
+    void wrapStateWithThreadLocal();
 
     /**
      * This method will return a concrete instance of this component. The component instance

@@ -18,13 +18,11 @@ package gravity;
  * This will act as a proxy for the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxy.java,v 1.1 2004-05-17 03:04:09 harishkswamy Exp $
+ * @version $Id: ComponentProxy.java,v 1.2 2004-05-18 04:56:32 harishkswamy Exp $
  */
 public interface ComponentProxy
 {
-    ComponentInvocationHandler newLazyLoader(Component comp);
-
-    ComponentInvocationHandler newDispatcher(Component comp);
+    ComponentInvocationHandler newComponentInvocationHandler(Component comp, boolean dispatchMode);
 
     Object newInstance(Class compIntf, ComponentInvocationHandler handler);
 

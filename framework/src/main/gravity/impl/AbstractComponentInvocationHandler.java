@@ -16,22 +16,53 @@ package gravity.impl;
 
 import gravity.Component;
 import gravity.ComponentInvocationHandler;
+import gravity.WrapperException;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: AbstractComponentInvocationHandler.java,v 1.1 2004-05-17 03:03:57 harishkswamy Exp $
+ * @version $Id: AbstractComponentInvocationHandler.java,v 1.2 2004-05-18 04:56:27 harishkswamy Exp $
  */
-public class AbstractComponentInvocationHandler implements ComponentInvocationHandler
+public abstract class AbstractComponentInvocationHandler implements ComponentInvocationHandler
 {
     protected Component _component;
+    protected Object    _componentInstance;
+    protected boolean   _dispatchMode;
 
-    protected AbstractComponentInvocationHandler(Component comp)
+    protected AbstractComponentInvocationHandler(Component comp, boolean dispatchMode)
     {
         _component = comp;
+        _dispatchMode = dispatchMode;
     }
 
-    protected void setComponent(Component comp)
+    protected Object obtainConcreteComponentInstance()
     {
-        _component = comp;
+        try
+        {
+            Object instance;
+
+            if (_dispatchMode)
+                instance = _component.getConcreteInstance();
+
+            else if (_componentInstance == null)
+            {
+                _componentInstance = _component.getConcreteInstance();
+
+                instance = _componentInstance;
+            }
+            else
+                instance = _componentInstance;
+
+            return instance;
+        }
+        catch (Exception e)
+        {
+            throw WrapperException.wrap(e, "Unable to get concrete instance for component: "
+                + _component);
+        }
+    }
+
+    public void setDispatchMode(boolean mode)
+    {
+        _dispatchMode = mode;
     }
 }

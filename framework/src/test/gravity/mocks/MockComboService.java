@@ -15,11 +15,16 @@
 package gravity.mocks;
 
 /**
- * @author  Harish Krishnaswamy
- * @version $Id: MockComboService.java,v 1.1 2004-05-10 17:28:46 harishkswamy Exp $
+ * @author Harish Krishnaswamy
+ * @version $Id: MockComboService.java,v 1.2 2004-05-18 04:56:33 harishkswamy Exp $
  */
 public interface MockComboService
 {
     public void service();
+
     public MockService getMockService();
+
+    public Object getObject();
+
+    public void setObject(Object object);
 }

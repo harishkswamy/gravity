@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxyTest.java,v 1.1 2004-05-17 03:03:48 harishkswamy Exp $
+ * @version $Id: JdkComponentProxyTest.java,v 1.2 2004-05-18 04:56:36 harishkswamy Exp $
  */
 public class JdkComponentProxyTest extends GravityTestCase
 {
@@ -51,7 +51,8 @@ public class JdkComponentProxyTest extends GravityTestCase
     public void testInvokeNewProxyMethod()
     {
         MockService service = (MockService) _proxyFactory.newInstance(MockService.class,
-            _proxyFactory.newLazyLoader(newComponent(MockService.class, null)));
+            _proxyFactory.newComponentInvocationHandler(newComponent(MockService.class, null),
+                false));
 
         assertNotNull(service);
     }
@@ -59,7 +60,8 @@ public class JdkComponentProxyTest extends GravityTestCase
     public void testMethodInvocationError()
     {
         Component comp = newComponent(MockService.class, null);
-        ComponentInvocationHandler handler = _proxyFactory.newLazyLoader(comp);
+        ComponentInvocationHandler handler = _proxyFactory.newComponentInvocationHandler(comp,
+            false);
         MockService service = (MockService) _proxyFactory.newInstance(MockService.class, handler);
 
         comp.registerImplementation(ArrayList.class, null, null);
@@ -73,14 +75,14 @@ public class JdkComponentProxyTest extends GravityTestCase
         catch (Exception e)
         {
             assertSuperString(e, "Unable to invoke method: public abstract void "
-                + "gravity.mocks.MockService.service() on component: []");
+                + "gravity.mocks.MockService.service() on component: " + comp);
         }
     }
 
     public void testNullFactory()
     {
         MockService service = (MockService) _proxyFactory.newInstance(MockService.class,
-            _proxyFactory.newLazyLoader(null));
+            _proxyFactory.newComponentInvocationHandler(null, false));
 
         try
         {
@@ -98,7 +100,7 @@ public class JdkComponentProxyTest extends GravityTestCase
     {
         Component comp = newComponent(MockComboService.class, null);
         MockComboService service = (MockComboService) _proxyFactory.newInstance(
-            MockComboService.class, _proxyFactory.newLazyLoader(comp));
+            MockComboService.class, _proxyFactory.newComponentInvocationHandler(comp, false));
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
 
@@ -111,7 +113,8 @@ public class JdkComponentProxyTest extends GravityTestCase
     {
         try
         {
-            _proxyFactory.newInstance(MockComboServiceImpl.class, _proxyFactory.newLazyLoader(null));
+            _proxyFactory.newInstance(MockComboServiceImpl.class,
+                _proxyFactory.newComponentInvocationHandler(null, false));
 
             unreachable();
         }
@@ -142,7 +145,8 @@ public class JdkComponentProxyTest extends GravityTestCase
 
         Component comp = newComponent(MockComboService.class, null);
 
-        Object obj = proxy.newInstance(MockComboService.class, proxy.newLazyLoader(comp));
+        Object obj = proxy.newInstance(MockComboService.class, proxy.newComponentInvocationHandler(
+            comp, false));
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
         comp.registerImplementation(MockComboServiceImpl.class, cArgs, null);

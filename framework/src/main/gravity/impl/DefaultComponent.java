@@ -19,6 +19,7 @@ import gravity.ComponentState;
 import gravity.Location;
 import gravity.UsageException;
 import gravity.WrapperException;
+import gravity.util.Cache;
 import gravity.util.ClassUtils;
 import gravity.util.ReflectUtils;
 
@@ -27,7 +28,7 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.1 2004-05-17 03:04:00 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.2 2004-05-18 04:56:26 harishkswamy Exp $
  */
 public class DefaultComponent implements Component
 {
@@ -38,17 +39,25 @@ public class DefaultComponent implements Component
     private Map            _setterArgs;
     private Location       _registrationLocation;
     private ComponentState _componentState;
+    private Cache          _proxyInstanceCache = new Cache();
 
     public DefaultComponent(ComponentKey compKey)
     {
         _key = compKey;
 
-        _componentState = new LazyLoadingComponentState(null, this);
+        _componentState = new LazyLoadingComponentState(null, this, _proxyInstanceCache);
     }
 
     public Object getInstance()
     {
-        return _componentState.getComponentInstance();
+        Object instance = _componentState.getComponentInstance();
+
+        synchronized (_proxyInstanceCache)
+        {
+            _proxyInstanceCache.add(instance);
+        }
+
+        return instance;
     }
 
     public void registerImplementation(Class compClass, Object[] ctorArgs, Map setrArgs)
@@ -73,40 +82,65 @@ public class DefaultComponent implements Component
         return _key.getComponentInterface();
     }
 
-    protected SingletonComponentState newSingletonState(ComponentState state, Component comp)
+    private ComponentState getStateToDecorate()
     {
-        return new SingletonComponentState(state, comp);
+        if (_componentState.getClass() == LazyLoadingComponentState.class)
+            return null;
+        else
+            return _componentState;
     }
 
-    public void changeStateToSingleton()
+    protected SingletonComponentState newSingletonState(ComponentState state, Component comp,
+        Cache proxyInstanceCache)
     {
-        _componentState = newSingletonState(_componentState, this);
+        return new SingletonComponentState(state, comp, proxyInstanceCache);
     }
 
-    protected PoolingComponentState newPoolingState(ComponentState state, Component comp)
+    public void wrapStateWithSingleton()
     {
-        return new PoolingComponentState(state, comp);
+        // If already in singleton state, do nothing
+        if (_componentState instanceof SingletonComponentState)
+            return;
+
+        _componentState = newSingletonState(getStateToDecorate(), this, _proxyInstanceCache);
     }
 
-    public void changeStateToPooling()
+    protected PoolingComponentState newPoolingState(ComponentState state, Component comp,
+        Cache proxyInstanceCache)
     {
-        _componentState = newPoolingState(_componentState, this);
+        return new PoolingComponentState(state, comp, proxyInstanceCache);
     }
 
-    protected ThreadLocalComponentState newThreadLocalState(ComponentState state, Component comp)
+    public void wrapStateWithPooling()
     {
-        return new ThreadLocalComponentState(state, comp);
+        // If already in pooling state, do nothing
+        if (_componentState instanceof PoolingComponentState)
+            return;
+
+        _componentState = newPoolingState(getStateToDecorate(), this, _proxyInstanceCache);
     }
 
-    public void changeStateToThreadLocal()
+    protected ThreadLocalComponentState newThreadLocalState(ComponentState state, Component comp,
+        Cache proxyInstanceCache)
     {
-        _componentState = newThreadLocalState(_componentState, this);
+        return new ThreadLocalComponentState(state, comp, proxyInstanceCache);
+    }
+
+    public void wrapStateWithThreadLocal()
+    {
+        // If already in thread local state, do nothing
+        if (_componentState instanceof ThreadLocalComponentState)
+            return;
+
+        _componentState = newThreadLocalState(getStateToDecorate(), this, _proxyInstanceCache);
     }
 
     public Object getConcreteInstance()
     {
         return _componentState.getConcreteComponentInstance();
     }
+
+    // Construct new instance ======================================================================
 
     private void setDependencies(Object impl, Map implSetrArgs)
     {
@@ -175,7 +209,7 @@ public class DefaultComponent implements Component
      * 
      * @return Fully constructed and initialized service.
      * @throws UsageException
-     *         When the supplied _implementation class is null.
+     *         When the supplied implementation class is null.
      * @throws WrapperException
      *         When there is any problem while building the service.
      * @see gravity.DynamicWeaver#weave(Object)
@@ -205,6 +239,8 @@ public class DefaultComponent implements Component
                 + this + " at location: " + _registrationLocation);
         }
     }
+
+    // End - Construct new instance ================================================================
 
     public void collectInstance(Object comp)
     {

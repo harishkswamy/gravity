@@ -25,18 +25,14 @@ import net.sf.cglib.proxy.Factory;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentProxy.java,v 1.1 2004-05-17 03:03:57 harishkswamy Exp $
+ * @version $Id: CglibComponentProxy.java,v 1.2 2004-05-18 04:56:27 harishkswamy Exp $
  */
 public class CglibComponentProxy implements ComponentProxy
 {
-    public ComponentInvocationHandler newLazyLoader(Component comp)
+    public ComponentInvocationHandler newComponentInvocationHandler(Component comp,
+        boolean dispatchMode)
     {
-        return new CglibComponentLazyLoader(comp);
-    }
-
-    public ComponentInvocationHandler newDispatcher(Component comp)
-    {
-        return new CglibComponentDispatcher(comp);
+        return new CglibComponentInvocationHandler(comp, dispatchMode);
     }
 
     public Object newInstance(Class compIntf, ComponentInvocationHandler handler)

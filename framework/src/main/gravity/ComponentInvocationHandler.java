@@ -15,11 +15,10 @@
 package gravity;
 
 /**
- * This is a marker interface.
- * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentInvocationHandler.java,v 1.1 2004-05-17 03:04:11 harishkswamy Exp $
+ * @version $Id: ComponentInvocationHandler.java,v 1.2 2004-05-18 04:56:31 harishkswamy Exp $
  */
 public interface ComponentInvocationHandler
 {
+    void setDispatchMode(boolean mode);
 }

@@ -29,7 +29,7 @@ import java.util.Map;
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultRegistry.java,v 1.2 2004-05-17 03:03:58 harishkswamy Exp $
+ * @version $Id: DefaultRegistry.java,v 1.3 2004-05-18 04:56:28 harishkswamy Exp $
  */
 public class DefaultRegistry implements MutableRegistry
 {
@@ -215,29 +215,29 @@ public class DefaultRegistry implements MutableRegistry
     /**
      * @return Component _key.
      */
-    public Object changeComponentStateToSingleton(Object compKey)
+    public Object wrapComponentStateWithSingleton(Object compKey)
     {
         Component comp = (Component) _componentCache.get(compKey);
 
-        comp.changeStateToSingleton();
+        comp.wrapStateWithSingleton();
 
         return compKey;
     }
 
-    public Object changeComponentStateToPooling(Object compKey)
+    public Object wrapComponentStateWithPooling(Object compKey)
     {
         Component comp = (Component) _componentCache.get(compKey);
 
-        comp.changeStateToPooling();
+        comp.wrapStateWithPooling();
 
         return compKey;
     }
 
-    public Object changeComponentStateToThreadLocal(Object compKey)
+    public Object wrapComponentStateWithThreadLocal(Object compKey)
     {
         Component comp = (Component) _componentCache.get(compKey);
 
-        comp.changeStateToThreadLocal();
+        comp.wrapStateWithThreadLocal();
 
         return compKey;
     }
@@ -273,7 +273,7 @@ public class DefaultRegistry implements MutableRegistry
 
     /**
      * Gets the service registered for the supplied service _key (service interface + service
-     * _implementation type).
+     * implementation type).
      * 
      * @return The service registered for the supplied _key.
      * @throws UsageException
@@ -298,7 +298,7 @@ public class DefaultRegistry implements MutableRegistry
         return getComponentInstance(compIntf, null);
     }
 
-    public void returnComponentInstance(Class compIntf, Object compType, Object compInst)
+    public void collectComponentInstance(Class compIntf, Object compType, Object compInst)
     {
         ComponentKey compKey = getComponentKey(compIntf, compType);
 
@@ -307,9 +307,9 @@ public class DefaultRegistry implements MutableRegistry
         comp.collectInstance(compInst);
     }
 
-    public void returnComponentInstance(Class compIntf, Object comp)
+    public void collectComponentInstance(Class compIntf, Object comp)
     {
-        returnComponentInstance(compIntf, null, comp);
+        collectComponentInstance(compIntf, null, comp);
     }
 
     /**

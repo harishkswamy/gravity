@@ -16,18 +16,20 @@ package gravity.impl;
 
 import gravity.Component;
 import gravity.ComponentState;
+import gravity.util.Cache;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentState.java,v 1.1 2004-05-17 03:04:03 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentState.java,v 1.2 2004-05-18 04:56:28 harishkswamy Exp $
  */
 public class ThreadLocalComponentState extends DispatchingComponentState
 {
     private ThreadLocal _threadLocal = new ThreadLocal();
 
-    public ThreadLocalComponentState(ComponentState delegate, Component component)
+    public ThreadLocalComponentState(ComponentState delegate, Component component,
+        Cache proxyInstanceCache)
     {
-        super(delegate, component);
+        super(delegate, component, proxyInstanceCache);
     }
 
     private synchronized void cacheComponent(Object component)

@@ -27,7 +27,7 @@ import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentProxyTest.java,v 1.1 2004-05-17 03:03:50 harishkswamy Exp $
+ * @version $Id: CglibComponentProxyTest.java,v 1.2 2004-05-18 04:56:35 harishkswamy Exp $
  */
 public class CglibComponentProxyTest extends GravityTestCase
 {
@@ -53,8 +53,8 @@ public class CglibComponentProxyTest extends GravityTestCase
 
     public void testNewComponentProxy()
     {
-        ComponentInvocationHandler handler = _proxyFactory.newLazyLoader(newComponent(
-            MockService.class, null));
+        ComponentInvocationHandler handler = _proxyFactory.newComponentInvocationHandler(
+            newComponent(MockService.class, null), false);
 
         MockService service = (MockService) _proxyFactory.newInstance(MockService.class, handler);
 
@@ -64,7 +64,7 @@ public class CglibComponentProxyTest extends GravityTestCase
     public void testNullFactory()
     {
         MockService service = (MockService) _proxyFactory.newInstance(MockService.class,
-            _proxyFactory.newLazyLoader(null));
+            _proxyFactory.newComponentInvocationHandler(null, false));
 
         try
         {
@@ -83,7 +83,7 @@ public class CglibComponentProxyTest extends GravityTestCase
         Component comp = newComponent(MockComboService.class, null);
 
         MockComboService service = (MockComboService) _proxyFactory.newInstance(
-            MockComboService.class, _proxyFactory.newLazyLoader(comp));
+            MockComboService.class, _proxyFactory.newComponentInvocationHandler(comp, false));
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
 
@@ -94,7 +94,8 @@ public class CglibComponentProxyTest extends GravityTestCase
 
     public void testNewClassProxy()
     {
-        Object obj = _proxyFactory.newInstance(ArrayList.class, _proxyFactory.newLazyLoader(null));
+        Object obj = _proxyFactory.newInstance(ArrayList.class,
+            _proxyFactory.newComponentInvocationHandler(null, false));
 
         assertNotNull(obj);
         assertTrue(obj instanceof ArrayList);
@@ -119,7 +120,7 @@ public class CglibComponentProxyTest extends GravityTestCase
         JdkComponentProxy proxy = new JdkComponentProxy();
 
         Component comp = newComponent(MockComboService.class, null);
-        Object obj = proxy.newInstance(List.class, proxy.newLazyLoader(comp));
+        Object obj = proxy.newInstance(List.class, proxy.newComponentInvocationHandler(comp, false));
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
         comp.registerImplementation(MockComboServiceImpl.class, cArgs, null);

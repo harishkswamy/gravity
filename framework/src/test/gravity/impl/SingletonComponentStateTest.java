@@ -20,12 +20,13 @@ import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
+import gravity.util.Cache;
 
 import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentStateTest.java,v 1.1 2004-05-17 03:03:52 harishkswamy Exp $
+ * @version $Id: SingletonComponentStateTest.java,v 1.2 2004-05-18 04:56:35 harishkswamy Exp $
  */
 public class SingletonComponentStateTest extends GravityTestCase
 {
@@ -50,9 +51,9 @@ public class SingletonComponentStateTest extends GravityTestCase
 
     private ComponentState newSingletonComponent(Component comp)
     {
-        ComponentState factory = new LazyLoadingComponentState(null, comp);
+        ComponentState factory = new LazyLoadingComponentState(null, comp, new Cache());
 
-        return new SingletonComponentState(factory, comp);
+        return new SingletonComponentState(factory, comp, new Cache());
     }
 
     public void testGetComponentInstance()
@@ -80,7 +81,7 @@ public class SingletonComponentStateTest extends GravityTestCase
 
         MockComboService service = (MockComboService) comp.getInstance();
 
-        comp.changeStateToSingleton();
+        comp.wrapStateWithSingleton();
 
         MockComboService service2 = (MockComboService) comp.getInstance();
 

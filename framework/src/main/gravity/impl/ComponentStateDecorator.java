@@ -15,22 +15,48 @@
 package gravity.impl;
 
 import gravity.Component;
+import gravity.ComponentInvocationHandler;
+import gravity.ComponentProxy;
 import gravity.ComponentState;
+import gravity.util.Cache;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentStateDecorator.java,v 1.1 2004-05-17 03:04:03 harishkswamy Exp $
+ * @version $Id: ComponentStateDecorator.java,v 1.2 2004-05-18 04:56:28 harishkswamy Exp $
  */
 public abstract class ComponentStateDecorator implements ComponentState
 {
     protected ComponentState _decoratedState;
     protected Component      _component;
 
-    protected ComponentStateDecorator(ComponentState decoratedState, Component component)
+    private void setProxyDispatchMode(Cache proxyInstanceCache, boolean dispatchMode)
+    {
+        ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
+
+        synchronized (proxyInstanceCache)
+        {
+            List items = proxyInstanceCache.getAll();
+
+            for (Iterator itr = items.iterator(); itr.hasNext();)
+            {
+                ComponentInvocationHandler handler = proxy.getComponentInvocationHandler(itr.next());
+
+                handler.setDispatchMode(dispatchMode);
+            }
+        }
+    }
+
+    protected ComponentStateDecorator(ComponentState decoratedState, Component component,
+        Cache proxyInstanceCache, boolean dispatchMode)
     {
         _decoratedState = decoratedState;
 
         _component = component;
+
+        setProxyDispatchMode(proxyInstanceCache, dispatchMode);
     }
 
     public Object getConcreteComponentInstance()

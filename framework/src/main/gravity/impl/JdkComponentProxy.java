@@ -25,18 +25,14 @@ import java.lang.reflect.Proxy;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxy.java,v 1.1 2004-05-17 03:04:05 harishkswamy Exp $
+ * @version $Id: JdkComponentProxy.java,v 1.2 2004-05-18 04:56:28 harishkswamy Exp $
  */
 public class JdkComponentProxy implements ComponentProxy
 {
-    public ComponentInvocationHandler newLazyLoader(Component comp)
+    public ComponentInvocationHandler newComponentInvocationHandler(Component comp,
+        boolean dispatchMode)
     {
-        return new JdkComponentInvocationHandler(comp, false);
-    }
-
-    public ComponentInvocationHandler newDispatcher(Component comp)
-    {
-        return new JdkComponentInvocationHandler(comp, true);
+        return new JdkComponentInvocationHandler(comp, dispatchMode);
     }
 
     public Object newInstance(Class compIntf, ComponentInvocationHandler handler)

@@ -15,29 +15,22 @@
 package gravity.impl;
 
 import gravity.Component;
-import gravity.WrapperException;
+import net.sf.cglib.proxy.Dispatcher;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentInvocationHandler.java,v 1.1 2004-05-17 03:04:02 harishkswamy Exp $
+ * @version $Id: CglibComponentInvocationHandler.java,v 1.2 2004-05-18 04:56:27 harishkswamy Exp $
  */
-public class CglibComponentInvocationHandler extends AbstractComponentInvocationHandler
+public class CglibComponentInvocationHandler extends AbstractComponentInvocationHandler implements
+    Dispatcher
 {
-    protected CglibComponentInvocationHandler(Component comp)
+    public CglibComponentInvocationHandler(Component comp, boolean dispatchMode)
     {
-        super(comp);
+        super(comp, dispatchMode);
     }
 
-    protected Object getConcreteInstance()
+    public Object loadObject()
     {
-        try
-        {
-            return _component.getConcreteInstance();
-        }
-        catch (Exception e)
-        {
-            throw WrapperException.wrap(e,
-                "Unable to get concrete instance for component: " + _component);
-        }
+        return obtainConcreteComponentInstance();
     }
 }

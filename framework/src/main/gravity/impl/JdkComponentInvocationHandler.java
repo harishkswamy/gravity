@@ -22,57 +22,28 @@ import java.lang.reflect.Method;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentInvocationHandler.java,v 1.1 2004-05-17 03:04:02 harishkswamy Exp $
+ * @version $Id: JdkComponentInvocationHandler.java,v 1.2 2004-05-18 04:56:27 harishkswamy Exp $
  */
-public class JdkComponentInvocationHandler extends AbstractComponentInvocationHandler implements InvocationHandler
+public class JdkComponentInvocationHandler extends AbstractComponentInvocationHandler implements
+    InvocationHandler
 {
-    private Object  _componentInstance;
-    private boolean _dispatch;
-
-    public JdkComponentInvocationHandler(Component comp)
+    public JdkComponentInvocationHandler(Component comp, boolean dispatchMode)
     {
-        super(comp);
-    }
-
-    public JdkComponentInvocationHandler(Component comp, boolean dispatch)
-    {
-        super(comp);
-        _dispatch = dispatch;
-    }
-
-    private Object obtainConcreteComponentInstance()
-    {
-        try
-        {
-            Object comp = _component.getConcreteInstance();
-
-            if (!_dispatch)
-                _componentInstance = comp;
-
-            return comp;
-        }
-        catch (Exception e)
-        {
-            throw WrapperException.wrap(e, "Unable to get concrete instance for component: "
-                + _component);
-        }
+        super(comp, dispatchMode);
     }
 
     public Object invoke(Object proxy, Method method, Object[] args)
     {
-        Object comp = _componentInstance;
-
-        if (_dispatch || comp == null)
-            comp = obtainConcreteComponentInstance();
+        Object instance = obtainConcreteComponentInstance();
 
         try
         {
-            return method.invoke(comp, args);
+            return method.invoke(instance, args);
         }
         catch (Exception e)
         {
             throw WrapperException.wrap(e, "Unable to invoke method: " + method + " on component: "
-                + comp);
+                + _component);
         }
     }
 }

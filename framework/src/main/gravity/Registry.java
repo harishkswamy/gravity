@@ -23,7 +23,7 @@ import java.util.Map;
  * This is a singleton and should typically be built in a single startup thread.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Registry.java,v 1.2 2004-05-17 03:04:12 harishkswamy Exp $
+ * @version $Id: Registry.java,v 1.3 2004-05-18 04:56:32 harishkswamy Exp $
  */
 public interface Registry
 {
@@ -31,7 +31,7 @@ public interface Registry
 
     /**
      * Gets the service registered for the supplied service _key (service interface + service
-     * _implementation type).
+     * implementation type).
      * 
      * @return The service registered for the supplied _key.
      * @throws UsageException
@@ -53,14 +53,14 @@ public interface Registry
      * getComponentInstance(...) methods. This method is primarily used for returning pooled
      * components.
      */
-    void returnComponentInstance(Class compIntf, Object compType, Object comp);
+    void collectComponentInstance(Class compIntf, Object compType, Object comp);
 
     /**
      * This method should be used to return a component instance obtained via one of the
      * getComponentInstance(...) methods. This method is primarily used for returning pooled
      * components.
      */
-    void returnComponentInstance(Class compIntf, Object comp);
+    void collectComponentInstance(Class compIntf, Object comp);
 
     /**
      * Gets the configuration registered for the supplied _key.

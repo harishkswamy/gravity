@@ -29,7 +29,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultRegistryTest.java,v 1.2 2004-05-17 03:03:54 harishkswamy Exp $
+ * @version $Id: DefaultRegistryTest.java,v 1.3 2004-05-18 04:56:35 harishkswamy Exp $
  */
 public class DefaultRegistryTest extends GravityTestCase
 {
@@ -38,8 +38,7 @@ public class DefaultRegistryTest extends GravityTestCase
     public void setUp()
     {
         Properties props = new Properties();
-        props.setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME,
-            "gravity.impl.CglibComponentProxy");
+        props.setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME, "gravity.impl.CglibComponentProxy");
 
         Gravity.getInstance().initialize(props);
     }
@@ -327,7 +326,7 @@ public class DefaultRegistryTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object key2 = _registry.changeComponentStateToSingleton(key);
+        Object key2 = _registry.wrapComponentStateWithSingleton(key);
 
         assertNotNull(key);
         assertEquals(key, key2);
@@ -335,6 +334,7 @@ public class DefaultRegistryTest extends GravityTestCase
         Object serv = _registry.getComponentInstance(MockComboService.class);
         Object serv2 = _registry.getComponentInstance(MockComboService.class);
 
+        assertTrue(serv.toString().equals(serv2.toString()));
         assertTrue(serv.hashCode() == serv2.hashCode());
     }
 
@@ -345,15 +345,15 @@ public class DefaultRegistryTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object key2 = _registry.changeComponentStateToPooling(key);
+        Object key2 = _registry.wrapComponentStateWithPooling(key);
 
         assertNotNull(key);
         assertEquals(key, key2);
 
         Object serv = _registry.getComponentInstance(MockComboService.class);
-        
+
         // Return unrealized proxy
-        _registry.returnComponentInstance(MockComboService.class, serv);
+        _registry.collectComponentInstance(MockComboService.class, serv);
 
         serv = _registry.getComponentInstance(MockComboService.class);
         Object serv2 = _registry.getComponentInstance(MockComboService.class);
@@ -362,7 +362,7 @@ public class DefaultRegistryTest extends GravityTestCase
         assertTrue(serv.hashCode() != serv2.hashCode());
 
         // Return realized proxy
-        _registry.returnComponentInstance(MockComboService.class, serv);
+        _registry.collectComponentInstance(MockComboService.class, serv);
 
         Object serv3 = _registry.getComponentInstance(MockComboService.class);
 
@@ -377,7 +377,7 @@ public class DefaultRegistryTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object key2 = _registry.changeComponentStateToThreadLocal(key);
+        Object key2 = _registry.wrapComponentStateWithThreadLocal(key);
 
         assertNotNull(key);
         assertEquals(key, key2);
@@ -399,11 +399,11 @@ public class DefaultRegistryTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object key2 = _registry.changeComponentStateToPooling(key);
+        Object key2 = _registry.wrapComponentStateWithPooling(key);
 
         Object serv = _registry.getComponentInstance(MockComboService.class);
 
-        _registry.changeComponentStateToThreadLocal(key2);
+        _registry.wrapComponentStateWithThreadLocal(key2);
 
         Object serv2 = _registry.getComponentInstance(MockComboService.class);
 
@@ -419,10 +419,14 @@ public class DefaultRegistryTest extends GravityTestCase
         Object key = _registry.registerComponentImplementation(MockComboService.class,
             MockComboServiceImpl.class, cArgs);
 
-        Object comp = _registry.getComponentInstance(key);
-        Object comp2 = _registry.getComponentInstance(key);
+        MockComboService comp = (MockComboService) _registry.getComponentInstance(key);
+        MockComboService comp2 = (MockComboService) _registry.getComponentInstance(key);
 
         assertTrue(comp.hashCode() != comp2.hashCode());
+        assertFalse(comp.toString().equals(comp2.toString()));
+
+        comp.setObject("abc");
+        assertEquals(comp.getObject(), "abc");
     }
 
     public void testGetComponentInstanceFromMultipleImplementations()
