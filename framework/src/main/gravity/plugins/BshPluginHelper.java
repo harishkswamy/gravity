@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginHelper.java,v 1.3 2004-06-14 04:17:57 harishkswamy Exp $
+ * @version $Id: BshPluginHelper.java,v 1.4 2004-08-10 16:21:55 harishkswamy Exp $
  */
 public class BshPluginHelper
 {
@@ -56,10 +56,10 @@ public class BshPluginHelper
         return newComponentCallback(args, ComponentPhase.SHUTDOWN);
     }
 
-    public ComponentCallback[] toComponentCallbackArray(Object[] methods)
+    public ComponentCallback[] toComponentCallbackArray(Object[] callbacks)
     {
-        List methodList = Arrays.asList(methods);
+        List methodList = Arrays.asList(callbacks);
 
-        return (ComponentCallback[]) methodList.toArray(new ComponentCallback[methods.length]);
+        return (ComponentCallback[]) methodList.toArray(new ComponentCallback[callbacks.length]);
     }
 }
