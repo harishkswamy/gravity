@@ -15,42 +15,38 @@
 package gravity;
 
 /**
+ * The strategy decides the identity and the life of concrete component instances returned by
+ * {@link gravity.Component}.
+ * <p>
+ * There are two kinds of strategies: dispatching and lazy loading. All calls on a component will
+ * get dispatched to its strategy if the strategy is of dispatching kind. The strategy in turn
+ * determines the component instance that needs to be used for the calls. If the strategy is of lazy
+ * loading kind, only the very first call on the component gets dispatched to the strategy; all
+ * subsequent calls will reuse the same component instance returned the first time.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentStrategy.java,v 1.2 2004-06-14 04:15:21 harishkswamy Exp $
+ * @version $Id: ComponentStrategy.java,v 1.3 2004-09-02 03:58:27 harishkswamy Exp $
  */
 public interface ComponentStrategy
 {
-    /**
-     * This method will return an instance (concrete or hollow) of the component. The component
-     * instance indentity is implementation dependent.
-     * <p>
-     * Only the following is true of the returned component instance:
-     * <li>The returned component instance will be of the registered component type.
-     * <li>Method invocations on the returned component instance will be completed successfully
-     * provided an implementation was registered prior to the method invocation.
-     * <p>
-     * The advantage of using this method is that an instance of the component may be obtained even
-     * prior to registering an implementation for the component.
-     */
-    Object getComponentInstance(ProxyableComponent component);
-
     /**
      * This method will return a concrete instance of this component. The component instance
      * indentity is implementation dependent. This method will throw a runtime exception if invoked
      * prior to registering an implementation for the component.
      * 
      * @throws WrapperException
-     *         Wraps the actual exception thrown while obtaining the concrete component instance.
+     *             Wraps the actual exception thrown while obtaining the concrete component
+     *             instance.
      */
-    Object getConcreteComponentInstance(ProxyableComponent component);
+    Object getComponentInstance(RealizableComponent component);
 
     /**
      * This method will accept a component instance and return it to its cache.
      */
     void collectComponentInstance(Object compInst);
-    
+
     /**
-     * @return true If this state is a dispatching state, false otherwise. 
+     * @return true If this strategy is in dispatching state, false otherwise.
      */
     boolean isDispatching();
 }
