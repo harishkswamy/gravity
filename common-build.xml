@@ -14,7 +14,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!-- $Id: common-build.xml,v 1.2 2004-05-11 20:39:58 harishkswamy Exp $ -->
+<!-- $Id: common-build.xml,v 1.3 2004-05-12 04:46:56 harishkswamy Exp $ -->
 <project name="common-build" basedir="." default="coverage">
 
     <!-- ========== Executable Targets ======================================== -->
@@ -188,7 +188,7 @@
 
     <target name="coverage" depends="coverage-data">
         <clover-report>
-            <current title="${component.title} - Release ${component.version}" outfile="${web.dir}/docs/clover">
+            <current title="${component.title} - Release ${component.version}" outfile="${web.dir}/docs/coverage">
                 <format type="html" />
             </current>
         </clover-report>
@@ -228,4 +228,9 @@
 
     <target name="all" depends="clean, coverage, javadoc, jar" />
 
+    <target name="dist" depends="set-up">
+        <copy todir="${www.dir}">
+            <fileset dir="${web.dir}" includes="**" />
+        </copy>
+    </target>
 </project>
