@@ -22,11 +22,11 @@ import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginHelper.java,v 1.2 2004-05-27 03:33:48 harishkswamy Exp $
+ * @version $Id: BshPluginHelper.java,v 1.3 2004-06-14 04:17:57 harishkswamy Exp $
  */
 public class BshPluginHelper
 {
-    public ComponentCallback newComponentMethod(Object[] args, ComponentPhase phase)
+    public ComponentCallback newComponentCallback(Object[] args, ComponentPhase phase)
     {
         if (args == null || args.length == 0)
             return null;
@@ -41,25 +41,25 @@ public class BshPluginHelper
         return new ComponentCallback(methodName, mthdArgs, phase);
     }
 
-    public ComponentCallback newInjectionMethod(Object[] args)
+    public ComponentCallback newInjectionCallback(Object[] args)
     {
-        return newComponentMethod(args, ComponentPhase.INJECTION);
+        return newComponentCallback(args, ComponentPhase.INJECTION);
     }
 
-    public ComponentCallback newStartupMethod(Object[] args)
+    public ComponentCallback newStartupCallback(Object[] args)
     {
-        return newComponentMethod(args, ComponentPhase.START_UP);
+        return newComponentCallback(args, ComponentPhase.START_UP);
     }
 
-    public ComponentCallback newShutdownMethod(Object[] args)
+    public ComponentCallback newShutdownCallback(Object[] args)
     {
-        return newComponentMethod(args, ComponentPhase.SHUTDOWN);
+        return newComponentCallback(args, ComponentPhase.SHUTDOWN);
     }
 
     public ComponentCallback[] toComponentCallbackArray(Object[] methods)
     {
         List methodList = Arrays.asList(methods);
-        
-        return(ComponentCallback[]) methodList.toArray(new ComponentCallback[0]);
+
+        return (ComponentCallback[]) methodList.toArray(new ComponentCallback[methods.length]);
     }
 }

@@ -10,13 +10,13 @@ invoke(methodName, args)
         return args;
     
     else if ("injection".equals(methodName))
-        return newInjectionMethod(args);
+        return newInjectionCallback(args);
     
     else if ("startup".equals(methodName))
-        return newStartupMethod(args);
+        return newStartupCallback(args);
     
     else if ("shutdown".equals(methodName))
-        return newShutdownMethod(args);
+        return newShutdownCallback(args);
     
     else if("callbacks".equals(methodName))
         return toComponentCallbackArray(args);
