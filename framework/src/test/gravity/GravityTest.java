@@ -20,7 +20,7 @@ import java.net.URL;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTest.java,v 1.5 2004-09-02 04:20:57 harishkswamy Exp $
+ * @version $Id: GravityTest.java,v 1.6 2004-09-02 13:50:42 harishkswamy Exp $
  */
 public class GravityTest extends GravityTestCase
 {
@@ -114,7 +114,7 @@ public class GravityTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Cannot find resource: Non-existent.properties");
+            assertSuperString(e, "Unable to get resource for path: Non-existent.properties");
         }
     }
     

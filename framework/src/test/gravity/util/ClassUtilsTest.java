@@ -23,7 +23,7 @@ import java.text.Format;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ClassUtilsTest.java,v 1.2 2004-09-02 04:20:59 harishkswamy Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.3 2004-09-02 13:51:34 harishkswamy Exp $
  */
 public class ClassUtilsTest extends GravityTestCase
 {
@@ -58,7 +58,7 @@ public class ClassUtilsTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Cannot find resource: non-existent.file");
+            assertSuperString(e, "Unable to get resource for path: non-existent.file");
         }
     }
 

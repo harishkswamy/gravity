@@ -23,7 +23,7 @@ import java.util.Enumeration;
 // TODO fix messages usability, change cannot to unable
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ClassUtils.java,v 1.4 2004-09-02 04:20:03 harishkswamy Exp $
+ * @version $Id: ClassUtils.java,v 1.5 2004-09-02 13:50:41 harishkswamy Exp $
  */
 public class ClassUtils
 {
@@ -51,7 +51,7 @@ public class ClassUtils
         URL url = getClassLoader().getResource(path);
 
         if (url == null)
-            throw new UsageException(Message.CANNOT_GET_RESOURCE + path);
+            throw new UsageException(Message.CANNOT_GET_RESOURCE, path);
 
         return url;
     }
