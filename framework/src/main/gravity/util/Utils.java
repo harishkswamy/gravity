@@ -23,7 +23,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Utils.java,v 1.2 2004-05-24 00:38:36 harishkswamy Exp $
+ * @version $Id: Utils.java,v 1.3 2004-05-29 17:01:41 harishkswamy Exp $
  */
 public class Utils
 {
@@ -97,6 +97,9 @@ public class Utils
     {
         if (objs == null)
             return "null";
+
+        if (objs.length <= 0)
+            return "[]";
 
         StringBuffer buf = new StringBuffer();
 
