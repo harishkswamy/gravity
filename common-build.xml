@@ -14,14 +14,14 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<!-- $Id: common-build.xml,v 1.1 2004-05-10 17:28:59 harishkswamy Exp $ -->
-<project name="common-build" basedir="." default="jar">
+<!-- $Id: common-build.xml,v 1.2 2004-05-11 20:39:58 harishkswamy Exp $ -->
+<project name="common-build" basedir="." default="coverage">
 
     <!-- ========== Executable Targets ======================================== -->
 
-    <target name="init-project" description="Project-level initialization phase" />
+    <target name="pre-init" />
 
-    <target name="init" description="Initialize environment" depends="init-project">
+    <target name="init" description="Initialize environment" depends="pre-init">
 
         <!-- read properties from the build.properties, if any -->
 
@@ -51,14 +51,16 @@
 
         <property name="docs.dir" value="docs" />
 
+        <property name="coverage.build.dir" value="${test.build.dir}/coverage" />
+        <property name="coverage.classes.dir" value="${coverage.build.dir}/classes" />
+        <property name="coverage.db.dir" value="${coverage.build.dir}/db" />
+
         <property name="web.dir" value="web" />
 
         <property name="dist.dir" value="dist" />
 
         <path id="lib.classpath">
-            <fileset dir="${lib.dir}">
-                <include name="*.jar" />
-            </fileset>
+            <fileset dir="${lib.dir}" includes="*.jar" />
         </path>
 
         <path id="main.srcpath">
@@ -78,25 +80,42 @@
             <path refid="main.classpath" />
             <pathelement path="${test.classes.dir}" />
         </path>
+
+        <property name="test.classpath" value="test.classpath" />
+
+        <antcall target="post-init" />
     </target>
 
-    <target name="clean-project" description="Project-level clean phase" />
+    <target name="post-init" />
 
-    <target name="clean" description="Wipeout all generated files" depends="init, clean-project">
+    <target name="pre-clean" />
+
+    <target name="clean" description="Cleanup the build space" depends="init, pre-clean">
         <delete dir="${build.dir}" />
         <delete dir="${dist.dir}" />
         <delete dir="${web.dir}" />
+
+        <antcall target="post-clean" />
     </target>
 
-    <target name="prepare-project" description="Project-level prepare phase" />
+    <target name="post-clean" />
 
-    <target name="prepare" description="Prepare build directory" depends="init, prepare-project">
+    <target name="pre-set-up" />
+
+    <target name="set-up" description="Prepare build space" depends="init, pre-set-up">
         <mkdir dir="${main.classes.dir}" />
         <mkdir dir="${test.classes.dir}" />
         <mkdir dir="${test.results.dir}" />
+
+        <mkdir dir="${coverage.classes.dir}" />
+        <mkdir dir="${coverage.db.dir}" />
+
+        <antcall target="post-set-up" />
     </target>
 
-    <target name="compile-main" description="Compile source" depends="prepare">
+    <target name="post-set-up" />
+
+    <target name="compile-main" description="Compile main source" depends="set-up">
         <javac debug="${compile.debug}"
                deprecation="${compile.deprecation}"
                destdir="${main.classes.dir}"
@@ -105,11 +124,11 @@
                optimize="${compile.optimize}"
                srcdir="${main.src.dir}"
         >
-            <classpath refid="main.classpath" />
+            <classpath refid="lib.classpath" />
         </javac>
     </target>
 
-    <target name="compile-test" depends="compile-main">
+    <target name="compile-test" description="Compile test source" depends="compile-main">
         <javac debug="${compile.debug}"
                deprecation="${compile.deprecation}"
                destdir="${test.classes.dir}"
@@ -122,9 +141,9 @@
         </javac>
     </target>
 
-    <target name="junit" description="Run the test suite." depends="compile-test">
+    <target name="test" description="Run the test suite." depends="compile-test">
         <junit printsummary="no" errorProperty="test.failed" failureProperty="test.failed" fork="true">
-            <classpath refid="test.classpath" />
+            <classpath refid="${test.classpath}" />
             <classpath refid="test.srcpath" />
 
             <formatter type="xml" />
@@ -144,8 +163,41 @@
 
     <!-- ========== Begin: Documentation targets ========== -->
 
+    <!-- Clover code coverage targets -->
+    <target name="coverage-data" depends="compile-test">
+        <taskdef resource="clovertasks" />
+        <typedef resource="clovertypes" />
+
+        <clover-setup initString="${coverage.db.dir}/coverage.db" />
+
+        <antcall target="compile-main">
+            <param name="main.classes.dir" value="${coverage.classes.dir}" />
+        </antcall>
+
+        <path id="coverage.classpath">
+            <pathelement location="${ant.home}/lib/clover.jar" />
+            <pathelement path="${coverage.classes.dir}" />
+            <path refid="test.classpath" />
+            <path refid="test.srcpath" />
+        </path>
+
+        <antcall target="test">
+            <param name="test.classpath" value="coverage.classpath" />
+        </antcall>
+    </target>
+
+    <target name="coverage" depends="coverage-data">
+        <clover-report>
+            <current title="${component.title} - Release ${component.version}" outfile="${web.dir}/docs/clover">
+                <format type="html" />
+            </current>
+        </clover-report>
+
+        <clover-setup enabled="no" />
+    </target>
+
     <!-- Javadoc target -->
-    <target name="javadoc" description="Create component Javadoc documentation" depends="compile-main">
+    <target name="javadoc" description="Build Javadoc documentation" depends="compile-main">
         <mkdir dir="${web.dir}/docs/api" />
 
         <javadoc author="true"
@@ -162,70 +214,6 @@
         />
     </target>
 
-    <!-- Clover code coverage targets -->
-    <target name="clover-report">
-        <property name="reports.clover.dir" value="${web.dir}/docs/clover" />
-
-        <mkdir dir="${reports.clover.dir}" />
-
-        <java classname="com.cortexeb.tools.clover.reporters.html.HtmlReporter" fork="true">
-            <classpath>
-                <pathelement location="${clover.dir}/lib/clover.jar" />
-                <pathelement location="${clover.dir}/lib/velocity.jar" />
-            </classpath>
-            <arg line="--outputdir ${reports.clover.dir}" />
-            <arg line="--showSrc" />
-            <arg line="--initstring ${clover.initstring}" />
-            <arg line="--title 'Release ${component.version}'" />
-        </java>
-
-    </target>
-
-    <target name="clover" description="Run tests and construct the Clover report." depends="compile-test">
-        <property name="clover.classes.dir" value="${test.build.dir}/clover/classes" />
-        <property name="clover.db.dir" value="${test.build.dir}/clover/db" />
-        <property name="clover.initstring" location="${clover.db.dir}/clover-db" />
-
-        <mkdir dir="${clover.db.dir}" />
-        <mkdir dir="${clover.classes.dir}" />
-
-        <property name="build.compiler" value="org.apache.tools.ant.taskdefs.CloverCompilerAdapter" />
-
-        <javac srcdir="${main.src.dir}" destdir="${clover.classes.dir}" debug="on" target="1.1">
-            <classpath refid="main.classpath" />
-        </javac>
-
-        <path id="classpath.clover">
-            <pathelement path="${clover.classes.dir}" />
-            <path refid="test.classpath" />
-            <path refid="test.srcpath" />
-
-            <pathelement location="${clover.dir}/lib/clover.jar" />
-            <pathelement location="${junit.jar}" />
-        </path>
-
-        <echo>Executing suite gravity.GravityTestSuite ...</echo>
-
-        <echo>Clover Run #1:  No logging enabled ...</echo>
-
-        <java fork="true" classname="junit.textui.TestRunner" failonerror="true">
-            <classpath refid="classpath.clover" />
-
-            <arg value="gravity.GravityTestSuite" />
-        </java>
-
-        <echo>Clover Run #2: All logging enabled ...</echo>
-
-        <java fork="true" classname="junit.textui.TestRunner" failonerror="true">
-            <classpath refid="classpath.clover" />
-
-            <arg value="gravity.GravityTestSuite" />
-            <sysproperty key="log4j.configuration" value="log4j-slow.properties" />
-        </java>
-
-        <antcall target="clover-report" />
-    </target>
-
     <!-- ========== End: Documentation targets ========== -->
 
     <target name="jar" description="Create binary distribution" depends="compile-main">
@@ -233,11 +221,11 @@
 
         <copy file="LICENSE" todir="${main.classes.dir}" />
 
-        <jar basedir="${main.classes.dir}" jarfile="${dist.dir}/${component.name}-${component.version}.jar">
+        <jar basedir="${main.classes.dir}" jarfile="${dist.dir}/${component.package}-${component.version}.jar">
             <include name="**/*" />
         </jar>
     </target>
 
-    <target name="all" depends="clean, junit, clover, javadoc, jar" />
+    <target name="all" depends="clean, coverage, javadoc, jar" />
 
 </project>

@@ -14,25 +14,27 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<!-- $Id: build.xml,v 1.1 2004-05-10 17:28:49 harishkswamy Exp $ -->
-<project name="gravity-framework" basedir="." default="compile-main">
+<!-- $Id: build.xml,v 1.2 2004-05-11 20:39:58 harishkswamy Exp $ -->
+<project name="gravity-framework" basedir="." default="coverage">
 
     <import file="../common-build.xml" />
 
     <!-- ========== Executable Targets ======================================== -->
 
-    <target name="init-project" description="Initialize environment">
-        <property name="component.name" value="gravity" />
+    <target name="pre-init" description="Initialize environment">
+        <property name="component.name" value="Gravity" />
         <property name="component.package" value="gravity" />
-        <property name="component.title" value="gravity Framework" />
+        <property name="component.title" value="Gravity Framework" />
         <property name="component.version" value="1.0-alpha-1" />
     </target>
 
-    <target name="prepare-project">
+    <target name="post-set-up">
         <copy todir="${main.classes.dir}">
-            <fileset dir="${main.src.dir}">
-                <include name="**/*.bsh" />
-            </fileset>
+            <fileset dir="${main.src.dir}" includes="**/*.bsh" />
+        </copy>
+
+        <copy todir="${coverage.classes.dir}">
+            <fileset dir="${main.src.dir}" includes="**/*.bsh" />
         </copy>
     </target>
 
