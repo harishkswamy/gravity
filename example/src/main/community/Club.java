@@ -17,17 +17,23 @@ package community;
 import family.Parent;
 import family.Spouse;
 import gravity.Container;
-import gravity.Gravity;
+import gravity.impl.DefaultContainer;
+import gravity.impl.DefaultContext;
+import gravity.util.ClassUtils;
+
+import java.net.URL;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Club.java,v 1.1 2004-06-14 04:26:06 harishkswamy Exp $
+ * @version $Id: Club.java,v 1.2 2004-11-17 20:24:21 harishkswamy Exp $
  */
 public class Club
 {
     public static void main(String[] args)
     {
-        Container container = Gravity.getInstance().startup("springfield.gravity.properties");
+        URL url = ClassUtils.getResource("springfield.gravity.properties");
+
+        Container container = new DefaultContainer(new DefaultContext(url));
 
         Object homerKey = container.getComponentKey(Spouse.class, "homer");
         Spouse homer = (Spouse) container.getComponentInstance(homerKey);

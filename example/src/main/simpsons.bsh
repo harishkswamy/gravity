@@ -1,5 +1,8 @@
 import family.*;
 import family.impl.*;
+import gravity.util.*;
+
+props = Utils.loadProperties(getClass().getResource("/simpsons.properties"));
 
 homer  = componentKey( Spouse.class, "homer" );
 marge  = componentKey( Spouse.class, "marge" );
@@ -18,7 +21,7 @@ singleton
     componentImpl
     (
         homer, Father.class,
-        constructorArgs( "Homer Simpson", marge, configList("bars") )
+        constructorArgs( props{"homer.name"}, marge, configList("bars") )
     )
 );
 
