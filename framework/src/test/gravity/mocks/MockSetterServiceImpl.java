@@ -16,7 +16,7 @@ package gravity.mocks;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MockSetterServiceImpl.java,v 1.1 2004-05-10 17:28:47 harishkswamy Exp $
+ * @version $Id: MockSetterServiceImpl.java,v 1.2 2004-09-02 04:20:58 harishkswamy Exp $
  */
 public class MockSetterServiceImpl implements MockSetterService
 {
@@ -36,6 +36,7 @@ public class MockSetterServiceImpl implements MockSetterService
 
     public void service()
     {
+        // Empty
     }
 
     public void setMockService(MockService service)

@@ -18,12 +18,19 @@ import gravity.GravityTestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentStrategyTest.java,v 1.2 2004-09-02 04:20:56 harishkswamy Exp $
+ * @version $Id: DispatchingComponentStrategyTest.java,v 1.1 2004-09-02 04:20:56 harishkswamy Exp $
  */
-public class PoolingComponentStrategyTest extends GravityTestCase
+public class DispatchingComponentStrategyTest extends GravityTestCase
 {
-    public void testDecorated()
+    private DispatchingComponentStrategy _strategy;
+    
+    public void setUp()
     {
-        // Empty
+        _strategy = new DispatchingComponentStrategy(null);
+    }
+    
+    public void testToString()
+    {
+        assertEquals(_strategy.toString(), " [Dispatching] ");
     }
 }

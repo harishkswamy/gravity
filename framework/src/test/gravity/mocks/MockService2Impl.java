@@ -19,17 +19,17 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MockService2Impl.java,v 1.1 2004-05-10 17:28:47 harishkswamy Exp $
+ * @version $Id: MockService2Impl.java,v 1.2 2004-09-02 04:20:58 harishkswamy Exp $
  */
 public class MockService2Impl implements MockService2
 {
     public MockService2Impl(MockService service, List listConfig, Map mapConfig)
     {
-
+        // Empty
     }
 
     public void service()
     {
-
+        // Empty
     }
 }

@@ -19,6 +19,7 @@ import gravity.ComponentPhase;
 import gravity.GravityTestCase;
 import gravity.Location;
 import gravity.MutableContainer;
+import gravity.TypeMatcher;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 
@@ -31,7 +32,7 @@ import org.easymock.MockControl;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainerAdapterTest.java,v 1.3 2004-06-14 04:24:29 harishkswamy Exp $
+ * @version $Id: MutableContainerAdapterTest.java,v 1.4 2004-09-02 04:20:59 harishkswamy Exp $
  */
 public class MutableContainerAdapterTest extends GravityTestCase
 {
@@ -42,6 +43,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
     public void setUp()
     {
         _containerControl = MockControl.createStrictControl(MutableContainer.class);
+
         _mockContainer = (MutableContainer) _containerControl.getMock();
 
         _containerAdapter = new MutableContainerAdapter(_mockContainer);
@@ -91,32 +93,52 @@ public class MutableContainerAdapterTest extends GravityTestCase
     public void testComponentImplWithKey()
     {
         Object key = new Object();
-        Object[] cArgs = new Object[0];
-        ComponentCallback[] callbacks = new ComponentCallback[0];
+        Object[] args = new Object[0];
+        ComponentCallback[] callbacks = new ComponentCallback[1];
+        callbacks[0] = new ComponentCallback("setObject", args, ComponentPhase.INJECTION);
 
         _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
-            MockComboServiceImpl.class, cArgs, callbacks), key, 1);
+            MockComboServiceImpl.class, args, callbacks), key, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
             new Location(null, 0)), key, 1);
+
         _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
-            MockComboServiceImpl.class, cArgs, null), key, 1);
+            MockComboServiceImpl.class, args, callbacks), key, 1);
+        _containerControl.setMatcher(new TypeMatcher());
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
             new Location(null, 0)), key, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
+            MockComboServiceImpl.class, args, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+
         _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
             MockComboServiceImpl.class, null, callbacks), key, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
             new Location(null, 0)), key, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
+            MockComboServiceImpl.class, null, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+
         _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(key,
             MockComboServiceImpl.class, null, null), key, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
             new Location(null, 0)), key, 1);
+
         _containerControl.replay();
 
-        Object rtnVal1 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, cArgs,
+        Object rtnVal1 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, args,
             callbacks);
-        Object rtnVal2 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, cArgs);
-        Object rtnVal3 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, callbacks);
-        Object rtnVal4 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class);
+        Object rtnVal2 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, args,
+            callbacks[0]);
+        Object rtnVal3 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, args);
+        Object rtnVal4 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class, callbacks);
+        Object rtnVal5 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class,
+            callbacks[0]);
+        Object rtnVal6 = _containerAdapter.componentImpl(key, MockComboServiceImpl.class);
 
         _containerControl.verify();
 
@@ -124,15 +146,25 @@ public class MutableContainerAdapterTest extends GravityTestCase
         assertSame(rtnVal2, key);
         assertSame(rtnVal3, key);
         assertSame(rtnVal4, key);
+        assertSame(rtnVal5, key);
+        assertSame(rtnVal6, key);
     }
 
     private void setUpMockControl(Object compKey, String compType, Object[] cArgs,
-        ComponentCallback[] methods)
+        ComponentCallback[] callbacks)
     {
         _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
             compType), compKey, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
-            MockComboServiceImpl.class, cArgs, methods), compKey, 1);
+            MockComboServiceImpl.class, cArgs, callbacks), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
+            compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, cArgs, callbacks), compKey, 1);
+        _containerControl.setMatcher(new TypeMatcher());
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
             compKey, new Location(null, 0)), compKey, 1);
 
@@ -146,7 +178,14 @@ public class MutableContainerAdapterTest extends GravityTestCase
         _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
             compType), compKey, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
-            MockComboServiceImpl.class, null, methods), compKey, 1);
+            MockComboServiceImpl.class, null, callbacks), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(MockComboService.class,
+            compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, null, callbacks), compKey, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
             compKey, new Location(null, 0)), compKey, 1);
 
@@ -164,19 +203,24 @@ public class MutableContainerAdapterTest extends GravityTestCase
     {
         Object[] cArgs = new Object[0];
 
-        ComponentCallback[] methods = new ComponentCallback[0];
+        ComponentCallback[] callbacks = new ComponentCallback[1];
+        callbacks[0] = new ComponentCallback("setObject", cArgs, ComponentPhase.INJECTION);
 
         Object compKey = new Object();
 
-        setUpMockControl(compKey, "variant", cArgs, methods);
+        setUpMockControl(compKey, "variant", cArgs, callbacks);
 
         Object rtnKey1 = _containerAdapter.componentImpl(MockComboService.class, "variant",
-            MockComboServiceImpl.class, cArgs, methods);
+            MockComboServiceImpl.class, cArgs, callbacks);
         Object rtnKey2 = _containerAdapter.componentImpl(MockComboService.class, "variant",
-            MockComboServiceImpl.class, cArgs);
+            MockComboServiceImpl.class, cArgs, callbacks[0]);
         Object rtnKey3 = _containerAdapter.componentImpl(MockComboService.class, "variant",
-            MockComboServiceImpl.class, methods);
+            MockComboServiceImpl.class, cArgs);
         Object rtnKey4 = _containerAdapter.componentImpl(MockComboService.class, "variant",
+            MockComboServiceImpl.class, callbacks);
+        Object rtnKey5 = _containerAdapter.componentImpl(MockComboService.class, "variant",
+            MockComboServiceImpl.class, callbacks[0]);
+        Object rtnKey6 = _containerAdapter.componentImpl(MockComboService.class, "variant",
             MockComboServiceImpl.class);
 
         _containerControl.verify();
@@ -185,25 +229,32 @@ public class MutableContainerAdapterTest extends GravityTestCase
         assertEquals(rtnKey2, compKey);
         assertEquals(rtnKey3, compKey);
         assertEquals(rtnKey4, compKey);
+        assertEquals(rtnKey5, compKey);
+        assertEquals(rtnKey6, compKey);
     }
 
     public void testDefaultComponentImplWithInterface()
     {
         Object[] cArgs = new Object[0];
 
-        ComponentCallback[] methods = new ComponentCallback[0];
+        ComponentCallback[] callbacks = new ComponentCallback[1];
+        callbacks[0] = new ComponentCallback("setObject", cArgs, ComponentPhase.INJECTION);
 
         Object compKey = new Object();
 
-        setUpMockControl(compKey, null, cArgs, methods);
+        setUpMockControl(compKey, null, cArgs, callbacks);
 
         Object rtnKey1 = _containerAdapter.componentImpl(MockComboService.class,
-            MockComboServiceImpl.class, cArgs, methods);
+            MockComboServiceImpl.class, cArgs, callbacks);
         Object rtnKey2 = _containerAdapter.componentImpl(MockComboService.class,
-            MockComboServiceImpl.class, cArgs);
+            MockComboServiceImpl.class, cArgs, callbacks[0]);
         Object rtnKey3 = _containerAdapter.componentImpl(MockComboService.class,
-            MockComboServiceImpl.class, methods);
+            MockComboServiceImpl.class, cArgs);
         Object rtnKey4 = _containerAdapter.componentImpl(MockComboService.class,
+            MockComboServiceImpl.class, callbacks);
+        Object rtnKey5 = _containerAdapter.componentImpl(MockComboService.class,
+            MockComboServiceImpl.class, callbacks[0]);
+        Object rtnKey6 = _containerAdapter.componentImpl(MockComboService.class,
             MockComboServiceImpl.class);
 
         _containerControl.verify();
@@ -212,15 +263,25 @@ public class MutableContainerAdapterTest extends GravityTestCase
         assertEquals(rtnKey2, compKey);
         assertEquals(rtnKey3, compKey);
         assertEquals(rtnKey4, compKey);
+        assertEquals(rtnKey5, compKey);
+        assertEquals(rtnKey6, compKey);
     }
 
     private void setUpImplMockControl(Object compKey, String compType, Object[] cArgs,
-        ComponentCallback[] methods)
+        ComponentCallback[] callbacks)
     {
         _containerControl.expectAndReturn(_mockContainer.getComponentKey(
             MockComboServiceImpl.class, compType), compKey, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
-            MockComboServiceImpl.class, cArgs, methods), compKey, 1);
+            MockComboServiceImpl.class, cArgs, callbacks), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(
+            MockComboServiceImpl.class, compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, cArgs, callbacks), compKey, 1);
+        _containerControl.setMatcher(new TypeMatcher());
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
             compKey, new Location(null, 0)), compKey, 1);
 
@@ -234,7 +295,14 @@ public class MutableContainerAdapterTest extends GravityTestCase
         _containerControl.expectAndReturn(_mockContainer.getComponentKey(
             MockComboServiceImpl.class, compType), compKey, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
-            MockComboServiceImpl.class, null, methods), compKey, 1);
+            MockComboServiceImpl.class, null, callbacks), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
+            compKey, new Location(null, 0)), compKey, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(
+            MockComboServiceImpl.class, compType), compKey, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentImplementation(compKey,
+            MockComboServiceImpl.class, null, callbacks), compKey, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(
             compKey, new Location(null, 0)), compKey, 1);
 
@@ -252,19 +320,24 @@ public class MutableContainerAdapterTest extends GravityTestCase
     {
         Object[] cArgs = new Object[0];
 
-        ComponentCallback[] methods = new ComponentCallback[0];
+        ComponentCallback[] callbacks = new ComponentCallback[1];
+        callbacks[0] = new ComponentCallback("setObject", cArgs, ComponentPhase.INJECTION);
 
         Object compKey = new Object();
 
-        setUpImplMockControl(compKey, "variant", cArgs, methods);
+        setUpImplMockControl(compKey, "variant", cArgs, callbacks);
 
         Object rtnKey1 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant",
-            cArgs, methods);
+            cArgs, callbacks);
         Object rtnKey2 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant",
-            cArgs);
+            cArgs, callbacks[0]);
         Object rtnKey3 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant",
-            methods);
-        Object rtnKey4 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant");
+            cArgs);
+        Object rtnKey4 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant",
+            callbacks);
+        Object rtnKey5 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant",
+            callbacks[0]);
+        Object rtnKey6 = _containerAdapter.componentImpl(MockComboServiceImpl.class, "variant");
 
         _containerControl.verify();
 
@@ -272,22 +345,29 @@ public class MutableContainerAdapterTest extends GravityTestCase
         assertEquals(rtnKey2, compKey);
         assertEquals(rtnKey3, compKey);
         assertEquals(rtnKey4, compKey);
+        assertEquals(rtnKey5, compKey);
+        assertEquals(rtnKey6, compKey);
     }
 
     public void testRegisterDefaultComponentImplWithClass()
     {
         Object[] cArgs = new Object[0];
 
-        ComponentCallback[] methods = new ComponentCallback[0];
+        ComponentCallback[] callbacks = new ComponentCallback[1];
+        callbacks[0] = new ComponentCallback("setObject", cArgs, ComponentPhase.INJECTION);
 
         Object compKey = new Object();
 
-        setUpImplMockControl(compKey, null, cArgs, methods);
+        setUpImplMockControl(compKey, null, cArgs, callbacks);
 
-        Object rtnKey1 = _containerAdapter.componentImpl(MockComboServiceImpl.class, cArgs, methods);
-        Object rtnKey2 = _containerAdapter.componentImpl(MockComboServiceImpl.class, cArgs);
-        Object rtnKey3 = _containerAdapter.componentImpl(MockComboServiceImpl.class, methods);
-        Object rtnKey4 = _containerAdapter.componentImpl(MockComboServiceImpl.class);
+        Object rtnKey1 = _containerAdapter.componentImpl(MockComboServiceImpl.class, cArgs,
+            callbacks);
+        Object rtnKey2 = _containerAdapter.componentImpl(MockComboServiceImpl.class, cArgs,
+            callbacks[0]);
+        Object rtnKey3 = _containerAdapter.componentImpl(MockComboServiceImpl.class, cArgs);
+        Object rtnKey4 = _containerAdapter.componentImpl(MockComboServiceImpl.class, callbacks);
+        Object rtnKey5 = _containerAdapter.componentImpl(MockComboServiceImpl.class, callbacks[0]);
+        Object rtnKey6 = _containerAdapter.componentImpl(MockComboServiceImpl.class);
 
         _containerControl.verify();
 
@@ -295,6 +375,8 @@ public class MutableContainerAdapterTest extends GravityTestCase
         assertEquals(rtnKey2, compKey);
         assertEquals(rtnKey3, compKey);
         assertEquals(rtnKey4, compKey);
+        assertEquals(rtnKey5, compKey);
+        assertEquals(rtnKey6, compKey);
     }
 
     public void testComponentFacWithKey()
@@ -302,7 +384,8 @@ public class MutableContainerAdapterTest extends GravityTestCase
         Object key = new Object();
         Object fac = new Object();
         Object[] mArgs = new Object[0];
-        ComponentCallback[] callbacks = new ComponentCallback[0];
+        ComponentCallback[] callbacks = new ComponentCallback[1];
+        callbacks[0] = new ComponentCallback("setObject", mArgs, ComponentPhase.INJECTION);
 
         _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
             "method", mArgs, callbacks), key, 1);
@@ -310,7 +393,18 @@ public class MutableContainerAdapterTest extends GravityTestCase
             new Location(null, 0)), key, 1);
 
         _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", mArgs, callbacks), key, 1);
+        _containerControl.setMatcher(new TypeMatcher());
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
             "method", mArgs, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", null, callbacks), key, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
             new Location(null, 0)), key, 1);
 
@@ -327,9 +421,11 @@ public class MutableContainerAdapterTest extends GravityTestCase
         _containerControl.replay();
 
         Object rtnVal1 = _containerAdapter.componentFac(key, fac, "method", mArgs, callbacks);
-        Object rtnVal2 = _containerAdapter.componentFac(key, fac, "method", mArgs);
-        Object rtnVal3 = _containerAdapter.componentFac(key, fac, "method", callbacks);
-        Object rtnVal4 = _containerAdapter.componentFac(key, fac, "method");
+        Object rtnVal2 = _containerAdapter.componentFac(key, fac, "method", mArgs, callbacks[0]);
+        Object rtnVal3 = _containerAdapter.componentFac(key, fac, "method", mArgs);
+        Object rtnVal4 = _containerAdapter.componentFac(key, fac, "method", callbacks);
+        Object rtnVal5 = _containerAdapter.componentFac(key, fac, "method", callbacks[0]);
+        Object rtnVal6 = _containerAdapter.componentFac(key, fac, "method");
 
         _containerControl.verify();
 
@@ -337,6 +433,8 @@ public class MutableContainerAdapterTest extends GravityTestCase
         assertSame(rtnVal2, key);
         assertSame(rtnVal3, key);
         assertSame(rtnVal4, key);
+        assertSame(rtnVal5, key);
+        assertSame(rtnVal6, key);
     }
 
     private void setUpMockControlForComponentFac(Class intf, Object type, Object key, Object fac,
@@ -350,7 +448,20 @@ public class MutableContainerAdapterTest extends GravityTestCase
 
         _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", mArgs, callbacks), key, 1);
+        _containerControl.setMatcher(new TypeMatcher());
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
             "method", mArgs, null), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
+            new Location(null, 0)), key, 1);
+
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.registerComponentFactory(key, fac,
+            "method", null, callbacks), key, 1);
         _containerControl.expectAndReturn(_mockContainer.registerComponentRegistrationLocation(key,
             new Location(null, 0)), key, 1);
 
@@ -379,14 +490,18 @@ public class MutableContainerAdapterTest extends GravityTestCase
         Object key = new Object();
         Object fac = new Object();
         Object[] mArgs = new Object[0];
-        ComponentCallback[] callbacks = new ComponentCallback[0];
+        ComponentCallback[] callbacks = new ComponentCallback[1];
+        callbacks[0] = new ComponentCallback("setObject", mArgs, ComponentPhase.INJECTION);
 
         setUpMockControlForComponentFac(intf, type, key, fac, mArgs, callbacks);
 
         Object rtnVal1 = _containerAdapter.componentFac(intf, type, fac, "method", mArgs, callbacks);
-        Object rtnVal2 = _containerAdapter.componentFac(intf, type, fac, "method", mArgs);
-        Object rtnVal3 = _containerAdapter.componentFac(intf, type, fac, "method", callbacks);
-        Object rtnVal4 = _containerAdapter.componentFac(intf, type, fac, "method");
+        Object rtnVal2 = _containerAdapter.componentFac(intf, type, fac, "method", mArgs,
+            callbacks[0]);
+        Object rtnVal3 = _containerAdapter.componentFac(intf, type, fac, "method", mArgs);
+        Object rtnVal4 = _containerAdapter.componentFac(intf, type, fac, "method", callbacks);
+        Object rtnVal5 = _containerAdapter.componentFac(intf, type, fac, "method", callbacks[0]);
+        Object rtnVal6 = _containerAdapter.componentFac(intf, type, fac, "method");
 
         _containerControl.verify();
 
@@ -394,6 +509,8 @@ public class MutableContainerAdapterTest extends GravityTestCase
         assertSame(rtnVal2, key);
         assertSame(rtnVal3, key);
         assertSame(rtnVal4, key);
+        assertSame(rtnVal5, key);
+        assertSame(rtnVal6, key);
     }
 
     public void testComponentFacWithInterface()
@@ -402,14 +519,17 @@ public class MutableContainerAdapterTest extends GravityTestCase
         Object key = new Object();
         Object fac = new Object();
         Object[] mArgs = new Object[0];
-        ComponentCallback[] callbacks = new ComponentCallback[0];
+        ComponentCallback[] callbacks = new ComponentCallback[1];
+        callbacks[0] = new ComponentCallback("setObject", mArgs, ComponentPhase.INJECTION);
 
         setUpMockControlForComponentFac(intf, null, key, fac, mArgs, callbacks);
 
         Object rtnVal1 = _containerAdapter.componentFac(intf, fac, "method", mArgs, callbacks);
-        Object rtnVal2 = _containerAdapter.componentFac(intf, fac, "method", mArgs);
-        Object rtnVal3 = _containerAdapter.componentFac(intf, fac, "method", callbacks);
-        Object rtnVal4 = _containerAdapter.componentFac(intf, fac, "method");
+        Object rtnVal2 = _containerAdapter.componentFac(intf, fac, "method", mArgs, callbacks[0]);
+        Object rtnVal3 = _containerAdapter.componentFac(intf, fac, "method", mArgs);
+        Object rtnVal4 = _containerAdapter.componentFac(intf, fac, "method", callbacks);
+        Object rtnVal5 = _containerAdapter.componentFac(intf, fac, "method", callbacks[0]);
+        Object rtnVal6 = _containerAdapter.componentFac(intf, fac, "method");
 
         _containerControl.verify();
 
@@ -417,6 +537,8 @@ public class MutableContainerAdapterTest extends GravityTestCase
         assertSame(rtnVal2, key);
         assertSame(rtnVal3, key);
         assertSame(rtnVal4, key);
+        assertSame(rtnVal5, key);
+        assertSame(rtnVal6, key);
     }
 
     // add constructor args tests
@@ -432,16 +554,20 @@ public class MutableContainerAdapterTest extends GravityTestCase
             cArgs), key, 1);
         _containerControl.expectAndReturn(
             _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.expectAndReturn(
+            _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.setMatcher(new TypeMatcher());
+
         _containerControl.replay();
 
         Object rtnVal1 = _containerAdapter.add(key, cArgs);
-        //Object rtnVal2 = _containerAdapter.add(key, callback);
+        Object rtnVal2 = _containerAdapter.add(key, callback);
         Object rtnVal3 = _containerAdapter.add(key, callbacks);
 
         _containerControl.verify();
 
         assertSame(rtnVal1, key);
-        //assertSame(rtnVal2, key);
+        assertSame(rtnVal2, key);
         assertSame(rtnVal3, key);
     }
 
@@ -451,7 +577,7 @@ public class MutableContainerAdapterTest extends GravityTestCase
         Object type = "variant";
         Object key = new Object();
         Object[] cArgs = new Object[0];
-        ComponentCallback callback = new ComponentCallback("name", cArgs, ComponentPhase.INJECTION);
+        ComponentCallback callback = new ComponentCallback("setName", cArgs, ComponentPhase.INJECTION);
         ComponentCallback[] callbacks = {callback};
 
         _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
@@ -460,16 +586,20 @@ public class MutableContainerAdapterTest extends GravityTestCase
         _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
         _containerControl.expectAndReturn(
             _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf, type), key, 1);
+        _containerControl.expectAndReturn(
+            _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.setMatcher(new TypeMatcher());
         _containerControl.replay();
 
         Object rtnVal1 = _containerAdapter.add(intf, type, cArgs);
-        //Object rtnVal2 = _containerAdapter.add(key, callback);
+        Object rtnVal2 = _containerAdapter.add(intf, type, callback);
         Object rtnVal3 = _containerAdapter.add(intf, type, callbacks);
 
         _containerControl.verify();
 
         assertSame(rtnVal1, key);
-        //assertSame(rtnVal2, key);
+        assertSame(rtnVal2, key);
         assertSame(rtnVal3, key);
     }
 
@@ -487,16 +617,20 @@ public class MutableContainerAdapterTest extends GravityTestCase
         _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf), key, 1);
         _containerControl.expectAndReturn(
             _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.expectAndReturn(_mockContainer.getComponentKey(intf), key, 1);
+        _containerControl.expectAndReturn(
+            _mockContainer.registerComponentCallbacks(key, callbacks), key, 1);
+        _containerControl.setMatcher(new TypeMatcher());
         _containerControl.replay();
 
         Object rtnVal1 = _containerAdapter.add(intf, cArgs);
-        //Object rtnVal2 = _containerAdapter.add(key, callback);
+        Object rtnVal2 = _containerAdapter.add(intf, callback);
         Object rtnVal3 = _containerAdapter.add(intf, callbacks);
 
         _containerControl.verify();
 
         assertSame(rtnVal1, key);
-        //assertSame(rtnVal2, key);
+        assertSame(rtnVal2, key);
         assertSame(rtnVal3, key);
     }
 

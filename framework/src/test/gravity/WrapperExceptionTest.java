@@ -21,7 +21,7 @@ import java.io.StringWriter;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: WrapperExceptionTest.java,v 1.1 2004-05-10 17:29:08 harishkswamy Exp $
+ * @version $Id: WrapperExceptionTest.java,v 1.2 2004-09-02 04:20:57 harishkswamy Exp $
  */
 public class WrapperExceptionTest extends GravityTestCase
 {
@@ -82,11 +82,11 @@ public class WrapperExceptionTest extends GravityTestCase
 
         t = WrapperException.wrap(t, "Wrapped msg");
 
-        assertSuperString(t, "java.lang.Exception: Wrapped msg");
+        assertSuperString(t, "java.lang.Exception: [Wrapped msg]");
 
         t = WrapperException.wrap(t, "Double wrapped msg");
 
-        assertSuperString(t, "java.lang.Exception: Double wrapped msg\n\tWrapped msg");
+        assertSuperString(t, "java.lang.Exception: [Double wrapped msg]\n\t[Wrapped msg]");
     }
 
     public void testPrintStackTrace()
@@ -99,7 +99,7 @@ public class WrapperExceptionTest extends GravityTestCase
 
         t.printStackTrace();
 
-        assertSuperString(buf, "java.lang.Exception: Appended message.");
+        assertSuperString(buf, "java.lang.Exception: [Appended message.]");
 
         t = WrapperException.wrap(new Exception("Test exception."));
 
@@ -117,7 +117,7 @@ public class WrapperExceptionTest extends GravityTestCase
 
         t.printStackTrace(out);
 
-        assertSuperString(buf, "java.lang.Exception: Appended message.");
+        assertSuperString(buf, "java.lang.Exception: [Appended message.]");
     }
 
     public void testPrintStackTraceToPrintWriter()
@@ -129,7 +129,7 @@ public class WrapperExceptionTest extends GravityTestCase
 
         t.printStackTrace(out);
 
-        assertSuperString(buf, "java.lang.Exception: Appended message.");
+        assertSuperString(buf, "java.lang.Exception: [Appended message.]");
 
         t = WrapperException.wrap(new Exception("Test exception."));
 

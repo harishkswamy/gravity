@@ -15,6 +15,7 @@
 package gravity.util;
 
 import gravity.GravityTestCase;
+import gravity.UsageException;
 import gravity.WrapperException;
 import gravity.mocks.MockComboServiceImpl;
 import gravity.mocks.MockSetterServiceImpl;
@@ -23,7 +24,7 @@ import java.text.Format;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtilsTest.java,v 1.4 2004-06-14 04:24:30 harishkswamy Exp $
+ * @version $Id: ReflectUtilsTest.java,v 1.5 2004-09-02 04:20:59 harishkswamy Exp $
  */
 public class ReflectUtilsTest extends GravityTestCase
 {
@@ -107,9 +108,9 @@ public class ReflectUtilsTest extends GravityTestCase
 
             unreachable();
         }
-        catch (WrapperException e)
+        catch (UsageException e)
         {
-            assertSuperString(e.getWrapped(),
+            assertSuperString(e,
                 "Unable to find method: setUnavailableProp(java.lang.String) in: class "
                     + "java.lang.Object");
         }
@@ -124,11 +125,10 @@ public class ReflectUtilsTest extends GravityTestCase
 
             unreachable();
         }
-        catch (WrapperException e)
+        catch (UsageException e)
         {
-            assertSuperString(e.getWrapped(),
-                "Unable to find method: setPrimitive(java.lang.String) in: class "
-                    + "gravity.mocks.MockComboServiceImpl");
+            assertSuperString(e, "Unable to find method: setPrimitive(java.lang.String) in: class "
+                + "gravity.mocks.MockComboServiceImpl");
         }
     }
 
@@ -142,7 +142,7 @@ public class ReflectUtilsTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Unable to invoke method: null()");
+            assertSuperString(e, "Unable to find method: null() in: class java.lang.Object.");
         }
     }
 }

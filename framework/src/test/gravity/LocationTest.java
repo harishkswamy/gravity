@@ -16,7 +16,7 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: LocationTest.java,v 1.1 2004-06-14 04:24:27 harishkswamy Exp $
+ * @version $Id: LocationTest.java,v 1.2 2004-09-02 04:20:57 harishkswamy Exp $
  */
 public class LocationTest extends GravityTestCase
 {
@@ -24,15 +24,20 @@ public class LocationTest extends GravityTestCase
     {
         Location loc1 = new Location("rsrc", 10);
         Location loc2 = new Location("rsrc", 10);
-        
-        assertEquals(loc1, loc2);
+
+        assertTrue(loc1.equals(loc1));
+        assertTrue(loc1.equals(loc2));
+        assertFalse(loc1.equals(new Object()));
+        assertFalse(loc1.equals(new Location("rsrc", 20)));
+
         assertEquals(loc1.hashCode(), loc2.hashCode());
+        assertFalse(loc1.hashCode() == new Location(null, 10).hashCode());
     }
-    
+
     public void testToString()
     {
         Location loc1 = new Location("rsrc", 10);
-        
+
         assertEquals(loc1.toString(), "[Resource: rsrc, Line: 10]");
     }
 }

@@ -16,7 +16,7 @@ package gravity.mocks;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MockComboService.java,v 1.2 2004-05-18 04:56:33 harishkswamy Exp $
+ * @version $Id: MockComboService.java,v 1.3 2004-09-02 04:20:58 harishkswamy Exp $
  */
 public interface MockComboService
 {
@@ -27,4 +27,6 @@ public interface MockComboService
     public Object getObject();
 
     public void setObject(Object object);
+
+    public int getCounter();
 }

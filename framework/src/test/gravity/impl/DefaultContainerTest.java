@@ -14,8 +14,8 @@
 
 package gravity.impl;
 
-import gravity.ComponentPhase;
 import gravity.ComponentCallback;
+import gravity.ComponentPhase;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.Location;
@@ -30,7 +30,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainerTest.java,v 1.5 2004-06-14 04:24:26 harishkswamy Exp $
+ * @version $Id: DefaultContainerTest.java,v 1.6 2004-09-02 04:20:55 harishkswamy Exp $
  */
 public class DefaultContainerTest extends GravityTestCase
 {

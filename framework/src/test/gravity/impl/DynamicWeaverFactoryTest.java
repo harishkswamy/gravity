@@ -20,7 +20,7 @@ import gravity.GravityTestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DynamicWeaverFactoryTest.java,v 1.3 2004-05-18 20:51:55 harishkswamy Exp $
+ * @version $Id: DynamicWeaverFactoryTest.java,v 1.4 2004-09-02 04:20:56 harishkswamy Exp $
  */
 public class DynamicWeaverFactoryTest extends GravityTestCase
 {
@@ -78,7 +78,7 @@ public class DynamicWeaverFactoryTest extends GravityTestCase
         DynamicWeaverFactory.cleanup();
 
         Gravity.getInstance().setProperty(Gravity.DYNAMIC_WEAVER_CLASS_NAME_KEY,
-            "gravity.plugins.BshPlugin");
+            "gravity.plugins.bsh.BshPlugin");
 
         try
         {
@@ -88,7 +88,7 @@ public class DynamicWeaverFactoryTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "gravity.plugins.BshPlugin must implement gravity.DynamicWeaver");
+            assertSuperString(e, "gravity.plugins.bsh.BshPlugin must implement gravity.DynamicWeaver");
         }
     }
 }

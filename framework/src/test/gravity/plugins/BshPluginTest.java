@@ -19,6 +19,7 @@ import gravity.GravityTestCase;
 import gravity.MutableContainer;
 import gravity.Plugin;
 import gravity.impl.DefaultContainer;
+import gravity.plugins.bsh.BshPlugin;
 import gravity.util.ClassUtils;
 
 import java.util.Enumeration;
@@ -26,7 +27,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginTest.java,v 1.5 2004-06-14 04:24:29 harishkswamy Exp $
+ * @version $Id: BshPluginTest.java,v 1.6 2004-09-02 04:20:59 harishkswamy Exp $
  */
 public class BshPluginTest extends GravityTestCase
 {

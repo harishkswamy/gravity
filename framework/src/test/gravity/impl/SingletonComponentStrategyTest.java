@@ -17,7 +17,7 @@ package gravity.impl;
 import gravity.ComponentStrategy;
 import gravity.Gravity;
 import gravity.GravityTestCase;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentStrategyTest.java,v 1.2 2004-06-14 04:24:26 harishkswamy Exp $
+ * @version $Id: SingletonComponentStrategyTest.java,v 1.3 2004-09-02 04:20:56 harishkswamy Exp $
  */
 public class SingletonComponentStrategyTest extends GravityTestCase
 {
@@ -39,11 +39,11 @@ public class SingletonComponentStrategyTest extends GravityTestCase
         Gravity.getInstance().shutdown();
     }
 
-    private ProxyableComponent newComponent(Class compIntf, Object compType)
+    private RealizableComponent newComponent(Class compIntf, Object compType)
     {
         ComponentKey compKey = new ComponentKey(compIntf, compType);
 
-        ProxyableComponent comp = new DefaultComponent(compKey);
+        RealizableComponent comp = new DefaultComponent(compKey);
 
         return comp;
     }
@@ -55,24 +55,9 @@ public class SingletonComponentStrategyTest extends GravityTestCase
         return new SingletonComponentStrategy(factory);
     }
 
-    public void testGetComponentInstance()
-    {
-        ProxyableComponent comp = newComponent(MockComboService.class, null);
-
-        ComponentStrategy factory = newSingletonComponent();
-
-        MockComboService service = (MockComboService) factory.getComponentInstance(comp);
-
-        assertNotNull(service);
-
-        MockComboService service2 = (MockComboService) factory.getComponentInstance(comp);
-
-        assertTrue(service != service2);
-    }
-
     public void testBuildComponentInstance()
     {
-        ProxyableComponent comp = newComponent(MockComboService.class, null);
+        RealizableComponent comp = newComponent(MockComboService.class, null);
 
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
@@ -92,10 +77,9 @@ public class SingletonComponentStrategyTest extends GravityTestCase
 
     public void testToString()
     {
-        //ProxyableComponent comp = newComponent(MockComboService.class, null);
+        //RealizableComponent comp = newComponent(MockComboService.class, null);
         ComponentStrategy factory = newSingletonComponent();
 
-        assertEquals(factory.toString(),
-            " [Singleton [Lazy Loading] ] ");
+        assertEquals(factory.toString(), " [Singleton [Lazy Loading] ] ");
     }
 }

@@ -16,14 +16,14 @@ package gravity.util;
 
 import gravity.Gravity;
 import gravity.GravityTestCase;
-import gravity.plugins.BshPlugin;
+import gravity.plugins.bsh.BshPlugin;
 
 import java.net.URL;
 import java.text.Format;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ClassUtilsTest.java,v 1.1 2004-05-10 17:29:12 harishkswamy Exp $
+ * @version $Id: ClassUtilsTest.java,v 1.2 2004-09-02 04:20:59 harishkswamy Exp $
  */
 public class ClassUtilsTest extends GravityTestCase
 {
@@ -79,7 +79,7 @@ public class ClassUtilsTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Cannot instantiate object for class: class java.text.Format");
+            assertSuperString(e, "Unable to instantiate object for class: class java.text.Format");
         }
     }
 
@@ -100,13 +100,13 @@ public class ClassUtilsTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Cannot load class: NonExistentClass");
+            assertSuperString(e, "Unable to load class: NonExistentClass");
         }
     }
 
     public void testNewInstanceFromClassName()
     {
-        Object obj = ClassUtils.newInstance("gravity.plugins.BshPlugin");
+        Object obj = ClassUtils.newInstance("gravity.plugins.bsh.BshPlugin");
         
         assertNotNull(obj);
     }

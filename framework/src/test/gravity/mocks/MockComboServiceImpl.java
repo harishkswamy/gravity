@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MockComboServiceImpl.java,v 1.3 2004-05-22 20:19:28 harishkswamy Exp $
+ * @version $Id: MockComboServiceImpl.java,v 1.4 2004-09-02 04:20:58 harishkswamy Exp $
  */
 public class MockComboServiceImpl implements MockComboService
 {
@@ -28,6 +28,7 @@ public class MockComboServiceImpl implements MockComboService
     Object       _object;
     int          _primitive;
     volatile int _hashCode;
+    int          _counter;
 
     public MockComboServiceImpl(int id, List list)
     {
@@ -57,6 +58,12 @@ public class MockComboServiceImpl implements MockComboService
 
     public void service()
     {
+        _counter++;
+    }
+    
+    public int getCounter()
+    {
+        return _counter;
     }
 
     public void setMockService(MockService service)

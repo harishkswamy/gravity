@@ -15,12 +15,12 @@
 package gravity.mocks;
 
 import gravity.impl.DefaultContainer;
-import gravity.plugins.BshPlugin;
 import gravity.plugins.MutableContainerAdapter;
+import gravity.plugins.bsh.BshPlugin;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MockRegistryBuilder.java,v 1.3 2004-05-24 00:38:37 harishkswamy Exp $
+ * @version $Id: MockRegistryBuilder.java,v 1.4 2004-09-02 04:20:58 harishkswamy Exp $
  */
 public class MockRegistryBuilder extends BshPlugin
 {

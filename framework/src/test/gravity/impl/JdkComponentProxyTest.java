@@ -16,7 +16,7 @@ package gravity.impl;
 
 import gravity.Gravity;
 import gravity.GravityTestCase;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 import gravity.mocks.MockService;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxyTest.java,v 1.5 2004-06-14 04:24:27 harishkswamy Exp $
+ * @version $Id: JdkComponentProxyTest.java,v 1.6 2004-09-02 04:20:57 harishkswamy Exp $
  */
 public class JdkComponentProxyTest extends GravityTestCase
 {
@@ -41,7 +41,7 @@ public class JdkComponentProxyTest extends GravityTestCase
         Gravity.getInstance().shutdown();
     }
 
-    private ProxyableComponent newComponent(Class intf, Object type)
+    private RealizableComponent newComponent(Class intf, Object type)
     {
         ComponentKey key = new ComponentKey(intf, type);
         return new DefaultComponent(key);
@@ -57,7 +57,7 @@ public class JdkComponentProxyTest extends GravityTestCase
 
     public void testMethodInvocationError()
     {
-        ProxyableComponent comp = newComponent(MockService.class, null);
+        RealizableComponent comp = newComponent(MockService.class, null);
         MockService service = (MockService) _proxyFactory.newInstance(comp);
 
         comp.registerImplementation(ArrayList.class, null, null);
@@ -97,7 +97,7 @@ public class JdkComponentProxyTest extends GravityTestCase
 
     public void testInvokeComponent()
     {
-        ProxyableComponent comp = newComponent(MockComboService.class, null);
+        RealizableComponent comp = newComponent(MockComboService.class, null);
         MockComboService service = (MockComboService) _proxyFactory.newInstance(comp);
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};

@@ -19,7 +19,7 @@ import gravity.ComponentCallback;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.Location;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 import gravity.mocks.MockSetterService;
@@ -31,7 +31,7 @@ import java.util.List;
 // TODO test location in messages
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentTest.java,v 1.6 2004-06-14 04:24:26 harishkswamy Exp $
+ * @version $Id: ComponentTest.java,v 1.7 2004-09-02 04:20:56 harishkswamy Exp $
  */
 public class ComponentTest extends GravityTestCase
 {
@@ -47,40 +47,40 @@ public class ComponentTest extends GravityTestCase
         Gravity.getInstance().shutdown();
     }
 
-    private ProxyableComponent newComponent(Class intf, String type, Location intfLoc, Class impl,
+    private RealizableComponent newComponent(Class intf, String type, Location intfLoc, Class impl,
         Object[] args, ComponentCallback[] startUpMethods, Location implLoc)
     {
         ComponentKey compKey = new ComponentKey(intf, type);
 
-        ProxyableComponent state = new DefaultComponent(compKey);
+        RealizableComponent comp = new DefaultComponent(compKey);
 
-        state.registerImplementation(impl, args, startUpMethods);
-        state.setRetrievalLocation(intfLoc);
-        state.setRegistrationLocation(implLoc);
+        comp.registerImplementation(impl, args, startUpMethods);
+        comp.setRetrievalLocation(intfLoc);
+        comp.setRegistrationLocation(implLoc);
 
-        return state;
+        return comp;
     }
 
     public void testUnavailableService()
     {
-        ProxyableComponent state = newComponent(List.class, "def", null, null, null, null, null);
+        RealizableComponent comp = newComponent(List.class, "def", null, null, null, null, null);
 
         try
         {
-            state.newInstance();
+            comp.newInstance();
 
             unreachable();
         }
         catch (Exception e)
         {
             assertSuperString(e, "Neither implementation nor factory registered for component: "
-                + state);
+                + comp);
         }
     }
 
     public void testServiceConfigError()
     {
-        ProxyableComponent comp = newComponent(List.class, "def", null, List.class, null, null,
+        RealizableComponent comp = newComponent(List.class, "def", null, List.class, null, null,
             null);
 
         try
@@ -99,7 +99,7 @@ public class ComponentTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(6), new ArrayList()};
 
-        ProxyableComponent state = newComponent(MockComboService.class, "def", null,
+        RealizableComponent state = newComponent(MockComboService.class, "def", null,
             MockComboServiceImpl.class, cArgs, null, null);
 
         MockComboServiceImpl obj = (MockComboServiceImpl) state.newInstance();
@@ -119,13 +119,12 @@ public class ComponentTest extends GravityTestCase
             START_UP);
         ComponentCallback[] methods = {mthd1, mthd2};
 
-        ProxyableComponent state = newComponent(MockSetterService.class, "def", null,
+        RealizableComponent state = newComponent(MockSetterService.class, "def", null,
             MockSetterServiceImpl.class, null, methods, null);
 
         MockSetterServiceImpl obj = (MockSetterServiceImpl) state.newInstance();
 
         assertNotNull(obj);
-        assertTrue(obj instanceof MockSetterService);
         assertTrue(obj.getPrimitive() == 5);
         assertTrue(obj.getObject() instanceof ArrayList);
     }
@@ -140,7 +139,7 @@ public class ComponentTest extends GravityTestCase
 
         Object[] cArgs = {new Integer(6), new ArrayList()};
 
-        ProxyableComponent state = newComponent(MockComboService.class, "def", null,
+        RealizableComponent state = newComponent(MockComboService.class, "def", null,
             MockComboServiceImpl.class, cArgs, methods, null);
 
         MockComboServiceImpl obj = (MockComboServiceImpl) state.newInstance();

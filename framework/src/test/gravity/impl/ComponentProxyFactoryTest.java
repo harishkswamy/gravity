@@ -20,7 +20,7 @@ import gravity.GravityTestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxyFactoryTest.java,v 1.2 2004-05-18 20:51:55 harishkswamy Exp $
+ * @version $Id: ComponentProxyFactoryTest.java,v 1.3 2004-09-02 04:20:56 harishkswamy Exp $
  */
 public class ComponentProxyFactoryTest extends GravityTestCase
 {
@@ -69,7 +69,7 @@ public class ComponentProxyFactoryTest extends GravityTestCase
         ComponentProxyFactory.getInstance().cleanup();
 
         Gravity.getInstance().setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME_KEY,
-            "gravity.plugins.BshPlugin");
+            "gravity.plugins.bsh.BshPlugin");
 
         try
         {
@@ -79,7 +79,7 @@ public class ComponentProxyFactoryTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "gravity.plugins.BshPlugin must implement gravity.ComponentProxy");
+            assertSuperString(e, "gravity.plugins.bsh.BshPlugin must implement gravity.ComponentProxy");
         }
     }
 }

@@ -16,11 +16,12 @@ package gravity.plugins;
 
 import gravity.ComponentCallback;
 import gravity.ComponentPhase;
+import gravity.plugins.bsh.BshPluginHelper;
 import junit.framework.TestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginHelperTest.java,v 1.4 2004-06-14 04:24:29 harishkswamy Exp $
+ * @version $Id: BshPluginHelperTest.java,v 1.5 2004-09-02 04:20:58 harishkswamy Exp $
  */
 public class BshPluginHelperTest extends TestCase
 {

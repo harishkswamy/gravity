@@ -12,18 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gravity.impl;
+package gravity;
 
-import gravity.GravityTestCase;
+import org.easymock.AbstractMatcher;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentStrategyTest.java,v 1.2 2004-09-02 04:20:56 harishkswamy Exp $
+ * @version $Id: TypeMatcher.java,v 1.1 2004-09-02 04:20:57 harishkswamy Exp $
  */
-public class PoolingComponentStrategyTest extends GravityTestCase
+public class TypeMatcher extends AbstractMatcher
 {
-    public void testDecorated()
+    protected boolean argumentMatches(Object expected, Object actual)
     {
-        // Empty
+        if (expected instanceof ComponentCallback[])
+            return (expected.getClass().equals(actual.getClass()) && ((ComponentCallback[]) expected).length == ((ComponentCallback[]) actual).length);
+
+        return super.argumentMatches(expected, actual);
     }
 }

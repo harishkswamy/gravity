@@ -20,7 +20,7 @@ import java.net.URL;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTest.java,v 1.4 2004-06-14 04:24:28 harishkswamy Exp $
+ * @version $Id: GravityTest.java,v 1.5 2004-09-02 04:20:57 harishkswamy Exp $
  */
 public class GravityTest extends GravityTestCase
 {
@@ -64,7 +64,7 @@ public class GravityTest extends GravityTestCase
 
     public void testCustomPlugin()
     {
-        writePluginFile("pluginClassName=gravity.plugins.BshPlugin");
+        writePluginFile("pluginClassName=gravity.plugins.bsh.BshPlugin");
 
         Container registry = Gravity.getInstance().startup();
 
@@ -77,7 +77,7 @@ public class GravityTest extends GravityTestCase
     {
         String fPath = ClassUtils.getResource("gravity").getFile() + "/gravity.properties";
 
-        writeFile(fPath, "pluginClassName=gravity.plugins.BshPlugin");
+        writeFile(fPath, "pluginClassName=gravity.plugins.bsh.BshPlugin");
 
         Container registry = Gravity.getInstance().startup("gravity/gravity.properties");
 
@@ -100,7 +100,7 @@ public class GravityTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Cannot load properties from " + url);
+            assertSuperString(e, "Unable to load properties from: " + url);
         }
     }
 

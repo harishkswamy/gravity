@@ -15,7 +15,7 @@
 package gravity.impl;
 
 import gravity.ComponentStrategy;
-import gravity.ProxyableComponent;
+import gravity.RealizableComponent;
 import gravity.util.ThreadEvent;
 import junit.framework.TestCase;
 
@@ -23,37 +23,37 @@ import org.easymock.MockControl;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentStrategyTest.java,v 1.2 2004-06-14 04:24:26 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentStrategyTest.java,v 1.3 2004-09-02 04:20:56 harishkswamy Exp $
  */
 public class ThreadLocalComponentStrategyTest extends TestCase
 {
-    private ThreadLocalComponentStrategy _state;
-    private ProxyableComponent           _mockComp;
+    private ThreadLocalComponentStrategy _strategy;
+    private RealizableComponent           _mockComp;
     private MockControl                  _compControl;
-    private ComponentStrategy            _mockState;
-    private MockControl                  _stateControl;
+    private ComponentStrategy            _mockStrategy;
+    private MockControl                  _strategyControl;
 
     private void setUpMockComp()
     {
-        _compControl = MockControl.createStrictControl(ProxyableComponent.class);
-        _mockComp = (ProxyableComponent) _compControl.getMock();
+        _compControl = MockControl.createStrictControl(RealizableComponent.class);
+        _mockComp = (RealizableComponent) _compControl.getMock();
     }
 
     private void setUpState()
     {
         setUpMockComp();
 
-        _state = new ThreadLocalComponentStrategy(null);
+        _strategy = new ThreadLocalComponentStrategy(null);
     }
 
     public void setUpDecoratedState()
     {
         setUpMockComp();
 
-        _stateControl = MockControl.createStrictControl(ComponentStrategy.class);
-        _mockState = (ComponentStrategy) _stateControl.getMock();
+        _strategyControl = MockControl.createStrictControl(ComponentStrategy.class);
+        _mockStrategy = (ComponentStrategy) _strategyControl.getMock();
 
-        _state = new ThreadLocalComponentStrategy(_mockState);
+        _strategy = new ThreadLocalComponentStrategy(_mockStrategy);
     }
 
     public void tearDown()
@@ -70,8 +70,8 @@ public class ThreadLocalComponentStrategyTest extends TestCase
 
         _compControl.replay();
 
-        Object rtnInst1 = _state.getConcreteComponentInstance(_mockComp);
-        Object rtnInst2 = _state.getConcreteComponentInstance(_mockComp);
+        Object rtnInst1 = _strategy.getComponentInstance(_mockComp);
+        Object rtnInst2 = _strategy.getComponentInstance(_mockComp);
 
         _compControl.verify();
 
@@ -86,15 +86,16 @@ public class ThreadLocalComponentStrategyTest extends TestCase
         _compControl.replay();
 
         Object compInst = new Object();
-        _stateControl.expectAndReturn(_mockState.getConcreteComponentInstance(_mockComp), compInst, 1);
+        _strategyControl.expectAndReturn(_mockStrategy.getComponentInstance(_mockComp), compInst,
+            1);
 
-        _stateControl.replay();
+        _strategyControl.replay();
 
-        Object rtnInst1 = _state.getConcreteComponentInstance(_mockComp);
-        Object rtnInst2 = _state.getConcreteComponentInstance(_mockComp);
+        Object rtnInst1 = _strategy.getComponentInstance(_mockComp);
+        Object rtnInst2 = _strategy.getComponentInstance(_mockComp);
 
         _compControl.verify();
-        _stateControl.verify();
+        _strategyControl.verify();
 
         assertSame(compInst, rtnInst1);
         assertSame(compInst, rtnInst2);
@@ -106,7 +107,7 @@ public class ThreadLocalComponentStrategyTest extends TestCase
 
         _compControl.replay();
 
-        _state.handleThreadPreTermination();
+        _strategy.handleThreadPreTermination();
 
         _compControl.verify();
     }
@@ -117,27 +118,28 @@ public class ThreadLocalComponentStrategyTest extends TestCase
 
         _compControl.replay();
 
-        _mockState.collectComponentInstance(null);
+        _mockStrategy.collectComponentInstance(null);
 
         Object compInst = new Object();
-        _stateControl.expectAndReturn(_mockState.getConcreteComponentInstance(_mockComp), compInst, 1);
+        _strategyControl.expectAndReturn(_mockStrategy.getComponentInstance(_mockComp), compInst,
+            1);
 
-        _mockState.collectComponentInstance(compInst);
+        _mockStrategy.collectComponentInstance(compInst);
 
-        _stateControl.replay();
+        _strategyControl.replay();
 
-        _state.handleThreadPreTermination();
-        _state.getConcreteComponentInstance(_mockComp);
-        _state.handleThreadPreTermination();
+        _strategy.handleThreadPreTermination();
+        _strategy.getComponentInstance(_mockComp);
+        _strategy.handleThreadPreTermination();
 
         _compControl.verify();
-        _stateControl.verify();
+        _strategyControl.verify();
     }
 
     public void testToString()
     {
         setUpState();
-        
-        assertEquals(_state.toString(), " [Thread Local] ");
+
+        assertEquals(_strategy.toString(), " [Thread Local] ");
     }
 }
