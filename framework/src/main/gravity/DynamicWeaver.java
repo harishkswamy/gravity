@@ -19,7 +19,7 @@ package gravity;
  * basically a hook to allow cross-cutting aspects to be weaved into components dynamically.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DynamicWeaver.java,v 1.2 2004-05-17 03:04:10 harishkswamy Exp $
+ * @version $Id: DynamicWeaver.java,v 1.3 2004-05-29 16:54:38 harishkswamy Exp $
  */
 public interface DynamicWeaver
 {
@@ -27,7 +27,7 @@ public interface DynamicWeaver
      * Takes an object, that needs instrumentation, and enhances it (typically based on some
      * configuration).
      * <p>
-     * This method will be called at the time of service construction right after instantiation.
+     * This method will be called at the time of component construction right after instantiation.
      * 
      * @return The instrumented object.
      * @see gravity.impl.DefaultComponent#newInstance()()
