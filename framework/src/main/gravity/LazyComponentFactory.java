@@ -16,7 +16,7 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: LazyComponentFactory.java,v 1.1 2004-05-10 17:29:01 harishkswamy Exp $
+ * @version $Id: LazyComponentFactory.java,v 1.2 2004-05-12 04:44:17 harishkswamy Exp $
  */
 public interface LazyComponentFactory extends ComponentFactory
 {
@@ -31,6 +31,16 @@ public interface LazyComponentFactory extends ComponentFactory
      * concrete component instance for the proxy) to notify this factory of the component hatching.
      */
     void proxyRealized(Object proxy);
+
+    /**
+     * This method will return a concrete instance of the component registered with this factory.
+     * The component instance indentity is implementation dependent. This method will throw a
+     * runtime exception if invoked prior to registering an implementation for the component.
+     * 
+     * @throws WrapperException
+     *         Wraps the actual exception thrown while obtaining the concrete component instance.
+     */
+    Object getConcreteComponentInstance();
 
     /**
      * This method will return a concrete instance of the component registered with this factory.
