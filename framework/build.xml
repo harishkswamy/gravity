@@ -14,7 +14,7 @@
 	See the License for the specific language governing permissions and
 	limitations under the License.
 -->
-<!-- $Id: build.xml,v 1.4 2004-05-27 02:53:40 harishkswamy Exp $ -->
+<!-- $Id: build.xml,v 1.5 2004-09-02 03:48:52 harishkswamy Exp $ -->
 <project name="gravity-framework" basedir="." default="coverage">
 
     <import file="../common-build.xml" />
@@ -27,7 +27,7 @@
 
     <target name="post-set-up">
         <copy todir="${main.classes.dir}">
-            <fileset dir="${main.src.dir}" includes="**/*.bsh" />
+            <fileset dir="${main.src.dir}" includes="**/*.bsh, **/*.properties" />
         </copy>
 
         <copy todir="${coverage.classes.dir}">
@@ -35,4 +35,9 @@
         </copy>
     </target>
 
+	<target name="jar-sub">
+		<jar-macro excludes="gravity/plugins/**/*" />
+		<jar-macro includes="gravity/plugins/**/*" extension="-plugin" />
+	</target>
+	
 </project>
