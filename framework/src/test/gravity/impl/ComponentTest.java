@@ -14,10 +14,10 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.Location;
+import gravity.ProxyableComponent;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 import gravity.mocks.MockSetterService;
@@ -31,7 +31,7 @@ import java.util.Map;
 // TODO test location in messages
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentTest.java,v 1.1 2004-05-17 03:03:49 harishkswamy Exp $
+ * @version $Id: ComponentTest.java,v 1.2 2004-05-18 20:51:55 harishkswamy Exp $
  */
 public class ComponentTest extends GravityTestCase
 {
@@ -45,12 +45,12 @@ public class ComponentTest extends GravityTestCase
         Gravity.getInstance().shutdown();
     }
 
-    private Component newComponent(Class intf, String type, Location intfLoc, Class impl,
+    private ProxyableComponent newComponent(Class intf, String type, Location intfLoc, Class impl,
         Object[] args, Map params, Location implLoc)
     {
         ComponentKey compKey = new ComponentKey(intf, type);
 
-        Component state = new DefaultComponent(compKey);
+        ProxyableComponent state = new DefaultComponent(compKey);
 
         state.registerImplementation(impl, args, params);
         state.setRetrievalLocation(intfLoc);
@@ -61,7 +61,7 @@ public class ComponentTest extends GravityTestCase
 
     public void testUnavailableService()
     {
-        Component state = newComponent(List.class, "def", null, null, null, null, null);
+        ProxyableComponent state = newComponent(List.class, "def", null, null, null, null, null);
 
         try
         {
@@ -77,7 +77,8 @@ public class ComponentTest extends GravityTestCase
 
     public void testServiceConfigError()
     {
-        Component comp = newComponent(List.class, "def", null, List.class, null, null, null);
+        ProxyableComponent comp = newComponent(List.class, "def", null, List.class, null, null,
+            null);
 
         try
         {
@@ -95,7 +96,7 @@ public class ComponentTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(6), new ArrayList()};
 
-        Component state = newComponent(MockComboService.class, "def", null,
+        ProxyableComponent state = newComponent(MockComboService.class, "def", null,
             MockComboServiceImpl.class, cArgs, null, null);
 
         MockComboServiceImpl obj = (MockComboServiceImpl) state.newInstance();
@@ -113,7 +114,7 @@ public class ComponentTest extends GravityTestCase
         args.put("primitive", new Integer(5));
         args.put("object", new ArrayList());
 
-        Component state = newComponent(MockSetterService.class, "def", null,
+        ProxyableComponent state = newComponent(MockSetterService.class, "def", null,
             MockSetterServiceImpl.class, null, args, null);
 
         MockSetterServiceImpl obj = (MockSetterServiceImpl) state.newInstance();
@@ -132,7 +133,7 @@ public class ComponentTest extends GravityTestCase
 
         Object[] cArgs = {new Integer(6), new ArrayList()};
 
-        Component state = newComponent(MockComboService.class, "def", null,
+        ProxyableComponent state = newComponent(MockComboService.class, "def", null,
             MockComboServiceImpl.class, cArgs, args, null);
 
         MockComboServiceImpl obj = (MockComboServiceImpl) state.newInstance();

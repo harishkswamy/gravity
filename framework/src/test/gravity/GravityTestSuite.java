@@ -19,7 +19,7 @@ import gravity.impl.ComponentTest;
 import gravity.impl.ComponentKeyTest;
 import gravity.impl.ComponentProxyFactoryTest;
 import gravity.impl.DefaultComponentTest;
-import gravity.impl.DefaultRegistryTest;
+import gravity.impl.DefaultContainerTest;
 import gravity.impl.DynamicWeaverFactoryTest;
 import gravity.impl.JdkComponentProxyTest;
 import gravity.impl.PoolingComponentStateTest;
@@ -34,7 +34,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTestSuite.java,v 1.2 2004-05-17 03:04:12 harishkswamy Exp $
+ * @version $Id: GravityTestSuite.java,v 1.3 2004-05-18 20:51:58 harishkswamy Exp $
  */
 public class GravityTestSuite
 {
@@ -60,7 +60,7 @@ public class GravityTestSuite
         suite.addTestSuite(ComponentKeyTest.class);
         suite.addTestSuite(ComponentProxyFactoryTest.class);
         suite.addTestSuite(DefaultComponentTest.class);
-        suite.addTestSuite(DefaultRegistryTest.class);
+        suite.addTestSuite(DefaultContainerTest.class);
         suite.addTestSuite(DynamicWeaverFactoryTest.class);
         suite.addTestSuite(JdkComponentProxyTest.class);
         suite.addTestSuite(PoolingComponentStateTest.class);

@@ -16,7 +16,7 @@ package gravity.plugins;
 
 import gravity.Gravity;
 import gravity.GravityTestCase;
-import gravity.impl.DefaultRegistry;
+import gravity.impl.DefaultContainer;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 
@@ -27,13 +27,13 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableRegistryAdapterTest.java,v 1.2 2004-05-17 03:04:13 harishkswamy Exp $
+ * @version $Id: MutableRegistryAdapterTest.java,v 1.3 2004-05-18 20:52:06 harishkswamy Exp $
  */
 public class MutableRegistryAdapterTest extends GravityTestCase
 {
     final Map                    _servReg   = new HashMap();
     final Map                    _configReg = new HashMap();
-    final MutableRegistryAdapter _registry  = new MutableRegistryAdapter(new DefaultRegistry());
+    final MutableRegistryAdapter _registry  = new MutableRegistryAdapter(new DefaultContainer());
 
     public void setUp()
     {

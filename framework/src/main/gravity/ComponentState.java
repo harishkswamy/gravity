@@ -16,7 +16,7 @@ package gravity;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentState.java,v 1.2 2004-05-18 04:56:31 harishkswamy Exp $
+ * @version $Id: ComponentState.java,v 1.3 2004-05-18 20:52:00 harishkswamy Exp $
  */
 public interface ComponentState
 {
@@ -45,7 +45,12 @@ public interface ComponentState
     Object getConcreteComponentInstance();
 
     /**
-     * This method will accept a component and return it to its cache.
+     * This method will accept a component instance and return it to its cache.
      */
-    void collectComponentInstance(Object comp);
+    void collectComponentInstance(Object compInst);
+    
+    /**
+     * @return true If this state is a dispatching state, false otherwise. 
+     */
+    boolean isDispatching();
 }

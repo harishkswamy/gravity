@@ -17,7 +17,7 @@ package gravity.impl;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.Location;
-import gravity.MutableRegistry;
+import gravity.MutableContainer;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 
@@ -29,16 +29,16 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultRegistryTest.java,v 1.3 2004-05-18 04:56:35 harishkswamy Exp $
+ * @version $Id: DefaultContainerTest.java,v 1.1 2004-05-18 20:51:55 harishkswamy Exp $
  */
-public class DefaultRegistryTest extends GravityTestCase
+public class DefaultContainerTest extends GravityTestCase
 {
-    private MutableRegistry _registry = new DefaultRegistry();
+    private MutableContainer _registry = new DefaultContainer();
 
     public void setUp()
     {
         Properties props = new Properties();
-        props.setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME, "gravity.impl.CglibComponentProxy");
+        props.setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME_KEY, "gravity.impl.CglibComponentProxy");
 
         Gravity.getInstance().initialize(props);
     }

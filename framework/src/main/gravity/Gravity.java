@@ -14,7 +14,7 @@
 
 package gravity;
 
-import gravity.impl.DefaultRegistry;
+import gravity.impl.DefaultContainer;
 import gravity.plugins.BshPlugin;
 import gravity.util.ClassUtils;
 import gravity.util.Utils;
@@ -31,7 +31,7 @@ import java.util.Properties;
  * This class stores the framework properties that can be accessed and/or modified anytime.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Gravity.java,v 1.6 2004-05-18 04:56:31 harishkswamy Exp $
+ * @version $Id: Gravity.java,v 1.7 2004-05-18 20:52:00 harishkswamy Exp $
  */
 public class Gravity
 {
@@ -39,38 +39,38 @@ public class Gravity
      * This is the path of the plugin file that Gravity will use to search for plugins. The path is
      * relative to the classpath.
      */
-    public static final String  PLUGIN_MANIFEST_FILE_PATH  = "META-INF/gravity-plugin.properties";
+    public static final String  PLUGIN_MANIFEST_FILE_PATH      = "META-INF/gravity-plugin.properties";
 
-    public static final String  PLUGIN_CLASS_NAME          = "pluginClassName";
+    public static final String  PLUGIN_CLASS_NAME_KEY          = "pluginClassName";
 
     /**
      * This is name of the property that specifies the class name of the custom
      * {@link ComponentProxy}.
      */
-    public static final String  COMPONENT_PROXY_CLASS_NAME = "componentProxyClassName";
+    public static final String  COMPONENT_PROXY_CLASS_NAME_KEY = "componentProxyClassName";
 
     /**
      * This is name of the property that specifies the class name of the custom
      * {@link DynamicWeaver}.
      */
-    public static final String  DYNAMIC_WEAVER_CLASS_NAME  = "dynamicWeaverClassName";
+    public static final String  DYNAMIC_WEAVER_CLASS_NAME_KEY  = "dynamicWeaverClassName";
 
     /**
      * This is name of the system property that specifies the name and location of the gravity
      * properties file.
      */
-    private static final String PROPERTIES_PATH_KEY        = "gravity.properties";
+    private static final String PROPERTIES_PATH_KEY            = "gravity.properties";
 
     /**
      * This is the name of the default properties file that will be used when not supplied. This
      * file should be placed in the classpath root to be recognized.
      */
-    private static final String DEFAULT_PROPERTIES_PATH    = "gravity.properties";
+    private static final String DEFAULT_PROPERTIES_PATH        = "gravity.properties";
 
     /**
      * Singleton instance.
      */
-    private static Gravity      INSTANCE                   = new Gravity();
+    private static Gravity      INSTANCE                       = new Gravity();
 
     public static Gravity getInstance()
     {
@@ -82,10 +82,10 @@ public class Gravity
     /**
      * Stores the framework properties.
      */
-    private Properties      _props;
+    private Properties       _props;
 
     // TODO delete registry reference after startup?
-    private MutableRegistry _registry;
+    private MutableContainer _registry;
 
     private Gravity()
     {
@@ -101,7 +101,7 @@ public class Gravity
 
         // Load and initialize the registry
         // TODO decouple registry implementation
-        _registry = new DefaultRegistry();
+        _registry = new DefaultContainer();
     }
 
     /**
@@ -165,7 +165,7 @@ public class Gravity
             return (Plugin) ClassUtils.newInstance(pluginClassName);
 
         // Return the plugin (global) from the gravity.properties file
-        pluginClassName = _props.getProperty(PLUGIN_CLASS_NAME);
+        pluginClassName = _props.getProperty(PLUGIN_CLASS_NAME_KEY);
 
         if (pluginClassName != null)
             return (Plugin) ClassUtils.newInstance(pluginClassName);
@@ -186,13 +186,13 @@ public class Gravity
 
             props.setProperty(Plugin.LOCATION_URL_KEY, getPluginLocation(url));
 
-            Plugin plugin = getPlugin(props.getProperty(PLUGIN_CLASS_NAME));
+            Plugin plugin = getPlugin(props.getProperty(PLUGIN_CLASS_NAME_KEY));
 
             plugin.startup(props, _registry);
         }
     }
 
-    public Registry startup(Properties props)
+    public Container startup(Properties props)
     {
         initialize(props);
 
@@ -202,24 +202,24 @@ public class Gravity
     }
 
     /**
-     * Initializes the framework from the supplied URL and builds the {@link Registry}.
+     * Initializes the framework from the supplied URL and builds the {@link Container}.
      * 
-     * @return Newly built {@link Registry}.
+     * @return Newly built {@link Container}.
      * @see Gravity#initialize(URL)
      */
-    public Registry startup(URL url)
+    public Container startup(URL url)
     {
         return startup(Utils.loadProperties(url));
     }
 
     /**
      * Initializes the framework from the supplied properties file path and builds the
-     * {@link Registry}. The file path is relative to the classpath root.
+     * {@link Container}. The file path is relative to the classpath root.
      * 
-     * @return Newly built {@link Registry}.
+     * @return Newly built {@link Container}.
      * @see Gravity#initialize(String)
      */
-    public Registry startup(String fPath)
+    public Container startup(String fPath)
     {
         URL url = getPropertiesUrl(fPath);
 
@@ -227,13 +227,13 @@ public class Gravity
     }
 
     /**
-     * Initializes the framework from the default properties file and builds the {@link Registry}.
+     * Initializes the framework from the default properties file and builds the {@link Container}.
      * The file path is relative to the classpath root.
      * 
-     * @return Newly built {@link Registry}.
+     * @return Newly built {@link Container}.
      * @see Gravity#initialize()
      */
-    public Registry startup()
+    public Container startup()
     {
         String fPath = getPropertiesUrlString();
 
@@ -255,7 +255,7 @@ public class Gravity
     /**
      * Sets the gravity property with the supplied _key/value pair.
      * <p>
-     * Properties are only expected to be set during startup prior to building the {@link Registry}
+     * Properties are only expected to be set during startup prior to building the {@link Container}
      * which should typically happen in a single startup thread.
      */
     public synchronized void setProperty(String key, String value)

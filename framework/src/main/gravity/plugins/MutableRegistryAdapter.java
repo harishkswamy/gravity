@@ -15,26 +15,26 @@
 package gravity.plugins;
 
 import gravity.Location;
-import gravity.MutableRegistry;
+import gravity.MutableContainer;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * This is an adapter to MutableRegistry intended to be used by plugins.
+ * This is an adapter to MutableContainer intended to be used by plugins.
  * 
- * @see gravity.MutableRegistry
+ * @see gravity.MutableContainer
  * @author Harish Krishnaswamy
- * @version $Id: MutableRegistryAdapter.java,v 1.3 2004-05-18 04:56:34 harishkswamy Exp $
+ * @version $Id: MutableRegistryAdapter.java,v 1.4 2004-05-18 20:52:07 harishkswamy Exp $
  */
 public class MutableRegistryAdapter
 {
-    private MutableRegistry _registry;
+    private MutableContainer _registry;
 
     private String          _currentModuleName;
     private int             _currentLineNumber;
 
-    public MutableRegistryAdapter(MutableRegistry registry)
+    public MutableRegistryAdapter(MutableContainer registry)
     {
         _registry = registry;
     }

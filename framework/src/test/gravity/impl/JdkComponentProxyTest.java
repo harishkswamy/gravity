@@ -14,10 +14,10 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentInvocationHandler;
 import gravity.Gravity;
 import gravity.GravityTestCase;
+import gravity.ProxyableComponent;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 import gravity.mocks.MockService;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxyTest.java,v 1.2 2004-05-18 04:56:36 harishkswamy Exp $
+ * @version $Id: JdkComponentProxyTest.java,v 1.3 2004-05-18 20:51:57 harishkswamy Exp $
  */
 public class JdkComponentProxyTest extends GravityTestCase
 {
@@ -42,7 +42,7 @@ public class JdkComponentProxyTest extends GravityTestCase
         Gravity.getInstance().shutdown();
     }
 
-    private Component newComponent(Class intf, Object type)
+    private ProxyableComponent newComponent(Class intf, Object type)
     {
         ComponentKey key = new ComponentKey(intf, type);
         return new DefaultComponent(key);
@@ -51,17 +51,15 @@ public class JdkComponentProxyTest extends GravityTestCase
     public void testInvokeNewProxyMethod()
     {
         MockService service = (MockService) _proxyFactory.newInstance(MockService.class,
-            _proxyFactory.newComponentInvocationHandler(newComponent(MockService.class, null),
-                false));
+            _proxyFactory.newComponentInvocationHandler(newComponent(MockService.class, null)));
 
         assertNotNull(service);
     }
 
     public void testMethodInvocationError()
     {
-        Component comp = newComponent(MockService.class, null);
-        ComponentInvocationHandler handler = _proxyFactory.newComponentInvocationHandler(comp,
-            false);
+        ProxyableComponent comp = newComponent(MockService.class, null);
+        ComponentInvocationHandler handler = _proxyFactory.newComponentInvocationHandler(comp);
         MockService service = (MockService) _proxyFactory.newInstance(MockService.class, handler);
 
         comp.registerImplementation(ArrayList.class, null, null);
@@ -82,7 +80,7 @@ public class JdkComponentProxyTest extends GravityTestCase
     public void testNullFactory()
     {
         MockService service = (MockService) _proxyFactory.newInstance(MockService.class,
-            _proxyFactory.newComponentInvocationHandler(null, false));
+            _proxyFactory.newComponentInvocationHandler(null));
 
         try
         {
@@ -98,9 +96,9 @@ public class JdkComponentProxyTest extends GravityTestCase
 
     public void testInvokeComponent()
     {
-        Component comp = newComponent(MockComboService.class, null);
+        ProxyableComponent comp = newComponent(MockComboService.class, null);
         MockComboService service = (MockComboService) _proxyFactory.newInstance(
-            MockComboService.class, _proxyFactory.newComponentInvocationHandler(comp, false));
+            MockComboService.class, _proxyFactory.newComponentInvocationHandler(comp));
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
 
@@ -114,7 +112,7 @@ public class JdkComponentProxyTest extends GravityTestCase
         try
         {
             _proxyFactory.newInstance(MockComboServiceImpl.class,
-                _proxyFactory.newComponentInvocationHandler(null, false));
+                _proxyFactory.newComponentInvocationHandler(null));
 
             unreachable();
         }
@@ -143,10 +141,10 @@ public class JdkComponentProxyTest extends GravityTestCase
     {
         CglibComponentProxy proxy = new CglibComponentProxy();
 
-        Component comp = newComponent(MockComboService.class, null);
+        ProxyableComponent comp = newComponent(MockComboService.class, null);
 
-        Object obj = proxy.newInstance(MockComboService.class, proxy.newComponentInvocationHandler(
-            comp, false));
+        Object obj = proxy.newInstance(MockComboService.class,
+            proxy.newComponentInvocationHandler(comp));
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
         comp.registerImplementation(MockComboServiceImpl.class, cArgs, null);

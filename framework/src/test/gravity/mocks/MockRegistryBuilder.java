@@ -14,13 +14,13 @@
 
 package gravity.mocks;
 
-import gravity.impl.DefaultRegistry;
+import gravity.impl.DefaultContainer;
 import gravity.plugins.BshPlugin;
 import gravity.plugins.MutableRegistryAdapter;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MockRegistryBuilder.java,v 1.1 2004-05-10 17:28:45 harishkswamy Exp $
+ * @version $Id: MockRegistryBuilder.java,v 1.2 2004-05-18 20:51:57 harishkswamy Exp $
  */
 public class MockRegistryBuilder extends BshPlugin
 {
@@ -28,7 +28,7 @@ public class MockRegistryBuilder extends BshPlugin
     {
         public MockMutableRegistryAdapter()
         {
-            super(new DefaultRegistry());
+            super(new DefaultContainer());
         }
     }
 

@@ -14,31 +14,29 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentState;
-import gravity.util.Cache;
+import gravity.ProxyableComponent;
 import gravity.util.Pool;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentState.java,v 1.2 2004-05-18 04:56:26 harishkswamy Exp $
+ * @version $Id: PoolingComponentState.java,v 1.3 2004-05-18 20:52:02 harishkswamy Exp $
  */
 public class PoolingComponentState extends LazyLoadingComponentState
 {
     private Pool _pool;
 
-    public PoolingComponentState(ComponentState decorator, Component component,
-        Cache proxyInstanceCache, int poolSize)
+    public PoolingComponentState(ComponentState decorator, ProxyableComponent component,
+        int poolSize)
     {
-        super(decorator, component, proxyInstanceCache);
+        super(decorator, component);
 
         _pool = new Pool(poolSize);
     }
 
-    public PoolingComponentState(ComponentState delegate, Component component,
-        Cache proxyInstanceCache)
+    public PoolingComponentState(ComponentState delegate, ProxyableComponent component)
     {
-        this(delegate, component, proxyInstanceCache, 0);
+        this(delegate, component, 0);
     }
 
     public Object getConcreteComponentInstance()

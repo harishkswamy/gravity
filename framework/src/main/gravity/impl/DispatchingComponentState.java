@@ -14,30 +14,33 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentInvocationHandler;
 import gravity.ComponentProxy;
 import gravity.ComponentState;
-import gravity.util.Cache;
+import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DispatchingComponentState.java,v 1.2 2004-05-18 04:56:29 harishkswamy Exp $
+ * @version $Id: DispatchingComponentState.java,v 1.3 2004-05-18 20:52:06 harishkswamy Exp $
  */
 public class DispatchingComponentState extends ComponentStateDecorator
 {
-    public DispatchingComponentState(ComponentState decorator, Component component,
-        Cache proxyInstanceCache)
+    public DispatchingComponentState(ComponentState decorator, ProxyableComponent component)
     {
-        super(decorator, component, proxyInstanceCache, true);
+        super(decorator, component);
     }
 
     public Object getComponentInstance()
     {
         ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
 
-        ComponentInvocationHandler handler = proxy.newComponentInvocationHandler(_component, true);
+        ComponentInvocationHandler handler = proxy.newComponentInvocationHandler(_component);
 
         return proxy.newInstance(_component.getInterface(), handler);
+    }
+
+    public boolean isDispatching()
+    {
+        return true;
     }
 }

@@ -18,9 +18,9 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableRegistry.java,v 1.3 2004-05-18 04:56:30 harishkswamy Exp $
+ * @version $Id: MutableContainer.java,v 1.1 2004-05-18 20:52:01 harishkswamy Exp $
  */
-public interface MutableRegistry extends Registry
+public interface MutableContainer extends Container
 {
     Object registerComponentImplementation(Class intf, Object implType, Class implClass,
         Object[] ctorArgs, Map setrArgs);

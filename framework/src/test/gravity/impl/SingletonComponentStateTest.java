@@ -14,19 +14,18 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentState;
 import gravity.Gravity;
 import gravity.GravityTestCase;
+import gravity.ProxyableComponent;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
-import gravity.util.Cache;
 
 import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentStateTest.java,v 1.2 2004-05-18 04:56:35 harishkswamy Exp $
+ * @version $Id: SingletonComponentStateTest.java,v 1.3 2004-05-18 20:51:56 harishkswamy Exp $
  */
 public class SingletonComponentStateTest extends GravityTestCase
 {
@@ -40,25 +39,25 @@ public class SingletonComponentStateTest extends GravityTestCase
         Gravity.getInstance().shutdown();
     }
 
-    private Component newComponent(Class compIntf, Object compType)
+    private ProxyableComponent newComponent(Class compIntf, Object compType)
     {
         ComponentKey compKey = new ComponentKey(compIntf, compType);
 
-        Component comp = new DefaultComponent(compKey);
+        ProxyableComponent comp = new DefaultComponent(compKey);
 
         return comp;
     }
 
-    private ComponentState newSingletonComponent(Component comp)
+    private ComponentState newSingletonComponent(ProxyableComponent comp)
     {
-        ComponentState factory = new LazyLoadingComponentState(null, comp, new Cache());
+        ComponentState factory = new LazyLoadingComponentState(null, comp);
 
-        return new SingletonComponentState(factory, comp, new Cache());
+        return new SingletonComponentState(factory, comp);
     }
 
     public void testGetComponentInstance()
     {
-        Component comp = newComponent(MockComboService.class, null);
+        ProxyableComponent comp = newComponent(MockComboService.class, null);
 
         ComponentState factory = newSingletonComponent(comp);
 
@@ -73,7 +72,7 @@ public class SingletonComponentStateTest extends GravityTestCase
 
     public void testBuildComponentInstance()
     {
-        Component comp = newComponent(MockComboService.class, null);
+        ProxyableComponent comp = newComponent(MockComboService.class, null);
 
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
@@ -93,7 +92,7 @@ public class SingletonComponentStateTest extends GravityTestCase
 
     public void testToString()
     {
-        Component comp = newComponent(MockComboService.class, null);
+        ProxyableComponent comp = newComponent(MockComboService.class, null);
         ComponentState factory = newSingletonComponent(comp);
 
         assertEquals(factory.toString(),

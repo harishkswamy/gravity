@@ -16,7 +16,7 @@ package gravity.impl;
 
 import gravity.ComponentInvocationHandler;
 import gravity.ComponentProxy;
-import gravity.Component;
+import gravity.ProxyableComponent;
 import gravity.WrapperException;
 import gravity.util.ClassUtils;
 import net.sf.cglib.proxy.Callback;
@@ -25,14 +25,13 @@ import net.sf.cglib.proxy.Factory;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentProxy.java,v 1.2 2004-05-18 04:56:27 harishkswamy Exp $
+ * @version $Id: CglibComponentProxy.java,v 1.3 2004-05-18 20:52:03 harishkswamy Exp $
  */
 public class CglibComponentProxy implements ComponentProxy
 {
-    public ComponentInvocationHandler newComponentInvocationHandler(Component comp,
-        boolean dispatchMode)
+    public ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)
     {
-        return new CglibComponentInvocationHandler(comp, dispatchMode);
+        return new CglibComponentInvocationHandler(comp);
     }
 
     public Object newInstance(Class compIntf, ComponentInvocationHandler handler)

@@ -14,22 +14,20 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentState;
-import gravity.util.Cache;
+import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentState.java,v 1.2 2004-05-18 04:56:28 harishkswamy Exp $
+ * @version $Id: SingletonComponentState.java,v 1.3 2004-05-18 20:52:05 harishkswamy Exp $
  */
 public class SingletonComponentState extends LazyLoadingComponentState
 {
     private Object _componentInstance;
 
-    public SingletonComponentState(ComponentState delegate, Component component,
-        Cache proxyInstanceCache)
+    public SingletonComponentState(ComponentState delegate, ProxyableComponent component)
     {
-        super(delegate, component, proxyInstanceCache);
+        super(delegate, component);
     }
 
     private synchronized void cacheComponent(Object componentInstance)

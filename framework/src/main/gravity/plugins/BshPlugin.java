@@ -14,7 +14,7 @@
 
 package gravity.plugins;
 
-import gravity.MutableRegistry;
+import gravity.MutableContainer;
 import gravity.Plugin;
 import gravity.WrapperException;
 import gravity.util.ClassUtils;
@@ -32,13 +32,13 @@ import bsh.TargetError;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPlugin.java,v 1.4 2004-05-17 03:04:07 harishkswamy Exp $
+ * @version $Id: BshPlugin.java,v 1.5 2004-05-18 20:52:08 harishkswamy Exp $
  */
 public class BshPlugin implements Plugin
 {
     /**
      * This is name of the property that specifies the qualified names of all the modules from which
-     * to build the {@link gravity.Registry}. The names are relative to the classpath. Module names
+     * to build the {@link gravity.Container}. The names are relative to the classpath. Module names
      * are separated by commas and may be optionally enclosed in quotes (").
      */
     public static final String     MODULE_NAMES = "moduleNames";
@@ -57,13 +57,13 @@ public class BshPlugin implements Plugin
 
             else if (te.getTarget() instanceof TargetError)
                 throw WrapperException.wrap(te,
-                    "Registry configuration execution error in module: " + url + "\n\n" + e);
+                    "Container configuration execution error in module: " + url + "\n\n" + e);
             
             else
-                throw WrapperException.wrap(e, "Registry configuration error in module: " + url);
+                throw WrapperException.wrap(e, "Container configuration error in module: " + url);
         }
         else
-            throw WrapperException.wrap(e, "Registry configuration error in module: " + url);
+            throw WrapperException.wrap(e, "Container configuration error in module: " + url);
     }
 
     private void buildModule(URL url)
@@ -104,12 +104,12 @@ public class BshPlugin implements Plugin
         }
     }
 
-    protected MutableRegistryAdapter newMutableRegistryAdapter(MutableRegistry registry)
+    protected MutableRegistryAdapter newMutableRegistryAdapter(MutableContainer registry)
     {
         return new MutableRegistryAdapter(registry);
     }
 
-    public void startup(Properties pluginProps, MutableRegistry registry)
+    public void startup(Properties pluginProps, MutableContainer registry)
     {
         _registry = newMutableRegistryAdapter(registry);
 

@@ -16,25 +16,25 @@ package gravity.plugins;
 
 import gravity.Gravity;
 import gravity.GravityTestCase;
-import gravity.MutableRegistry;
+import gravity.MutableContainer;
 import gravity.Plugin;
-import gravity.impl.DefaultRegistry;
+import gravity.impl.DefaultContainer;
 import gravity.util.ClassUtils;
 
 import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginTest.java,v 1.2 2004-05-17 03:04:13 harishkswamy Exp $
+ * @version $Id: BshPluginTest.java,v 1.3 2004-05-18 20:52:07 harishkswamy Exp $
  */
 public class BshPluginTest extends GravityTestCase
 {
-    private MutableRegistry _registry;
+    private MutableContainer _registry;
 
     public void setUp()
     {
         Gravity.getInstance().initialize();
-        _registry = new DefaultRegistry();
+        _registry = new DefaultContainer();
     }
 
     public void tearDown()
@@ -116,7 +116,7 @@ public class BshPluginTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Registry configuration execution error in module: "
+            assertSuperString(e, "Container configuration execution error in module: "
                 + ClassUtils.getResource(fPath + fName));
         }
     }
@@ -138,7 +138,7 @@ public class BshPluginTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Registry configuration error in module: "
+            assertSuperString(e, "Container configuration error in module: "
                 + ClassUtils.getResource(fPath + fName));
         }
     }

@@ -16,8 +16,9 @@ package gravity.impl;
 
 import gravity.Component;
 import gravity.Location;
-import gravity.MutableRegistry;
+import gravity.MutableContainer;
 import gravity.UsageException;
+import gravity.util.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,9 +30,9 @@ import java.util.Map;
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultRegistry.java,v 1.3 2004-05-18 04:56:28 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.1 2004-05-18 20:52:03 harishkswamy Exp $
  */
-public class DefaultRegistry implements MutableRegistry
+public class DefaultContainer implements MutableContainer
 {
     /**
      * Components container.
@@ -67,7 +68,8 @@ public class DefaultRegistry implements MutableRegistry
         return compFactory;
     }
 
-    // MutableRegistry methods =====================================================================
+    // MutableContainer methods
+    // =====================================================================
 
     // Primary component registration method =======================================================
 
@@ -262,7 +264,8 @@ public class DefaultRegistry implements MutableRegistry
         return configKey;
     }
 
-    // Registry methods ============================================================================
+    // Container methods
+    // ============================================================================
 
     public Object getComponentInstance(Object compKey)
     {
@@ -348,6 +351,15 @@ public class DefaultRegistry implements MutableRegistry
         }
 
         return configMap;
+    }
+
+    public void handlePreThreadTermination()
+    {
+        Object obj = getComponentInstance(ThreadTerminationNotifier.class);
+
+        ThreadTerminationNotifier notifier = (ThreadTerminationNotifier) obj;
+
+        notifier.notifyObservers();
     }
 
     /**

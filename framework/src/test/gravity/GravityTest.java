@@ -20,7 +20,7 @@ import java.net.URL;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTest.java,v 1.2 2004-05-17 03:04:12 harishkswamy Exp $
+ * @version $Id: GravityTest.java,v 1.3 2004-05-18 20:51:58 harishkswamy Exp $
  */
 public class GravityTest extends GravityTestCase
 {
@@ -46,7 +46,7 @@ public class GravityTest extends GravityTestCase
 
     public void testStartup()
     {
-        Registry registry = Gravity.getInstance().startup();
+        Container registry = Gravity.getInstance().startup();
 
         assertNotNull(registry);
 
@@ -57,7 +57,7 @@ public class GravityTest extends GravityTestCase
     {
         writePluginFile("pluginClassName=gravity.plugins.BshPlugin");
 
-        Registry registry = Gravity.getInstance().startup();
+        Container registry = Gravity.getInstance().startup();
 
         assertNotNull(registry);
 
@@ -70,7 +70,7 @@ public class GravityTest extends GravityTestCase
 
         writeFile(fPath, "pluginClassName=gravity.plugins.BshPlugin");
 
-        Registry registry = Gravity.getInstance().startup("gravity/gravity.properties");
+        Container registry = Gravity.getInstance().startup("gravity/gravity.properties");
 
         assertNotNull(registry);
 

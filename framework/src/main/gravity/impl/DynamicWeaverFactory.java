@@ -23,7 +23,7 @@ import gravity.util.ClassUtils;
  * This is a factory that produces {@link gravity.DynamicWeaver}.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DynamicWeaverFactory.java,v 1.2 2004-05-17 03:04:03 harishkswamy Exp $
+ * @version $Id: DynamicWeaverFactory.java,v 1.3 2004-05-18 20:52:04 harishkswamy Exp $
  */
 public class DynamicWeaverFactory
 {
@@ -50,7 +50,7 @@ public class DynamicWeaverFactory
 
     private static DynamicWeaver newDynamicWeaver()
     {
-        String className = Gravity.getInstance().getProperty(Gravity.DYNAMIC_WEAVER_CLASS_NAME);
+        String className = Gravity.getInstance().getProperty(Gravity.DYNAMIC_WEAVER_CLASS_NAME_KEY);
 
         if (className == null)
             return getDefaultDynamicWeaver();

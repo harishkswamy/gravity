@@ -17,11 +17,13 @@ package gravity;
 import java.util.Map;
 
 /**
- * This is the factory that will produce components. A factory can only produce instances of one
- * component.
+ * The Component is an object that has an interface, an implementation and
+ * {@link gravity.ComponentState state}. The Component is also a factory that produce instances of
+ * itself just like {@link java.lang.Class}. The identity of the instances produced by the
+ * component is dependent on the state of the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.2 2004-05-18 04:56:31 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.3 2004-05-18 20:52:00 harishkswamy Exp $
  */
 public interface Component
 {
@@ -81,26 +83,6 @@ public interface Component
      * This method will change the state of this component to thread local.
      */
     void wrapStateWithThreadLocal();
-
-    /**
-     * This method will return a concrete instance of this component. The component instance
-     * indentity is dependent on the state of the component. This method will throw a runtime
-     * exception if invoked prior to registering an implementation for the component.
-     * 
-     * @throws WrapperException
-     *         Wraps the actual exception thrown while obtaining the concrete component instance.
-     */
-    Object getConcreteInstance();
-
-    /**
-     * Returns a new concrete instance of this component.
-     */
-    Object newInstance();
-
-    /**
-     * Returns the interface class of this component.
-     */
-    Class getInterface();
 
     /**
      * This method should be used to return a component instance obtained via {@link #getInstance()}.

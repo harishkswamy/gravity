@@ -14,9 +14,9 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentInvocationHandler;
 import gravity.ComponentProxy;
+import gravity.ProxyableComponent;
 import gravity.WrapperException;
 import gravity.util.ClassUtils;
 
@@ -25,14 +25,13 @@ import java.lang.reflect.Proxy;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxy.java,v 1.2 2004-05-18 04:56:28 harishkswamy Exp $
+ * @version $Id: JdkComponentProxy.java,v 1.3 2004-05-18 20:52:05 harishkswamy Exp $
  */
 public class JdkComponentProxy implements ComponentProxy
 {
-    public ComponentInvocationHandler newComponentInvocationHandler(Component comp,
-        boolean dispatchMode)
+    public ComponentInvocationHandler newComponentInvocationHandler(ProxyableComponent comp)
     {
-        return new JdkComponentInvocationHandler(comp, dispatchMode);
+        return new JdkComponentInvocationHandler(comp);
     }
 
     public Object newInstance(Class compIntf, ComponentInvocationHandler handler)

@@ -18,11 +18,11 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Plugin.java,v 1.3 2004-05-13 06:27:03 harishkswamy Exp $
+ * @version $Id: Plugin.java,v 1.4 2004-05-18 20:51:59 harishkswamy Exp $
  */
 public interface Plugin
 {
     String LOCATION_URL_KEY = "$gravity.Plugin.locationUrlKey$";
 
-    void startup(Properties props, MutableRegistry registry);
+    void startup(Properties props, MutableContainer registry);
 }

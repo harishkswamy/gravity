@@ -14,43 +14,43 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentInvocationHandler;
+import gravity.ProxyableComponent;
 import gravity.WrapperException;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: AbstractComponentInvocationHandler.java,v 1.2 2004-05-18 04:56:27 harishkswamy Exp $
+ * @version $Id: AbstractComponentInvocationHandler.java,v 1.3 2004-05-18 20:52:04 harishkswamy Exp $
  */
 public abstract class AbstractComponentInvocationHandler implements ComponentInvocationHandler
 {
-    protected Component _component;
-    protected Object    _componentInstance;
-    protected boolean   _dispatchMode;
+    protected ProxyableComponent _component;
+    protected Object             _componentInstance;
 
-    protected AbstractComponentInvocationHandler(Component comp, boolean dispatchMode)
+    protected AbstractComponentInvocationHandler(ProxyableComponent comp)
     {
         _component = comp;
-        _dispatchMode = dispatchMode;
     }
 
-    protected Object obtainConcreteComponentInstance()
+    protected Object getConcreteComponentInstance()
     {
         try
         {
             Object instance;
 
-            if (_dispatchMode)
+            if (_component.isInDispatchingState())
+            {
                 instance = _component.getConcreteInstance();
 
-            else if (_componentInstance == null)
+                _componentInstance = null;
+            }
+            else
             {
-                _componentInstance = _component.getConcreteInstance();
+                if (_componentInstance == null)
+                    _componentInstance = _component.getConcreteInstance();
 
                 instance = _componentInstance;
             }
-            else
-                instance = _componentInstance;
 
             return instance;
         }
@@ -59,10 +59,5 @@ public abstract class AbstractComponentInvocationHandler implements ComponentInv
             throw WrapperException.wrap(e, "Unable to get concrete instance for component: "
                 + _component);
         }
-    }
-
-    public void setDispatchMode(boolean mode)
-    {
-        _dispatchMode = mode;
     }
 }

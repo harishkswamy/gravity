@@ -14,30 +14,33 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentInvocationHandler;
 import gravity.ComponentProxy;
 import gravity.ComponentState;
-import gravity.util.Cache;
+import gravity.ProxyableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: LazyLoadingComponentState.java,v 1.2 2004-05-18 04:56:29 harishkswamy Exp $
+ * @version $Id: LazyLoadingComponentState.java,v 1.3 2004-05-18 20:52:05 harishkswamy Exp $
  */
 public class LazyLoadingComponentState extends ComponentStateDecorator
 {
-    public LazyLoadingComponentState(ComponentState decorator, Component component,
-        Cache proxyInstanceCache)
+    public LazyLoadingComponentState(ComponentState decorator, ProxyableComponent component)
     {
-        super(decorator, component, proxyInstanceCache, false);
+        super(decorator, component);
     }
 
     public Object getComponentInstance()
     {
         ComponentProxy proxy = ComponentProxyFactory.getInstance().getComponentProxy();
 
-        ComponentInvocationHandler handler = proxy.newComponentInvocationHandler(_component, false);
+        ComponentInvocationHandler handler = proxy.newComponentInvocationHandler(_component);
 
         return proxy.newInstance(_component.getInterface(), handler);
+    }
+
+    public boolean isDispatching()
+    {
+        return false;
     }
 }

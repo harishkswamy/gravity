@@ -14,22 +14,22 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentState;
-import gravity.util.Cache;
+import gravity.ProxyableComponent;
+import gravity.util.ThreadTerminationObserver;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentState.java,v 1.2 2004-05-18 04:56:28 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentState.java,v 1.3 2004-05-18 20:52:04 harishkswamy Exp $
  */
-public class ThreadLocalComponentState extends DispatchingComponentState
+public class ThreadLocalComponentState extends DispatchingComponentState implements
+    ThreadTerminationObserver
 {
     private ThreadLocal _threadLocal = new ThreadLocal();
 
-    public ThreadLocalComponentState(ComponentState delegate, Component component,
-        Cache proxyInstanceCache)
+    public ThreadLocalComponentState(ComponentState delegate, ProxyableComponent component)
     {
-        super(delegate, component, proxyInstanceCache);
+        super(delegate, component);
     }
 
     private synchronized void cacheComponent(Object component)
@@ -46,12 +46,16 @@ public class ThreadLocalComponentState extends DispatchingComponentState
         return _threadLocal.get();
     }
 
-    //TODO must be invoked at thread clean up to return the component instance
     public void cleanUp()
     {
         collectComponentInstance(_threadLocal.get());
 
         _threadLocal.set(null);
+    }
+
+    public void handlePreThreadTermination()
+    {
+        cleanUp();
     }
 
     public String toString()

@@ -21,7 +21,7 @@ import gravity.util.ClassUtils;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxyFactory.java,v 1.1 2004-05-17 03:03:58 harishkswamy Exp $
+ * @version $Id: ComponentProxyFactory.java,v 1.2 2004-05-18 20:52:05 harishkswamy Exp $
  */
 public class ComponentProxyFactory
 {
@@ -45,7 +45,7 @@ public class ComponentProxyFactory
 
     private ComponentProxy newComponentProxy()
     {
-        String className = Gravity.getInstance().getProperty(Gravity.COMPONENT_PROXY_CLASS_NAME);
+        String className = Gravity.getInstance().getProperty(Gravity.COMPONENT_PROXY_CLASS_NAME_KEY);
 
         if (className == null)
             return getDefaultComponentProxy();

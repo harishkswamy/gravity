@@ -14,12 +14,11 @@
 
 package gravity.impl;
 
-import gravity.Component;
 import gravity.ComponentState;
 import gravity.Location;
+import gravity.ProxyableComponent;
 import gravity.UsageException;
 import gravity.WrapperException;
-import gravity.util.Cache;
 import gravity.util.ClassUtils;
 import gravity.util.ReflectUtils;
 
@@ -28,9 +27,9 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.2 2004-05-18 04:56:26 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.3 2004-05-18 20:52:02 harishkswamy Exp $
  */
-public class DefaultComponent implements Component
+public class DefaultComponent implements ProxyableComponent
 {
     private ComponentKey   _key;
     private Location       _retrievalLocation;
@@ -39,40 +38,32 @@ public class DefaultComponent implements Component
     private Map            _setterArgs;
     private Location       _registrationLocation;
     private ComponentState _componentState;
-    private Cache          _proxyInstanceCache = new Cache();
 
     public DefaultComponent(ComponentKey compKey)
     {
         _key = compKey;
 
-        _componentState = new LazyLoadingComponentState(null, this, _proxyInstanceCache);
+        _componentState = new LazyLoadingComponentState(null, this);
     }
 
     public Object getInstance()
     {
-        Object instance = _componentState.getComponentInstance();
-
-        synchronized (_proxyInstanceCache)
-        {
-            _proxyInstanceCache.add(instance);
-        }
-
-        return instance;
+        return _componentState.getComponentInstance();
     }
 
-    public void registerImplementation(Class compClass, Object[] ctorArgs, Map setrArgs)
+    public synchronized void registerImplementation(Class compClass, Object[] ctorArgs, Map setrArgs)
     {
         _implementation = compClass;
         _constructorArgs = ctorArgs;
         _setterArgs = setrArgs;
     }
 
-    public void setRegistrationLocation(Location location)
+    public synchronized void setRegistrationLocation(Location location)
     {
         _registrationLocation = location;
     }
 
-    public void setRetrievalLocation(Location location)
+    public synchronized void setRetrievalLocation(Location location)
     {
         _retrievalLocation = location;
     }
@@ -80,6 +71,11 @@ public class DefaultComponent implements Component
     public Class getInterface()
     {
         return _key.getComponentInterface();
+    }
+
+    public boolean isInDispatchingState()
+    {
+        return _componentState.isDispatching();
     }
 
     private ComponentState getStateToDecorate()
@@ -90,49 +86,48 @@ public class DefaultComponent implements Component
             return _componentState;
     }
 
-    protected SingletonComponentState newSingletonState(ComponentState state, Component comp,
-        Cache proxyInstanceCache)
+    protected SingletonComponentState newSingletonState(ComponentState state,
+        ProxyableComponent comp)
     {
-        return new SingletonComponentState(state, comp, proxyInstanceCache);
+        return new SingletonComponentState(state, comp);
     }
 
-    public void wrapStateWithSingleton()
+    public synchronized void wrapStateWithSingleton()
     {
         // If already in singleton state, do nothing
         if (_componentState instanceof SingletonComponentState)
             return;
 
-        _componentState = newSingletonState(getStateToDecorate(), this, _proxyInstanceCache);
+        _componentState = newSingletonState(getStateToDecorate(), this);
     }
 
-    protected PoolingComponentState newPoolingState(ComponentState state, Component comp,
-        Cache proxyInstanceCache)
+    protected PoolingComponentState newPoolingState(ComponentState state, ProxyableComponent comp)
     {
-        return new PoolingComponentState(state, comp, proxyInstanceCache);
+        return new PoolingComponentState(state, comp);
     }
 
-    public void wrapStateWithPooling()
+    public synchronized void wrapStateWithPooling()
     {
         // If already in pooling state, do nothing
         if (_componentState instanceof PoolingComponentState)
             return;
 
-        _componentState = newPoolingState(getStateToDecorate(), this, _proxyInstanceCache);
+        _componentState = newPoolingState(getStateToDecorate(), this);
     }
 
-    protected ThreadLocalComponentState newThreadLocalState(ComponentState state, Component comp,
-        Cache proxyInstanceCache)
+    protected ThreadLocalComponentState newThreadLocalState(ComponentState state,
+        ProxyableComponent comp)
     {
-        return new ThreadLocalComponentState(state, comp, proxyInstanceCache);
+        return new ThreadLocalComponentState(state, comp);
     }
 
-    public void wrapStateWithThreadLocal()
+    public synchronized void wrapStateWithThreadLocal()
     {
         // If already in thread local state, do nothing
         if (_componentState instanceof ThreadLocalComponentState)
             return;
 
-        _componentState = newThreadLocalState(getStateToDecorate(), this, _proxyInstanceCache);
+        _componentState = newThreadLocalState(getStateToDecorate(), this);
     }
 
     public Object getConcreteInstance()
