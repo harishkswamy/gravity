@@ -18,11 +18,11 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Plugin.java,v 1.2 2004-05-13 06:11:51 harishkswamy Exp $
+ * @version $Id: Plugin.java,v 1.3 2004-05-13 06:27:03 harishkswamy Exp $
  */
 public interface Plugin
 {
-    String ROOT_PATH_KEY = "$pluginRootPathKey$";
+    String LOCATION_URL_KEY = "$gravity.Plugin.locationUrlKey$";
 
     void startup(Properties props, MutableRegistry registry);
 }
