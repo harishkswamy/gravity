@@ -1,0 +1,7 @@
+// Single line Comments
+/* Block Comments */
+<emphasis role="keyword">Commands</emphasis>
+Literal Code
+<replaceable>&lt;Replaceable Text&gt;</replaceable>              // This text is intended to be replaced with an appropriate value
+<emphasis role="optional">[Optional Code]</emphasis>                 // This code is optional and may be omitted
+<emphasis role="options">{Option 1 | Option 2 | ... }</emphasis>    // Only one of these options may be provided

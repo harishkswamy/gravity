@@ -1,0 +1,5 @@
+Object /* Component Key */ <emphasis role="keyword">add</emphasis>
+(
+    &componentKey;,
+    <emphasis role="options">{&constructorArgs; | &callbacks; | &injection; | &startup;}</emphasis>
+);

@@ -1,0 +1,14 @@
+class ComponentA
+{
+    ComponentB _componentB;
+    ComponentC _componentC;
+    
+    void doSomething()
+    {
+        ...
+        _componentB.doSomething();
+        ...
+        _componentC.doSomething();
+        ...
+    }
+}

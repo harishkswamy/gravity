@@ -1,0 +1,51 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V3.1//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+
+    <!ENTITY ApiRoot "../api/org/apache/tapestry">
+    <!ENTITY BshPlugin '<ulink url="&ApiRoot;/gravity/plugins/BshPlugin.html"><classname>BshPlugin</classname></ulink>'>
+    <!ENTITY ComponentCallback '<ulink url="&ApiRoot;/gravity/ComponentCallback.html"><classname>ComponentCallback</classname></ulink>'>
+
+    <!ENTITY componentKey '<emphasis role="options">{<replaceable>&lt;Component Key of type Object&gt;</replaceable> | <replaceable>&lt;Component Interface Class&gt;</replaceable><emphasis role="optional">[, <replaceable>&lt;Component Type of type Object&gt;</replaceable>]</emphasis>}</emphasis>'>
+
+    <!ENTITY constructorArgs '<emphasis role="keyword"><link linkend="ctor-args-spec">constructorArgs</link></emphasis>(...)'>
+    <!ENTITY callbacks '<emphasis role="keyword"><link linkend="callbacks-spec">callbacks</link></emphasis>(...)'>
+    <!ENTITY injection '<emphasis role="keyword"><link linkend="injection-spec">injection</link></emphasis>(...)'>
+    <!ENTITY startup '<emphasis role="keyword"><link linkend="startup-spec">startup</link></emphasis>(...)'>
+    
+	<!ENTITY introduction SYSTEM "introduction.xml">
+	<!ENTITY dependency-management-listing SYSTEM "listings/dependency-management.xml">
+	<!ENTITY dependency-injection-listing SYSTEM "listings/dependency-injection.xml">
+    
+	<!ENTITY overview SYSTEM "overview.xml">
+	<!ENTITY plugin-manifest-listing SYSTEM "listings/plugin-manifest.xml">
+	<!ENTITY module-spec-listing SYSTEM "listings/module-spec.xml">
+    
+	<!ENTITY default-plugin-spec-ref SYSTEM "default-plugin-spec-ref.xml">
+	<!ENTITY spec-notation-listing SYSTEM "listings/spec-notation.xml">
+	<!ENTITY add-spec-listing SYSTEM "listings/add-spec.xml">
+	<!ENTITY callback-spec-listing SYSTEM "listings/callback-spec.xml">
+	<!ENTITY comp-impl-spec-listing SYSTEM "listings/comp-impl-spec.xml">
+	<!ENTITY comp-inst-spec-listing SYSTEM "listings/comp-inst-spec.xml">
+	<!ENTITY ctor-args-spec-listing SYSTEM "listings/ctor-args-spec.xml">
+	<!ENTITY injection-spec-listing SYSTEM "listings/injection-spec.xml">
+	<!ENTITY pooling-spec-listing SYSTEM "listings/pooling-spec.xml">
+	<!ENTITY singleton-spec-listing SYSTEM "listings/singleton-spec.xml">
+	<!ENTITY startup-spec-listing SYSTEM "listings/startup-spec.xml">
+	<!ENTITY thread-local-spec-listing SYSTEM "listings/thread-local-spec.xml">
+]>
+
+<book id="gravity" lang="en">
+	<title>Gravity - Manual</title>
+
+	<bookinfo>
+		<author>
+			<firstname>Harish</firstname>
+			<surname>Krishnaswamy</surname>
+		</author>
+	</bookinfo>
+
+	&introduction;
+    &overview;
+    &default-plugin-spec-ref;
+
+</book>

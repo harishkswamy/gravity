@@ -1,0 +1,22 @@
+import <replaceable>components.pkg</replaceable>;
+
+// Register a component implementation
+<emphasis role="keyword">componentImpl</emphasis>
+(
+    // Component being registered
+    <replaceable>ComponentA.class</replaceable>,
+
+    // Register dependencies via constructor injection
+    <emphasis role="keyword">constructorArgs</emphasis>( <replaceable>"firstArg", 23.1</replaceable> ),
+
+    // Register life cycle methods
+    <emphasis role="keyword">callbacks</emphasis>
+    (
+        // Register dependencies via method injection
+        <emphasis role="keyword">injection</emphasis>("<replaceable>setComponentB</replaceable>", <emphasis role="keyword">componentInst</emphasis>( <replaceable>ComponentB.class</replaceable> )),
+        <emphasis role="keyword">injection</emphasis>("<replaceable>setComponentC</replaceable>", <emphasis role="keyword">componentInst</emphasis>( <replaceable>ComponentC.class</replaceable> )),
+
+        // Register startup methods
+        <emphasis role="keyword">startup</emphasis>("<replaceable>initialize</replaceable>")
+    )
+);

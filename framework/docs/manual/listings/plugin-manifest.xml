@@ -1,0 +1,7 @@
+# Optional plugin class name.
+<emphasis role="keyword">pluginClassName</emphasis> = <replaceable>pkg.ClassName</replaceable>
+
+# All qualified module names.
+<emphasis role="keyword">moduleNames</emphasis> = <replaceable>classpath/to/moduleA</replaceable>, \
+              <replaceable>classpath/to/moduleB</replaceable> \
+              <replaceable>classpath/to/moduleC</replaceable>

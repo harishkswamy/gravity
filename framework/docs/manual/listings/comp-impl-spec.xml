@@ -1,0 +1,7 @@
+Object /* Returns the Component Key */ <emphasis role="keyword">componentImpl</emphasis>
+(
+    &componentKey;,
+    <replaceable>&lt;Component Implementation Class&gt;</replaceable><emphasis role="optional">[,
+    &constructorArgs;,
+    &callbacks;]</emphasis>
+);

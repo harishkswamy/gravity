@@ -1,0 +1,211 @@
+<chapter id="overview">
+    <title>Gravity Overview</title>
+
+    <section>
+        Gravity is a runtime container that will <emphasis>gather</emphasis>, 
+        <emphasis>configure</emphasis>, <emphasis>manage</emphasis> and <emphasis>serve</emphasis>
+        software components.
+        <itemizedlist>
+            <listitem><para>
+                Gravity will gather the components by sweeping the classpath looking for plugins - 
+                a group of related software components. The plugins are identified by the plugin
+                manifest file, <filename>gravity-plugin.properties</filename>, placed under the 
+                <filename>META-INF</filename> directory in the classpath.
+            </para></listitem>
+            <listitem><para>
+                Gravity will configure the components as instructed by the plugins. Gravity is
+                capable of configuring components via <emphasis>constructor</emphasis>-, 
+                <emphasis>method</emphasis>- and <emphasis>combo-injection</emphasis>
+                techniques.
+            </para></listitem>
+            <listitem><para>
+                Gravity will manage the components via a predefined set of life cycle phases: 
+                <emphasis>instantiation</emphasis>, <emphasis>injection</emphasis>, 
+                <emphasis>start-up</emphasis> and <emphasis>shutdown</emphasis>.
+            </para></listitem>
+            <listitem><para>
+                Gravity will serve the gathered components, fully configured, when requested.
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    
+    <section>
+        <title>Deployment Model</title>
+        <figure>
+            <title>Deployment Model</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="images/deployment-model.gif" format="GIF" align="center" />
+                </imageobject>
+            </mediaobject>
+        </figure>
+    </section>
+
+    <section>
+        <title>Design Model</title>
+        <figure>
+            <title>Design Model</title>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="images/design-model.gif" format="GIF" align="center" />
+                </imageobject>
+            </mediaobject>
+        </figure>
+    </section>
+
+    <section id="gravity-terminology">
+        <title>Terminology</title>
+
+        <section id="term.component">
+            <title>Component (<emphasis>Flyweight</emphasis>)</title>
+            <para>
+                Component is a managed unit of software that performs a specific task and is 
+                part of a bigger cohesive system.
+                <itemizedlist>
+                    <listitem><para>
+                        A component has a clearly defined interface and of course an 
+                        implementation.
+                    </para></listitem>
+                    <listitem><para>
+                        A component has a well defined lifecycle: instatiation, injection, 
+                        start-up and shutdown.
+                    </para></listitem>
+                    <listitem><para>
+                        A component is uniquely identified by the component key which is typically 
+                        comprised of the component interface and an optional string identifier.
+                    </para></listitem>
+                    <listitem><para>
+                        A component is a factory for component instances (similar to java.lang.Class).
+                    </para></listitem>
+                    <listitem><para>
+                        A component produces component instances using a 
+                        <link linkend="term.strategy"><firstterm>Component Strategy</firstterm></link>.
+                    </para></listitem>
+                    <listitem><para>
+                        A component can change its strategy on the fly at runtime. When the 
+                        strategy is changed, all component instances (including the ones that
+                        were created prior to the strategy change) will behave in accordance 
+                        with the new strategy.
+                    </para></listitem>
+                </itemizedlist>
+            </para>
+        </section>
+        
+        <section id="term.strategy">
+            <title>Component Strategy (<emphasis>Strategy, Decorator</emphasis>)</title>
+            <para>
+                Component Strategy is the technique used by the component in producing instances.
+                The strategy determines the identity of the instances produced by the component.
+                <itemizedlist>
+                    <listitem><para>
+                        Component strategies are of two categories: Lazy Loading and Dispatching.
+                        All strategies fall under one of these two categories; Singleton and Pooling 
+                        fall under Lazy Loading and Thread Local falls under Dispatching.
+                    </para></listitem>
+                    <listitem><para>
+                        Component strategies are decoratable; a component may use Thread Local 
+                        strategy, and the Thread Local strategy may in turn use a Pooling strategy.
+                    </para></listitem>
+                </itemizedlist>
+            </para>
+        </section>
+
+        <section id="term.proxy">
+            <title>Component Proxy (<emphasis>Proxy, Singleton</emphasis>)</title>
+            <para>
+                Component Proxy is the component counterpart that produces component proxy
+                instances.
+                <itemizedlist>
+                    <listitem><para>
+                        A component proxy instance will stand-in for the component instance and 
+                        control access to it; it can be thought of as a
+                        component instance controller. Hence the ability to change the behavior of the 
+                        component instance when the component strategy changes.
+                    </para></listitem>
+                    <listitem><para>
+                        A component proxy instance will be composed of the component - the instance
+                        of which is being proxied.
+                    </para></listitem>
+                    <listitem><para>
+                        A component proxy instance will either cache the component instance and 
+                        delegate all calls to the cached instance, or it will dispatch all 
+                        calls to the component. The behavior is dictated by the component 
+                        strategy at the time of the call.
+                    </para></listitem>
+                </itemizedlist>
+            </para>
+        </section>
+
+        <section id="term.proxy">
+            <title>Container (<emphasis>Flyweight Factory</emphasis>)</title>
+            <para>
+                Container is the factory for components. Container creates and caches components
+                based on the component key. Container is also a 
+                component manager; it manages the lifecycle of the component.
+            </para>
+        </section>
+
+        <section id="term.module">
+            <title>Module</title>
+            <para>
+                A module is simply a collection of components grouped together primarily for the 
+                purpose of manageability. A module is typically a logical grouping of components.
+            </para>
+        </section>
+
+        <section id="term.plugin">
+            <title>Plugin (<emphasis>Plugin</emphasis>)</title>
+            <para>
+                A plugin is a collection of related components grouped together in different modules.
+                A plugin is typically an application that accomplishes a specific goal.
+            </para>
+        </section>
+
+    </section>
+
+    <section id="plugins-overview">
+        <title>Plugins</title>
+
+        <para>
+            Applications that provide components to Gravity can be of diverse nature. Each
+            application can specify its components in its own unique way - in BeanShell, 
+            in XML, in plain Java ... the list is endless. For this reason Gravity allows 
+            applications to choose their form of component specification via a plugin architecture.
+        </para>
+        
+        <para>
+            Plugins are identified by Gravity by the presence of the plugin manifest file under 
+            <filename>META-INF</filename> in the classpath.
+        </para>
+        
+        <example>
+            <title>Plugin Manifest File</title>
+            <programlisting role="properties">&plugin-manifest-listing;</programlisting>
+        </example>
+
+        <para>
+            Gravity, at startup, will give each identified plugin the opportunity to start itself up.
+            This is done by invoking the <methodname>startUp()</methodname> method in the plugin class
+            specified in the plugin manifest file. In the event that the plugin class is not 
+            specified, Gravity will use the default plugin class - &BshPlugin;. The 
+            <methodname>startUp()</methodname> method is passed a reference to the container so 
+            the plugin's components, that needs to be configured, can be added to the container.
+        </para>
+        
+    </section>
+    
+    <section>
+        <title>Modules</title>
+        <para>
+            Modules are simply a collection of components. The manner in which components are 
+            specified within the modules is entirely plugin specific.
+        </para>
+        
+        <example>
+            <title>Module Specification File (BeanShell)</title>
+            <programlisting role="beanshell">&module-spec-listing;</programlisting>
+        </example>
+
+    </section>
+    
+</chapter>

@@ -1,0 +1,4 @@
+Object /* Component Key */ <emphasis role="keyword">singleton</emphasis>
+(
+    &componentKey;
+);

@@ -1,0 +1,6 @@
+Object[] <emphasis role="keyword">constructorArgs</emphasis>
+(
+    <replaceable>&lt;Argument 1 of any type&gt;</replaceable><emphasis role="optional">[,
+    <replaceable>&lt;Argument 2 of any type&gt;</replaceable>,
+    ...]</emphasis>
+);

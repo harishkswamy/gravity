@@ -1,0 +1,6 @@
+ComponentCallback[] <emphasis role="keyword">callbacks</emphasis>
+(
+    <emphasis role="options">{&injection; | &startup;}</emphasis><emphasis role="optional">[,
+    <emphasis role="options">{&injection; | &startup;}</emphasis>,
+    ...]</emphasis>
+);

@@ -1,0 +1,13 @@
+class ComponentA
+{
+    void doSomething()
+    {
+        ...
+        <emphasis role="bad-code">ComponentB componentB = componentBFactory.getComponentB();</emphasis>
+        componentB.doSomething();
+        ...
+        <emphasis role="bad-code">ComponentC componentC = componentCFactory.getComponentC();</emphasis>
+        componentC.doSomething();
+        ...
+    }
+}

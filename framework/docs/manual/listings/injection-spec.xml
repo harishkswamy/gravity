@@ -1,0 +1,6 @@
+ComponentCallback <emphasis role="keyword">injection</emphasis>
+(
+    "<replaceable>&lt;Callback Method Name&gt;</replaceable>"<emphasis role="optional">[,
+    <replaceable>&lt;Method Arg 1 of any type&gt;</replaceable>,
+    ...]</emphasis>
+);

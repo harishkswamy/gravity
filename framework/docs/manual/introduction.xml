@@ -1,0 +1,69 @@
+<chapter id="introduction">
+
+    <title>Introduction</title>
+
+    <para>
+        Software components seldom operate in isolation; they often collaborate with other components
+        to form a cohesive whole. This collaboration leads to dependencies between components that
+        is often times a hassle to manage.
+    </para>
+
+    <example>
+        <title>Conventional Dependency Management</title>
+        <programlisting role="java">&dependency-management-listing;</programlisting>
+    </example>
+
+    <para>
+        This obscures the business logic in code and leads to a proliferation of factories.
+    </para>
+
+    <section id="dependency-injection">
+        <title>Dependency Injection</title>
+        <para>
+            <firstterm>Dependency Injection / Invertion of Control</firstterm> is the design pattern 
+            employed to free the components from the hassle of managing their dependencies. Instead, 
+            the dependencies are configured and injected into the component by an external entity - the 
+            container.
+        </para>
+    
+        <example>
+            <title>Dependency Management via Injection</title>
+            <programlisting role="java">&dependency-injection-listing;</programlisting>
+        </example>
+    
+        <para>
+            Here the dependencies are already there when the component needs it; hence the code is clear
+            and there are no factories littered thought the system.
+        </para>
+        
+        <section id="injection-types">
+            <title>Types of Injection</title>
+            
+            <section>
+                <title>Constructor Injection</title>
+                <para>
+                    Constructor Injection is a technique used to inject component dependencies via 
+                    the component's constructor.
+                </para>
+            </section>
+
+            <section>
+                <title>Method Injection</title>
+                <para>
+                    Method Injection is a technique used to inject component dependencies via the
+                    component's public methods.
+                </para>
+            </section>
+
+            <section>
+                <title>Combo Injection</title>
+                <para>
+                    Combo Injection is a combination of constructor and method injections.
+                    Combo Injection is a technique used to inject component dependencies via both 
+                    the component's constructor and its methods.
+                </para>
+            </section>
+        </section>
+    </section>
+
+</chapter>

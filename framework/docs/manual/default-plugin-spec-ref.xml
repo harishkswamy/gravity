@@ -1,0 +1,105 @@
+<chapter id="default-plugin-spec-ref">
+    <title>BeanShell Specification Reference</title>
+    <section id="spec-notation">
+        <title>Notation</title>
+        <para>
+            This chapter covers the complete specification for the BeanShell module specification 
+            files and the following notation will be used to illustrate the specification.
+        </para>
+
+        <para>
+            <programlisting role="beanshell">&spec-notation-listing;</programlisting>
+        </para>
+    </section>
+
+    <section id="add-spec">
+        <title>add</title>
+
+        <para>
+            <programlisting role="beanshell">&add-spec-listing;</programlisting>
+        </para>
+
+    </section>
+
+    <section id="callbacks-spec">
+        <title>callbacks</title>
+
+        <para>
+            <programlisting role="beanshell">&callback-spec-listing;</programlisting>
+        </para>
+
+    </section>
+
+    <section id="comp-impl-spec">
+        <title>componentImpl</title>
+        
+        <para>
+            <programlisting role="beanshell">&comp-impl-spec-listing;</programlisting>
+        </para>
+
+    </section>
+
+    <section id="comp-inst-spec">
+        <title>componentInst</title>
+        
+        <para>
+            <programlisting role="beanshell">&comp-inst-spec-listing;</programlisting>
+        </para>
+
+    </section>
+
+    <section id="ctor-args-spec">
+        <title>constructorArgs</title>
+        
+        <para>
+            <programlisting role="beanshell">&ctor-args-spec-listing;</programlisting>
+        </para>
+
+    </section>
+    
+    <section id="injection-spec">
+        <title>injection</title>
+        
+        <para>
+            <programlisting role="beanshell">&injection-spec-listing;</programlisting>
+        </para>
+
+    </section>
+    
+    <section id="pooling-spec">
+        <title>pooling</title>
+
+        <para>
+            <programlisting role="beanshell">&pooling-spec-listing;</programlisting>
+        </para>
+
+    </section>
+
+    <section id="singleton-spec">
+        <title>singleton</title>
+
+        <para>
+            <programlisting role="beanshell">&singleton-spec-listing;</programlisting>
+        </para>
+
+    </section>
+
+    <section id="startup-spec">
+        <title>startup</title>
+        
+        <para>
+            <programlisting role="beanshell">&startup-spec-listing;</programlisting>
+        </para>
+
+    </section>
+    
+    <section id="thread-local-spec">
+        <title>threadLocal</title>
+
+        <para>
+            <programlisting role="beanshell">&thread-local-spec-listing;</programlisting>
+        </para>
+
+    </section>
+
+</chapter>
