@@ -15,10 +15,14 @@
 package gravity;
 
 /**
+ * Implementations of this interface will enable a component proxy to be realized into a concrete
+ * instance. This is primarily an interface for {@link gravity.ComponentProxy}and
+ * {@link gravity.ComponentStrategy}.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: ProxyableComponent.java,v 1.3 2004-08-10 16:25:20 harishkswamy Exp $
+ * @version $Id: RealizableComponent.java,v 1.1 2004-09-02 03:54:27 harishkswamy Exp $
  */
-public interface ProxyableComponent extends Component
+public interface RealizableComponent extends Component
 {
     /**
      * Returns the interface class for this component.
@@ -26,22 +30,22 @@ public interface ProxyableComponent extends Component
     Class getInterface();
 
     /**
-     * Returns the factory for this component.
-     */
-    Object getFactory();
-
-    /**
-     * This method will return a concrete instance of this component. The component instance
-     * indentity is dependent on the state of the component. This method will throw a runtime
-     * exception if invoked prior to registering an implementation for the component.
+     * This method will return a concrete instance of this component. This method obeys the
+     * component strategy and hence the component instance indentity will depend on the component
+     * strategy at the time of the call.
      * 
+     * @throws UsageException
+     *             When the implementation class for the component is null.
      * @throws WrapperException
-     *         Wraps the actual exception thrown while obtaining the concrete component instance.
+     *             Wraps the actual exception thrown while obtaining the concrete component
+     *             instance.
      */
     Object getConcreteInstance();
 
     /**
-     * Returns a new concrete instance of this component.
+     * Builds and returns a new component instance. This method is primarily for
+     * {@link ComponentProxy}, it will return a new instance everytime unlike
+     * {@link #getConcreteInstance()}.
      */
     Object newInstance();
 
