@@ -22,12 +22,12 @@ import gravity.util.Pool;
  * This is a lazy loading strategy that will pool the generated concrete component instances. When
  * the use for the returned instance is over, it can be returned back to the pool via
  * {@link #collectComponentInstance(Object)}. The size of the pool can be configured by overriding
- * {@link gravity.impl.ComponentFactory#newPoolingStrategy(ComponentStrategy)}and creating this
+ * {@link gravity.impl.DefaultComponentInstanceBuilder#newPoolingStrategy(ComponentStrategy)}and creating this
  * strategy via {@link PoolingComponentStrategy(ComponentStrategy, int)}.
  * 
  * @see gravity.util.Pool
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentStrategy.java,v 1.3 2004-09-02 04:04:48 harishkswamy Exp $
+ * @version $Id: PoolingComponentStrategy.java,v 1.4 2004-11-17 19:52:58 harishkswamy Exp $
  */
 public class PoolingComponentStrategy extends LazyLoadingComponentStrategy
 {
