@@ -14,15 +14,18 @@
 
 package gravity.impl;
 
+import gravity.WrapperException;
+import gravity.util.Message;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This is the key that will uniquely identify a component within the container. This key is 
+ * This is the key that will uniquely identify a component within the container. This key is
  * composed of the component interface and optionally a component type (a string identifier).
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentKey.java,v 1.4 2004-09-02 04:04:48 harishkswamy Exp $
+ * @version $Id: ComponentKey.java,v 1.5 2004-11-17 19:43:38 harishkswamy Exp $
  */
 public class ComponentKey
 {
@@ -54,7 +57,8 @@ public class ComponentKey
     public ComponentKey(Class compIntf, Object compType)
     {
         if (compIntf == null)
-            throw new IllegalArgumentException("Component interface must not be null.");
+            throw WrapperException.wrap(new IllegalArgumentException(),
+                Message.COMPONENT_INTERFACE_MUST_NOT_BE_NULL);
 
         if (compType == null)
             compType = DEFAULT_COMPONENT_TYPE;
