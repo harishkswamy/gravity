@@ -15,18 +15,20 @@
 package gravity;
 
 import gravity.impl.CglibComponentProxyTest;
-import gravity.impl.ComponentTest;
 import gravity.impl.ComponentKeyTest;
 import gravity.impl.ComponentProxyFactoryTest;
+import gravity.impl.ComponentTest;
 import gravity.impl.DefaultComponentTest;
 import gravity.impl.DefaultContainerTest;
 import gravity.impl.DynamicWeaverFactoryTest;
 import gravity.impl.JdkComponentProxyTest;
 import gravity.impl.PoolingComponentStateTest;
 import gravity.impl.SingletonComponentStateTest;
+import gravity.impl.ThreadLocalComponentStateTest;
 import gravity.plugins.BshPluginTest;
 import gravity.plugins.MutableRegistryAdapterTest;
 import gravity.util.ClassUtilsTest;
+import gravity.util.CleanableThreadLocalTest;
 import gravity.util.ReflectUtilsTest;
 import gravity.util.UtilsTest;
 import junit.framework.Test;
@@ -34,7 +36,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTestSuite.java,v 1.3 2004-05-18 20:51:58 harishkswamy Exp $
+ * @version $Id: GravityTestSuite.java,v 1.4 2004-05-20 11:46:54 harishkswamy Exp $
  */
 public class GravityTestSuite
 {
@@ -65,6 +67,7 @@ public class GravityTestSuite
         suite.addTestSuite(JdkComponentProxyTest.class);
         suite.addTestSuite(PoolingComponentStateTest.class);
         suite.addTestSuite(SingletonComponentStateTest.class);
+        suite.addTestSuite(ThreadLocalComponentStateTest.class);
 
         // gravity.plugins package tests
         suite.addTestSuite(BshPluginTest.class);
@@ -72,6 +75,7 @@ public class GravityTestSuite
 
         // gravity.util package tests
         suite.addTestSuite(ClassUtilsTest.class);
+        suite.addTestSuite(CleanableThreadLocalTest.class);
         suite.addTestSuite(ReflectUtilsTest.class);
         suite.addTestSuite(UtilsTest.class);
 
