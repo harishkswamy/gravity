@@ -1,0 +1,31 @@
+import bsh.*;
+
+evalFile(url, registry, interpreter, callstack)
+{
+    setAccessibility(true);
+    
+    reader = null;
+
+    try
+    {
+        reader = new InputStreamReader(url.openStream());
+        parser = new Parser(reader);
+        parser.setRetainComments(true);
+    
+        while (!parser.Line()/* eof */)
+        {
+            node = parser.popNode();
+    
+            node.setSourceFile(url.toString());
+
+            registry.setCurrentLineNumber(node.getLineNumber());
+            
+            node.eval(callstack, interpreter);
+        }
+    }
+    finally
+    {
+        if (reader != null)
+            reader.close();
+    }
+}

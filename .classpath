@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry output="framework/classes/main" kind="src" path="framework/src/main"/>
+	<classpathentry output="framework/classes/test" kind="src" path="framework/src/test"/>
+	<classpathentry kind="src" path="library/src"/>
+	<classpathentry kind="lib" path="C:/jboss-3.0.7_jakarta-tomcat-4.1.24/tomcat-4.1.x/common/lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="C:/jboss-3.0.7_jakarta-tomcat-4.1.24/tomcat-4.1.x/common/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.junit_3.8.1/junit.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry sourcepath="/cglib/src" kind="lib" path="framework/lib/cglib-full-2.0.jar"/>
+	<classpathentry kind="lib" path="framework/lib/bsh-2.0b1.jar"/>
+	<classpathentry kind="lib" path="framework/lib/dynaop-1.0-beta.jar"/>
+	<classpathentry kind="lib" path="framework/lib/dynaop-aspects-1.0-beta.jar"/>
+	<classpathentry kind="lib" path="framework/lib/jakarta-oro-2.0.7.jar"/>
+	<classpathentry kind="lib" path="framework/lib/jakarta-regexp-1.3.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
