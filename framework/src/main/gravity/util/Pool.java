@@ -16,12 +16,11 @@ package gravity.util;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Pool.java,v 1.1 2004-05-10 17:28:51 harishkswamy Exp $
+ * @version $Id: Pool.java,v 1.2 2004-05-17 03:03:55 harishkswamy Exp $
  */
 public class Pool
 {
@@ -42,19 +41,29 @@ public class Pool
 
     public synchronized void collect(Object item)
     {
+        if (item == null)
+            return;
+
         Object comp = null;
 
-        for (Iterator itr = _loanedObjects.iterator(); itr.hasNext();)
+        // Do NOT use iterator here. If the collecting item is an unrealized proxy, the invocation
+        // of the equals would cause it to realize which will lead to
+        // ConcurrentModificationException
+        for (int i = 0; i < _loanedObjects.size(); i++)
         {
-            SoftReference ref = (SoftReference) itr.next();
+            SoftReference ref = (SoftReference) _loanedObjects.get(i);
 
             Object referent = ref.get();
 
+            // The collecting object could be a proxy and hence the equals should be invoked on
+            // the collecting object; the referent is always a concrete object.
             if (referent == null || item.equals(referent))
-                itr.remove();
+                _loanedObjects.remove(i);
 
             if (item.equals(referent))
                 comp = referent;
+
+            // Continue even after finding the component, to remove null references from the pool.
         }
 
         if (comp != null && _pooledObjects.size() <= _maxSize)

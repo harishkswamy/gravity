@@ -14,16 +14,16 @@
 
 package gravity;
 
-import gravity.impl.CglibComponentProxyFactoryTest;
-import gravity.impl.ComponentBuilderTest;
+import gravity.impl.CglibComponentProxyTest;
+import gravity.impl.ComponentTest;
 import gravity.impl.ComponentKeyTest;
-import gravity.impl.ComponentProxyFactoryAgentTest;
-import gravity.impl.DefaultComponentFactoryTest;
+import gravity.impl.ComponentProxyFactoryTest;
+import gravity.impl.DefaultComponentTest;
 import gravity.impl.DefaultRegistryTest;
 import gravity.impl.DynamicWeaverFactoryTest;
-import gravity.impl.JdkComponentProxyFactoryTest;
-import gravity.impl.PooledComponentFactoryTest;
-import gravity.impl.SingletonComponentFactoryTest;
+import gravity.impl.JdkComponentProxyTest;
+import gravity.impl.PoolingComponentStateTest;
+import gravity.impl.SingletonComponentStateTest;
 import gravity.plugins.BshPluginTest;
 import gravity.plugins.MutableRegistryAdapterTest;
 import gravity.util.ClassUtilsTest;
@@ -34,7 +34,7 @@ import junit.framework.TestSuite;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTestSuite.java,v 1.1 2004-05-10 17:29:09 harishkswamy Exp $
+ * @version $Id: GravityTestSuite.java,v 1.2 2004-05-17 03:04:12 harishkswamy Exp $
  */
 public class GravityTestSuite
 {
@@ -55,16 +55,16 @@ public class GravityTestSuite
         suite.addTestSuite(WrapperExceptionTest.class);
 
         // gravity.impl package tests
-        suite.addTestSuite(CglibComponentProxyFactoryTest.class);
-        suite.addTestSuite(ComponentBuilderTest.class);
+        suite.addTestSuite(CglibComponentProxyTest.class);
+        suite.addTestSuite(ComponentTest.class);
         suite.addTestSuite(ComponentKeyTest.class);
-        suite.addTestSuite(ComponentProxyFactoryAgentTest.class);
-        suite.addTestSuite(DefaultComponentFactoryTest.class);
+        suite.addTestSuite(ComponentProxyFactoryTest.class);
+        suite.addTestSuite(DefaultComponentTest.class);
         suite.addTestSuite(DefaultRegistryTest.class);
         suite.addTestSuite(DynamicWeaverFactoryTest.class);
-        suite.addTestSuite(JdkComponentProxyFactoryTest.class);
-        suite.addTestSuite(PooledComponentFactoryTest.class);
-        suite.addTestSuite(SingletonComponentFactoryTest.class);
+        suite.addTestSuite(JdkComponentProxyTest.class);
+        suite.addTestSuite(PoolingComponentStateTest.class);
+        suite.addTestSuite(SingletonComponentStateTest.class);
 
         // gravity.plugins package tests
         suite.addTestSuite(BshPluginTest.class);

@@ -14,57 +14,51 @@
 
 package gravity.impl;
 
-import gravity.LazyComponentFactory;
+import gravity.Component;
+import gravity.ComponentState;
 import gravity.util.Pool;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: PooledComponentFactory.java,v 1.1 2004-05-10 17:28:57 harishkswamy Exp $
+ * @version $Id: PoolingComponentState.java,v 1.1 2004-05-17 03:04:01 harishkswamy Exp $
  */
-public class PooledComponentFactory extends LazyComponentFactoryDecorator
+public class PoolingComponentState extends LazyLoadingComponentState
 {
     private Pool _pool;
 
-    public PooledComponentFactory(LazyComponentFactory delegate, int poolSize)
+    public PoolingComponentState(ComponentState decorator, Component component, int poolSize)
     {
-        super(delegate);
+        super(decorator, component);
 
         _pool = new Pool(poolSize);
     }
 
-    public PooledComponentFactory(LazyComponentFactory delegate)
+    public PoolingComponentState(ComponentState delegate, Component component)
     {
-        this(delegate, 0);
-    }
-
-    private Object obtainComponentInstance()
-    {
-        Object component = super.getConcreteComponentInstance();
-
-        _pool.loaned(component);
-
-        return component;
-    }
-
-    public Object getConcreteComponentInstance(Object proxy)
-    {
-        Object component = _pool.loan();
-
-        if (component == null)
-            component = obtainComponentInstance();
-
-        proxyRealized(proxy);
-
-        return component;
+        this(delegate, component, 0);
     }
 
     public Object getConcreteComponentInstance()
     {
-        return getConcreteComponentInstance(null);
+        Object component = _pool.loan();
+
+        if (component == null)
+        {
+            component = super.getConcreteComponentInstance();
+
+            _pool.loaned(component);
+        }
+
+        return component;
     }
 
-    public void returnComponentInstance(Object comp)
+    public void collectComponentInstance(Object comp)
     {
         _pool.collect(comp);
+    }
+
+    public String toString()
+    {
+        return "[Pooled: " + super.toString() + "]";
     }
 }

@@ -14,8 +14,7 @@
 
 package gravity.impl;
 
-import gravity.ComponentFactory;
-import gravity.LazyComponentFactory;
+import gravity.Component;
 import gravity.Location;
 import gravity.MutableRegistry;
 import gravity.UsageException;
@@ -30,39 +29,39 @@ import java.util.Map;
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultRegistry.java,v 1.1 2004-05-10 17:28:53 harishkswamy Exp $
+ * @version $Id: DefaultRegistry.java,v 1.2 2004-05-17 03:03:58 harishkswamy Exp $
  */
 public class DefaultRegistry implements MutableRegistry
 {
     /**
      * Components container.
      */
-    private Map _componentFactoryCache = new HashMap();
+    private Map _componentCache      = new HashMap();
 
     /**
      * Configurations container.
      */
-    private Map _configuarationCache   = new HashMap();
+    private Map _configuarationCache = new HashMap();
 
     private ComponentKey getComponentKey(Class compIntf, Object compType)
     {
         return new ComponentKey(compIntf, compType);
     }
 
-    protected ComponentFactory newDefaultComponentFactory(ComponentKey compKey)
+    protected Component newDefaultComponent(ComponentKey compKey)
     {
-        return new DefaultComponentFactory(compKey);
+        return new DefaultComponent(compKey);
     }
 
-    private ComponentFactory getComponentFactory(ComponentKey compKey)
+    private Component getComponent(ComponentKey compKey)
     {
-        ComponentFactory compFactory = (ComponentFactory) _componentFactoryCache.get(compKey);
+        Component compFactory = (Component) _componentCache.get(compKey);
 
         if (compFactory == null)
         {
-            compFactory = newDefaultComponentFactory(compKey);
+            compFactory = newDefaultComponent(compKey);
 
-            _componentFactoryCache.put(compKey, compFactory);
+            _componentCache.put(compKey, compFactory);
         }
 
         return compFactory;
@@ -73,16 +72,16 @@ public class DefaultRegistry implements MutableRegistry
     // Primary component registration method =======================================================
 
     /**
-     * @return Component key.
+     * @return Component _key.
      */
     public Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
         Object[] ctorArgs, Map setrArgs)
     {
         ComponentKey compKey = getComponentKey(compIntf, compType);
 
-        ComponentFactory compFactory = getComponentFactory(compKey);
+        Component comp = getComponent(compKey);
 
-        compFactory.registerComponentImplementation(compClass, ctorArgs, setrArgs);
+        comp.registerImplementation(compClass, ctorArgs, setrArgs);
 
         return compKey;
     }
@@ -155,13 +154,19 @@ public class DefaultRegistry implements MutableRegistry
         return registerComponentImplementation(compClass, null, compClass, null, setrArgs);
     }
 
+    public Object registerComponentFactory(Class compClass, Object compFac, String facMethodName,
+        Object[] facMethodArgs)
+    {
+        return null;
+    }
+
     // Location registration methods ===============================================================
 
     public Object registerComponentRegistrationLocation(Object compKey, Location location)
     {
-        ComponentFactory compFac = (ComponentFactory) _componentFactoryCache.get(compKey);
+        Component comp = (Component) _componentCache.get(compKey);
 
-        compFac.registerComponentRegistrationLocation(location);
+        comp.setRegistrationLocation(location);
 
         return compKey;
     }
@@ -183,9 +188,9 @@ public class DefaultRegistry implements MutableRegistry
 
     public Object registerComponentRetrievalLocation(Object compKey, Location location)
     {
-        ComponentFactory compFac = (ComponentFactory) _componentFactoryCache.get(compKey);
+        Component comp = (Component) _componentCache.get(compKey);
 
-        compFac.registerComponentRetrievalLocation(location);
+        comp.setRetrievalLocation(location);
 
         return compKey;
     }
@@ -207,45 +212,32 @@ public class DefaultRegistry implements MutableRegistry
 
     // Component factory decorator methods =========================================================
 
-    protected LazyComponentFactory newSingletonComponentFactory(LazyComponentFactory delegate)
-    {
-        return new SingletonComponentFactory(delegate);
-    }
-
     /**
-     * @return Component key.
+     * @return Component _key.
      */
-    public Object makeComponentSingleton(Object compKey)
+    public Object changeComponentStateToSingleton(Object compKey)
     {
-        LazyComponentFactory compFactory = (LazyComponentFactory) _componentFactoryCache.get(compKey);
+        Component comp = (Component) _componentCache.get(compKey);
 
-        // If already a singleton, ignore
-        if (!(compFactory instanceof SingletonComponentFactory))
-        {
-            compFactory = newSingletonComponentFactory(compFactory);
-
-            _componentFactoryCache.put(compKey, compFactory);
-        }
+        comp.changeStateToSingleton();
 
         return compKey;
     }
 
-    protected LazyComponentFactory newPooledComponentFactory(LazyComponentFactory delegate)
+    public Object changeComponentStateToPooling(Object compKey)
     {
-        return new PooledComponentFactory(delegate);
+        Component comp = (Component) _componentCache.get(compKey);
+
+        comp.changeStateToPooling();
+
+        return compKey;
     }
 
-    public Object makeComponentPooled(Object compKey)
+    public Object changeComponentStateToThreadLocal(Object compKey)
     {
-        LazyComponentFactory compFactory = (LazyComponentFactory) _componentFactoryCache.get(compKey);
+        Component comp = (Component) _componentCache.get(compKey);
 
-        // If already pooled, ignore
-        if (!(compFactory instanceof PooledComponentFactory))
-        {
-            compFactory = newPooledComponentFactory(compFactory);
-
-            _componentFactoryCache.put(compKey, compFactory);
-        }
+        comp.changeStateToThreadLocal();
 
         return compKey;
     }
@@ -274,18 +266,18 @@ public class DefaultRegistry implements MutableRegistry
 
     public Object getComponentInstance(Object compKey)
     {
-        ComponentFactory compFactory = getComponentFactory((ComponentKey) compKey);
+        Component comp = getComponent((ComponentKey) compKey);
 
-        return compFactory.getComponentInstance();
+        return comp.getInstance();
     }
 
     /**
-     * Gets the service registered for the supplied service key (service interface + service
-     * implementation type).
+     * Gets the service registered for the supplied service _key (service interface + service
+     * _implementation type).
      * 
-     * @return The service registered for the supplied key.
+     * @return The service registered for the supplied _key.
      * @throws UsageException
-     *         When no service is registered for the supplied key.
+     *         When no service is registered for the supplied _key.
      */
     public Object getComponentInstance(Class compIntf, Object compType)
     {
@@ -297,22 +289,22 @@ public class DefaultRegistry implements MutableRegistry
     /**
      * Gets the default service registered for the supplied service interface.
      * 
-     * @return The service registered for the supplied key.
+     * @return The service registered for the supplied _key.
      * @throws UsageException
-     *         When no service is registered for the supplied key.
+     *         When no service is registered for the supplied _key.
      */
     public Object getComponentInstance(Class compIntf)
     {
         return getComponentInstance(compIntf, null);
     }
 
-    public void returnComponentInstance(Class compIntf, Object compType, Object comp)
+    public void returnComponentInstance(Class compIntf, Object compType, Object compInst)
     {
         ComponentKey compKey = getComponentKey(compIntf, compType);
 
-        ComponentFactory compFactory = getComponentFactory(compKey);
+        Component comp = getComponent(compKey);
 
-        compFactory.returnComponentInstance(comp);
+        comp.collectInstance(compInst);
     }
 
     public void returnComponentInstance(Class compIntf, Object comp)
@@ -321,7 +313,7 @@ public class DefaultRegistry implements MutableRegistry
     }
 
     /**
-     * Gets the configuration registered for the supplied key.
+     * Gets the configuration registered for the supplied _key.
      * 
      * @return The configuration list.
      */
@@ -340,7 +332,7 @@ public class DefaultRegistry implements MutableRegistry
     }
 
     /**
-     * Gets the configuration registered for the supplied key.
+     * Gets the configuration registered for the supplied _key.
      * 
      * @return The configuration map.
      */
@@ -363,7 +355,7 @@ public class DefaultRegistry implements MutableRegistry
      */
     public void cleanup()
     {
-        _componentFactoryCache = new HashMap();
+        _componentCache = new HashMap();
         _configuarationCache = new HashMap();
     }
 }

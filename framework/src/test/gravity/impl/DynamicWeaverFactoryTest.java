@@ -20,20 +20,20 @@ import gravity.GravityTestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DynamicWeaverFactoryTest.java,v 1.1 2004-05-10 17:28:43 harishkswamy Exp $
+ * @version $Id: DynamicWeaverFactoryTest.java,v 1.2 2004-05-17 03:03:49 harishkswamy Exp $
  */
 public class DynamicWeaverFactoryTest extends GravityTestCase
 {
     public void setUp()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
     }
 
     public void tearDown()
     {
-        Gravity.shutdown();
+        Gravity.getInstance().shutdown();
     }
-    
+
     public void testGetSingletonDynamicWeaver()
     {
         DynamicWeaver weaver = DynamicWeaverFactory.getDynamicWeaver();
@@ -64,7 +64,7 @@ public class DynamicWeaverFactoryTest extends GravityTestCase
     {
         DynamicWeaverFactory.cleanup();
 
-        Gravity.setProperty(Gravity.DYNAMIC_WEAVER_CLASS_NAME,
+        Gravity.getInstance().setProperty(Gravity.DYNAMIC_WEAVER_CLASS_NAME,
             "gravity.impl.DynamicWeaverFactoryTest$TestDynamicWeaver");
 
         DynamicWeaver weaver = DynamicWeaverFactory.getDynamicWeaver();
@@ -77,7 +77,8 @@ public class DynamicWeaverFactoryTest extends GravityTestCase
     {
         DynamicWeaverFactory.cleanup();
 
-        Gravity.setProperty(Gravity.DYNAMIC_WEAVER_CLASS_NAME, "gravity.plugins.BshPlugin");
+        Gravity.getInstance().setProperty(Gravity.DYNAMIC_WEAVER_CLASS_NAME,
+            "gravity.plugins.BshPlugin");
 
         try
         {
@@ -87,8 +88,7 @@ public class DynamicWeaverFactoryTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e,
-                "gravity.plugins.BshPlugin must implement gravity.DynamicWeaver");
+            assertSuperString(e, "gravity.plugins.BshPlugin must implement gravity.DynamicWeaver");
         }
     }
 }

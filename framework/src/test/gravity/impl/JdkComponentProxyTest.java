@@ -14,9 +14,10 @@
 
 package gravity.impl;
 
+import gravity.Component;
+import gravity.ComponentInvocationHandler;
 import gravity.Gravity;
 import gravity.GravityTestCase;
-import gravity.LazyComponentFactory;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 import gravity.mocks.MockService;
@@ -25,42 +26,43 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: JdkComponentProxyFactoryTest.java,v 1.1 2004-05-10 17:28:43 harishkswamy Exp $
+ * @version $Id: JdkComponentProxyTest.java,v 1.1 2004-05-17 03:03:48 harishkswamy Exp $
  */
-public class JdkComponentProxyFactoryTest extends GravityTestCase
+public class JdkComponentProxyTest extends GravityTestCase
 {
-    final JdkComponentProxyFactory _proxyFactory = new JdkComponentProxyFactory();
+    final JdkComponentProxy _proxyFactory = new JdkComponentProxy();
 
     public void setUp()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
     }
 
     public void tearDown()
     {
-        Gravity.shutdown();
+        Gravity.getInstance().shutdown();
+    }
+
+    private Component newComponent(Class intf, Object type)
+    {
+        ComponentKey key = new ComponentKey(intf, type);
+        return new DefaultComponent(key);
     }
 
     public void testInvokeNewProxyMethod()
     {
-        MockService service = (MockService) _proxyFactory.newComponentProxy(MockService.class, null);
-
-        _proxyFactory.registerComponentFactory(service, new DefaultComponentFactory(
-            new ComponentKey(MockService.class, null)));
+        MockService service = (MockService) _proxyFactory.newInstance(MockService.class,
+            _proxyFactory.newLazyLoader(newComponent(MockService.class, null)));
 
         assertNotNull(service);
     }
 
     public void testMethodInvocationError()
     {
-        MockService service = (MockService) _proxyFactory.newComponentProxy(MockService.class, null);
+        Component comp = newComponent(MockService.class, null);
+        ComponentInvocationHandler handler = _proxyFactory.newLazyLoader(comp);
+        MockService service = (MockService) _proxyFactory.newInstance(MockService.class, handler);
 
-        LazyComponentFactory compFac = new DefaultComponentFactory(new ComponentKey(
-            MockService.class, null));
-
-        compFac.registerComponentImplementation(ArrayList.class, null, null);
-
-        _proxyFactory.registerComponentFactory(service, compFac);
+        comp.registerImplementation(ArrayList.class, null, null);
 
         try
         {
@@ -77,7 +79,8 @@ public class JdkComponentProxyFactoryTest extends GravityTestCase
 
     public void testNullFactory()
     {
-        MockService service = (MockService) _proxyFactory.newComponentProxy(MockService.class, null);
+        MockService service = (MockService) _proxyFactory.newInstance(MockService.class,
+            _proxyFactory.newLazyLoader(null));
 
         try
         {
@@ -87,23 +90,19 @@ public class JdkComponentProxyFactoryTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Unable to get concrete component instance from factory: null");
+            assertSuperString(e, "Unable to get concrete instance for component: null");
         }
     }
 
     public void testInvokeComponent()
     {
-        MockComboService service = (MockComboService) _proxyFactory.newComponentProxy(
-            MockComboService.class, null);
-
-        LazyComponentFactory compFac = new DefaultComponentFactory(new ComponentKey(
-            MockComboService.class, null));
+        Component comp = newComponent(MockComboService.class, null);
+        MockComboService service = (MockComboService) _proxyFactory.newInstance(
+            MockComboService.class, _proxyFactory.newLazyLoader(comp));
 
         Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
 
-        compFac.registerComponentImplementation(MockComboServiceImpl.class, cArgs, null);
-
-        _proxyFactory.registerComponentFactory(service, compFac);
+        comp.registerImplementation(MockComboServiceImpl.class, cArgs, null);
 
         service.service();
     }
@@ -112,7 +111,7 @@ public class JdkComponentProxyFactoryTest extends GravityTestCase
     {
         try
         {
-            _proxyFactory.newComponentProxy(MockComboServiceImpl.class, null);
+            _proxyFactory.newInstance(MockComboServiceImpl.class, _proxyFactory.newLazyLoader(null));
 
             unreachable();
         }
@@ -127,7 +126,7 @@ public class JdkComponentProxyFactoryTest extends GravityTestCase
     {
         try
         {
-            _proxyFactory.newComponentProxy(null, null);
+            _proxyFactory.newInstance(null, null);
 
             unreachable();
         }
@@ -137,21 +136,27 @@ public class JdkComponentProxyFactoryTest extends GravityTestCase
         }
     }
 
-    public void testRegisterComponentFactory()
+    public void testGetComponentInvocationHandler()
     {
-        LazyComponentFactory compFac = new DefaultComponentFactory(new ComponentKey(
-            MockComboService.class, null));
+        CglibComponentProxy proxy = new CglibComponentProxy();
+
+        Component comp = newComponent(MockComboService.class, null);
+
+        Object obj = proxy.newInstance(MockComboService.class, proxy.newLazyLoader(comp));
+
+        Object[] cArgs = new Object[]{new Integer(1), new ArrayList()};
+        comp.registerImplementation(MockComboServiceImpl.class, cArgs, null);
 
         try
         {
-            _proxyFactory.registerComponentFactory(null, compFac);
+            _proxyFactory.getComponentInvocationHandler(obj);
 
             unreachable();
         }
         catch (Exception e)
         {
-            assertSuperString(e, "java.lang.NullPointerException:"
-                + " Unable to register component factory: " + compFac + " with proxy: null");
+            assertSuperString(e, "java.lang.IllegalArgumentException:"
+                + " Unable to get component invocation handler from: " + obj);
         }
     }
 }

@@ -17,15 +17,15 @@ package gravity.plugins;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.MutableRegistry;
+import gravity.Plugin;
 import gravity.impl.DefaultRegistry;
-import gravity.plugins.BshPlugin;
 import gravity.util.ClassUtils;
 
 import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginTest.java,v 1.1 2004-05-10 17:29:13 harishkswamy Exp $
+ * @version $Id: BshPluginTest.java,v 1.2 2004-05-17 03:04:13 harishkswamy Exp $
  */
 public class BshPluginTest extends GravityTestCase
 {
@@ -33,19 +33,29 @@ public class BshPluginTest extends GravityTestCase
 
     public void setUp()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
         _registry = new DefaultRegistry();
     }
 
     public void tearDown()
     {
         writePluginFile("");
-        Gravity.shutdown();
+        Gravity.getInstance().shutdown();
+    }
+
+    private String getPluginUrlLocation()
+    {
+        String urlStr = ClassUtils.getResource(Gravity.PLUGIN_MANIFEST_FILE_PATH).toString();
+        return urlStr.substring(0, urlStr.lastIndexOf(Gravity.PLUGIN_MANIFEST_FILE_PATH));
     }
 
     private void startup(String moduleNames)
     {
+        String urlStr = ClassUtils.getResource(Gravity.PLUGIN_MANIFEST_FILE_PATH).toString();
+        urlStr = urlStr.substring(0, urlStr.lastIndexOf(Gravity.PLUGIN_MANIFEST_FILE_PATH));
+
         Properties props = new Properties();
+        props.setProperty(Plugin.LOCATION_URL_KEY, urlStr);
         props.setProperty(BshPlugin.MODULE_NAMES, moduleNames);
 
         new BshPlugin().startup(props, _registry);
@@ -67,15 +77,18 @@ public class BshPluginTest extends GravityTestCase
 
     public void testBuildNonExistentModule()
     {
+        String urlStr = getPluginUrlLocation();
+        String modPath = "gravity/impl/non-existent.mdl.bsh";
+
         try
         {
-            startup("gravity/impl/non-existent.mdl.bsh");
+            startup(modPath);
 
             unreachable();
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Cannot find resource: gravity/impl/non-existent.mdl.bsh");
+            assertSuperString(e, "Unable to find module: " + urlStr + modPath);
         }
     }
 

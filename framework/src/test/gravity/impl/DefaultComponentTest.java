@@ -24,31 +24,31 @@ import java.util.ArrayList;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponentFactoryTest.java,v 1.1 2004-05-10 17:28:42 harishkswamy Exp $
+ * @version $Id: DefaultComponentTest.java,v 1.1 2004-05-17 03:03:49 harishkswamy Exp $
  */
-public class DefaultComponentFactoryTest extends GravityTestCase
+public class DefaultComponentTest extends GravityTestCase
 {
     public void setUp()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
     }
 
     public void tearDown()
     {
-        Gravity.shutdown();
+        Gravity.getInstance().shutdown();
     }
 
     public void testGetComponentInstance()
     {
         ComponentKey compKey = new ComponentKey(MockComboService.class, null);
 
-        DefaultComponentFactory factory = new DefaultComponentFactory(compKey);
+        DefaultComponent factory = new DefaultComponent(compKey);
 
-        MockComboService service = (MockComboService) factory.getComponentInstance();
+        MockComboService service = (MockComboService) factory.getInstance();
 
         assertNotNull(service);
 
-        MockComboService service2 = (MockComboService) factory.getComponentInstance();
+        MockComboService service2 = (MockComboService) factory.getInstance();
 
         assertTrue(service != service2);
     }
@@ -57,29 +57,20 @@ public class DefaultComponentFactoryTest extends GravityTestCase
     {
         ComponentKey compKey = new ComponentKey(MockComboService.class, null);
 
-        DefaultComponentFactory factory = new DefaultComponentFactory(compKey);
+        DefaultComponent factory = new DefaultComponent(compKey);
 
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        factory.registerComponentImplementation(MockComboServiceImpl.class, cArgs, null);
+        factory.registerImplementation(MockComboServiceImpl.class, cArgs, null);
 
-        MockComboService service = (MockComboService) factory.getConcreteComponentInstance();
-        MockComboService service2 = (MockComboService) factory.getConcreteComponentInstance();
+        MockComboService service = (MockComboService) factory.getInstance();
+        MockComboService service2 = (MockComboService) factory.getInstance();
+
+        service.service();
+        service2.service();
 
         assertNotNull(service);
-        assertTrue(service instanceof MockComboServiceImpl);
         assertNotSame(service, service2);
-    }
-
-    public void testDecorated()
-    {
-        ComponentKey compKey = new ComponentKey(MockComboService.class, null);
-
-        DefaultComponentFactory factory = new DefaultComponentFactory(compKey);
-
-        factory.getComponentInstance();
-
-        factory.decorated(factory);
     }
 
     public void testRegisterComponentRegistrationLocation()
@@ -88,9 +79,9 @@ public class DefaultComponentFactoryTest extends GravityTestCase
 
         ComponentKey compKey = new ComponentKey(MockComboService.class, null);
 
-        DefaultComponentFactory factory = new DefaultComponentFactory(compKey);
+        DefaultComponent factory = new DefaultComponent(compKey);
 
-        factory.registerComponentRegistrationLocation(loc);
+        factory.setRegistrationLocation(loc);
     }
 
     public void testRegisterComponentRetrievalLocation()
@@ -99,19 +90,19 @@ public class DefaultComponentFactoryTest extends GravityTestCase
 
         ComponentKey compKey = new ComponentKey(MockComboService.class, null);
 
-        DefaultComponentFactory factory = new DefaultComponentFactory(compKey);
+        DefaultComponent factory = new DefaultComponent(compKey);
 
-        factory.registerComponentRetrievalLocation(loc);
+        factory.setRetrievalLocation(loc);
     }
 
     public void testToString()
     {
         ComponentKey compKey = new ComponentKey(MockComboService.class, null);
 
-        DefaultComponentFactory factory = new DefaultComponentFactory(compKey);
+        DefaultComponent factory = new DefaultComponent(compKey);
 
         assertEquals(factory.toString(),
-            "[Component: [Component Interface: interface gravity.mocks.MockComboService,"
-                + " Component Type: default], Component Class: null]");
+            "[Key: [Component Interface: interface gravity.mocks.MockComboService,"
+                + " Component Type: default], Implementation: null]");
     }
 }

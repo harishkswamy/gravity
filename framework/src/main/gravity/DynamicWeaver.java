@@ -14,16 +14,12 @@
 
 package gravity;
 
-import gravity.impl.ComponentKey;
-
-import java.util.Map;
-
 /**
  * Implementations of this interface will instrument objects dynamically at runtime. This is
  * basically a hook to allow cross-cutting aspects to be weaved into components dynamically.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DynamicWeaver.java,v 1.1 2004-05-10 17:29:03 harishkswamy Exp $
+ * @version $Id: DynamicWeaver.java,v 1.2 2004-05-17 03:04:10 harishkswamy Exp $
  */
 public interface DynamicWeaver
 {
@@ -34,8 +30,7 @@ public interface DynamicWeaver
      * This method will be called at the time of service construction right after instantiation.
      * 
      * @return The instrumented object.
-     * @see gravity.impl.ComponentBuilder#build(ComponentKey, Location, Class, Object[], Map,
-     *      Location)
+     * @see gravity.impl.DefaultComponent#newInstance()()
      */
     Object weave(Object obj);
 }

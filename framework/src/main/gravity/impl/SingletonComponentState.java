@@ -14,39 +14,38 @@
 
 package gravity.impl;
 
-import gravity.LazyComponentFactory;
+import gravity.Component;
+import gravity.ComponentState;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentFactory.java,v 1.1 2004-05-10 17:28:53 harishkswamy Exp $
+ * @version $Id: SingletonComponentState.java,v 1.1 2004-05-17 03:03:58 harishkswamy Exp $
  */
-public class SingletonComponentFactory extends LazyComponentFactoryDecorator
+public class SingletonComponentState extends LazyLoadingComponentState
 {
     private Object _component;
 
-    public SingletonComponentFactory(LazyComponentFactory delegate)
+    public SingletonComponentState(ComponentState delegate, Component component)
     {
-        super(delegate);
+        super(delegate, component);
     }
 
-    private synchronized void obtainComponentInstance()
+    private synchronized void cacheComponent(Object component)
     {
         if (_component == null)
-            _component = super.getConcreteComponentInstance();
-    }
-
-    public Object getConcreteComponentInstance(Object proxy)
-    {
-        if (_component == null)
-            obtainComponentInstance();
-
-        proxyRealized(proxy);
-
-        return _component;
+            _component = component;
     }
 
     public Object getConcreteComponentInstance()
     {
-        return getConcreteComponentInstance(null);
+        if (_component == null)
+            cacheComponent(super.getConcreteComponentInstance());
+
+        return _component;
+    }
+    
+    public String toString()
+    {
+        return "[Singleton: " + super.toString() + "]";
     }
 }

@@ -14,8 +14,10 @@
 
 package gravity.impl;
 
+import gravity.Component;
 import gravity.Gravity;
 import gravity.GravityTestCase;
+import gravity.Location;
 import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 import gravity.mocks.MockSetterService;
@@ -29,51 +31,63 @@ import java.util.Map;
 // TODO test location in messages
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentBuilderTest.java,v 1.1 2004-05-10 17:28:42 harishkswamy Exp $
+ * @version $Id: ComponentTest.java,v 1.1 2004-05-17 03:03:49 harishkswamy Exp $
  */
-public class ComponentBuilderTest extends GravityTestCase
+public class ComponentTest extends GravityTestCase
 {
     public void setUp()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
     }
 
     public void tearDown()
     {
-        Gravity.shutdown();
+        Gravity.getInstance().shutdown();
+    }
+
+    private Component newComponent(Class intf, String type, Location intfLoc, Class impl,
+        Object[] args, Map params, Location implLoc)
+    {
+        ComponentKey compKey = new ComponentKey(intf, type);
+
+        Component state = new DefaultComponent(compKey);
+
+        state.registerImplementation(impl, args, params);
+        state.setRetrievalLocation(intfLoc);
+        state.setRegistrationLocation(implLoc);
+
+        return state;
     }
 
     public void testUnavailableService()
     {
-        ComponentKey compKey = new ComponentKey(List.class, "def");
+        Component state = newComponent(List.class, "def", null, null, null, null, null);
 
         try
         {
-            Object[] args = null;
-
-            ComponentBuilder.build(compKey, null, null, args, null, null);
+            state.newInstance();
 
             unreachable();
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Implementation not registered for component: " + compKey);
+            assertSuperString(e, "Implementation not registered for component: " + state);
         }
     }
 
     public void testServiceConfigError()
     {
-        ComponentKey compKey = new ComponentKey(List.class, "def");
+        Component comp = newComponent(List.class, "def", null, List.class, null, null, null);
 
         try
         {
-            ComponentBuilder.build(compKey, null, ArrayList.class, new Object[]{""}, null, null);
+            comp.newInstance();
 
             unreachable();
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Build error for component: " + compKey);
+            assertSuperString(e, "Unable to construct new instance for component: " + comp);
         }
     }
 
@@ -81,10 +95,10 @@ public class ComponentBuilderTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(6), new ArrayList()};
 
-        ComponentKey compKey = new ComponentKey(MockComboService.class, "def");
-
-        MockComboServiceImpl obj = (MockComboServiceImpl) ComponentBuilder.build(compKey, null,
+        Component state = newComponent(MockComboService.class, "def", null,
             MockComboServiceImpl.class, cArgs, null, null);
+
+        MockComboServiceImpl obj = (MockComboServiceImpl) state.newInstance();
 
         assertNotNull(obj);
         assertTrue(obj.getList() instanceof ArrayList);
@@ -99,9 +113,10 @@ public class ComponentBuilderTest extends GravityTestCase
         args.put("primitive", new Integer(5));
         args.put("object", new ArrayList());
 
-        MockSetterServiceImpl obj = (MockSetterServiceImpl) ComponentBuilder.build(
-            new ComponentKey(MockSetterService.class, "def"), null, MockSetterServiceImpl.class,
-            null, args, null);
+        Component state = newComponent(MockSetterService.class, "def", null,
+            MockSetterServiceImpl.class, null, args, null);
+
+        MockSetterServiceImpl obj = (MockSetterServiceImpl) state.newInstance();
 
         assertNotNull(obj);
         assertTrue(obj instanceof MockSetterService);
@@ -117,8 +132,10 @@ public class ComponentBuilderTest extends GravityTestCase
 
         Object[] cArgs = {new Integer(6), new ArrayList()};
 
-        MockComboServiceImpl obj = (MockComboServiceImpl) ComponentBuilder.build(new ComponentKey(
-            MockComboService.class, "def"), null, MockComboServiceImpl.class, cArgs, args, null);
+        Component state = newComponent(MockComboService.class, "def", null,
+            MockComboServiceImpl.class, cArgs, args, null);
+
+        MockComboServiceImpl obj = (MockComboServiceImpl) state.newInstance();
 
         assertNotNull(obj);
         assertTrue(obj.getList() instanceof ArrayList);

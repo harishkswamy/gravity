@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableRegistry.java,v 1.1 2004-05-10 17:29:03 harishkswamy Exp $
+ * @version $Id: MutableRegistry.java,v 1.2 2004-05-17 03:04:10 harishkswamy Exp $
  */
 public interface MutableRegistry extends Registry
 {
@@ -73,9 +73,29 @@ public interface MutableRegistry extends Registry
 
     // Component factory decorator methods =========================================================
 
-    Object makeComponentSingleton(Object serviceKey);
+    /**
+     * This method will make the component a singleton. This method may be invoked anytime prior to
+     * the first method invocation on the component, to take effect.
+     * 
+     * @return Component Key.
+     */
+    Object changeComponentStateToSingleton(Object compKey);
 
-    Object makeComponentPooled(Object serviceKey);
+    /**
+     * This method will make the component pooled. This method may be invoked anytime prior to the
+     * first method invocation on the component, to take effect.
+     * 
+     * @return Component Key.
+     */
+    Object changeComponentStateToPooling(Object compKey);
+
+    /**
+     * This method will make the component thread local. This method may be invoked anytime prior to
+     * the first method invocation on the component, to take effect.
+     * 
+     * @return Component Key.
+     */
+    Object changeComponentStateToThreadLocal(Object compKey);
 
     // Configuration methods =======================================================================
 

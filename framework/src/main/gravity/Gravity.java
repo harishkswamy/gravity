@@ -23,17 +23,15 @@ import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
 
+//TODO Fix exception handling. Need more explicit exceptions.
 /**
- * This class is the gateway to the framework. It provides static helper methods to initialize the
+ * This class is the gateway to the framework. It provides helper methods to initialize the
  * framework and obtain a fully constructed registry.
  * <p>
- * This class stores the framework properties that can be accessed and/or modified.
- * <p>
- * This class is typically expected to be used in a single thread and only during startup and
- * shutdown.
+ * This class stores the framework properties that can be accessed and/or modified anytime.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Gravity.java,v 1.4 2004-05-13 06:29:10 harishkswamy Exp $
+ * @version $Id: Gravity.java,v 1.5 2004-05-17 03:04:10 harishkswamy Exp $
  */
 public class Gravity
 {
@@ -41,63 +39,80 @@ public class Gravity
      * This is the path of the plugin file that Gravity will use to search for plugins. The path is
      * relative to the classpath.
      */
-    public static final String     PLUGIN_MANIFEST_FILE_PATH          = "META-INF/gravity-plugin.properties";
+    public static final String  PLUGIN_MANIFEST_FILE_PATH  = "META-INF/gravity-plugin.properties";
 
-    public static final String     PLUGIN_CLASS_NAME                  = "pluginClassName";
+    public static final String  PLUGIN_CLASS_NAME          = "pluginClassName";
 
     /**
      * This is name of the property that specifies the class name of the custom
-     * {@link ComponentProxyFactory}.
+     * {@link ComponentProxy}.
      */
-    public static final String     COMPONENT_PROXY_FACTORY_CLASS_NAME = "componentProxyFactoryClassName";
+    public static final String  COMPONENT_PROXY_CLASS_NAME = "componentProxyClassName";
 
     /**
      * This is name of the property that specifies the class name of the custom
      * {@link DynamicWeaver}.
      */
-    public static final String     DYNAMIC_WEAVER_CLASS_NAME          = "dynamicWeaverClassName";
+    public static final String  DYNAMIC_WEAVER_CLASS_NAME  = "dynamicWeaverClassName";
 
     /**
      * This is name of the system property that specifies the name and location of the gravity
      * properties file.
      */
-    private static final String    PROPERTIES_PATH_KEY                = "gravity.properties";
+    private static final String PROPERTIES_PATH_KEY        = "gravity.properties";
 
     /**
      * This is the name of the default properties file that will be used when not supplied. This
      * file should be placed in the classpath root to be recognized.
      */
-    private static final String    DEFAULT_PROPERTIES_PATH            = "gravity.properties";
+    private static final String DEFAULT_PROPERTIES_PATH    = "gravity.properties";
+
+    /**
+     * Singleton instance.
+     */
+    private static Gravity      INSTANCE                   = new Gravity();
+
+    public static Gravity getInstance()
+    {
+        return INSTANCE;
+    }
+
+    // Instance code ===============================================================================
 
     /**
      * Stores the framework properties.
      */
-    private static Properties      _props;
+    private Properties      _props;
 
-    // TODO cleanup registry after startup
-    private static MutableRegistry _registry;
+    // TODO delete registry reference after startup?
+    private MutableRegistry _registry;
 
     private Gravity()
     {
-        // Static class.
+        // Singleton.
+    }
+
+    public synchronized void initialize(Properties props)
+    {
+        if (_props == null)
+            _props = props;
+        else
+            _props.putAll(props);
+
+        // Load and initialize the registry
+        // TODO decouple registry _implementation
+        _registry = new DefaultRegistry();
     }
 
     /**
      * Initializes the framework by loading the framework properties from the supplied URL.
      */
-    public static synchronized void initialize(URL url)
+    public void initialize(URL url)
     {
-        if (_props != null)
-            return;
-
-        _props = Utils.loadProperties(url);
-
-        // Load and initialize the registry
-        // TODO decouple registry implementation
-        _registry = new DefaultRegistry();
+        initialize(Utils.loadProperties(url));
     }
 
-    private static URL getPropertiesUrl(String fPath)
+    private URL getPropertiesUrl(String fPath)
     {
         return ClassUtils.getResource(fPath);
     }
@@ -106,14 +121,14 @@ public class Gravity
      * Initializes the framework by loading the framework properties from the supplied file path.
      * The file path is relative to the classpath root.
      */
-    public static void initialize(String fPath)
+    public void initialize(String fPath)
     {
         URL url = getPropertiesUrl(fPath);
 
         initialize(url);
     }
 
-    private static String getPropertiesUrlString()
+    private String getPropertiesUrlString()
     {
         String fPath = System.getProperty(PROPERTIES_PATH_KEY);
 
@@ -124,26 +139,26 @@ public class Gravity
      * Initializes the framework by loading the framework properties from the default properties
      * file - gravity.properties. The default properties file is expected to be in the classpath.
      */
-    public static void initialize()
+    public void initialize()
     {
         String fPath = getPropertiesUrlString();
 
         initialize(fPath);
     }
 
-    public static Enumeration getPluginManifestFiles()
+    protected Enumeration getPluginManifestFiles()
     {
         return ClassUtils.getResources(PLUGIN_MANIFEST_FILE_PATH);
     }
 
-    public static String getPluginLocation(URL url)
+    protected String getPluginLocation(URL url)
     {
         String urlStr = url.toString();
 
         return urlStr.substring(0, urlStr.lastIndexOf(PLUGIN_MANIFEST_FILE_PATH));
     }
 
-    private static Plugin getPlugin(String pluginClassName)
+    private Plugin getPlugin(String pluginClassName)
     {
         // Return the plugin from the plugin manifest file
         if (pluginClassName != null)
@@ -159,7 +174,7 @@ public class Gravity
         return new BshPlugin();
     }
 
-    private static void acceptPlugins()
+    private void acceptPlugins()
     {
         Enumeration e = getPluginManifestFiles();
 
@@ -177,19 +192,24 @@ public class Gravity
         }
     }
 
+    public Registry startup(Properties props)
+    {
+        initialize(props);
+
+        acceptPlugins();
+
+        return _registry;
+    }
+
     /**
      * Initializes the framework from the supplied URL and builds the {@link Registry}.
      * 
      * @return Newly built {@link Registry}.
      * @see Gravity#initialize(URL)
      */
-    public static Registry startup(URL url)
+    public Registry startup(URL url)
     {
-        initialize(url);
-
-        acceptPlugins();
-
-        return _registry;
+        return startup(Utils.loadProperties(url));
     }
 
     /**
@@ -199,7 +219,7 @@ public class Gravity
      * @return Newly built {@link Registry}.
      * @see Gravity#initialize(String)
      */
-    public static Registry startup(String fPath)
+    public Registry startup(String fPath)
     {
         URL url = getPropertiesUrl(fPath);
 
@@ -213,7 +233,7 @@ public class Gravity
      * @return Newly built {@link Registry}.
      * @see Gravity#initialize()
      */
-    public static Registry startup()
+    public Registry startup()
     {
         String fPath = getPropertiesUrlString();
 
@@ -221,9 +241,9 @@ public class Gravity
     }
 
     /**
-     * Gets the gravity property value for the supplied key.
+     * Gets the gravity property value for the supplied _key.
      */
-    public static String getProperty(String key)
+    public String getProperty(String key)
     {
         if (_props == null)
             throw new IllegalArgumentException(
@@ -233,12 +253,12 @@ public class Gravity
     }
 
     /**
-     * Sets the gravity property with the supplied key/value pair.
+     * Sets the gravity property with the supplied _key/value pair.
      * <p>
      * Properties are only expected to be set during startup prior to building the {@link Registry}
      * which should typically happen in a single startup thread.
      */
-    public static synchronized void setProperty(String key, String value)
+    public synchronized void setProperty(String key, String value)
     {
         if (_props == null)
             throw new IllegalArgumentException(
@@ -250,7 +270,7 @@ public class Gravity
     /**
      * Wipes out the gravity properties.
      */
-    public static void shutdown()
+    public void shutdown()
     {
         _props = null;
         _registry = null;

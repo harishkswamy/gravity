@@ -12,18 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gravity.impl;
-
-import gravity.GravityTestCase;
+package gravity;
 
 /**
+ * This is a marker interface.
+ * 
  * @author Harish Krishnaswamy
- * @version $Id: PooledComponentFactoryTest.java,v 1.1 2004-05-10 17:28:41 harishkswamy Exp $
+ * @version $Id: ComponentInvocationHandler.java,v 1.1 2004-05-17 03:04:11 harishkswamy Exp $
  */
-public class PooledComponentFactoryTest extends GravityTestCase
+public interface ComponentInvocationHandler
 {
-    public void testDecorated()
-    {
-
-    }
 }

@@ -14,72 +14,72 @@
 
 package gravity.impl;
 
-import gravity.ComponentProxyFactory;
+import gravity.ComponentProxy;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxyFactoryAgentTest.java,v 1.1 2004-05-10 17:28:45 harishkswamy Exp $
+ * @version $Id: ComponentProxyFactoryTest.java,v 1.1 2004-05-17 03:03:46 harishkswamy Exp $
  */
-public class ComponentProxyFactoryAgentTest extends GravityTestCase
+public class ComponentProxyFactoryTest extends GravityTestCase
 {
     public void setUp()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
     }
 
     public void tearDown()
     {
-        Gravity.shutdown();
+        Gravity.getInstance().shutdown();
     }
 
     public void testGetSingletonServiceBuilder()
     {
-        ComponentProxyFactory builder = ComponentProxyFactoryAgent.getComponentProxyFactory();
+        ComponentProxy builder = ComponentProxyFactory.getInstance().getComponentProxy();
 
         assertNotNull(builder);
 
-        ComponentProxyFactory builder2 = ComponentProxyFactoryAgent.getComponentProxyFactory();
+        ComponentProxy builder2 = ComponentProxyFactory.getInstance().getComponentProxy();
 
         assertSame(builder, builder2);
     }
 
     public void testGetDefaultServiceBuilder()
     {
-        ComponentProxyFactory builder = ComponentProxyFactoryAgent.getComponentProxyFactory();
+        ComponentProxy builder = ComponentProxyFactory.getInstance().getComponentProxy();
 
         assertNotNull(builder);
     }
 
     public void testGetCustomServiceBuilder()
     {
-        ComponentProxyFactoryAgent.cleanup();
+        ComponentProxyFactory.getInstance().cleanup();
 
-        Gravity.setProperty(Gravity.COMPONENT_PROXY_FACTORY_CLASS_NAME,
-            "gravity.impl.CglibComponentProxyFactory");
+        Gravity.getInstance().setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME,
+            "gravity.impl.CglibComponentProxy");
 
-        ComponentProxyFactory builder = ComponentProxyFactoryAgent.getComponentProxyFactory();
+        ComponentProxy builder = ComponentProxyFactory.getInstance().getComponentProxy();
 
         assertNotNull(builder);
     }
 
     public void testInvalidServiceBuilderClass()
     {
-        ComponentProxyFactoryAgent.cleanup();
+        ComponentProxyFactory.getInstance().cleanup();
 
-        Gravity.setProperty(Gravity.COMPONENT_PROXY_FACTORY_CLASS_NAME, "gravity.plugins.BshPlugin");
+        Gravity.getInstance().setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME,
+            "gravity.plugins.BshPlugin");
 
         try
         {
-            ComponentProxyFactoryAgent.getComponentProxyFactory();
+            ComponentProxyFactory.getInstance().getComponentProxy();
 
             unreachable();
         }
         catch (Exception e)
         {
-            assertSuperString(e,
-                "gravity.plugins.BshPlugin must implement gravity.ComponentProxyFactory");
+            assertSuperString(e, "gravity.plugins.BshPlugin must implement gravity.ComponentProxy");
         }
     }
 }

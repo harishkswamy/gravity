@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentKeyTest.java,v 1.1 2004-05-10 17:28:44 harishkswamy Exp $
+ * @version $Id: ComponentKeyTest.java,v 1.2 2004-05-17 03:03:53 harishkswamy Exp $
  */
 public class ComponentKeyTest extends GravityTestCase
 {
@@ -46,7 +46,7 @@ public class ComponentKeyTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Component interface cannot be null.");
+            assertSuperString(e, "Component interface must not be null.");
         }
     }
 

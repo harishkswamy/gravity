@@ -20,6 +20,7 @@ import gravity.WrapperException;
 import gravity.util.ClassUtils;
 import gravity.util.Utils;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +32,7 @@ import bsh.TargetError;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPlugin.java,v 1.3 2004-05-13 06:27:04 harishkswamy Exp $
+ * @version $Id: BshPlugin.java,v 1.4 2004-05-17 03:04:07 harishkswamy Exp $
  */
 public class BshPlugin implements Plugin
 {
@@ -47,12 +48,19 @@ public class BshPlugin implements Plugin
 
     private void handleInterpreterException(Exception e, URL url)
     {
-        if (e instanceof TargetError && ((TargetError) e).getTarget() instanceof TargetError)
+        if (e instanceof TargetError)
         {
             TargetError te = (TargetError) e;
 
-            throw WrapperException.wrap(te, "Registry configuration execution error in module: "
-                + url + "\n\n" + e);
+            if (te.getTarget() instanceof FileNotFoundException)
+                throw WrapperException.wrap(te, "Unable to find module: " + url + "\n\n" + e);
+
+            else if (te.getTarget() instanceof TargetError)
+                throw WrapperException.wrap(te,
+                    "Registry configuration execution error in module: " + url + "\n\n" + e);
+            
+            else
+                throw WrapperException.wrap(e, "Registry configuration error in module: " + url);
         }
         else
             throw WrapperException.wrap(e, "Registry configuration error in module: " + url);

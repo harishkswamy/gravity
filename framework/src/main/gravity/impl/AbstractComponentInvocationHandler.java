@@ -12,15 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gravity;
+package gravity.impl;
+
+import gravity.Component;
+import gravity.ComponentInvocationHandler;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxyFactory.java,v 1.1 2004-05-10 17:29:02 harishkswamy Exp $
+ * @version $Id: AbstractComponentInvocationHandler.java,v 1.1 2004-05-17 03:03:57 harishkswamy Exp $
  */
-public interface ComponentProxyFactory
+public class AbstractComponentInvocationHandler implements ComponentInvocationHandler
 {
-    Object newComponentProxy(Class intf, LazyComponentFactory compFactory);
+    protected Component _component;
 
-    void registerComponentFactory(Object proxy, LazyComponentFactory compFactory);
+    protected AbstractComponentInvocationHandler(Component comp)
+    {
+        _component = comp;
+    }
+
+    protected void setComponent(Component comp)
+    {
+        _component = comp;
+    }
 }

@@ -23,28 +23,28 @@ import java.util.Map;
  * This is a singleton and should typically be built in a single startup thread.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Registry.java,v 1.1 2004-05-10 17:29:05 harishkswamy Exp $
+ * @version $Id: Registry.java,v 1.2 2004-05-17 03:04:12 harishkswamy Exp $
  */
 public interface Registry
 {
     public Object getComponentInstance(Object compKey);
 
     /**
-     * Gets the service registered for the supplied service key (service interface + service
-     * implementation type).
+     * Gets the service registered for the supplied service _key (service interface + service
+     * _implementation type).
      * 
-     * @return The service registered for the supplied key.
+     * @return The service registered for the supplied _key.
      * @throws UsageException
-     *         When no service is registered for the supplied key.
+     *         When no service is registered for the supplied _key.
      */
     Object getComponentInstance(Class compClass, Object compType);
 
     /**
      * Gets the default service registered for the supplied service interface.
      * 
-     * @return The service registered for the supplied key.
+     * @return The service registered for the supplied _key.
      * @throws IllegalArgumentException
-     *         When no service is registered for the supplied key.
+     *         When no service is registered for the supplied _key.
      */
     Object getComponentInstance(Class compClass);
 
@@ -63,20 +63,20 @@ public interface Registry
     void returnComponentInstance(Class compIntf, Object comp);
 
     /**
-     * Gets the configuration registered for the supplied key.
+     * Gets the configuration registered for the supplied _key.
      * 
      * @return The configuration list.
      * @throws IllegalArgumentException
-     *         When no configuration is registered for the supplied key.
+     *         When no configuration is registered for the supplied _key.
      */
     List getConfigurationList(Object configKey);
 
     /**
-     * Gets the configuration registered for the supplied key.
+     * Gets the configuration registered for the supplied _key.
      * 
      * @return The configuration map.
      * @throws IllegalArgumentException
-     *         When no configuration is registered for the supplied key.
+     *         When no configuration is registered for the supplied _key.
      */
     Map getConfigurationMap(Object configKey);
 

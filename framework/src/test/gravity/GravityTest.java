@@ -20,60 +20,60 @@ import java.net.URL;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: GravityTest.java,v 1.1 2004-05-10 17:29:08 harishkswamy Exp $
+ * @version $Id: GravityTest.java,v 1.2 2004-05-17 03:04:12 harishkswamy Exp $
  */
 public class GravityTest extends GravityTestCase
 {
     public void tearDown()
     {
-        Gravity.shutdown();
+        Gravity.getInstance().shutdown();
     }
 
     public void testInitialize()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
 
-        String someVal = Gravity.getProperty("some prop");
+        String someVal = Gravity.getInstance().getProperty("some prop");
 
         assertNull(someVal);
     }
 
     public void testReinitialize()
     {
-        Gravity.initialize();
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
+        Gravity.getInstance().initialize();
     }
-    
+
     public void testStartup()
     {
-        Registry registry = Gravity.startup();
+        Registry registry = Gravity.getInstance().startup();
 
         assertNotNull(registry);
 
         registry.cleanup();
     }
-    
+
     public void testCustomPlugin()
     {
         writePluginFile("pluginClassName=gravity.plugins.BshPlugin");
-        
-        Registry registry = Gravity.startup();
-        
+
+        Registry registry = Gravity.getInstance().startup();
+
         assertNotNull(registry);
-        
+
         writePluginFile("");
     }
 
     public void testGlobalPlugin()
     {
         String fPath = ClassUtils.getResource("gravity").getFile() + "/gravity.properties";
-        
+
         writeFile(fPath, "pluginClassName=gravity.plugins.BshPlugin");
-        
-        Registry registry = Gravity.startup("gravity/gravity.properties");
-        
+
+        Registry registry = Gravity.getInstance().startup("gravity/gravity.properties");
+
         assertNotNull(registry);
-        
+
         writeFile(fPath, "");
     }
 
@@ -85,7 +85,7 @@ public class GravityTest extends GravityTestCase
         {
             url = new URL("file:/C:/eclipse/workspace/gravity/Non-existent.properties");
 
-            Gravity.initialize(url);
+            Gravity.getInstance().initialize(url);
 
             unreachable();
         }
@@ -99,7 +99,7 @@ public class GravityTest extends GravityTestCase
     {
         try
         {
-            Gravity.initialize("Non-existent.properties");
+            Gravity.getInstance().initialize("Non-existent.properties");
 
             unreachable();
         }
@@ -111,15 +111,15 @@ public class GravityTest extends GravityTestCase
 
     public void testGravityProperties()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
 
-        Gravity.setProperty("myProp", "myVal");
+        Gravity.getInstance().setProperty("myProp", "myVal");
 
-        String myVal = Gravity.getProperty("myProp");
+        String myVal = Gravity.getInstance().getProperty("myProp");
 
         assertEquals("myVal", myVal);
 
-        myVal = Gravity.getProperty("non-existent val");
+        myVal = Gravity.getInstance().getProperty("non-existent val");
 
         assertNull(myVal);
     }
@@ -128,7 +128,7 @@ public class GravityTest extends GravityTestCase
     {
         try
         {
-            Gravity.setProperty("myprop", "myval");
+            Gravity.getInstance().setProperty("myprop", "myval");
 
             unreachable();
         }
@@ -139,7 +139,7 @@ public class GravityTest extends GravityTestCase
 
         try
         {
-            Gravity.getProperty("myprop");
+            Gravity.getInstance().getProperty("myprop");
 
             unreachable();
         }

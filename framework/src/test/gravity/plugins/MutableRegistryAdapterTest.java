@@ -27,7 +27,7 @@ import java.util.Map;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableRegistryAdapterTest.java,v 1.1 2004-05-10 17:29:13 harishkswamy Exp $
+ * @version $Id: MutableRegistryAdapterTest.java,v 1.2 2004-05-17 03:04:13 harishkswamy Exp $
  */
 public class MutableRegistryAdapterTest extends GravityTestCase
 {
@@ -37,12 +37,12 @@ public class MutableRegistryAdapterTest extends GravityTestCase
 
     public void setUp()
     {
-        Gravity.initialize();
+        Gravity.getInstance().initialize();
     }
 
     public void tearDown()
     {
-        Gravity.shutdown();
+        Gravity.getInstance().shutdown();
     }
 
     public void testRegisterCustomIntfComponentImplViaComboInjection()
@@ -246,8 +246,6 @@ public class MutableRegistryAdapterTest extends GravityTestCase
 
     public void testGetComponentInstanceFromKey()
     {
-        Gravity.initialize();
-
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
         Object key = _registry.componentImpl(MockComboService.class, cArgs);
@@ -255,22 +253,16 @@ public class MutableRegistryAdapterTest extends GravityTestCase
         Object comp = _registry.component(key);
 
         assertNotNull(comp);
-
-        Gravity.shutdown();
     }
 
     public void testGetComponentInstance()
     {
-        Gravity.initialize();
-
         Object comp = _registry.component(MockComboService.class, "variant");
         Object comp2 = _registry.component(MockComboService.class);
 
         assertNotNull(comp);
         assertNotNull(comp2);
         assertTrue(comp != comp2);
-
-        Gravity.shutdown();
     }
 
     public void testRegisterAndGetConfigurationList()

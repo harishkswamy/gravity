@@ -16,7 +16,7 @@ package gravity.impl;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentKey.java,v 1.1 2004-05-10 17:28:56 harishkswamy Exp $
+ * @version $Id: ComponentKey.java,v 1.2 2004-05-17 03:04:04 harishkswamy Exp $
  */
 public class ComponentKey
 {
@@ -29,7 +29,7 @@ public class ComponentKey
     public ComponentKey(Class compIntf, Object compType)
     {
         if (compIntf == null)
-            throw new IllegalArgumentException("Component interface cannot be null.");
+            throw new IllegalArgumentException("Component interface must not be null.");
 
         if (compType == null)
             compType = DEFAULT_COMPONENT_TYPE;

@@ -20,9 +20,10 @@ import gravity.WrapperException;
 import java.net.URL;
 import java.util.Enumeration;
 
+// TODO fix messages usability, change cannot to unable
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ClassUtils.java,v 1.2 2004-05-13 06:12:29 harishkswamy Exp $
+ * @version $Id: ClassUtils.java,v 1.3 2004-05-17 03:03:55 harishkswamy Exp $
  */
 public class ClassUtils
 {
@@ -49,7 +50,7 @@ public class ClassUtils
 
         return url;
     }
-    
+
     public static URL newUrl(String urlStr)
     {
         try

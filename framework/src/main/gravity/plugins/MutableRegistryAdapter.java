@@ -21,14 +21,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * config is a container to hold configuration values. A config once set in the registry cannot be
- * overwritten; configuration values on the other hand can be overwritten any number of times at
- * build time.
- * <p>
- * service is an implementation that respects an interface.
+ * This is an adapter to MutableRegistry intended to be used by plugins.
  * 
+ * @see gravity.MutableRegistry
  * @author Harish Krishnaswamy
- * @version $Id: MutableRegistryAdapter.java,v 1.1 2004-05-10 17:28:58 harishkswamy Exp $
+ * @version $Id: MutableRegistryAdapter.java,v 1.2 2004-05-17 03:04:08 harishkswamy Exp $
  */
 public class MutableRegistryAdapter
 {
@@ -62,7 +59,7 @@ public class MutableRegistryAdapter
     public Object component(Object compKey)
     {
         Object comp = _registry.getComponentInstance(compKey);
-        
+
         _registry.registerComponentRetrievalLocation(compKey, getCurrentLocation());
 
         return comp;
@@ -189,7 +186,17 @@ public class MutableRegistryAdapter
 
     public Object singleton(Object compKey)
     {
-        return _registry.makeComponentSingleton(compKey);
+        return _registry.changeComponentStateToSingleton(compKey);
+    }
+
+    public Object pooling(Object compKey)
+    {
+        return _registry.changeComponentStateToPooling(compKey);
+    }
+
+    public Object threadLocal(Object compKey)
+    {
+        return _registry.changeComponentStateToThreadLocal(compKey);
     }
 
     // Config point definition helper methods =================================
