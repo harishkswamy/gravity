@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gravity.plugins;
+package gravity.plugins.bsh;
 
 import gravity.ComponentCallback;
 import gravity.ComponentPhase;
@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginHelper.java,v 1.4 2004-08-10 16:21:55 harishkswamy Exp $
+ * @version $Id: BshPluginHelper.java,v 1.1 2004-09-02 04:06:31 harishkswamy Exp $
  */
 public class BshPluginHelper
 {

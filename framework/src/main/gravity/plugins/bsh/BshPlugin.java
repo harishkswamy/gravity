@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gravity.plugins;
+package gravity.plugins.bsh;
 
 import gravity.Location;
 import gravity.MutableContainer;
 import gravity.Plugin;
 import gravity.WrapperException;
+import gravity.plugins.MutableContainerAdapter;
 import gravity.util.ClassUtils;
+import gravity.util.Message;
 import gravity.util.Utils;
 
 import java.io.FileNotFoundException;
@@ -36,7 +38,7 @@ import bsh.TargetError;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPlugin.java,v 1.8 2004-08-10 16:23:44 harishkswamy Exp $
+ * @version $Id: BshPlugin.java,v 1.1 2004-09-02 04:06:31 harishkswamy Exp $
  */
 public class BshPlugin implements Plugin
 {
@@ -58,15 +60,15 @@ public class BshPlugin implements Plugin
         Location loc = new Location(url.toString(), _container.getCurrentLineNumber());
 
         if (e instanceof EvalError)
-            throw WrapperException.wrap(e, "Plugin specification error at: " + loc);
+            throw WrapperException.wrap(e, Message.PLUGIN_SPECIFICATION_ERROR, loc);
 
         else if (e instanceof FileNotFoundException)
-            throw WrapperException.wrap(e, "Unable to find module: " + url);
+            throw WrapperException.wrap(e, Message.CANNOT_FIND_MODULE, url);
 
         else if (e instanceof InvocationTargetException)
             e = ((InvocationTargetException) e).getTargetException();
 
-        throw WrapperException.wrap(e, "Plugin specification execution error at: " + loc);
+        throw WrapperException.wrap(e, Message.PLUGIN_SPECIFICATION_EXECUTION_ERROR, loc);
     }
 
     private void buildModule(URL url)
@@ -90,20 +92,20 @@ public class BshPlugin implements Plugin
         {
             _interpreter = new Interpreter();
 
-            URL url = ClassUtils.getResource("gravity/plugins/init.bsh");
+            URL url = ClassUtils.getResource("gravity/plugins/bsh/init.bsh");
             Reader reader = new InputStreamReader(url.openStream());
             _interpreter.eval(reader);
 
+            // Mix in the BshPluginHelper object with the current context/namespace
             _interpreter.set("$helper$", new BshPluginHelper());
             _interpreter.eval("importObject($helper$)");
 
-            _interpreter.set("$container$", _container);
-
             // Mix in the MutableContainerAdapter object with the current context/namespace
+            _interpreter.set("$container$", _container);
             _interpreter.eval("importObject($container$)");
 
             // Import all commands in package gravity.plugins
-            _interpreter.eval("importCommands(\"gravity.plugins\")");
+            _interpreter.eval("importCommands(\"gravity.plugins.bsh\")");
         }
         catch (Exception e)
         {
