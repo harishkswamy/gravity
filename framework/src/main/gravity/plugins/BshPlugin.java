@@ -36,7 +36,7 @@ import bsh.TargetError;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPlugin.java,v 1.7 2004-06-14 04:18:33 harishkswamy Exp $
+ * @version $Id: BshPlugin.java,v 1.8 2004-08-10 16:23:44 harishkswamy Exp $
  */
 public class BshPlugin implements Plugin
 {
@@ -56,7 +56,7 @@ public class BshPlugin implements Plugin
             e = ((TargetError) e).getTarget();
 
         Location loc = new Location(url.toString(), _container.getCurrentLineNumber());
-        
+
         if (e instanceof EvalError)
             throw WrapperException.wrap(e, "Plugin specification error at: " + loc);
 

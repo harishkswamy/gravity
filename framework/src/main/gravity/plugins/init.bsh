@@ -18,7 +18,7 @@ invoke(methodName, args)
     else if ("shutdown".equals(methodName))
         return newShutdownCallback(args);
     
-    else if("callbacks".equals(methodName))
+    else if ("callbacks".equals(methodName))
         return toComponentCallbackArray(args);
     
     else
