@@ -14,16 +14,14 @@
 
 package gravity;
 
-import gravity.impl.DefaultContainer;
-import gravity.plugins.BshPlugin;
+import gravity.impl.DefaultContainerBuilder;
 import gravity.util.ClassUtils;
+import gravity.util.Message;
 import gravity.util.Utils;
 
 import java.net.URL;
-import java.util.Enumeration;
 import java.util.Properties;
 
-//TODO Fix exception handling. Need more explicit exceptions.
 /**
  * This class is the gateway to the framework. It provides helper methods to initialize the
  * framework and obtain a fully constructed container.
@@ -31,9 +29,9 @@ import java.util.Properties;
  * This class stores the framework properties that can be accessed and/or modified anytime.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Gravity.java,v 1.11 2004-06-14 04:23:41 harishkswamy Exp $
+ * @version $Id: Gravity.java,v 1.12 2004-09-02 03:50:43 harishkswamy Exp $
  */
-public class Gravity
+public final class Gravity
 {
     /**
      * This is the path of the plugin file that Gravity will use to search for plugins. The path is
@@ -41,6 +39,11 @@ public class Gravity
      */
     public static final String   PLUGIN_MANIFEST_FILE_PATH      = "META-INF/gravity-plugin.properties";
 
+    /**
+     * This is name of the property that specifies the class name of the custom {@link Plugin}that
+     * is to be used for all plugins across the board. In addition, each individual plugin can
+     * specify its own plugin class which would take precendence over this specification.
+     */
     public static final String   PLUGIN_CLASS_NAME_KEY          = "pluginClassName";
 
     /**
@@ -54,6 +57,12 @@ public class Gravity
      * {@link DynamicWeaver}.
      */
     public static final String   DYNAMIC_WEAVER_CLASS_NAME_KEY  = "dynamicWeaverClassName";
+
+    /**
+     * This is the name of the property that specifies the class name of a custom
+     * {@link ContainerBuilder}.
+     */
+    public static final String   GRAVITY_BUILDER_CLASS_NAME_KEY = "gravityBuilderClassName";
 
     /**
      * This is name of the system property that specifies the name and location of the gravity
@@ -82,29 +91,27 @@ public class Gravity
     /**
      * Stores the framework properties.
      */
-    private Properties       _props;
+    private Properties _properties;
 
-    private MutableContainer _container;
+    private Container  _container;
 
-    protected Gravity()
+    private Gravity()
     {
         // Singleton.
     }
 
-    protected MutableContainer newMutableContainer()
-    {
-        return new DefaultContainer();
-    }
-
+    /**
+     * Initializes the framework and creates the container.
+     * 
+     * @throws UsageException
+     *             When the framework is already initialized.
+     */
     public synchronized void initialize(Properties props)
     {
-        if (_props != null)
-            throw new UsageException("Gravity is already initialized, use setProperty() to add "
-                + "properties to Gravity.");
+        if (_properties != null)
+            throw new UsageException(Message.GRAVITY_ALREADY_INITIALIZED);
 
-        _props = props;
-
-        _container = newMutableContainer();
+        _properties = props;
     }
 
     /**
@@ -148,57 +155,27 @@ public class Gravity
         initialize(fPath);
     }
 
-    protected Enumeration getPluginManifestFiles()
+    private ContainerBuilder newGravityBuilder()
     {
-        return ClassUtils.getResources(PLUGIN_MANIFEST_FILE_PATH);
+        String builderName = _properties.getProperty(GRAVITY_BUILDER_CLASS_NAME_KEY);
+
+        if (builderName != null)
+            return (ContainerBuilder) ClassUtils.newInstance(builderName);
+
+        return new DefaultContainerBuilder();
     }
 
-    protected String getPluginLocation(URL url)
-    {
-        String urlStr = url.toString();
-
-        return urlStr.substring(0, urlStr.lastIndexOf(PLUGIN_MANIFEST_FILE_PATH));
-    }
-
-    private Plugin getPlugin(String pluginClassName)
-    {
-        // Return the plugin from the plugin manifest file
-        if (pluginClassName != null)
-            return (Plugin) ClassUtils.newInstance(pluginClassName);
-
-        // Return the plugin (global) from the gravity.properties file
-        pluginClassName = _props.getProperty(PLUGIN_CLASS_NAME_KEY);
-
-        if (pluginClassName != null)
-            return (Plugin) ClassUtils.newInstance(pluginClassName);
-
-        // Return the default plugin
-        return new BshPlugin();
-    }
-
-    private void acceptPlugins()
-    {
-        Enumeration e = getPluginManifestFiles();
-
-        while (e.hasMoreElements())
-        {
-            URL url = (URL) e.nextElement();
-
-            Properties props = Utils.loadProperties(url);
-
-            props.setProperty(Plugin.LOCATION_URL_KEY, getPluginLocation(url));
-
-            Plugin plugin = getPlugin(props.getProperty(PLUGIN_CLASS_NAME_KEY));
-
-            plugin.startup(props, _container);
-        }
-    }
-
+    /**
+     * Initializes the framework from the supplied Properties and builds the {@link Container}.
+     * 
+     * @return Newly built {@link Container}.
+     * @see Gravity#initialize(Properties)
+     */
     public Container startup(Properties props)
     {
         initialize(props);
 
-        acceptPlugins();
+        _container = newGravityBuilder().build(props);
 
         return _container;
     }
@@ -252,14 +229,16 @@ public class Gravity
 
     /**
      * Gets the gravity property value for the supplied key.
+     * 
+     * @throws UsageException
+     *             When the framework is not initialized.
      */
     public String getProperty(String key)
     {
-        if (_props == null)
-            throw new IllegalArgumentException(
-                "Gravity should be initialized prior to accessing its properties.");
+        if (_properties == null)
+            throw new UsageException(Message.GRAVITY_NOT_INITIALIZED);
 
-        return _props.getProperty(key);
+        return _properties.getProperty(key);
     }
 
     /**
@@ -267,14 +246,16 @@ public class Gravity
      * <p>
      * Properties are only expected to be set during startup prior to building the {@link Container}
      * which should typically happen in a single startup thread.
+     * 
+     * @throws UsageException
+     *             When the framework is not initialized.
      */
     public synchronized void setProperty(String key, String value)
     {
-        if (_props == null)
-            throw new IllegalArgumentException(
-                "Gravity should be initialized prior to accessing its properties.");
+        if (_properties == null)
+            throw new UsageException(Message.GRAVITY_NOT_INITIALIZED);
 
-        _props.setProperty(key, value);
+        _properties.setProperty(key, value);
     }
 
     // TODO shutdown all components
@@ -283,7 +264,7 @@ public class Gravity
      */
     public void shutdown()
     {
-        _props = null;
+        _properties = null;
         _container = null;
     }
 }
