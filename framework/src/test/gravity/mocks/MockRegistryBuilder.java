@@ -16,15 +16,15 @@ package gravity.mocks;
 
 import gravity.impl.DefaultContainer;
 import gravity.plugins.BshPlugin;
-import gravity.plugins.MutableRegistryAdapter;
+import gravity.plugins.MutableContainerAdapter;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MockRegistryBuilder.java,v 1.2 2004-05-18 20:51:57 harishkswamy Exp $
+ * @version $Id: MockRegistryBuilder.java,v 1.3 2004-05-24 00:38:37 harishkswamy Exp $
  */
 public class MockRegistryBuilder extends BshPlugin
 {
-    static class MockMutableRegistryAdapter extends MutableRegistryAdapter
+    static class MockMutableRegistryAdapter extends MutableContainerAdapter
     {
         public MockMutableRegistryAdapter()
         {
@@ -32,7 +32,7 @@ public class MockRegistryBuilder extends BshPlugin
         }
     }
 
-    protected MutableRegistryAdapter newMutableRegistryAdapter()
+    protected MutableContainerAdapter newMutableRegistryAdapter()
     {
         return new MockMutableRegistryAdapter();
     }

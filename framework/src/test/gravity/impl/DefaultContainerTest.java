@@ -14,6 +14,8 @@
 
 package gravity.impl;
 
+import gravity.ComponentLifeCyclePhase;
+import gravity.ComponentLifeCycleMethod;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.Location;
@@ -22,14 +24,13 @@ import gravity.mocks.MockComboService;
 import gravity.mocks.MockComboServiceImpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainerTest.java,v 1.2 2004-05-22 20:19:25 harishkswamy Exp $
+ * @version $Id: DefaultContainerTest.java,v 1.3 2004-05-24 00:38:37 harishkswamy Exp $
  */
 public class DefaultContainerTest extends GravityTestCase
 {
@@ -38,7 +39,8 @@ public class DefaultContainerTest extends GravityTestCase
     public void setUp()
     {
         Properties props = new Properties();
-        props.setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME_KEY, "gravity.impl.CglibComponentProxy");
+        props.setProperty(Gravity.COMPONENT_PROXY_CLASS_NAME_KEY,
+            "gravity.impl.CglibComponentProxy");
 
         Gravity.getInstance().initialize(props);
     }
@@ -55,188 +57,14 @@ public class DefaultContainerTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        Map sArgs = new HashMap();
-        sArgs.put("object", new Object());
+        ComponentLifeCycleMethod[] methods = {new ComponentLifeCycleMethod("setObject", new Object[]{new Object()},
+            ComponentLifeCyclePhase.START_UP)};
 
         Object key = _registry.registerComponentImplementation(MockComboService.class, "variant",
-            MockComboServiceImpl.class, cArgs, sArgs);
+            MockComboServiceImpl.class, cArgs, methods);
 
         Object key2 = _registry.registerComponentImplementation(MockComboService.class, "variant",
-            MockComboServiceImpl.class, cArgs, sArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterCustomIntfComponentImplViaConstructorInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Object key = _registry.registerComponentImplementation(MockComboService.class, "variant",
-            MockComboServiceImpl.class, cArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboService.class, "variant",
-            MockComboServiceImpl.class, cArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterCustomIntfComponentImplViaSetterInjection()
-    {
-        Map sArgs = new HashMap();
-        sArgs.put("object", new Object());
-
-        Object key = _registry.registerComponentImplementation(MockComboService.class, "variant",
-            MockComboServiceImpl.class, sArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboService.class, "variant",
-            MockComboServiceImpl.class, sArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultIntfComponentImplViaComboInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Map sArgs = new HashMap();
-        sArgs.put("object", new Object());
-
-        Object key = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs, sArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs, sArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultIntfComponentImplViaConstructorInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Object key = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultIntfComponentImplViaSetterInjection()
-    {
-        Map sArgs = new HashMap();
-        sArgs.put("object", new Object());
-
-        Object key = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, sArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, sArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterCustomClassComponentImplViaComboInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Map sArgs = new HashMap();
-        sArgs.put("object", new Object());
-
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class,
-            "variant", cArgs, sArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboServiceImpl.class,
-            "variant", cArgs, sArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterCustomClassComponentImplViaConstructorInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class,
-            "variant", cArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboServiceImpl.class,
-            "variant", cArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterCustomClassComponentImplViaSetterInjection()
-    {
-        Map sArgs = new HashMap();
-        sArgs.put("object", new Object());
-
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class,
-            "variant", sArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboServiceImpl.class,
-            "variant", sArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultClassComponentImplViaComboInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Map sArgs = new HashMap();
-        sArgs.put("object", new Object());
-
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs,
-            sArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs,
-            sArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultClassComponentImplViaConstructorInjection()
-    {
-        Object[] cArgs = {new Integer(2), new ArrayList()};
-
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs);
-
-        assertNotNull(key);
-        assertNotNull(key2);
-        assertEquals(key, key2);
-    }
-
-    public void testRegisterDefaultClassComponentImplViaSetterInjection()
-    {
-        Map sArgs = new HashMap();
-        sArgs.put("object", new Object());
-
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, sArgs);
-
-        Object key2 = _registry.registerComponentImplementation(MockComboServiceImpl.class, sArgs);
+            MockComboServiceImpl.class, cArgs, methods);
 
         assertNotNull(key);
         assertNotNull(key2);
@@ -249,7 +77,8 @@ public class DefaultContainerTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs);
+        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs,
+            null);
 
         Object key2 = _registry.registerComponentRegistrationLocation(key, new Location(
             "Some.file", 3543));
@@ -261,7 +90,8 @@ public class DefaultContainerTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs);
+        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs,
+            null);
 
         Object key2 = _registry.registerComponentRegistrationLocation(MockComboServiceImpl.class,
             null, new Location("Some.file", 3543));
@@ -273,7 +103,8 @@ public class DefaultContainerTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs);
+        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs,
+            null);
 
         Object key2 = _registry.registerComponentRegistrationLocation(MockComboServiceImpl.class,
             new Location("Some.file", 3543));
@@ -285,7 +116,8 @@ public class DefaultContainerTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs);
+        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs,
+            null);
 
         Object key2 = _registry.registerComponentRetrievalLocation(key, new Location("Some.file",
             3543));
@@ -297,7 +129,8 @@ public class DefaultContainerTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs);
+        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs,
+            null);
 
         Object key2 = _registry.registerComponentRetrievalLocation(MockComboServiceImpl.class,
             null, new Location("Some.file", 3543));
@@ -309,7 +142,8 @@ public class DefaultContainerTest extends GravityTestCase
     {
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
-        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs);
+        Object key = _registry.registerComponentImplementation(MockComboServiceImpl.class, cArgs,
+            null);
 
         Object key2 = _registry.registerComponentRetrievalLocation(MockComboServiceImpl.class,
             new Location("Some.file", 3543));
@@ -324,7 +158,7 @@ public class DefaultContainerTest extends GravityTestCase
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
         Object key = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs);
+            MockComboServiceImpl.class, cArgs, null);
 
         Object key2 = _registry.wrapComponentStrategyWithSingleton(key);
 
@@ -343,7 +177,7 @@ public class DefaultContainerTest extends GravityTestCase
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
         Object key = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs);
+            MockComboServiceImpl.class, cArgs, null);
 
         Object key2 = _registry.wrapComponentStrategyWithPooling(key);
 
@@ -375,7 +209,7 @@ public class DefaultContainerTest extends GravityTestCase
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
         Object key = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs);
+            MockComboServiceImpl.class, cArgs, null);
 
         Object key2 = _registry.wrapComponentStrategyWithThreadLocal(key);
 
@@ -397,7 +231,7 @@ public class DefaultContainerTest extends GravityTestCase
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
         Object key = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs);
+            MockComboServiceImpl.class, cArgs, null);
 
         Object key2 = _registry.wrapComponentStrategyWithPooling(key);
 
@@ -417,7 +251,7 @@ public class DefaultContainerTest extends GravityTestCase
         Object[] cArgs = {new Integer(2), new ArrayList()};
 
         Object key = _registry.registerComponentImplementation(MockComboService.class,
-            MockComboServiceImpl.class, cArgs);
+            MockComboServiceImpl.class, cArgs, null);
 
         MockComboService comp = (MockComboService) _registry.getComponentInstance(key);
         MockComboService comp2 = (MockComboService) _registry.getComponentInstance(key);

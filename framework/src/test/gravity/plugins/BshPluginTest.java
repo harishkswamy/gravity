@@ -25,7 +25,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginTest.java,v 1.3 2004-05-18 20:52:07 harishkswamy Exp $
+ * @version $Id: BshPluginTest.java,v 1.4 2004-05-24 00:38:38 harishkswamy Exp $
  */
 public class BshPluginTest extends GravityTestCase
 {
@@ -106,7 +106,7 @@ public class BshPluginTest extends GravityTestCase
 
         String absPath = ClassUtils.getResource(fPath).getFile() + fName;
 
-        writeFile(absPath, "System.out.println(component(List.class));");
+        writeFile(absPath, "System.out.println(componentInst(List.class));");
 
         try
         {
@@ -128,7 +128,7 @@ public class BshPluginTest extends GravityTestCase
 
         String absPath = ClassUtils.getResource("gravity/mocks/runtime/").getFile() + fName;
 
-        writeFile(absPath, "component(NonExistent.class);");
+        writeFile(absPath, "componentInst(NonExistent.class);");
 
         try
         {

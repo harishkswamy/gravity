@@ -21,10 +21,9 @@ import gravity.mocks.MockSetterServiceImpl;
 
 import java.text.Format;
 
-
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtilsTest.java,v 1.2 2004-05-18 21:29:36 harishkswamy Exp $
+ * @version $Id: ReflectUtilsTest.java,v 1.3 2004-05-24 00:38:44 harishkswamy Exp $
  */
 public class ReflectUtilsTest extends GravityTestCase
 {
@@ -86,18 +85,18 @@ public class ReflectUtilsTest extends GravityTestCase
         catch (Exception e)
         {
             assertSuperString(e,
-                "Unable to invoke constructor for: class java.text.Format with: ()");
+                "Unable to invoke constructor for: class java.text.Format with: (null)");
         }
     }
 
     public void testInvokeValidSetter()
     {
         MockSetterServiceImpl obj = new MockSetterServiceImpl();
-        ReflectUtils.invokeMethod(obj, "setPrimitive", new Integer(5));
+        ReflectUtils.invokeMethod(obj, "setPrimitive", new Object[]{new Integer(5)});
         assertTrue(obj.getPrimitive() == 5);
 
         Object obj1 = new Object();
-        ReflectUtils.invokeMethod(obj, "setObject", obj1);
+        ReflectUtils.invokeMethod(obj, "setObject", new Object[]{obj1});
         assertSame(obj.getObject(), obj1);
     }
 
@@ -105,7 +104,7 @@ public class ReflectUtilsTest extends GravityTestCase
     {
         try
         {
-            ReflectUtils.invokeMethod(new Object(), "setUnavailableProp", "someVal");
+            ReflectUtils.invokeMethod(new Object(), "setUnavailableProp", new Object[]{"someVal"});
 
             unreachable();
         }
@@ -121,7 +120,8 @@ public class ReflectUtilsTest extends GravityTestCase
     {
         try
         {
-            ReflectUtils.invokeMethod(new MockComboServiceImpl(1, null), "setPrimitive", "someVal");
+            ReflectUtils.invokeMethod(new MockComboServiceImpl(1, null), "setPrimitive",
+                new Object[]{"someVal"});
 
             unreachable();
         }
@@ -143,7 +143,8 @@ public class ReflectUtilsTest extends GravityTestCase
         }
         catch (Exception e)
         {
-            assertSuperString(e, "Unable to invoke method: \"null\" with value: \"null\" on object:");
+            assertSuperString(e,
+                "Unable to invoke method: \"null\" with value: \"null\" on object:");
         }
     }
 }

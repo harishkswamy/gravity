@@ -27,7 +27,7 @@ import java.util.Map;
  * 
  * @author Howard Lewis Ship
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtils.java,v 1.2 2004-05-18 21:29:34 harishkswamy Exp $
+ * @version $Id: ReflectUtils.java,v 1.3 2004-05-24 00:38:36 harishkswamy Exp $
  */
 public class ReflectUtils
 {
@@ -58,17 +58,21 @@ public class ReflectUtils
         return type == null ? null : type.getName();
     }
 
-    private static String getTypeString(Class[] types)
+    private static String typesToString(Class[] types)
     {
         if (types == null || types.length == 0)
             return "";
 
-        String paramTypeStr = "";
+        StringBuffer buf = new StringBuffer();
 
         for (int i = 0; i < types.length - 1; i++)
-            paramTypeStr += getTypeName(types[i]) + ", ";
+            buf.append(getTypeName(types[i])).append(", ");
 
-        return paramTypeStr + getTypeName(types[types.length - 1]);
+        String typeName = getTypeName(types[types.length - 1]);
+
+        buf.append(typeName);
+
+        return buf.toString();
     }
 
     private static boolean isCompatible(Class paramType, Class valueType)
@@ -111,18 +115,31 @@ public class ReflectUtils
         return true;
     }
 
-    private static Constructor findConstructor(Class targetClass, Class[] valueTypes)
+    private static Constructor findConstructor(Class targetClass, Class[] argTypes)
     {
         Constructor[] constructors = targetClass.getConstructors();
 
         for (int i = 0; i < constructors.length; i++)
         {
-            if (isMatch(constructors[i].getParameterTypes(), valueTypes))
+            if (isMatch(constructors[i].getParameterTypes(), argTypes))
                 return constructors[i];
         }
 
         throw new UsageException("Unable to find constructor: " + targetClass.getName() + "("
-            + getTypeString(valueTypes) + ")");
+            + typesToString(argTypes) + ")");
+    }
+
+    private static Class[] getTypes(Object[] args)
+    {
+        if (args == null)
+            args = new Object[0];
+
+        Class[] argTypes = new Class[args.length];
+
+        for (int i = 0; i < args.length; i++)
+            argTypes[i] = args[i] == null ? null : args[i].getClass();
+
+        return argTypes;
     }
 
     /**
@@ -130,38 +147,30 @@ public class ReflectUtils
      * 
      * @param targetClass
      *        the class to be instantiated
-     * @param paramValues
+     * @param args
      *        the parameters to pass to the constructor (may be null or empty)
      * @return the new instance
      * @throws UsageException
      *         on any failure
      */
-    public static Object invokeConstructor(Class targetClass, Object[] paramValues)
+    public static Object invokeConstructor(Class targetClass, Object[] args)
     {
-        Class[] valueTypes = null;
-
         try
         {
-            if (paramValues == null)
-                paramValues = new Object[0];
+            Class[] argTypes = getTypes(args);
 
-            valueTypes = new Class[paramValues.length];
+            Constructor ctor = findConstructor(targetClass, argTypes);
 
-            for (int i = 0; i < paramValues.length; i++)
-                valueTypes[i] = paramValues[i] == null ? null : paramValues[i].getClass();
-
-            Constructor ctor = findConstructor(targetClass, valueTypes);
-
-            return ctor.newInstance(paramValues);
+            return ctor.newInstance(args);
         }
         catch (Exception e)
         {
             throw WrapperException.wrap(e, "Unable to invoke constructor for: " + targetClass
-                + " with: (" + getTypeString(valueTypes) + ")");
+                + " with: (" + Utils.arrayToString(args) + ")");
         }
     }
 
-    private static Method findMethod(Class targetClass, String methodName, Class[] valueTypes)
+    private static Method findMethod(Class targetClass, String methodName, Class[] argTypes)
     {
         Method[] methods = targetClass.getMethods();
 
@@ -170,30 +179,29 @@ public class ReflectUtils
             if (!methods[i].getName().equals(methodName))
                 continue;
 
-            Class[] paramTypes = methods[i].getParameterTypes();
-
-            if (isMatch(paramTypes, valueTypes))
+            if (isMatch(methods[i].getParameterTypes(), argTypes))
                 return methods[i];
         }
 
         throw new UsageException("Unable to find method: " + methodName + "("
-            + getTypeString(valueTypes) + ") in: " + targetClass);
+            + typesToString(argTypes) + ") in: " + targetClass);
     }
 
-    public static Object invokeMethod(Object target, String methodName, Object methodArg)
+    public static Object invokeMethod(Object target, String methodName, Object[] args)
     {
         try
         {
-            Class[] valueTypes = {methodArg == null ? null : methodArg.getClass()};
+            Class[] argTypes = getTypes(args);
 
-            Method method = findMethod(target.getClass(), methodName, valueTypes);
+            Method method = findMethod(target.getClass(), methodName, argTypes);
 
-            return method.invoke(target, new Object[]{methodArg});
+            return method.invoke(target, args);
         }
         catch (Exception e)
         {
+            // TODO convert args to String in the thrown message
             throw WrapperException.wrap(e, "Unable to invoke method: \"" + methodName
-                + "\" with value: \"" + methodArg + "\" on object: " + target);
+                + "\" with value: \"" + Utils.arrayToString(args) + "\" on object: " + target);
         }
     }
 }

@@ -1,4 +1,4 @@
-//Copyright 2004 The Apache Software Foundation
+// Copyright 2004 The Apache Software Foundation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Utils.java,v 1.1 2004-05-10 17:28:51 harishkswamy Exp $
+ * @version $Id: Utils.java,v 1.2 2004-05-24 00:38:36 harishkswamy Exp $
  */
 public class Utils
 {
@@ -91,5 +91,20 @@ public class Utils
         {
             throw WrapperException.wrap(e, "Cannot load properties from " + url);
         }
+    }
+
+    public static String arrayToString(Object[] objs)
+    {
+        if (objs == null)
+            return "null";
+
+        StringBuffer buf = new StringBuffer();
+
+        for (int i = 0; i < objs.length - 1; i++)
+            buf.append(objs[i]).append(", ");
+
+        buf.append(objs[objs.length - 1]);
+
+        return buf.toString();
     }
 }

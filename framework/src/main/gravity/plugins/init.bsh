@@ -1,0 +1,23 @@
+invoke(methodName, args)
+{
+    if ("array".equals(methodName))
+        return args;
+    
+    else if ("args".equals(methodName))
+        return args;
+    
+    else if ("injection".equals(methodName))
+        return newInjectionMethod(args);
+    
+    else if ("startUp".equals(methodName))
+        return newStartUpMethod(args);
+    
+    else if ("shutdown".equals(methodName))
+        return newShutdownMethod(args);
+    
+    else if("lifeCycleMethods".equals(methodName))
+        return toComponentLifeCycleMethodArray(args);
+    
+    else
+        throw new NoSuchMethodException("Method: " + methodName + "(" + args + ")");
+}

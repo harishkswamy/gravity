@@ -14,6 +14,8 @@
 
 package gravity.impl;
 
+import gravity.ComponentLifeCyclePhase;
+import gravity.ComponentLifeCycleMethod;
 import gravity.Gravity;
 import gravity.GravityTestCase;
 import gravity.Location;
@@ -24,17 +26,17 @@ import gravity.mocks.MockSetterService;
 import gravity.mocks.MockSetterServiceImpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 // TODO test location in messages
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ComponentTest.java,v 1.3 2004-05-18 21:29:37 harishkswamy Exp $
+ * @version $Id: ComponentTest.java,v 1.4 2004-05-24 00:38:37 harishkswamy Exp $
  */
 public class ComponentTest extends GravityTestCase
 {
+    private static final ComponentLifeCyclePhase START_UP = ComponentLifeCyclePhase.START_UP;
+
     public void setUp()
     {
         Gravity.getInstance().initialize();
@@ -46,13 +48,13 @@ public class ComponentTest extends GravityTestCase
     }
 
     private ProxyableComponent newComponent(Class intf, String type, Location intfLoc, Class impl,
-        Object[] args, Map params, Location implLoc)
+        Object[] args, ComponentLifeCycleMethod[] startUpMethods, Location implLoc)
     {
         ComponentKey compKey = new ComponentKey(intf, type);
 
         ProxyableComponent state = new DefaultComponent(compKey);
 
-        state.registerImplementation(impl, args, params);
+        state.registerImplementation(impl, args, startUpMethods);
         state.setRetrievalLocation(intfLoc);
         state.setRegistrationLocation(implLoc);
 
@@ -110,12 +112,14 @@ public class ComponentTest extends GravityTestCase
 
     public void testBuildServiceViaMethodInjection()
     {
-        Map args = new HashMap();
-        args.put("setPrimitive", new Integer(5));
-        args.put("setObject", new ArrayList());
+        ComponentLifeCycleMethod mthd1 = new ComponentLifeCycleMethod("setPrimitive", new Object[]{new Integer(5)},
+            START_UP);
+        ComponentLifeCycleMethod mthd2 = new ComponentLifeCycleMethod("setObject", new Object[]{new ArrayList()},
+            START_UP);
+        ComponentLifeCycleMethod[] methods = {mthd1, mthd2};
 
         ProxyableComponent state = newComponent(MockSetterService.class, "def", null,
-            MockSetterServiceImpl.class, null, args, null);
+            MockSetterServiceImpl.class, null, methods, null);
 
         MockSetterServiceImpl obj = (MockSetterServiceImpl) state.newInstance();
 
@@ -127,14 +131,16 @@ public class ComponentTest extends GravityTestCase
 
     public void testBuildServiceViaComboInjection()
     {
-        Map args = new HashMap();
-        args.put("setPrimitive", new Integer(5));
-        args.put("setObject", new ArrayList());
+        ComponentLifeCycleMethod mthd1 = new ComponentLifeCycleMethod("setPrimitive", new Object[]{new Integer(5)},
+            START_UP);
+        ComponentLifeCycleMethod mthd2 = new ComponentLifeCycleMethod("setObject", new Object[]{new ArrayList()},
+            START_UP);
+        ComponentLifeCycleMethod[] methods = {mthd1, mthd2};
 
         Object[] cArgs = {new Integer(6), new ArrayList()};
 
         ProxyableComponent state = newComponent(MockComboService.class, "def", null,
-            MockComboServiceImpl.class, cArgs, args, null);
+            MockComboServiceImpl.class, cArgs, methods, null);
 
         MockComboServiceImpl obj = (MockComboServiceImpl) state.newInstance();
 

@@ -15,6 +15,7 @@
 package gravity.impl;
 
 import gravity.Component;
+import gravity.ComponentLifeCycleMethod;
 import gravity.Location;
 import gravity.MutableContainer;
 import gravity.UsageException;
@@ -29,7 +30,7 @@ import java.util.Map;
  * This is the container that houses all components and configurations.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultContainer.java,v 1.4 2004-05-22 20:19:32 harishkswamy Exp $
+ * @version $Id: DefaultContainer.java,v 1.5 2004-05-24 00:38:39 harishkswamy Exp $
  */
 public class DefaultContainer implements MutableContainer
 {
@@ -72,92 +73,99 @@ public class DefaultContainer implements MutableContainer
     // Primary component registration method =======================================================
 
     /**
-     * @return Component _key.
+     * @return Component key.
      */
     public Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Object[] ctorArgs, Map setrArgs)
+        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods)
     {
         ComponentKey compKey = getComponentKey(compIntf, compType);
 
         Component comp = getComponent(compKey);
 
-        comp.registerImplementation(compClass, ctorArgs, setrArgs);
+        comp.registerImplementation(compClass, ctorArgs, lifeCycleMethods);
 
         return compKey;
     }
 
-    // Variant service registration convenience methods ============================================
-
-    public Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Object[] ctorArgs)
-    {
-        return registerComponentImplementation(compIntf, compType, compClass, ctorArgs, null);
-    }
-
-    public Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Map setrArgs)
-    {
-        return registerComponentImplementation(compIntf, compType, compClass, null, setrArgs);
-    }
-
-    // Default service registration convenience methods ============================================
-
     public Object registerComponentImplementation(Class compIntf, Class compClass,
-        Object[] ctorArgs, Map setrArgs)
+        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods)
     {
-        return registerComponentImplementation(compIntf, null, compClass, ctorArgs, setrArgs);
-    }
-
-    public Object registerComponentImplementation(Class compIntf, Class compClass, Object[] ctorArgs)
-    {
-        return registerComponentImplementation(compIntf, null, compClass, ctorArgs, null);
-    }
-
-    public Object registerComponentImplementation(Class compIntf, Class compClass, Map setrArgs)
-    {
-        return registerComponentImplementation(compIntf, null, compClass, null, setrArgs);
-    }
-
-    // Variant component registration convenience methods ==========================================
-
-    public Object registerComponentImplementation(Class compClass, Object compType,
-        Object[] ctorArgs, Map setrArgs)
-    {
-        return registerComponentImplementation(compClass, compType, compClass, ctorArgs, setrArgs);
+        return registerComponentImplementation(compIntf, null, compClass, ctorArgs,
+            lifeCycleMethods);
     }
 
     public Object registerComponentImplementation(Class compClass, Object compType,
-        Object[] ctorArgs)
+        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods)
     {
-        return registerComponentImplementation(compClass, compType, compClass, ctorArgs, null);
+        return registerComponentImplementation(compClass, compType, compClass, ctorArgs,
+            lifeCycleMethods);
     }
 
-    public Object registerComponentImplementation(Class compClass, Object compType, Map setrArgs)
+    public Object registerComponentImplementation(Class compClass, Object[] ctorArgs,
+        ComponentLifeCycleMethod[] lifeCycleMethods)
     {
-        return registerComponentImplementation(compClass, compType, compClass, null, setrArgs);
-    }
-
-    // Default component registration convenience methods ==========================================
-
-    public Object registerComponentImplementation(Class compClass, Object[] ctorArgs, Map setrArgs)
-    {
-        return registerComponentImplementation(compClass, null, compClass, ctorArgs, setrArgs);
-    }
-
-    public Object registerComponentImplementation(Class compClass, Object[] ctorArgs)
-    {
-        return registerComponentImplementation(compClass, null, compClass, ctorArgs, null);
-    }
-
-    public Object registerComponentImplementation(Class compClass, Map setrArgs)
-    {
-        return registerComponentImplementation(compClass, null, compClass, null, setrArgs);
+        return registerComponentImplementation(compClass, null, compClass, ctorArgs,
+            lifeCycleMethods);
     }
 
     public Object registerComponentFactory(Class compClass, Object compFac, String facMethodName,
         Object[] facMethodArgs)
     {
         return null;
+    }
+
+    // Constructor arguments registration ===============================================
+
+    public Object registerComponentConstructorArguments(Object compKey, Object[] args)
+    {
+        Component comp = (Component) _componentCache.get(compKey);
+
+        comp.registerConstructorArguments(args);
+
+        return compKey;
+    }
+
+    public Object registerComponentConstructorArguments(Class compIntf, Object compType,
+        Object[] args)
+    {
+        ComponentKey compKey = getComponentKey(compIntf, compType);
+
+        return registerComponentConstructorArguments(compKey, args);
+    }
+
+    public Object registerComponentConstructorArguments(Class compIntf, Object[] args)
+    {
+        ComponentKey compKey = getComponentKey(compIntf, null);
+
+        return registerComponentConstructorArguments(compKey, args);
+    }
+
+    // LifeCycle methods registration ===============================================
+
+    public Object registerComponentLifeCycleMethods(Object compKey,
+        ComponentLifeCycleMethod[] lifeCycleMethods)
+    {
+        Component comp = (Component) _componentCache.get(compKey);
+
+        comp.registerLifeCycleMethods(lifeCycleMethods);
+
+        return compKey;
+    }
+
+    public Object registerComponentLifeCycleMethods(Class compIntf, Object compType,
+        ComponentLifeCycleMethod[] lifeCycleMethods)
+    {
+        ComponentKey compKey = getComponentKey(compIntf, compType);
+
+        return registerComponentLifeCycleMethods(compKey, lifeCycleMethods);
+    }
+
+    public Object registerComponentLifeCycleMethods(Class compIntf,
+        ComponentLifeCycleMethod[] lifeCycleMethods)
+    {
+        ComponentKey compKey = getComponentKey(compIntf, null);
+
+        return registerComponentLifeCycleMethods(compKey, lifeCycleMethods);
     }
 
     // Location registration methods ===============================================================

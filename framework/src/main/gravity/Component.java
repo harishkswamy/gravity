@@ -14,8 +14,6 @@
 
 package gravity;
 
-import java.util.Map;
-
 /**
  * The component is the central concept of the framework around which everything else revolves. A
  * component is the entity that can be configured by the {@link gravity.Container container}. A
@@ -30,7 +28,7 @@ import java.util.Map;
  * on the state of the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.5 2004-05-22 20:19:29 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.6 2004-05-24 00:38:42 harishkswamy Exp $
  */
 public interface Component
 {
@@ -39,14 +37,14 @@ public interface Component
      * 
      * @param compClass
      *        Component implementation class.
-     * @param compCtorArgs
+     * @param ctorArgs
      *        Component constructor arguments. This is simply an array of the constructor argument
      *        values that will be used in the order it is provided.
-     * @param compSetrArgs
-     *        Component setter arguments. This is a map of the implementation property names and
-     *        their values.
+     * @param lifeCycleMethods
+     *        Component methods to be invoked during component life cycle stages.
      */
-    void registerImplementation(Class compClass, Object[] compCtorArgs, Map compSetrArgs);
+    void registerImplementation(Class compClass, Object[] ctorArgs,
+        ComponentLifeCycleMethod[] lifeCycleMethods);
 
     /**
      * This method may be used to register the location of the component registration. The sole
@@ -54,6 +52,20 @@ public interface Component
      * event of an error.
      */
     void setRegistrationLocation(Location location);
+
+    /**
+     * This method allows registration of the implementation's constructor arguments. These
+     * arguments will be appended to the already existing arguments. The order of the arguments will
+     * determine the constructor that will selected for instatiation.
+     */
+    void registerConstructorArguments(Object[] args);
+
+    /**
+     * This method allows registration of the implementation's life cycle methods. These methods
+     * will be appended to the already existing methods. The method invocations will be in the same
+     * order it has been provided.
+     */
+    void registerLifeCycleMethods(ComponentLifeCycleMethod[] lifeCycleMethods);
 
     /**
      * This method will return an instance (concrete or hollow) of this component. The component

@@ -14,6 +14,8 @@
 
 package gravity.impl;
 
+import gravity.ComponentLifeCycleMethod;
+import gravity.ComponentLifeCyclePhase;
 import gravity.ComponentStrategy;
 import gravity.Location;
 import gravity.ProxyableComponent;
@@ -22,24 +24,25 @@ import gravity.WrapperException;
 import gravity.util.ClassUtils;
 import gravity.util.ReflectUtils;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This is a flyweight that will be shared by all its proxy instances.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.5 2004-05-22 20:19:31 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.6 2004-05-24 00:38:39 harishkswamy Exp $
  */
 public class DefaultComponent implements ProxyableComponent
 {
-    private ComponentKey      _key;
-    private Location          _retrievalLocation;
-    private Class             _implementation;
-    private Object[]          _constructorDependencies;
-    private Map               _methodDependencies;
-    private Location          _registrationLocation;
-    private ComponentStrategy _componentStrategy;
+    private ComponentKey               _key;
+    private Location                   _retrievalLocation;
+    private Class                      _implementation;
+    private Object[]                   _constructorDependencies;
+    private ComponentLifeCycleMethod[] _lifeCycleMethods;
+    private Location                   _registrationLocation;
+    private ComponentStrategy          _componentStrategy;
 
     public DefaultComponent(ComponentKey compKey)
     {
@@ -53,16 +56,47 @@ public class DefaultComponent implements ProxyableComponent
         return _componentStrategy.getComponentInstance();
     }
 
-    public void registerImplementation(Class compClass, Object[] ctorDeps, Map setrDeps)
+    public void registerImplementation(Class compClass, Object[] ctorDeps,
+        ComponentLifeCycleMethod[] lifeCycleMethods)
     {
         _implementation = compClass;
         _constructorDependencies = ctorDeps;
-        _methodDependencies = setrDeps;
+        _lifeCycleMethods = lifeCycleMethods;
     }
 
     public void setRegistrationLocation(Location location)
     {
         _registrationLocation = location;
+    }
+
+    public void registerConstructorArguments(Object[] args)
+    {
+        if (_constructorDependencies == null)
+            _constructorDependencies = args;
+
+        else
+        {
+            List deps = new ArrayList(Arrays.asList(_constructorDependencies));
+
+            deps.addAll(Arrays.asList(args));
+
+            _constructorDependencies = deps.toArray();
+        }
+    }
+
+    public void registerLifeCycleMethods(ComponentLifeCycleMethod[] lifeCycleMethods)
+    {
+        if (_lifeCycleMethods == null)
+            _lifeCycleMethods = lifeCycleMethods;
+
+        else
+        {
+            List methods = new ArrayList(Arrays.asList(_lifeCycleMethods));
+
+            methods.addAll(Arrays.asList(lifeCycleMethods));
+
+            _lifeCycleMethods = (ComponentLifeCycleMethod[]) methods.toArray(new ComponentLifeCycleMethod[0]);
+        }
     }
 
     public void setRetrievalLocation(Location location)
@@ -140,17 +174,21 @@ public class DefaultComponent implements ProxyableComponent
 
     // Construct new instance ======================================================================
 
-    // TODO allow initialization methods to have multiple parameters
     private void invokeInitializationMethods(Object instance)
     {
-        if (_methodDependencies == null)
+        if (_lifeCycleMethods == null)
             return;
 
-        for (Iterator itr = _methodDependencies.keySet().iterator(); itr.hasNext();)
+        for (int i = 0; i < _lifeCycleMethods.length; i++)
         {
-            String methodName = (String) itr.next();
+            ComponentLifeCycleMethod method = _lifeCycleMethods[i];
+            ComponentLifeCyclePhase phase = method.getLifeCyclePhase();
 
-            ReflectUtils.invokeMethod(instance, methodName, _methodDependencies.get(methodName));
+            if (phase == ComponentLifeCyclePhase.INJECTION
+                || phase == ComponentLifeCyclePhase.START_UP)
+            {
+                ReflectUtils.invokeMethod(instance, method.getName(), method.getArguments());
+            }
         }
     }
 

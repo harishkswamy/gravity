@@ -14,48 +14,40 @@
 
 package gravity;
 
-import java.util.Map;
-
 /**
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainer.java,v 1.2 2004-05-22 20:19:31 harishkswamy Exp $
+ * @version $Id: MutableContainer.java,v 1.3 2004-05-24 00:38:43 harishkswamy Exp $
  */
 public interface MutableContainer extends Container
 {
-    Object registerComponentImplementation(Class intf, Object implType, Class implClass,
-        Object[] ctorArgs, Map methodArgs);
-
     Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Object[] ctorArgs);
-
-    Object registerComponentImplementation(Class compIntf, Object compType, Class compClass,
-        Map methodArgs);
-
-    // Default service registration convenience methods ============================================
+        Object[] ctorArgs, ComponentLifeCycleMethod[] lifeCycleMethods);
 
     Object registerComponentImplementation(Class compIntf, Class compClass, Object[] ctorArgs,
-        Map methodArgs);
-
-    Object registerComponentImplementation(Class compIntf, Class compClass, Object[] ctorArgs);
-
-    Object registerComponentImplementation(Class compIntf, Class compClass, Map methodArgs);
-
-    // Variant component registration convenience methods ==========================================
+        ComponentLifeCycleMethod[] lifeCycleMethods);
 
     Object registerComponentImplementation(Class compClass, Object compType, Object[] ctorArgs,
-        Map methodArgs);
+        ComponentLifeCycleMethod[] lifeCycleMethods);
 
-    Object registerComponentImplementation(Class compClass, Object compType, Object[] ctorArgs);
+    Object registerComponentImplementation(Class compClass, Object[] ctorArgs,
+        ComponentLifeCycleMethod[] lifeCycleMethods);
 
-    Object registerComponentImplementation(Class compClass, Object compType, Map methodArgs);
+    // Constructor arguments registration ==========================================================
 
-    // Default component registration convenience methods ==========================================
+    Object registerComponentConstructorArguments(Object compKey, Object[] args);
 
-    Object registerComponentImplementation(Class compClass, Object[] ctorArgs, Map methodArgs);
+    Object registerComponentConstructorArguments(Class compIntf, Object compType, Object[] args);
 
-    Object registerComponentImplementation(Class compClass, Object[] ctorArgs);
+    Object registerComponentConstructorArguments(Class compIntf, Object[] args);
 
-    Object registerComponentImplementation(Class compClass, Map methodArgs);
+    // Lifecycle methods registration ==============================================================
+
+    Object registerComponentLifeCycleMethods(Object compKey, ComponentLifeCycleMethod[] methods);
+
+    Object registerComponentLifeCycleMethods(Class compIntf, Object compType,
+        ComponentLifeCycleMethod[] methods);
+
+    Object registerComponentLifeCycleMethods(Class compIntf, ComponentLifeCycleMethod[] methods);
 
     // Location registration methods ===============================================================
 
@@ -71,7 +63,7 @@ public interface MutableContainer extends Container
 
     Object registerComponentRetrievalLocation(Class compIntf, Location location);
 
-    // Component state decorator methods ===========================================================
+    // Component strategy decorator methods ========================================================
 
     /**
      * This method will add a singleton strategy to the current component strategy.

@@ -21,30 +21,31 @@ import gravity.util.ClassUtils;
 import gravity.util.Utils;
 
 import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import bsh.CallStack;
 import bsh.Interpreter;
 import bsh.TargetError;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPlugin.java,v 1.5 2004-05-18 20:52:08 harishkswamy Exp $
+ * @version $Id: BshPlugin.java,v 1.6 2004-05-24 00:38:41 harishkswamy Exp $
  */
 public class BshPlugin implements Plugin
 {
     /**
      * This is name of the property that specifies the qualified names of all the modules from which
-     * to build the {@link gravity.Container}. The names are relative to the classpath. Module names
-     * are separated by commas and may be optionally enclosed in quotes (").
+     * to build the {@link gravity.Container}. The names are relative to the classpath. Module
+     * names are separated by commas and may be optionally enclosed in quotes (").
      */
-    public static final String     MODULE_NAMES = "moduleNames";
+    public static final String      MODULE_NAMES = "moduleNames";
 
-    private Interpreter            _interpreter;
-    private MutableRegistryAdapter _registry;
+    private Interpreter             _interpreter;
+    private MutableContainerAdapter _container;
 
     private void handleInterpreterException(Exception e, URL url)
     {
@@ -58,7 +59,7 @@ public class BshPlugin implements Plugin
             else if (te.getTarget() instanceof TargetError)
                 throw WrapperException.wrap(te,
                     "Container configuration execution error in module: " + url + "\n\n" + e);
-            
+
             else
                 throw WrapperException.wrap(e, "Container configuration error in module: " + url);
         }
@@ -70,10 +71,10 @@ public class BshPlugin implements Plugin
     {
         try
         {
-            _registry.setCurrentModuleName(url.toString());
+            _container.setCurrentModuleName(url.toString());
 
             _interpreter.set("$url$", url);
-            _interpreter.eval("evalFile($url$, $registry$, $interpreter$, $callstack$)");
+            _interpreter.eval("evalFile($url$, $container$)");
         }
         catch (Exception e)
         {
@@ -87,16 +88,20 @@ public class BshPlugin implements Plugin
         {
             _interpreter = new Interpreter();
 
-            _interpreter.set("$registry$", _registry);
+            URL url = ClassUtils.getResource("gravity/plugins/init.bsh");
+            Reader reader = new InputStreamReader(url.openStream());
+            _interpreter.eval(reader);
 
-            // Mix in the MutableRegistryAdapter object with the current context/namespace
-            _interpreter.eval("importObject($registry$)");
+            _interpreter.set("$helper$", new BshPluginHelper());
+            _interpreter.eval("importObject($helper$)");
 
-            // Import all commands in package gravity.impl
-            _interpreter.eval("importCommands(\"gravity.impl\")");
+            _interpreter.set("$container$", _container);
 
-            _interpreter.set("$interpreter$", _interpreter);
-            _interpreter.set("$callstack$", new CallStack(_interpreter.getNameSpace()));
+            // Mix in the MutableContainerAdapter object with the current context/namespace
+            _interpreter.eval("importObject($container$)");
+
+            // Import all commands in package gravity.plugins
+            _interpreter.eval("importCommands(\"gravity.plugins\")");
         }
         catch (Exception e)
         {
@@ -104,14 +109,14 @@ public class BshPlugin implements Plugin
         }
     }
 
-    protected MutableRegistryAdapter newMutableRegistryAdapter(MutableContainer registry)
+    protected MutableContainerAdapter newMutableContainerAdapter(MutableContainer registry)
     {
-        return new MutableRegistryAdapter(registry);
+        return new MutableContainerAdapter(registry);
     }
 
     public void startup(Properties pluginProps, MutableContainer registry)
     {
-        _registry = newMutableRegistryAdapter(registry);
+        _container = newMutableContainerAdapter(registry);
 
         String moduleNames = pluginProps.getProperty(MODULE_NAMES);
 

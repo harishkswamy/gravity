@@ -1,10 +1,10 @@
 import bsh.*;
 
-evalFile(url, registry, interpreter, callstack)
+evalFile(url, container)
 {
     setAccessibility(true);
     
-    reader = null;
+    var reader = null;
 
     try
     {
@@ -14,13 +14,13 @@ evalFile(url, registry, interpreter, callstack)
     
         while (!parser.Line()/* eof */)
         {
-            node = parser.popNode();
+            var node = parser.popNode();
     
             node.setSourceFile(url.toString());
 
-            registry.setCurrentLineNumber(node.getLineNumber());
+            container.setCurrentLineNumber(node.getLineNumber());
             
-            node.eval(callstack, interpreter);
+            node.eval(this.callstack, this.interpreter);
         }
     }
     finally
