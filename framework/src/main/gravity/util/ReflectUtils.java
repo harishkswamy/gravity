@@ -27,7 +27,7 @@ import java.util.Map;
  * 
  * @author Howard Lewis Ship
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtils.java,v 1.3 2004-05-24 00:38:36 harishkswamy Exp $
+ * @version $Id: ReflectUtils.java,v 1.4 2004-05-29 17:00:07 harishkswamy Exp $
  */
 public class ReflectUtils
 {
@@ -165,8 +165,7 @@ public class ReflectUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, "Unable to invoke constructor for: " + targetClass
-                + " with: (" + Utils.arrayToString(args) + ")");
+            throw WrapperException.wrap(e, "Unable to invoke constructor for: " + targetClass);
         }
     }
 
@@ -199,7 +198,6 @@ public class ReflectUtils
         }
         catch (Exception e)
         {
-            // TODO convert args to String in the thrown message
             throw WrapperException.wrap(e, "Unable to invoke method: \"" + methodName
                 + "\" with value: \"" + Utils.arrayToString(args) + "\" on object: " + target);
         }
