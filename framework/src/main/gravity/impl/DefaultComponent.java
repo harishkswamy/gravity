@@ -32,7 +32,7 @@ import java.util.List;
  * This is a flyweight that will be shared by all its proxy instances.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.8 2004-05-27 05:32:27 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.9 2004-05-27 21:00:05 harishkswamy Exp $
  */
 public class DefaultComponent implements ProxyableComponent
 {
@@ -253,8 +253,7 @@ public class DefaultComponent implements ProxyableComponent
     {
         // TODO make this a passive aggressive check
         if (_implementation == null)
-            throw new UsageException("Implementation not registered for component: " + this
-                + " at location: " + _retrievalLocation);
+            throw new UsageException("Implementation not registered for component: " + this);
 
         try
         {
@@ -271,7 +270,7 @@ public class DefaultComponent implements ProxyableComponent
         catch (Exception e)
         {
             throw WrapperException.wrap(e, "Unable to construct new instance for component: "
-                + this + " at location: " + _registrationLocation);
+                + this);
         }
     }
 
@@ -284,6 +283,8 @@ public class DefaultComponent implements ProxyableComponent
 
     public String toString()
     {
-        return "[Key: " + _key + ", Implementation: " + _implementation + "]";
+        return "[Key: " + _key + ", Implementation: " + _implementation
+            + ", Registration Location: " + _registrationLocation + ", Last Retrieval Location: "
+            + _retrievalLocation + "]";
     }
 }
