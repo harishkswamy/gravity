@@ -1,0 +1,45 @@
+import family.*;
+import family.impl.*;
+
+homer  = componentKey( Spouse.class, "homer" );
+marge  = componentKey( Spouse.class, "marge" );
+bart   = componentKey( Child.class,  "bart" );
+lisa   = componentKey( Child.class,  "lisa" );
+maggie = componentKey( Child.class,  "maggie" );
+
+fatherHomer = componentImpl( componentKey(Parent.class, "homer"), homer );
+motherMarge = componentImpl( componentKey(Parent.class, "marge"), marge );
+
+singleton
+(
+    componentImpl
+    (
+        homer, Father.class,
+        constructorArgs( "Homer Simpson", componentInst(marge), configList("bars") )
+    )
+);
+
+singleton
+(
+    componentImpl
+    (
+    	marge, Mother.class,
+        constructorArgs
+        (
+            "Marge Simpson",
+            componentInst(homer),
+            new Child[]
+    		{
+                componentInst(bart),
+                componentInst(lisa),
+                componentInst(maggie)
+    		}
+    	)
+    )
+);
+
+componentImpl( bart, Son.class, constructorArgs( "Bart Simpson", componentInst(fatherHomer), componentInst(motherMarge) ));
+
+componentImpl( lisa, Daughter.class, constructorArgs( "Lisa Simpson", componentInst(fatherHomer), componentInst(motherMarge) ));
+
+componentImpl( maggie, Infant.class, constructorArgs( "Maggie Simpson", componentInst(fatherHomer), componentInst(motherMarge) ));
