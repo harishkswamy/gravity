@@ -32,7 +32,7 @@ import java.util.List;
  * This is a flyweight that will be shared by all its proxy instances.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.7 2004-05-27 03:36:32 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.8 2004-05-27 05:32:27 harishkswamy Exp $
  */
 public class DefaultComponent implements ProxyableComponent
 {
@@ -182,7 +182,7 @@ public class DefaultComponent implements ProxyableComponent
         for (int i = 0; i < _callbackMethods.length; i++)
         {
             ComponentCallback method = _callbackMethods[i];
-            ComponentPhase phase = method.getLifeCyclePhase();
+            ComponentPhase phase = method.getComponentPhase();
 
             if (phase == ComponentPhase.INJECTION || phase == ComponentPhase.START_UP)
             {

@@ -20,7 +20,7 @@ import junit.framework.TestCase;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: BshPluginHelperTest.java,v 1.2 2004-05-27 03:36:28 harishkswamy Exp $
+ * @version $Id: BshPluginHelperTest.java,v 1.3 2004-05-27 05:32:26 harishkswamy Exp $
  */
 public class BshPluginHelperTest extends TestCase
 {
@@ -33,7 +33,7 @@ public class BshPluginHelperTest extends TestCase
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
-        assertTrue(mthd.getLifeCyclePhase() == ComponentPhase.INJECTION);
+        assertTrue(mthd.getComponentPhase() == ComponentPhase.INJECTION);
     }
 
     public void testNewStartUpMethod()
@@ -43,7 +43,7 @@ public class BshPluginHelperTest extends TestCase
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
-        assertTrue(mthd.getLifeCyclePhase() == ComponentPhase.START_UP);
+        assertTrue(mthd.getComponentPhase() == ComponentPhase.START_UP);
     }
 
     public void testNewShutdownMethod()
@@ -53,6 +53,6 @@ public class BshPluginHelperTest extends TestCase
 
         assertTrue(mthd.getName().equals("someMethod"));
         assertTrue(mthd.getArguments().length == 2);
-        assertTrue(mthd.getLifeCyclePhase() == ComponentPhase.SHUTDOWN);
+        assertTrue(mthd.getComponentPhase() == ComponentPhase.SHUTDOWN);
     }
 }
