@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,14 +20,11 @@ import gravity.ComponentPhase;
 import gravity.ComponentProxy;
 import gravity.ComponentStrategy;
 import gravity.ComponentStrategyType;
-import gravity.Container;
 import gravity.Context;
 import gravity.DynamicWeaver;
 import gravity.RealizableComponent;
 import gravity.UsageException;
-import gravity.WrapperException;
 import gravity.util.Message;
-import gravity.util.ReflectUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,10 +40,10 @@ import java.util.List;
  * instance is produced from the implementation.
  * <p>
  * The DefaultComponentInstanceBuilder may be shared by multiple components, i.e. when components
- * act as facets of the same implementation, they all share the same component factory.
+ * act as facets of the same implementation, they all share the same instance builder.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponentInstanceBuilder.java,v 1.1 2004-11-17 19:46:20 harishkswamy Exp $
+ * @version $Id: DefaultComponentInstanceBuilder.java,v 1.2 2005-10-06 21:59:27 harishkswamy Exp $
  */
 public final class DefaultComponentInstanceBuilder implements ComponentInstanceBuilder
 {
@@ -59,24 +56,20 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
     private String              _factoryMethodName;
     private Object[]            _factoryMethodArgs;
 
-    public DefaultComponentInstanceBuilder(Context context)
+    public void initialize(Context context)
     {
         _context = context;
 
-        String classNameKey = ComponentStrategy.class.getName();
-        Object[] args = new Object[]{_componentStrategy};
-
-        _componentStrategy = (ComponentStrategy) context.newApiInstance(classNameKey, args);
+        _componentStrategy = (ComponentStrategy) context.newApiInstance(ComponentStrategy.class);
+        _componentStrategy.initialize(context, null);
     }
 
     public void registerImplementation(Class compClass, Object[] ctorArgs,
         ComponentCallback[] callbacks)
     {
         _implementation = compClass;
-
-        registerConstructorArguments(ctorArgs);
-
-        registerCallbacks(callbacks);
+        _constructorArgs = ctorArgs;
+        _callbacks = callbacks;
     }
 
     public void registerFactoryDelegate(Object factory, String factoryMethodName,
@@ -129,8 +122,12 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
      */
     public Object getInstance(RealizableComponent comp)
     {
-        ComponentProxy proxy = (ComponentProxy) _context.newApiInstance(
-            ComponentProxy.class.getName(), null);
+        // PERF Startup performance improvement buffer
+        // The ComponentProxy object can be created once and cached here to improve startup
+        // performance at the cost of memory. The proxy object is only needed at the time of
+        // generating a component instance and that is typically done during startup.
+        ComponentProxy proxy = (ComponentProxy) _context.newApiInstance(ComponentProxy.class);
+        proxy.initialize(_context);
 
         return proxy.newInstance(comp);
     }
@@ -143,10 +140,10 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
     public void wrapStrategy(ComponentStrategyType strategyType)
     {
         // If already of the same type, do nothing
-        if (_componentStrategy.getClass().getName().equals(strategyType.getName()))
+        if (strategyType.isTypeOf(_componentStrategy))
             return;
 
-        _componentStrategy = strategyType.newInstance(_componentStrategy);
+        _componentStrategy = strategyType.newInstance(_context, _componentStrategy);
     }
 
     public Object getConcreteInstance(RealizableComponent comp)
@@ -155,20 +152,6 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
     }
 
     // Construct new instance ======================================================================
-
-    private void realizeKeys(Object[] args)
-    {
-        if (args == null)
-            return;
-
-        Container container = _context.getContainer();
-
-        for (int i = 0; i < args.length; i++)
-        {
-            if (args[i] instanceof ComponentKey)
-                args[i] = container.getComponentInstance(args[i]);
-        }
-    }
 
     private void invokeCallbacks(Object instance, ComponentPhase compPhase)
     {
@@ -179,8 +162,10 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
 
             if (compPhase.equals(phase))
             {
-                realizeKeys(callback.getArguments());
-                ReflectUtils.invokeMethod(instance, callback.getName(), callback.getArguments());
+                _context.getMutableContainer().realizeKeys(callback.getArguments());
+
+                _context.getReflectUtils().invokeMethod(instance, callback.getName(),
+                    callback.getArguments());
             }
         }
     }
@@ -204,8 +189,7 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
     private Object initializeComponent(Object instance)
     {
         // This is the hook to let cross-cutting concerns be weaved into the component.
-        DynamicWeaver weaver = (DynamicWeaver) _context.newApiInstance(
-            DynamicWeaver.class.getName(), null);
+        DynamicWeaver weaver = (DynamicWeaver) _context.newApiInstance(DynamicWeaver.class);
 
         Object enhInst = weaver.weave(instance);
 
@@ -221,11 +205,12 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
      * 
      * @return Fully constructed and initialized component.
      */
-    private Object constructViaComboInjection()
+    private Object constructViaConstructor()
     {
-        realizeKeys(_constructorArgs);
+        _context.getMutableContainer().realizeKeys(_constructorArgs);
 
-        Object instance = ReflectUtils.invokeConstructor(_implementation, _constructorArgs);
+        Object instance = _context.getReflectUtils().invokeConstructor(_implementation,
+            _constructorArgs);
 
         return initializeComponent(instance);
     }
@@ -235,10 +220,10 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
      */
     private Object constructViaFactoryDelegate()
     {
-        realizeKeys(_factoryMethodArgs);
+        _context.getMutableContainer().realizeKeys(_factoryMethodArgs);
 
-        Object instance = ReflectUtils.invokeMethod(_factoryDelegate, _factoryMethodName,
-            _factoryMethodArgs);
+        Object instance = _context.getReflectUtils().invokeMethod(_factoryDelegate,
+            _factoryMethodName, _factoryMethodArgs);
 
         return initializeComponent(instance);
     }
@@ -250,7 +235,7 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
      * injection strategy, otherwise it uses the constructor injection strategy.
      * <p>
      * When both the array of constructor arguments and the map of setter properties are supplied,
-     * this method will do a combo injection (constructor injection + setter injection).
+     * this method will do a combo injection (constructor injection + method injection).
      * 
      * @return Fully constructed and initialized component.
      * @throws UsageException
@@ -264,7 +249,8 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
     public Object newInstance(RealizableComponent comp)
     {
         if (_implementation == null && _factoryDelegate == null)
-            throw new UsageException(Message.COMPONENT_IMPLEMENTATION_NOT_REGISTERED, comp);
+            throw _context.getExceptionWrapper().wrap(new UsageException(),
+                Message.COMPONENT_IMPLEMENTATION_NOT_REGISTERED, comp);
 
         try
         {
@@ -274,13 +260,14 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
                 instance = constructViaFactoryDelegate();
 
             else
-                instance = constructViaComboInjection();
+                instance = constructViaConstructor();
 
             return instance;
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, Message.CANNOT_CONSTRUCT_COMPONENT_INSTANCE, comp);
+            throw _context.getExceptionWrapper().wrap(e,
+                Message.CANNOT_CONSTRUCT_COMPONENT_INSTANCE, comp);
         }
     }
 
@@ -294,9 +281,10 @@ public final class DefaultComponentInstanceBuilder implements ComponentInstanceB
     public String toString()
     {
         if (_factoryDelegate == null)
-            return "[Class: " + _implementation + ", Strategy:" + _componentStrategy + "]";
+            return "[Component Implementation: " + _implementation + ", Strategy:"
+                + _componentStrategy + "]";
 
-        return "[Delegate: " + _factoryDelegate + ", Factory Method: " + _factoryMethodName
-            + ", Strategy:" + _componentStrategy + "]";
+        return "[Component Factory: " + _factoryDelegate + ", Factory Method: "
+            + _factoryMethodName + ", Strategy:" + _componentStrategy + "]";
     }
 }

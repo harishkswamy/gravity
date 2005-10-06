@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,10 +17,13 @@ package gravity.impl;
 import gravity.Component;
 import gravity.ComponentCallback;
 import gravity.ComponentInstanceBuilder;
+import gravity.ComponentKey;
 import gravity.ComponentStrategyType;
 import gravity.Context;
 import gravity.Location;
 import gravity.RealizableComponent;
+import gravity.UsageException;
+import gravity.util.Message;
 
 /**
  * This is the default component implementation. This implementation delegates instance creation to
@@ -30,23 +33,28 @@ import gravity.RealizableComponent;
  * reused, the component is simply one facet of the implementation.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultComponent.java,v 1.14 2004-11-17 19:45:45 harishkswamy Exp $
+ * @version $Id: DefaultComponent.java,v 1.15 2005-10-06 21:59:28 harishkswamy Exp $
  */
 public final class DefaultComponent implements RealizableComponent
 {
+    private Context                  _context;
+
+    /**
+     * The key for this component. This is a property of the component and cannot be moved to the
+     * instance builder
+     */
     private ComponentKey             _key;
     private ComponentInstanceBuilder _instanceBuilder;
     private Location                 _registrationLocation;
     private Location                 _retrievalLocation;
 
-    public DefaultComponent(Context context, ComponentKey compKey)
+    public void initialize(Context context, ComponentKey compKey)
     {
+        _context = context;
         _key = compKey;
 
-        Object[] args = new Object[]{context};
-
-        _instanceBuilder = (ComponentInstanceBuilder) context.newApiInstance(
-            ComponentInstanceBuilder.class.getName(), args);
+        _instanceBuilder = (ComponentInstanceBuilder) context.newApiInstance(ComponentInstanceBuilder.class);
+        _instanceBuilder.initialize(context);
     }
 
     public Object getInstance()
@@ -118,7 +126,13 @@ public final class DefaultComponent implements RealizableComponent
 
     public Object newInstance()
     {
-        return _instanceBuilder.newInstance(this);
+        Object instance = _instanceBuilder.newInstance(this);
+
+        if (!_key.getComponentInterface().isInstance(instance))
+            throw _context.getExceptionWrapper().wrap(new UsageException(),
+                Message.INVALID_IMPLEMENTATION_TYPE, this);
+
+        return instance;
     }
 
     public void collectInstance(Object inst)

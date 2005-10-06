@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,14 +21,30 @@ package gravity;
  * 
  * @see gravity.ComponentPhase
  * @author Harish Krishnaswamy
- * @version $Id: ComponentCallback.java,v 1.4 2004-09-02 04:04:47 harishkswamy Exp $
+ * @version $Id: ComponentCallback.java,v 1.5 2005-10-06 21:59:19 harishkswamy Exp $
  */
 public class ComponentCallback
 {
+    /**
+     * This is the name of the callback.
+     */
     private String         _name;
+
+    /**
+     * This is an array of arguments to be passed to the callback.
+     */
     private Object[]       _arguments;
+
+    /**
+     * This is the component phase in which this callback is applicable.
+     */
     private ComponentPhase _componentPhase;
 
+    public ComponentCallback()
+    {
+        // Constructor to be used only for testing to create CgLib class proxy.
+    }
+    
     public ComponentCallback(String name, Object[] args, ComponentPhase phase)
     {
         _name = name;

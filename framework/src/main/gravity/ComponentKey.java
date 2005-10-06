@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,11 +14,7 @@
 
 package gravity;
 
-/**
- * @author Harish Krishnaswamy
- * @version $Id: MutableContext.java,v 1.1 2004-11-17 19:37:59 harishkswamy Exp $
- */
-public interface MutableContext extends Context
+public interface ComponentKey
 {
-    void setContainer(Container container);
+    Class getComponentInterface();
 }

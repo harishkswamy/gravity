@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,7 +14,7 @@
 
 package gravity.util;
 
-import gravity.WrapperException;
+import gravity.ExceptionWrapper;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,16 +23,18 @@ import java.util.Properties;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Utils.java,v 1.5 2004-09-02 04:20:02 harishkswamy Exp $
+ * @version $Id: Utils.java,v 1.6 2005-10-06 21:59:25 harishkswamy Exp $
  */
 public class Utils
 {
-    private Utils()
+    private ExceptionWrapper _exceptionWrapper;
+
+    public Utils(ExceptionWrapper exceptionWrapper)
     {
-        // This is a static class, not to be instantiated.
+        _exceptionWrapper = exceptionWrapper;
     }
 
-    public static List splitQuoted(String str, char delimiter)
+    public List splitQuoted(String str, char delimiter)
     {
         List tokens = new ArrayList();
 
@@ -69,7 +71,7 @@ public class Utils
         return tokens;
     }
 
-    public static boolean isBlank(String value)
+    public boolean isBlank(String value)
     {
         if (value == null || value.trim().length() == 0)
             return true;
@@ -83,11 +85,11 @@ public class Utils
      * @throws WrapperException
      *             When unable to load the properties.
      */
-    public static Properties loadProperties(URL url)
+    public Properties loadProperties(URL url, Properties defaults)
     {
         try
         {
-            Properties props = new Properties();
+            Properties props = new Properties(defaults);
 
             props.load(url.openStream());
 
@@ -95,7 +97,12 @@ public class Utils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, Message.CANNOT_LOAD_PROPERTIES, url);
+            throw _exceptionWrapper.wrap(e, Message.CANNOT_LOAD_PROPERTIES, url);
         }
+    }
+
+    public Properties loadProperties(URL url)
+    {
+        return loadProperties(url, null);
     }
 }

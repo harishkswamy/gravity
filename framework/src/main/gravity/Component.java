@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,11 +14,13 @@
 
 package gravity;
 
+
 /**
  * The component is the central concept of the framework around which everything else revolves. A
- * component is the entity that can be configured by the {@link gravity.Container container}. A
  * component is simply an object that has an interface, an implementation and a
- * {@link gravity.ComponentStrategy strategy}to build instances.
+ * {@link gravity.ComponentStrategy strategy}to build instances. A component is the entity that can
+ * be configured by the {@link gravity.Container container}. Implementations of this interface will
+ * be quite analogous to {@link java.lang.Class}.
  * <p>
  * Every component has a unique identity typically comprised of the component interface and an
  * optional type (a String); and there will be only one instance of this class for each component.
@@ -29,12 +31,17 @@ package gravity;
  * <p>
  * Components may share an implementation and a strategy. This will allow multiple components to act
  * as facets of the same implementation.
+ * <p>
+ * Prior to accessing the services provided by the component clients must invoke
+ * {@link #initialize(Context, ComponentKey)} to initialize the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Component.java,v 1.11 2004-11-17 19:39:44 harishkswamy Exp $
+ * @version $Id: Component.java,v 1.12 2005-10-06 21:59:21 harishkswamy Exp $
  */
 public interface Component
 {
+    void initialize(Context context, ComponentKey compKey);
+    
     /**
      * This method should be used to register an implementation for this component provided by the
      * component passed in.

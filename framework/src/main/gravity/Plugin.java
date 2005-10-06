@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,8 +13,6 @@
 // limitations under the License.
 
 package gravity;
-
-import java.util.Properties;
 
 /**
  * Implementations of this interface will help {@link gravity.Gravity}build the
@@ -28,15 +26,15 @@ import java.util.Properties;
  * {@link gravity.plugins.bsh.BshPlugin}).
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Plugin.java,v 1.7 2004-11-17 19:42:21 harishkswamy Exp $
+ * @version $Id: Plugin.java,v 1.8 2005-10-06 21:59:21 harishkswamy Exp $
  */
 public interface Plugin
 {
-    String LOCATION_URL_KEY = "$gravity.Plugin.locationUrlKey$";
+    String MANIFEST_LOCATION_URL_KEY = "$gravity.plugin.manifestLocationUrl$";
 
     /**
      * This method will take the plugin properties and the container, and build its modules and
      * populate the provided container.
      */
-    void startup(final Properties props, final MutableContainer container);
+    void startup(Context context);
 }

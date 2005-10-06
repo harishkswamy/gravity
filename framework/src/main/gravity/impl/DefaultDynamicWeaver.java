@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,7 +20,7 @@ import gravity.DynamicWeaver;
  * The default weaver simply returns the original object.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DefaultDynamicWeaver.java,v 1.1 2004-11-17 19:52:11 harishkswamy Exp $
+ * @version $Id: DefaultDynamicWeaver.java,v 1.2 2005-10-06 21:59:29 harishkswamy Exp $
  */
 public class DefaultDynamicWeaver implements DynamicWeaver
 {

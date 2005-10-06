@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,7 +20,7 @@ package gravity;
  * {@link gravity.ComponentStrategy}.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: RealizableComponent.java,v 1.1 2004-09-02 03:54:27 harishkswamy Exp $
+ * @version $Id: RealizableComponent.java,v 1.2 2005-10-06 21:59:19 harishkswamy Exp $
  */
 public interface RealizableComponent extends Component
 {

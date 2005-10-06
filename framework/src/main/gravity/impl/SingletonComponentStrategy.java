@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,21 +14,15 @@
 
 package gravity.impl;
 
-import gravity.ComponentStrategy;
 import gravity.RealizableComponent;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: SingletonComponentStrategy.java,v 1.3 2004-09-02 04:04:49 harishkswamy Exp $
+ * @version $Id: SingletonComponentStrategy.java,v 1.4 2005-10-06 21:59:28 harishkswamy Exp $
  */
 public class SingletonComponentStrategy extends LazyLoadingComponentStrategy
 {
     private Object _componentInstance;
-
-    public SingletonComponentStrategy(ComponentStrategy delegate)
-    {
-        super(delegate);
-    }
 
     private synchronized void cache(Object componentInstance)
     {

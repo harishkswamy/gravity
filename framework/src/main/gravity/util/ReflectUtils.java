@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,8 +15,8 @@
 package gravity.util;
 
 import gravity.Component;
+import gravity.ExceptionWrapper;
 import gravity.UsageException;
-import gravity.WrapperException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -29,10 +29,17 @@ import java.util.Map;
  * 
  * @author Howard Lewis Ship
  * @author Harish Krishnaswamy
- * @version $Id: ReflectUtils.java,v 1.7 2004-11-17 20:21:32 harishkswamy Exp $
+ * @version $Id: ReflectUtils.java,v 1.8 2005-10-06 21:59:26 harishkswamy Exp $
  */
 public class ReflectUtils
 {
+    private ExceptionWrapper _exceptionWrapper;
+
+    public ReflectUtils(ExceptionWrapper exceptionWrapper)
+    {
+        _exceptionWrapper = exceptionWrapper;
+    }
+
     /**
      * Map from primitive type to wrapper type.
      */
@@ -50,17 +57,12 @@ public class ReflectUtils
         PRIMITIVE_MAP.put(double.class, Double.class);
     }
 
-    private ReflectUtils()
-    {
-        // Static class
-    }
-
-    private static String getTypeName(Class type)
+    private String getTypeName(Class type)
     {
         return type == null ? null : type.getName();
     }
 
-    private static String typesToString(Class[] types)
+    private String typesToString(Class[] types)
     {
         if (types == null || types.length == 0)
             return "";
@@ -77,7 +79,7 @@ public class ReflectUtils
         return buf.toString();
     }
 
-    private static boolean isCompatible(Class paramType, Class valueType)
+    private boolean isCompatible(Class paramType, Class valueType)
     {
         if (paramType.isAssignableFrom(valueType))
             return true;
@@ -95,7 +97,7 @@ public class ReflectUtils
         return false;
     }
 
-    private static boolean isMatch(Class[] paramTypes, Class[] valueTypes)
+    private boolean isMatch(Class[] paramTypes, Class[] valueTypes)
     {
         if (paramTypes.length != valueTypes.length)
             return false;
@@ -117,7 +119,7 @@ public class ReflectUtils
         return true;
     }
 
-    private static Constructor findConstructor(Class targetClass, Class[] argTypes)
+    private Constructor findConstructor(Class targetClass, Class[] argTypes)
     {
         Constructor[] constructors = targetClass.getConstructors();
 
@@ -127,11 +129,11 @@ public class ReflectUtils
                 return constructors[i];
         }
 
-        throw new UsageException(Message.CANNOT_FIND_CONSTRUCTOR, targetClass.getName(),
-            typesToString(argTypes));
+        throw _exceptionWrapper.wrap(new UsageException(), Message.CANNOT_FIND_CONSTRUCTOR,
+            targetClass.getName(), typesToString(argTypes));
     }
 
-    private static Class[] getTypes(Object[] args)
+    private Class[] getTypes(Object[] args)
     {
         if (args == null)
             args = new Object[0];
@@ -155,7 +157,7 @@ public class ReflectUtils
      * @throws UsageException
      *             on any failure
      */
-    public static Object invokeConstructor(Class targetClass, Object[] args)
+    public Object invokeConstructor(Class targetClass, Object[] args)
     {
         Class[] argTypes = null;
 
@@ -169,12 +171,12 @@ public class ReflectUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, Message.CANNOT_INVOKE_CONSTRUCTOR, targetClass,
+            throw _exceptionWrapper.wrap(e, Message.CANNOT_INVOKE_CONSTRUCTOR, targetClass,
                 typesToString(argTypes));
         }
     }
 
-    private static Method findMethod(Class targetClass, String methodName, Class[] argTypes)
+    private Method findMethod(Class targetClass, String methodName, Class[] argTypes)
     {
         Method[] methods = targetClass.getMethods();
 
@@ -187,8 +189,8 @@ public class ReflectUtils
                 return methods[i];
         }
 
-        throw new UsageException(Message.CANNOT_FIND_METHOD, methodName, typesToString(argTypes),
-            targetClass);
+        throw _exceptionWrapper.wrap(new UsageException(), Message.CANNOT_FIND_METHOD, methodName,
+            typesToString(argTypes), targetClass);
     }
 
     /**
@@ -196,7 +198,7 @@ public class ReflectUtils
      * 
      * @return Returns the result of the method invocation.
      */
-    public static Object invokeMethod(Object target, String methodName, Object[] args)
+    public Object invokeMethod(Object target, String methodName, Object[] args)
     {
         Class[] argTypes = null;
 
@@ -216,7 +218,7 @@ public class ReflectUtils
      * @throws WrapperException
      *             {@link Message#CANNOT_INVOKE_METHOD}
      */
-    public static Object invokeMethod(Object target, Method method, Object[] args, Component comp)
+    public Object invokeMethod(Object target, Method method, Object[] args, Component comp)
     {
         try
         {
@@ -229,7 +231,7 @@ public class ReflectUtils
 
             String compStr = comp == null ? "" : " on component: " + comp;
 
-            throw WrapperException.wrap(t, Message.CANNOT_INVOKE_METHOD, method, compStr);
+            throw _exceptionWrapper.wrap(t, Message.CANNOT_INVOKE_METHOD, method, compStr);
         }
     }
 }

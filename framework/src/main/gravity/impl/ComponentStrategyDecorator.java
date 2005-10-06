@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,21 +15,26 @@
 package gravity.impl;
 
 import gravity.ComponentStrategy;
+import gravity.Context;
 import gravity.RealizableComponent;
+
+// TODO Unwrap (1 level up) and Strip (unwrap all levels to level 1) strategy
 
 /**
  * This class decorates {@link gravity.ComponentStrategy}. It can decorate the strategies
  * infinitely deep.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentStrategyDecorator.java,v 1.4 2004-09-02 04:04:18 harishkswamy Exp $
+ * @version $Id: ComponentStrategyDecorator.java,v 1.5 2005-10-06 21:59:27 harishkswamy Exp $
  */
 public abstract class ComponentStrategyDecorator implements ComponentStrategy
 {
+    protected Context           _context;
     protected ComponentStrategy _decoratedStrategy;
 
-    protected ComponentStrategyDecorator(ComponentStrategy strategy)
+    public void initialize(Context context, ComponentStrategy strategy)
     {
+        _context = context;
         _decoratedStrategy = strategy;
     }
 

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,78 +14,15 @@
 
 package gravity.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadEvent.java,v 1.2 2004-05-27 03:34:55 harishkswamy Exp $
+ * @version $Id: ThreadEvent.java,v 1.3 2005-10-06 21:59:25 harishkswamy Exp $
  */
-public class ThreadEvent
+public interface ThreadEvent
 {
-    private static final ThreadEvent INSTANCE = new ThreadEvent();
+    void notifyPreTerminationObservers();
 
-    public static ThreadEvent getInstance()
-    {
-        return INSTANCE;
-    }
+    void registerObserver(Class observerType, Object observer);
 
-    private ThreadLocal _threadLocal = new ThreadLocal();
-
-    private void initialize()
-    {
-        Map observerTypes = new HashMap();
-
-        observerTypes.put(ThreadPreTerminationObserver.class, new ArrayList());
-
-        _threadLocal.set(observerTypes);
-    }
-
-    protected ThreadEvent()
-    {
-        initialize();
-    }
-
-    private List getObservers(Class observerType)
-    {
-        Map observerTypes = (Map) _threadLocal.get();
-
-        return (List) observerTypes.get(observerType);
-    }
-
-    private void removeObservers(Class observerType)
-    {
-        Map observerTypes = (Map) _threadLocal.get();
-
-        observerTypes.put(observerType, new ArrayList());
-    }
-
-    public void notifyPreTerminationObservers()
-    {
-        List observers = getObservers(ThreadPreTerminationObserver.class);
-
-        for (Iterator itr = observers.iterator(); itr.hasNext();)
-        {
-            ThreadPreTerminationObserver observer = (ThreadPreTerminationObserver) itr.next();
-
-            observer.handleThreadPreTermination();
-        }
-
-        removeObservers(ThreadPreTerminationObserver.class);
-    }
-
-    public void registerObserver(Class observerType, Object observer)
-    {
-        List observers = getObservers(observerType);
-
-        observers.add(observer);
-    }
-
-    public void cleanUp()
-    {
-        initialize();
-    }
+    void cleanUp();
 }

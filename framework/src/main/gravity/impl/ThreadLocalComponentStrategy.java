@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,25 +15,28 @@
 package gravity.impl;
 
 import gravity.ComponentStrategy;
+import gravity.Context;
 import gravity.RealizableComponent;
 import gravity.util.CleanableThreadLocal;
+import gravity.util.DefaultCleanableThreadLocal;
 import gravity.util.ThreadPreTerminationObserver;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ThreadLocalComponentStrategy.java,v 1.3 2004-09-02 04:04:48 harishkswamy Exp $
+ * @version $Id: ThreadLocalComponentStrategy.java,v 1.4 2005-10-06 21:59:26 harishkswamy Exp $
  */
 public class ThreadLocalComponentStrategy extends DispatchingComponentStrategy implements
     ThreadPreTerminationObserver
 {
     private CleanableThreadLocal _threadLocal;
 
-    public ThreadLocalComponentStrategy(ComponentStrategy delegate)
+    public void initialize(Context context, ComponentStrategy strategy)
     {
-        super(delegate);
+        super.initialize(context, strategy);
 
+        _threadLocal = (CleanableThreadLocal) context.newApiInstance(CleanableThreadLocal.class);
         // This will register for ThreadEvents and notify us when appropriate.
-        _threadLocal = new CleanableThreadLocal(this);
+        _threadLocal.initialize(context, this);
     }
 
     private synchronized void cacheComponent(Object compInst)
@@ -51,8 +54,8 @@ public class ThreadLocalComponentStrategy extends DispatchingComponentStrategy i
     }
 
     /**
-     * This will be invoked by {@link CleanableThreadLocal}prior to clearing the thread local
-     * variable.
+     * This will be invoked by {@link DefaultCleanableThreadLocal}prior to clearing the thread
+     * local variable.
      */
     public void handleThreadPreTermination()
     {

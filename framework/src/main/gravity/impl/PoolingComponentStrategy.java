@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +15,7 @@
 package gravity.impl;
 
 import gravity.ComponentStrategy;
+import gravity.Context;
 import gravity.RealizableComponent;
 import gravity.util.Pool;
 
@@ -22,38 +23,28 @@ import gravity.util.Pool;
  * This is a lazy loading strategy that will pool the generated concrete component instances. When
  * the use for the returned instance is over, it can be returned back to the pool via
  * {@link #collectComponentInstance(Object)}. The size of the pool can be configured by overriding
- * {@link gravity.impl.DefaultComponentInstanceBuilder#newPoolingStrategy(ComponentStrategy)}and creating this
- * strategy via {@link PoolingComponentStrategy(ComponentStrategy, int)}.
+ * {@link gravity.impl.DefaultComponentInstanceBuilder#newPoolingStrategy(ComponentStrategy)}and
+ * creating this strategy via {@link PoolingComponentStrategy(ComponentStrategy, int)}.
  * 
  * @see gravity.util.Pool
  * @author Harish Krishnaswamy
- * @version $Id: PoolingComponentStrategy.java,v 1.4 2004-11-17 19:52:58 harishkswamy Exp $
+ * @version $Id: PoolingComponentStrategy.java,v 1.5 2005-10-06 21:59:27 harishkswamy Exp $
  */
 public class PoolingComponentStrategy extends LazyLoadingComponentStrategy
 {
-    private Pool _pool;
+    public static final String POOL_SIZE_KEY = "gravity.pool.size";
 
-    /**
-     * Creates a new pooling strategy with a pool of the specified size.
-     */
-    public PoolingComponentStrategy(ComponentStrategy decorator, int poolSize)
+    private Pool               _pool;
+
+    public void initialize(Context context, ComponentStrategy strategy)
     {
-        super(decorator);
+        super.initialize(context, strategy);
+
+        int poolSize = ((Integer) context.getContextItem(POOL_SIZE_KEY)).intValue();
 
         _pool = new Pool(poolSize);
     }
 
-    /**
-     * Creates a new pooling strategy with a pool of the default size.
-     */
-    public PoolingComponentStrategy(ComponentStrategy delegate)
-    {
-        this(delegate, 0);
-    }
-
-    /**
-     *
-     */
     public Object getComponentInstance(RealizableComponent component)
     {
         Object compInst = _pool.loan();

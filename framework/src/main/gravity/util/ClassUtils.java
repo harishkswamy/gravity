@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,23 +14,35 @@
 
 package gravity.util;
 
+import gravity.ExceptionWrapper;
 import gravity.UsageException;
-import gravity.WrapperException;
 
 import java.net.URL;
 import java.util.Enumeration;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: ClassUtils.java,v 1.6 2004-11-17 20:19:08 harishkswamy Exp $
+ * @version $Id: ClassUtils.java,v 1.7 2005-10-06 21:59:26 harishkswamy Exp $
  */
 public class ClassUtils
 {
+    private ExceptionWrapper _exceptionWrapper;
+
+    public ClassUtils()
+    {
+        // This is constructor is here only for testing to create a class proxy.
+    }
+    
+    public ClassUtils(ExceptionWrapper exceptionWrapper)
+    {
+        _exceptionWrapper = exceptionWrapper;
+    }
+
     /**
      * @return Returns the current thread's context class loader; when not found it returns the
      *         system class loader.
      */
-    public static ClassLoader getClassLoader()
+    public ClassLoader getClassLoader()
     {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
@@ -41,7 +53,7 @@ public class ClassUtils
      * @return Returns the class loader of the provided class; when not found it returns the class
      *         loader from {@link #getClassLoader()}.
      */
-    public static ClassLoader getClassLoader(Class clazz)
+    public ClassLoader getClassLoader(Class clazz)
     {
         ClassLoader loader = clazz.getClassLoader();
 
@@ -51,17 +63,19 @@ public class ClassUtils
     /**
      * Loads the resource from the class loader returned by {@link #getClassLoader()}.
      * 
+     * @param path
+     *            The classpath of the resource.
      * @return The URL of the resource identified by the provided path.
      * @throws UsageException
      *             When the provided path does not translate to a valid resource.
      * @see ClassLoader#getResource(java.lang.String)
      */
-    public static URL getResource(String path)
+    public URL getResource(String path)
     {
         URL url = getClassLoader().getResource(path);
 
         if (url == null)
-            throw new UsageException(Message.CANNOT_GET_RESOURCE, path);
+            throw _exceptionWrapper.wrap(new UsageException(), Message.CANNOT_GET_RESOURCE, path);
 
         return url;
     }
@@ -73,7 +87,7 @@ public class ClassUtils
      *             {@link Message#CANNOT_BUILD_URL}: When a valid URL cannot be built from the
      *             provided URL string.
      */
-    public static URL newUrl(String urlStr)
+    public URL newUrl(String urlStr)
     {
         try
         {
@@ -81,7 +95,7 @@ public class ClassUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, Message.CANNOT_BUILD_URL, urlStr);
+            throw _exceptionWrapper.wrap(e, Message.CANNOT_BUILD_URL, urlStr);
         }
     }
 
@@ -92,25 +106,29 @@ public class ClassUtils
      *             {@link Message#CANNOT_GET_RESOURCE}
      * @see ClassLoader#getResources(java.lang.String)
      */
-    public static Enumeration getResources(String path)
+    public Enumeration getResources(String path)
     {
         try
         {
-            return getClassLoader().getResources(path);
+            Enumeration e = getClassLoader().getResources(path);
+
+            return e;
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, Message.CANNOT_GET_RESOURCE, path);
+            throw _exceptionWrapper.wrap(e, Message.CANNOT_GET_RESOURCE, path);
         }
     }
 
     // TODO move to ReflectUtils
     /**
+     * Creates and returns a new instance of the provided class using the no args constructor.
+     * 
      * @return Returns a new instance of the provided class that is created via reflection.
      * @throws WrapperException
      *             {@link Message#CANNOT_INSTANTIATE_OBJECT}
      */
-    public static Object newInstance(Class clazz)
+    public Object newInstance(Class clazz)
     {
         try
         {
@@ -118,7 +136,7 @@ public class ClassUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, Message.CANNOT_INSTANTIATE_OBJECT, clazz);
+            throw _exceptionWrapper.wrap(e, Message.CANNOT_INSTANTIATE_OBJECT, clazz);
         }
     }
 
@@ -128,7 +146,7 @@ public class ClassUtils
      * @throws WrapperException
      *             {@link Message#CANNOT_LOAD_CLASS}
      */
-    public static Class loadClass(String className)
+    public Class loadClass(String className)
     {
         try
         {
@@ -136,7 +154,7 @@ public class ClassUtils
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, Message.CANNOT_LOAD_CLASS, className);
+            throw _exceptionWrapper.wrap(e, Message.CANNOT_LOAD_CLASS, className);
         }
     }
 
@@ -144,10 +162,11 @@ public class ClassUtils
     /**
      * Loads the class for the provided class name and returns a new instance that is created via
      * reflection.
+     * 
      * @see #loadClass(String)
      * @see #newInstance(Class)
      */
-    public static Object newInstance(String className)
+    public Object newInstance(String className)
     {
         Class clazz = loadClass(className);
 

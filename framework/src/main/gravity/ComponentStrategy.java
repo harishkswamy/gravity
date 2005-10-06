@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,10 +25,12 @@ package gravity;
  * subsequent calls will reuse the same component instance returned the first time.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentStrategy.java,v 1.3 2004-09-02 03:58:27 harishkswamy Exp $
+ * @version $Id: ComponentStrategy.java,v 1.4 2005-10-06 21:59:19 harishkswamy Exp $
  */
 public interface ComponentStrategy
 {
+    void initialize(Context context, ComponentStrategy strategy);
+    
     /**
      * This method will return a concrete instance of this component. The component instance
      * indentity is implementation dependent. This method will throw a runtime exception if invoked

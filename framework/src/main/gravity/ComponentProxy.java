@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,10 +18,12 @@ package gravity;
  * This will act as a proxy for the component.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: ComponentProxy.java,v 1.5 2004-09-02 04:04:47 harishkswamy Exp $
+ * @version $Id: ComponentProxy.java,v 1.6 2005-10-06 21:59:20 harishkswamy Exp $
  */
 public interface ComponentProxy
 {
+    void initialize(Context context);
+    
     /**
      * Implementations will produce proxies for the provided component.
      */

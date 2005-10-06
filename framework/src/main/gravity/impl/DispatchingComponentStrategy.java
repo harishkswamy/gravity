@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,23 +14,16 @@
 
 package gravity.impl;
 
-import gravity.ComponentStrategy;
-
 /**
  * This is a {@link gravity.impl.ComponentStrategyDecorator}that simply identifies this category of
  * strategies as "dispatching". Method calls made on components that have this strategy will be
  * dispatched to this strategy for every call to obtain the concrete instance.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: DispatchingComponentStrategy.java,v 1.3 2004-09-02 04:04:18 harishkswamy Exp $
+ * @version $Id: DispatchingComponentStrategy.java,v 1.4 2005-10-06 21:59:29 harishkswamy Exp $
  */
 public class DispatchingComponentStrategy extends ComponentStrategyDecorator
 {
-    public DispatchingComponentStrategy(ComponentStrategy decorator)
-    {
-        super(decorator);
-    }
-
     /**
      * @return true, this is a dispatching strategy.
      */

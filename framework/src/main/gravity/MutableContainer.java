@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,17 +17,35 @@ package gravity;
 /**
  * This is a mutable container that allows new {@link gravity.Component}s, configuration data and
  * {@link gravity.ComponentStrategy}s to be registered with it.
+ * <p>
+ * Prior to accessing the services provided by the container clients must invoke
+ * {@link #initialize(MutableContext)}to initialize the container.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: MutableContainer.java,v 1.8 2004-11-17 19:41:21 harishkswamy Exp $
+ * @version $Id: MutableContainer.java,v 1.9 2005-10-06 21:59:23 harishkswamy Exp $
  */
 public interface MutableContainer extends Container
 {
     /**
-     * This is the path of the plugin file that the builder will use to search for plugins. The path
-     * is relative to the classpath root.
+     * This is the key for the default path of the plugin manifest file that the container will use
+     * to search for plugins. The path is relative to the classpath root and will be obtained from
+     * the context using this key.
      */
-    String PLUGIN_MANIFEST_FILE_PATH = "META-INF/gravity-plugin.properties";
+    String PLUGINS_DEFAULT_MANIFEST_CLASSPATH_KEY = "gravity.plugins.default.manifest.classpath";
+
+    /**
+     * This method must be invoked to load the container with components. Container will either
+     * autoload components from the classpath or only load the ones specifically requested by the
+     * client, depending on the <code>gravity.plugins.autoload</code> property.
+     */
+    void load();
+
+    /**
+     * Switches the current context to the provided context. Components/configurations loaded after
+     * this method call will load under the new context. Components/configurations loaded prior to
+     * this method call will be untouched.
+     */
+    void switchContextTo(Context context);
 
     /**
      * This is the primary implementation registration method. If the implementation does not need
@@ -42,9 +60,10 @@ public interface MutableContainer extends Container
      *            component instance.
      * @param callbacks
      *            The callbacks that will be called at the appropriate life cycle phase.
+     * @return The component key.
      */
-    Object registerComponentImplementation(Object compKey, Class compClass, Object[] ctorArgs,
-        ComponentCallback[] callbacks);
+    ComponentKey registerComponentImplementation(ComponentKey compKey, Class compClass,
+        Object[] ctorArgs, ComponentCallback[] callbacks);
 
     /**
      * This method will allow a component to have the same implementation and strategy as another
@@ -55,8 +74,9 @@ public interface MutableContainer extends Container
      * @param srcCompKey
      *            The key that identifies the source component, within the container, the
      *            implementation of which will be reused.
+     * @return The component key.
      */
-    Object registerComponentImplementation(Object compKey, Object srcCompKey);
+    ComponentKey registerComponentImplementation(ComponentKey compKey, ComponentKey srcCompKey);
 
     /**
      * This method will allow registration of an external factory for the component. The container
@@ -74,9 +94,10 @@ public interface MutableContainer extends Container
      *            delegated.
      * @param callbacks
      *            The callbacks that will be called at the appropriate life cycle phase.
+     * @return The component key.
      */
-    Object registerComponentFactory(Object compKey, Object compFac, String facMethodName,
-        Object[] facMethodArgs, ComponentCallback[] callbacks);
+    ComponentKey registerComponentFactory(ComponentKey compKey, Object compFac,
+        String facMethodName, Object[] facMethodArgs, ComponentCallback[] callbacks);
 
     // Constructor arguments registration ==========================================================
 
@@ -89,8 +110,9 @@ public interface MutableContainer extends Container
      * @param ctorArgs
      *            The constructor argument values that is to be used while instantiating the
      *            component instance.
+     * @return The component key.
      */
-    Object registerComponentConstructorArguments(Object compKey, Object[] ctorArgs);
+    ComponentKey registerComponentConstructorArguments(ComponentKey compKey, Object[] ctorArgs);
 
     // Lifecycle methods registration ==============================================================
 
@@ -102,8 +124,9 @@ public interface MutableContainer extends Container
      *            The key that identifies the component within the container.
      * @param callbacks
      *            The callbacks that will be called at the appropriate life cycle phase.
+     * @return The component key.
      */
-    Object registerComponentCallbacks(Object compKey, ComponentCallback[] callbacks);
+    ComponentKey registerComponentCallbacks(ComponentKey compKey, ComponentCallback[] callbacks);
 
     // Location registration methods ===============================================================
 
@@ -118,8 +141,9 @@ public interface MutableContainer extends Container
      *            The key that identifies the component within the container.
      * @param location
      *            The location of the component registration.
+     * @return The component key.
      */
-    Object registerComponentRegistrationLocation(Object compKey, Location location);
+    ComponentKey registerComponentRegistrationLocation(ComponentKey compKey, Location location);
 
     /**
      * This method will allow the registration of the component's instance retrieval location.
@@ -131,8 +155,9 @@ public interface MutableContainer extends Container
      *            The key that identifies the component within the container.
      * @param location
      *            The location of the component retrieval.
+     * @return The component key.
      */
-    Object registerComponentRetrievalLocation(Object compKey, Location location);
+    ComponentKey registerComponentRetrievalLocation(ComponentKey compKey, Location location);
 
     // Component strategy decorator methods ========================================================
 
@@ -143,9 +168,9 @@ public interface MutableContainer extends Container
      *            The key that identifies the component within the container.
      * @param strategyType
      *            The type of strategy to be added.
-     * @return Component Key.
+     * @return The component key.
      */
-    Object wrapComponentStrategy(Object compKey, ComponentStrategyType strategyType);
+    ComponentKey wrapComponentStrategy(ComponentKey compKey, ComponentStrategyType strategyType);
 
     // Configuration methods =======================================================================
 
@@ -158,7 +183,7 @@ public interface MutableContainer extends Container
      * @param configItem
      *            The configuration datum to be added to the configuration data.
      */
-    Object registerConfiguration(Object configKey, Object configItem);
+    Object registerConfigurationItem(Object configKey, Object configItem);
 
     /**
      * This method will allow the registration of a single configuration item. The item will be
@@ -171,5 +196,26 @@ public interface MutableContainer extends Container
      * @param configItem
      *            The configuration datum to be added to the configuration data.
      */
-    Object registerConfiguration(Object configKey, Object configItemKey, Object configItem);
+    Object registerConfigurationItem(Object configKey, Object configItemKey, Object configItem);
+
+    /**
+     * This method will allow the registration of any object with the container. The object will be
+     * added to the container under the specified key. If the container already has the specified
+     * key, this method will replace the existing object in the container with the provided object.
+     * This method will provide the ability to add components that do not require any dynamic
+     * behavior.
+     * 
+     * @param configKey
+     *            The key that identifies the configutation data within the container.
+     * @param config
+     *            The object to be added to the container.
+     * @return Returns the onfiguration key.
+     */
+    Object registerConfiguration(Object configKey, Object config);
+
+    /**
+     * This method will scan the provided array for component keys and replace these keys with
+     * component instances retrieved from the container.
+     */
+    void realizeKeys(Object[] args);
 }

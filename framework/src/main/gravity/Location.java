@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,7 +19,7 @@ package gravity;
  * the line number. This is primarily used in the messages in the event of an exception.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: Location.java,v 1.3 2004-09-02 04:04:48 harishkswamy Exp $
+ * @version $Id: Location.java,v 1.4 2005-10-06 21:59:21 harishkswamy Exp $
  */
 public class Location
 {

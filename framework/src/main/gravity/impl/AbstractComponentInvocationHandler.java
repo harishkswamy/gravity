@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,8 +14,8 @@
 
 package gravity.impl;
 
+import gravity.Context;
 import gravity.RealizableComponent;
-import gravity.WrapperException;
 import gravity.util.Message;
 
 /**
@@ -24,10 +24,11 @@ import gravity.util.Message;
  * use.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: AbstractComponentInvocationHandler.java,v 1.4 2004-09-02 04:04:49 harishkswamy Exp $
+ * @version $Id: AbstractComponentInvocationHandler.java,v 1.5 2005-10-06 21:59:27 harishkswamy Exp $
  */
 public abstract class AbstractComponentInvocationHandler
 {
+    protected Context             _context;
     protected RealizableComponent _component;
 
     /**
@@ -36,13 +37,14 @@ public abstract class AbstractComponentInvocationHandler
      */
     protected Object              _componentInstance;
 
-    protected AbstractComponentInvocationHandler(RealizableComponent comp)
+    protected AbstractComponentInvocationHandler(Context context, RealizableComponent comp)
     {
+        _context = context;
         _component = comp;
     }
 
     /**
-     * This is the the algorithm to obtain a concrete component instance that subclasses must use.
+     * This is the algorithm to obtain a concrete component instance that subclasses must use.
      * <p>
      * The state of the proxyable component is checked for every call here to enable the dynamic
      * behavior. This way a component can change its strategy even after the instance was returned
@@ -78,8 +80,8 @@ public abstract class AbstractComponentInvocationHandler
         }
         catch (Exception e)
         {
-            throw WrapperException.wrap(e, Message.CANNOT_GET_CONCRETE_COMPONENT_INSTANCE,
-                _component);
+            throw _context.getExceptionWrapper().wrap(e,
+                Message.CANNOT_GET_CONCRETE_COMPONENT_INSTANCE, _component);
         }
     }
 }

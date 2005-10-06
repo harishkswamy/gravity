@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//     http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,6 +14,7 @@
 
 package gravity.impl;
 
+import gravity.Context;
 import gravity.RealizableComponent;
 import net.sf.cglib.proxy.Dispatcher;
 
@@ -21,14 +22,14 @@ import net.sf.cglib.proxy.Dispatcher;
  * This is the CgLib version of component invocation handler.
  * 
  * @author Harish Krishnaswamy
- * @version $Id: CglibComponentInvocationHandler.java,v 1.4 2004-09-02 04:04:49 harishkswamy Exp $
+ * @version $Id: CglibComponentInvocationHandler.java,v 1.5 2005-10-06 21:59:28 harishkswamy Exp $
  */
 public class CglibComponentInvocationHandler extends AbstractComponentInvocationHandler implements
     Dispatcher
 {
-    public CglibComponentInvocationHandler(RealizableComponent comp)
+    public CglibComponentInvocationHandler(Context context, RealizableComponent comp)
     {
-        super(comp);
+        super(context, comp);
     }
 
     public Object loadObject()

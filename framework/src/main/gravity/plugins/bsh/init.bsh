@@ -21,6 +21,12 @@ invoke(methodName, args)
     else if ("callbacks".equals(methodName))
         return toComponentCallbackArray(args);
     
+    else if ("configListItems".equals(methodName))
+        return registerConfigListItems(args);
+    
+    else if ("configMapItems".equals(methodName))
+        return registerConfigMapItems(args);
+    
     else
         throw new NoSuchMethodException("Method: " + methodName + "(" + args + ")");
 }
