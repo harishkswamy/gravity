@@ -14,28 +14,38 @@
 
 package community;
 
+import family.Child;
 import family.Parent;
 import family.Spouse;
+import gravity.ComponentKey;
+import gravity.ComponentProxy;
 import gravity.Container;
-import gravity.impl.DefaultContainer;
-import gravity.impl.DefaultContext;
-import gravity.util.ClassUtils;
-
-import java.net.URL;
+import gravity.MutableContainer;
+import gravity.impl.CglibComponentProxy;
+import gravity.impl.DefaultApplicationContext;
 
 /**
  * @author Harish Krishnaswamy
- * @version $Id: Club.java,v 1.2 2004-11-17 20:24:21 harishkswamy Exp $
+ * @version $Id: Club.java,v 1.3 2006-06-21 16:51:04 harishkswamy Exp $
  */
 public class Club
 {
     public static void main(String[] args)
     {
-        URL url = ClassUtils.getResource("springfield.gravity.properties");
+        DefaultApplicationContext ctx = new DefaultApplicationContext("Simpsons Context", null);
 
-        Container container = new DefaultContainer(new DefaultContext(url));
+        ctx.initializeFramework();
 
-        Object homerKey = container.getComponentKey(Spouse.class, "homer");
+        ctx.putContextItem(ComponentProxy.class, CglibComponentProxy.class);
+        ctx.putContextItem(Container.PLUGINS_AUTOLOAD_KEY, Boolean.FALSE);
+        ctx.putContextItem(Container.PLUGINS_MANIFEST_CLASSPATH_KEY,
+            "META-INF/simpsons-gravity-plugin.properties");
+
+        MutableContainer container = ctx.getMutableContainer();
+
+        container.load();
+
+        ComponentKey homerKey = container.getComponentKey(Spouse.class, "homer");
         Spouse homer = (Spouse) container.getComponentInstance(homerKey);
 
         System.out.println("This is Homer talking ...");
@@ -44,7 +54,7 @@ public class Club
         System.out.println("This is Homer's spouse talking ...");
         homer.getSpouse().talk();
 
-        Object margeKey = container.getComponentKey(Parent.class, "marge");
+        ComponentKey margeKey = container.getComponentKey(Parent.class, "marge");
         Parent marge = (Parent) container.getComponentInstance(margeKey);
 
         System.out.println("This is parent Marge talking ...");
@@ -52,5 +62,34 @@ public class Club
 
         System.out.println("This is parent Marge making her children talk ...");
         marge.makeChildrenTalk();
+
+        System.out.println("Thread Local test ...");
+
+        ComponentKey tlMaggieKey = container.getComponentKey(Child.class, "tlMaggie");
+
+        Child tlMaggie = (Child) container.getComponentInstance(tlMaggieKey);
+        System.out.println(tlMaggie);
+
+        tlMaggie = (Child) container.getComponentInstance(tlMaggieKey);
+        System.out.println(tlMaggie);
+
+        container.handlePreThreadTermination();
+
+        tlMaggie = (Child) container.getComponentInstance(tlMaggieKey);
+        System.out.println(tlMaggie);
+
+        System.out.println("Pooling test ...");
+
+        ComponentKey pMaggieKey = container.getComponentKey(Child.class, "pMaggie");
+
+        Child pMaggie = (Child) container.getComponentInstance(pMaggieKey);
+        System.out.println(pMaggie);
+
+        pMaggie = (Child) container.getComponentInstance(pMaggieKey);
+        System.out.println(pMaggie);
+
+        container.collectComponentInstance(pMaggieKey, pMaggie);
+        pMaggie = (Child) container.getComponentInstance(pMaggieKey);
+        System.out.println(pMaggie);
     }
 }

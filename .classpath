@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry output="framework/classes/main" kind="src" path="framework/src/main"/>
-	<classpathentry output="framework/classes/test" kind="src" path="framework/src/test"/>
 	<classpathentry output="example/bin" kind="src" path="example/src/main"/>
-	<classpathentry output="example/bin" kind="src" path="example/src/test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry sourcepath="/cglib/src" kind="lib" path="framework/lib/cglib-full-2.0.jar"/>
 	<classpathentry kind="lib" path="framework/lib/bsh-2.0b1.jar"/>
