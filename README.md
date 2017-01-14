@@ -12,7 +12,7 @@ The first beta version has been released. There is now a new manual, please see 
 
 #Next Steps
 
-Check out the features
-Browse the documentation; read the manual
-Try the framework; download the distribution and code away
-Get involved; take a peek at the source, submit bugs and/or patches, join the mailing list for discussion/support
+- Check out the [features](https://github.com/harishkswamy/gravity/edit/master/features.md)
+- Browse the documentation; read the manual
+- Try the framework; download the distribution and code away
+- Get involved; take a peek at the source, submit bugs and/or patches, join the mailing list for discussion/support
