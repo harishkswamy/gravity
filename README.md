@@ -12,7 +12,7 @@ The first beta version has been released. There is now a new manual, please see 
 
 #Next Steps
 
-- Check out the [features](https://github.com/harishkswamy/gravity/blob/master/features.md)
-- Browse the documentation; read the manual
+- Check out the [features](https://harishkswamy.github.io/gravity/features.html)
+- Browse the [documentation](https://harishkswamy.github.io/gravity/); read the [manual](https://harishkswamy.github.io/gravity/framework/docs/manual/index.html)
 - Try the framework; download the distribution and code away
 - Get involved; take a peek at the source, submit bugs and/or patches, join the mailing list for discussion/support
